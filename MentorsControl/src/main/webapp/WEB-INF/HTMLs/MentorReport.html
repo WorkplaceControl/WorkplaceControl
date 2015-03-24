@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Mentors Report</title>
+	
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+			<script type="text/javascript" src="js/bootstrap.min.js"></script>
+			
+	
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+					
+		</head>
+		<body>
+
+
+	<div th:include="NavMain :: navMain"></div>
+
+
+					  		<div id="center">
+					  			
+						  			<section>
+						  				<div class="container-fluid">
+						  					<div class="row-fluid">
+											 		
+												  
+												    <form class="navbar-search pull-left">
+												    <fieldset>
+													  	<legend>
+													  		<ul class="legenda">
+													  			<li>
+													  				Mentors X Mentee Report / Date
+													  			</li>
+													  			<li class="legenda_search">
+													  				
+													  			</li>
+													  			<li style="position: relative; left: 545px;">
+													  			
+													  			</li>
+													  			<li style="position: relative; left: 360px;" class="dropdown">
+													  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+													  					<button type="button">
+													  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+													  					</button>
+													  				<b class="caret"></b></a>
+													  				<ul class="dropdown-menu">
+												                        <li><a  href="mainPage.html"><font size="2" color="#555">Back to Menu</font></a></li>
+												                        <li><a  href="#"><font size="2" color="#555">News Feed</font></a></li>
+												                        <li><a  href="#"><font size="2" color="#555">Last Modifacations</font></a></li>
+												                                    
+												                      </ul>
+													  				
+													  			</li>
+													  		</ul>
+													  		</legend>
+													  </fieldset>
+													</form>
+												</div>
+											</div>								
+					 					</section>
+							
+									<section>
+						  				<div class="container-fluid">
+						  					<div class="row-fluid">
+										  
+										  
+										  		<form action="">
+									  					<label>Initial date</label>
+												    		<input type="date" class="input-large" />
+												    		<label>to date</label>
+												    		<input type="date"  name="cost_description" class="input-large" placeholder="input the cost center description" />
+												 </form>
+													 
+												</div>
+											</div>								
+					 					</section>
+										<section>
+						  				<div class="container-fluid">
+						  					<div class="row-fluid">		    
+												    
+											<div class="well well-small">
+											  <div id="buttons">
+											  	<button class="btn btn-primary"  type="submit" onclick="validateFilds();">
+											  		View
+											  	</button>
+											  	
+											  		</div>
+												</div>
+											</div>
+										</div>
+								 	</section> 
+			
+			 				</div>
+				
+		</body>
+</html>

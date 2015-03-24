@@ -1,0 +1,50 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+	<meta charset="ISO-8859-1"></meta>
+	<title>Import Initial</title>
+			
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+	
+	</head>
+<body>
+	<div th:include="NavMain :: navMain"></div>
+<br />
+<br />
+<br />
+		<center>
+			<img src="img/warning.png" style="heigth: 100px; width: 100px;"/>
+			<h2>Mapping Generator</h2>
+			<p><font color="#B80000">This page is to upload all content at Excel file and 
+			turn it into .svg extension (Runnable in Visio). <br />
+			Its is very important to follow the default sheet to import<br/>
+			You can download the example sheet here:</font><br />
+			<a  href="Templates/PersonDeskMap.xls"> Example Excel</a><br />
+			<a  href="Templates/PersonDeskMap.svg"> Example Visio</a></p>
+				<br />
+										
+										
+		<form action="uploadMultipleFile" method="post" enctype="multipart/form-data">
+		<label><b>Select the Template File</b></label>
+			<div>
+				<input type="file" id ="inputfile" name="file" required="true" />
+				<p><font color="#B80000">Visio (.svg) file expected.</font></p>			
+			</div>
+				<br />
+			<label><b>Enter the Excel Desk Person Mapping</b></label>
+			<div>
+				<input type="file" id="inputfile" name="file" required="true"/>
+				<p><font color="#B80000">Excel (.xls/.xlsx) file expected.</font></p>
+			</div>
+
+			<button type="submit" class="btn btn-primary">Generate</button>
+		</form>
+		</center>
+
+</body>
+</html>

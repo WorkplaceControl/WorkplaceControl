@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Cost Center</title>
+
+
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+				
+			<script type="text/javascript">
+		
+			/*this code is to hide the td  active class ,and this is used to verify if there is inactive on display ,
+			  with true this code will change the checkbox as checked */
+			$( document ).ready(function() {
+					
+					$( 'td.active' ).each(function( index ){
+						$( this ).hide(100);
+						
+						if( $( this ).text() == 1 ) {
+							$( '#isInactive' ).prop( 'checked' , true );
+						}
+						
+					});
+					
+				
+				});
+			
+			
+			/* this code is to make  on server a solicitation of datas with inactives  */
+			$( document ).ready(function(){ 
+				$( '#isInactive' ).click( function() {
+					  if ($( this ).is( ':checked' )) {
+						   	window.location.href = 'CostCenterInactive';
+				        }else{
+				        	window.location.href = 'CostCenter';
+				        }
+				  });
+			});
+			
+			/* this code is filter results and display just the results that is equals typed by user , 
+			   otherwise the content will be hidden */ 
+					$(document).ready(function(){
+					  $("input").keyup(function(){
+						  	var x = $( "input[name=search]" ).val();
+							var x = x.toLowerCase()
+						
+					     	$('tr.cost').each(function( index ) {
+					     			if(x == ""){
+					     				$(this).show();
+					     			}
+					     			var title = $( this ).parent().find("td.title")[index].innerHTML;
+					     			var title = title.toLowerCase();
+					     			
+					     			var id = $( this ).parent().find("td.id")[index].innerHTML;
+					     			id = id.toLowerCase();
+					     		    if(title.substring(0 ,x.length ) == x || id.substring(0 ,x.length) == x){
+					     		    	
+					     		    }else{
+					     		    	$(this).hide(500);
+					     		    	
+					     		    
+					     		    }
+					     		
+					     	});;
+	
+					  });
+					});
+		
+			</script>
+			
+		</head>
+		<body>
+	
+	<!-- Nesta Página contém NavMain (HTML) -->
+	<div th:include="NavMain :: navMain"></div>		
+		
+
+
+		<div id="employee_list">
+			<section>
+				<br/>
+				<div class="container-fluid">
+					<div class="row-fluid">
+						
+							
+								 <form class="navbar-search pull-left">
+								 <fieldset>
+									  	<legend>
+									  		<ul class="legenda">
+									  			<li>
+									  				Cost Center
+									  			</li>
+									  			<li class="legenda_search">
+									  				<input type="text" name="search" class="search-query" placeholder="Search"  style="width: 200px;"/>
+									  			</li>
+									  			<li>
+									  				<input type="checkbox" id="isInactive" /> <font size="2" color="#555">Include Removed Cost Center</font>
+									  			</li>
+									  			<li style="position: relative; left: 315px;">
+									  				<a href="CostCenterRegistration"><button type="button">
+									  					<i class="icon-plus"></i><font size="1" color="#555"> Add Cost Center</font>
+									  				</button></a>
+									  			</li>
+									  			<li style="position: relative; left: 320px;" class="dropdown">
+									  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+									  					<button type="button">
+									  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+									  					</button>
+									  				</a>
+									  				<ul class="dropdown-menu">
+											<li><a href="mainPage"><font size="2" color="#555"><i
+														class="icon-home"></i> Back to Main Page</font></a></li>
+																						<li><a href="#ModalCCG" data-toggle="modal"><font
+														size="2" color="#555"><i class="icon-question-sign"></i>
+															Cost Center Guide</font></a></li>
+													</ul>
+									  				
+									  			</li>
+									  		</ul>
+									  	</legend>
+									  	</fieldset>
+									</form>
+							
+								 <table class="table table-bordered">
+				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
+				  						<td>
+				  							<font size="3" color="#fff">Cost Center Id</font>
+				  						</td>
+				  						<td>
+				  							<font size="3" color="#fff">Cost Center Description</font>
+				  						</td>
+				  						<td>
+				  							<font size="3" color="#fff">Edit</font>
+				  						</td>
+				  						<td>
+				  							<center><font size="3" color="#fff">Active</font></center>
+				  						</td>
+				  					</tr>
+				  					<tr id="${cost.id}" th:each="cost : ${costcenter}" class="cost">
+				  						<td th:text="${cost.id}" class="id" ></td>
+				  						<td th:text="${cost.title}" class="title" th:value="${cost.title}"></td>
+				  						<td  style="width: 20px;" class="edit">
+				  							<center>
+				  							<a href="#" th:href="@{/CostCenterUpdate(id=${cost.id})}">
+					  							<button type="input" class="btn btn-default btn-lg">
+	 													<i class="icon-pencil"></i>
+												</button>
+											</a>
+											</center>
+										</td>
+											
+				  						<td style="width: 20px;" class="remove">
+				  							<center>
+					  							<a href="#" th:href="@{/ProcessCostCenterInactivate(id=${cost.id} , title=${cost.title})}">
+					  									<button type="input" class="btn btn-default btn-lg">
+		 													<i class="icon-trash"></i>
+														</button>
+												</a>
+											</center>
+				  						</td>
+				  						<td th:text="${cost.active}" class="active" ></td>
+				  					</tr>
+								</table>
+					</div>
+				</div>
+			</section>
+			</div>
+			<br/>
+			<br/>
+	 	
+			
+</body>
+
+</html>

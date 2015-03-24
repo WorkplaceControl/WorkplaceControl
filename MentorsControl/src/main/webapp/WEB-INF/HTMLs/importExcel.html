@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Import Employee</title>
+
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+				
+					
+		</head>
+		<body>
+
+
+	<div th:include="NavMain :: navMain"></div>
+
+			 	<div id="import">
+					<section>           
+						<ul >	
+						<li style="list-style: none; display: inline;">
+							 <fieldset>
+								 <form action="UploadNewEmployee" enctype="multipart/form-data" method="post">	
+											  	<legend>
+											  		<ul class="legenda">
+											  			<li>
+											  				Imported File
+											  			</li>
+											  			<li class="legenda_search">
+											  				
+											  			</li>
+											  			
+											  			<!--  Button to input the upload file of excel -->
+											  			<li style="position: relative; left: 42%;">
+																<input type="file" id="file"  name="file" value="Choose file" required="true" />	
+											  			</li>
+											  			<li style="position: relative; left: 44%;">
+												  				<!--  Input to upload the excel file of new employee sent by email -->
+																<button type="submit" class="btn btn-default btn-lg" id="view">
+					 													<i class="icon-eye-open"></i>
+																</button>
+											  			</li>
+
+											  			<li style="position: relative; left: 44%;" class="dropdown">
+											  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+											  					<button type="button">
+											  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+											  					</button>
+											  				</a>
+											  			
+											  				<ul class="dropdown-menu">
+											<li><a href="mainPage"><font size="2" color="#555"><i
+														class="icon-home"></i> Back to Main Page</font></a></li>
+																						<li><a href="#ModalEIP" data-toggle="modal"><font
+														size="2" color="#555"><i class="icon-question-sign"></i>
+															User guide</font></a></li>
+															</ul>
+											  				
+											  			</li>
+											  		</ul>
+									    	</legend>
+									</form>
+							</fieldset>
+						</li>
+				</ul> 
+						       
+			</section>
+
+			<section>
+				<div class="container-fluid">
+					<div class="row-fluid">
+								 <table class="table table-bordered" >
+				  					<tr  style="background-color: #00339f ; opacity: 0.9 border: 1px solid #00339f;">
+				  						<td>
+				  							<center><font size="3" color="#fff">User</font></center>
+				  						</td>
+				  						<td>
+				  							<center><font size="3" color="#fff">Surname1 + Surname2 , name</font></center>
+				  						</td>
+				  						
+				  						<td>
+				  							<center><font size="3" color="#fff">Profile</font></center>
+				  						</td>
+				  						<td>
+				  							<center><font size="3" color="#fff">Date Incorporation</font></center>
+				  						</td>
+				  						<td>
+				  							<center><font size="3" color="#fff">User GFT</font></center>
+				  						</td>
+				  						<td>
+				  							<center><font size="3" color="#fff">Cco</font></center>
+				  						</td>
+				  					</tr>
+				  					
+				  					<tr th:each="emp : ${employee}">
+				  					
+				  						<td th:text="${emp.sap}" >
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td >
+				  						
+				  						<td  th:text="${emp.wsName}" >
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td>
+				  						
+				  						<td th:text="${emp.job.id}">
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td>
+				  						<td  th:text="${emp.joinDate}">
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td>
+				  						<td  th:text="${emp.id}">
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td>
+				  						<td th:text="${emp.costCenter.id}">
+				  							<center><font size="3" color="#fff"></font></center>
+				  						</td>
+				  					</tr>
+								</table>
+								
+								<form action="#" th:action="@{/processNewEmployee}" method="post">
+
+									<section>
+										<div class="container-fluid">
+										  <div class="row-fluid">
+											<div class="well well-small">
+											  <div id="buttons">
+											  	<button class="btn btn-primary"  id="send" type="submit" disabled="true">
+											  		Save
+											  	</button>
+											  	<a href="showImport">
+												  	<button class="btn btn-warning" type="button">
+												  		Cancel
+												</button>
+											  	</a>
+											  	</div>
+											</div>
+										  </div>
+										</div>
+								 	</section> 
+								</form>
+					</div>
+				</div>
+			</section>
+			</div>
+			
+				<div th:if="${viewHab == 1}">
+					<script type="text/javascript">
+							  $("#send").removeAttr("disabled" , "disabled");
+					</script>
+				</div>	
+					<script>
+						 $(function(){
+					      		$(".dropdown-toggle").dropdown();
+					      }); 
+
+						 $("#upfile").click(function () {
+    						$("#file").trigger('click');
+						});
+
+						 $("#upfile2").click(function () {
+    						$("#file2").trigger('click');
+						});
+					</script>
+						
+ 
+</body>
+
+</html>

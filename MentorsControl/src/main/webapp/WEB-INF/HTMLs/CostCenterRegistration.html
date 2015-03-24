@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Cost Center Registration</title>
+	
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+		
+		</head>
+		<body>
+				
+
+	<div th:include="NavMain :: navMain"></div>
+
+					
+					  		<div id="center">
+					  			<form name="costcenterform" action="#" th:action="@{/ProcessCostCenterRegistration}" th:object="${CostCenter}" method="post">
+						  			<section>
+						  				<div class="container-fluid">
+						  					<div class="row-fluid">
+											 		
+										 	  		
+												  <fieldset>
+												    <legend>New Cost Center Registration</legend>
+												    <label>Unit identification</label>
+												    <input type="text" id="cost_id" class="input-large" th:field="*{id}" placeholder="Auto generate" maxlength="20" required="true"/>
+												    <label>Description</label>
+												    <input type="text"  id="cost_description" th:field="*{title}" class="input-xxlarge" placeholder="input the cost center description" maxlength="100" required="true"/>
+												  	<input type="hidden" th:field="*{active}" value="0"/>
+												   </fieldset>
+											</div>
+										</div>								
+				 					</section>
+				 			
+				 					<br/>
+				 					<br/>
+				 					<section>
+										<div class="container-fluid">
+										  <div class="row-fluid">
+											<div class="well well-small">
+											  <div id="buttons">
+											  	<button class="btn btn-primary"  type="submit" onclick="validateFilds();">
+											  		Save
+											  	</button>
+											  	<a href="CostCenter">
+												  	<button class="btn btn-warning" type="button">
+												  		Cancel
+												  	</button>
+											  	</a>
+											  	</div>
+											</div>
+										  </div>
+										</div>
+								 	</section> 
+								</form>
+			 				</div>
+ 
+	</body>
+
+</html>

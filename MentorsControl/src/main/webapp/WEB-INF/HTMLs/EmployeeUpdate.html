@@ -1,0 +1,698 @@
+<html>
+<head>
+<meta charset="utf-8"></meta>
+<title>Employee Update</title>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script src="js/jquery.validate.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="css/principal.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/bootstrap-responsive.css" />
+
+
+<script type="text/javascript">
+	function add
+() {
+		$('#myModal').modal('show');
+	}
+
+	$(document).ready(function() {
+		$("#ext").bind("keyup blur focus", function(e) {
+			e.preventDefault();
+			var expre = /[^\d]/g;
+			$(this).val($(this).val().replace(expre, ''));
+		});
+
+		$("#rate").hover(function() {
+			$("#tempRate").hide();
+		});
+
+		$("#cost").hover(function() {
+			$("#tempCost").hide();
+		});
+
+		$("#job").hover(function() {
+			$("#tempJob").hide();
+		});
+
+	});
+</script>
+
+</head>
+<body>
+
+
+	<div th:include="NavMain :: navMain"></div>
+
+
+	<form action="#" th:action="@{/ProcessEmployeeUpdate}"
+		th:object="${Employee}" method="post">
+		<div id="personal_info">
+			<br />
+			<center>
+				<font size="5" color="#ffffff">Employee Informations</font>
+			</center>
+
+			<div id="personal_left">
+				<br /> <br />
+				<table>
+					<tr>
+						<td>
+							<center>
+								<font size="3" color="#ffffff"></font>
+							</center>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<img
+									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
+									class="img-polaroid"
+									style="height: 160px; width: 120px; position: relative; left: 50px;" />
+							</center>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<center>
+								<font size="2" color="#ffffff"
+									style="position: relative; left: 25%"
+									th:text="${Employee.name}"></font>
+							</center>
+						</td>
+					</tr>
+
+				</table>
+			</div>
+
+			<div id="personal_center">
+
+				<br />
+
+				<table>
+					<tr>
+						<td><font size="2" color="#ffffff">Name : </font></td>
+						<td><input type="text" class="input-xxlarge" name="name"
+							th:field="*{name}" placeholder="Input employee name"
+							required="true" maxlenght="100" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Letters : </font></td>
+						<td><input type="text" class="input-medium" id="letter"
+							th:field="*{id}" placeholder="input the letters " required="true"
+							maxlenght="4" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Job: </font></td>
+						<td><select name="job" style="height: 25px;"
+							th:field="*{job}" required="true" id="job">
+								<option id="tempJob" th:value="${job.id}" th:text="${job.title}"
+									th:selected="${job.id}"></option>
+								<option th:each="job : ${jobs}" th:value="${job.id}"
+									th:text="${job.title}" th:selected="${job.id}"></option>
+
+						</select></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">User SAP: </font></td>
+						<td><input type="text" class="input-large" name="userSAP"
+							th:field="*{sap}" placeholder="input the employee workplace "
+							required="true" maxlenght="10" /></td>
+					</tr>
+
+					<tr>
+						<td><font size="2" color="#ffffff">Joining Date : </font></td>
+						<td><input type="date" name="joinDate"
+							th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
+							required="true" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Extension : </font></td>
+						<td><input type="text" name="ext" id="ext"
+							class="input-large" th:field="*{extension}" maxlenght="4" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">WorkSpace: </font></td>
+						<td><input type="text" class="input-xxlarge"
+							th:field="*{wsName}" placeholder="input the workspace name"
+							required="true" maxlenght="100" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Cost Center: </font></td>
+						<td><select name="cost" style="height: 25px;"
+							th:field="*{costCenter}" required="true" id="cost">
+								<option id="tempCost" th:value="*{costCenter.id}"
+									th:text="*{costCenter.title}" th:selected="*{costCenter.id}"></option>
+								<option th:each="cost : ${costcenters}" th:value="${cost.id}"
+									th:text="${cost.title}"></option>
+
+						</select></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Work Place: </font></td>
+						<td><input type="text" class="input-large"
+							th:field="*{workplace}" placeholder="input the work place"
+							maxlenght="10" /></td>
+					</tr>
+					<tr>
+						<td><font size="2" color="#ffffff">Rate Prf : </font></td>
+						<td><select style="height: 25px;" th:field="*{ratePrf}"
+							required="true" id="rate">
+								<option id="tempRate" th:value="*{ratePrf.id}"
+									th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
+								<option th:each="rate : ${rateprfs}" th:value="${rate.id}"
+									th:text="${rate.title}"></option>
+						</select></td>
+					</tr>
+
+
+				</table>
+
+			</div>
+
+			<div id="personal_right">
+				<br /> <br />
+				<table>
+
+					<tr>
+						<td style="width: 200px;">
+							<center>
+								<font size="3"></font>
+							</center>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 200px;">
+							<div>
+								<center>
+									<img
+										th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+										class="img-polaroid"
+										style="height: 160px; width: 120px; position: relative; left: 50px;" />
+								</center>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td style="width: 200px;">
+							<center>
+								<font size="2" color="#e9ebee" th:text="${Employee.mentorId}"></font>
+							</center>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+
+		<div id="buttons">
+
+			<button class="btn btn-primary" type="submit">Save</button>
+
+			<a href="Employee">
+				<button class="btn btn-warning" type="button">Cancel</button>
+			</a>
+		</div>
+		<br /> <br />
+	</form>
+
+
+	<!-- Informations about employee projects -->
+	<div id="project">
+		<div th:if="${verify == 1}">
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">
+					<font th:text="'x'"></font>
+				</button>
+				<font>Employee already registered to this project</font>
+			</div>
+		</div>
+		<section>
+			<br />
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+
+					<form class="navbar-search pull-left">
+						<fieldset>
+							<legend>
+								<ul class="legenda">
+									<li>Project Informations</li>
+									<li class="legenda_search"></li>
+									<li style="position: relative; left: 445px;"><a
+										href="#ModalAP" role="button" class="btn" data-toggle="modal">
+											<i class="icon-plus"></i><font size="1" color="#555">
+												Add Project</font>
+									</a></li>
+									<li style="position: relative; left: 450px;" class="dropdown">
+										<a id="drop1" href="#" role="button" class="dropdown-toggle"
+										data-toggle="dropdown">
+											<button type="button">
+												<img src="img/tres-barras.png"
+													style="width: 30px; heigth: 40px;" />
+											</button>
+									</a>
+										<ul class="dropdown-menu">
+											<li><a href="mainPage"><font size="2" color="#555"><i
+														class="icon-home"></i> Back to Main Page</font></a></li>
+											<li><a href="#ModalEUG"><font size="2" color="#555"><i
+														class="icon-question-sign"></i> User guide</font></a></li>
+										</ul>
+
+									</li>
+								</ul>
+							</legend>
+						</fieldset>
+					</form>
+
+					<table class="table table-bordered" font-color="#ffffff">
+						<tr style="background-color: #00339f; border: 0px solid #00339f;">
+							<td>
+								<center>
+									<font size="3" color="white">Project</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Customer</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Unit</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Remove</font>
+								</center>
+							</td>
+						</tr>
+
+						<tr th:each="empAssign : ${EmployeeAssignment}">
+							<div th:if="${empAssign.active == 0}">
+								<td th:text="${empAssign.project.description}"></td>
+								<td th:text="${empAssign.project.customer.description}">
+									<center>
+										<font size="3" color="#333"></font>
+									</center>
+								</td>
+								<td th:text="${empAssign.project.customer.unit.description}">
+									<center>
+										<font size="3" color="#333"></font>
+									</center>
+								</td>
+								<td><a href="#"
+									th:href="@{/EmployeeAssignInactivate(empAssigId=${empAssign.id} , project=${empAssign.project.id} , id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}">
+										<center>
+											<button type="submit" class="btn btn-default btn-lg">
+												<i class="icon-trash"></i>
+											</button>
+										</center>
+								</a></td>
+							</div>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br />
+	<hr width="100%"></hr>
+	<br />
+
+
+	<!--Modal to add project -->
+
+	<section>
+		<div class="container-fluid">
+			<div class="row-fluid">
+
+				<form action="#"
+					th:action="@{/EmployeeAssignment(id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+					th:object="${Assignment}" method="post">
+					<!-- Modal -->
+					<div id="ModalAP" class="modal hide fade" tabindex="-1"
+						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+								aria-hidden="true">×</button>
+							<h3 id="myModalLabel">Add new project to employee</h3>
+						</div>
+						<div class="modal-body">
+
+
+
+							<label>Project</label> <select style="height: 25px;"
+								th:field="*{project}" required="true">
+								<option value=""></option>
+								<option th:each="proj : ${Project}" th:value="${proj.id}"
+									th:text="${proj.description}"></option>
+							</select>
+
+
+						</div>
+						<div class="modal-footer">
+							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+							<button class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</section>
+
+
+
+
+	<div th:if="${verifyMent == 0}" style="width: 70%; margin: 0 auto;">
+
+		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert"
+				th:text="'x'"></button>
+			<font>Mentee/Trainee does not exist or cannot employee be a
+				mentor of himself</font>
+		</div>
+	</div>
+	<!-- Informations about employee Mentee -->
+	<div id="mentees">
+		<section>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<fieldset>
+						<legend>
+							<ul class="legenda">
+								<li>Employee Mentees</li>
+								<li class="legenda_search"></li>
+								<li style="position: relative; left: 54%;"><a
+									href="#ModalAM" role="button" class="btn" data-toggle="modal">
+										<center>
+											<i class="icon-plus"></i><font size="1" color="#555">
+												Add Mentee</font>
+										</center>
+								</a></li>
+								<li style="position: relative; left: 54%;"><a
+									href="#ModalAT" role="button" class="btn" data-toggle="modal">
+										<center>
+											<i class="icon-plus"></i><font size="1" color="#555">
+												Add Trainee</font>
+										</center>
+								</a></li>
+							</ul>
+						</legend>
+						<div id="mentee_img" th:each="emp : ${Employeels}">
+							<div
+								th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}">
+								<div th:if="${emp.mentorId == null}">
+									<center>
+										<p th:text="'Tutor of'"></p>
+									</center>
+								</div>
+								<div th:if="${emp.mentorId != null}">
+									<center>
+										<p th:text="'Mentor of'"></p>
+									</center>
+								</div>
+
+								<a href="#"
+									th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+
+									<center>
+										<img
+											th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}"
+											class="img-polaroid" />
+										<p th:text="${(emp.id)}"></p>
+										<font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font>
+									</center>
+								</a>
+
+							</div>
+						</div>
+
+					</fieldset>
+				</div>
+			</div>
+
+		</section>
+
+
+
+
+		<!--Modal to add mentee -->
+
+		<section>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					
+					<!-- Modal -->
+					<form action="#"
+						th:action="@{/EmployeeAddMentee(employeeId=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+						th:object="${Employee}" method="post">
+						<div id="ModalAM" class="modal hide fade" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">
+									<font th:text="'x'"></font>
+								</button>
+								<h3 id="myModalLabel">Add new mentee to employee</h3>
+							</div>
+
+							<div class="modal-body">
+							
+						
+							 <select style="height: 25px;" name = "id" th:field="*{id}" required="true">
+								<option th:each="emp : ${Employeels}" th:value="${emp.id}"
+									th:text="${emp.id} + ' (' + ${emp.mentorId} +')'" th:title="'Mentee ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
+							</select>		
+
+							</div>
+
+							<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+								<button class="btn btn-primary">Save Changes</button>
+							</div>
+
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+		
+		<!--Modal to add tutor -->
+
+		<section>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<!-- Modal -->
+					<form action="#"
+						th:action="@{/EmployeeAddTutor(employeeId=${Employee.id}  , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+						th:object="${Employee}" method="post">
+						<div id="ModalAT" class="modal hide fade" tabindex="-1"
+							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×</button>
+								<h3 id="myModalLabel">Add new Tutor to employee</h3>
+							</div>
+							<div class="modal-body">
+
+								<select style="height: 25px;" th:field="*{id}" required="true">
+								<option th:each="emp : ${Employeels}" th:value="${emp.id}"
+								th:text="${emp.id} + ' (' + ${emp.mentorId} +')'" th:title="'Mentee: ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
+									</select>
+
+							</div>
+							<div class="modal-footer">
+								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+								<button class="btn btn-primary">Save Changes</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</section>
+
+
+	</div>
+	<br />
+	<hr width="100%"></hr>
+	<br />
+
+	<!-- Table with Informations about the history of employee mentor -->
+	<div id="project">
+		<div th:if="${mentorHistoryControlMessage == 1}">
+			<div class="alert alert-error">
+				<button type="button" class="close" data-dismiss="alert">
+					<font th:text="x"></font>
+				</button>
+				<font>Date start must be before finish date</font>
+			</div>
+		</div>
+
+
+
+		<section>
+			<br />
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<form class="navbar-search pull-left">
+						<fieldset>
+							<legend>
+								<ul class="legenda">
+									<li>Mentor History</li>
+									<li class="legenda_search"></li>
+									<li style="position: relative; left: 445px;"></li>
+									<li style="position: relative; left: 450px;"></li>
+								</ul>
+							</legend>
+						</fieldset>
+					</form>
+
+					<table class="table table-bordered" font-color="#ffffff">
+						<tr style="background-color: #00339f; border: 0px solid #00339f;">
+							<td>
+								<center>
+									<font size="3" color="white">Type</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Mentor Name</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Start Date</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Finish Date</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Edit</font>
+								</center>
+							</td>
+						</tr>
+
+						<tr th:each="menthist : ${MentorHistory}">
+							<div 
+								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
+								
+
+
+<!-- 								<td> -->
+<!-- 									<div th:each="emp : ${Employeels}"> -->
+<!-- 							<div th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}"> -->
+<!-- 								<div th:if="${emp.mentorId == null}"> -->
+<!-- 									<center> -->
+<!-- 								<font size="3" color="#333" th:text="Trainee"></font> -->
+<!-- 									</center> -->
+<!-- 								</div> -->
+<!-- 								<div th:if="${emp.mentorId != null}"> -->
+<!-- 									<center> -->
+<!-- 								<font size="3" color="#333" th:text="Mentee"></font> -->
+<!-- 									</center> -->
+<!-- 								</div> -->
+<!-- 									</div> -->
+<!-- 								</td> -->
+								
+								
+								<td>
+								<div th:each="emp : ${Employeels}">
+								<center><font size="3" color="#333" th:text="NULL"></font></center>
+								</div>
+								</td>
+								
+								<td>
+									<div th:each="emp : ${Employeels}">
+										<div th:if="${menthist.mentorId == emp.id}">
+											<center>
+												<font size="3" color="#333" th:text="${emp.name}"></font>
+											</center>
+										</div>
+									</div>
+								</td>
+								<td>
+									<center>
+										<font size="3" color="#333"
+											th:text="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"></font>
+									</center>
+								</td>
+								<!--div th:if="${menthist.finishDate != null}"-->
+								<td>
+									<center>
+										<font size="3" color="#333"
+											th:text="${menthist.finishDate}">Finish
+											Date</font>
+									</center>
+								</td>
+								<!--/div-->
+								<td>
+								<a th:attr="href=@{'#myModalMH'+${menthist.id}}"
+									data-toggle="modal">
+										<center>
+											<button type="submit" role="button" class="btn" data-toggle="modal">
+												<i class="icon-pencil"></i>
+											</button>
+										</center>
+								</a>
+								</td>
+								</div>
+							
+							<section>
+									
+									<!-- Modal Mentor History -->
+										
+										<form action="#"
+											th:action="@{/ProcessMentorsHistoryUpdate(histId=${menthist.id},employeeId=${Employee.id},job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+											method="post">
+											<div th:attr="id=@{'myModalMH'+${menthist.id}}"
+												class="modal hide fade" tabindex="-1" role="dialog"
+												aria-labelledby="myModalLabel" aria-hidden="true">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal"
+														aria-hidden="true">
+														<font th:text="'x'"></font>
+													</button>
+													<h3 id="myModalLabel">Edit Mentor History</h3>
+												</div>
+												<div class="modal-body">
+													<label>Start Date</label> <input type="date"
+														class="input-large"
+														th:value="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"
+														name="start_date" required="true" /> <label>Finish
+														Date</label> <input type="date" class="input-large"
+														th:value="${menthist.finishDate}"
+														name="finish_date" required="true" />
+												</div>
+												<div class="modal-footer">
+													<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+													<button type="submit" class="btn btn-primary">Save
+														Changes</button>
+												</div>
+											</div>
+										</form>
+							</section>
+							
+							</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br />
+	<br />
+
+</body>
+</html>

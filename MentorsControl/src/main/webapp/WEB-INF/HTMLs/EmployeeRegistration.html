@@ -1,0 +1,215 @@
+<html>
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Employee Registration</title>
+
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+				
+			<script type="text/javascript">
+			
+			</script>
+			
+		</head>
+		<body>
+			
+
+	<div th:include="NavMain :: navMain"></div>
+
+			<br/>
+						
+			<form action="#" th:action="@{/ProcessEmployeeRegistration}" th:object="${Employee}" id ="frmEmployee" method="post">	
+			
+			<div id="personal_info">
+			 		<br/>
+			 		<center><font size="5" color="#ffffff">Employee Informations</font></center>
+			 		
+			 		<div id="personal_left">
+			 			<br/>
+			 			<br/>
+				 		<table>
+				 			<tr>
+				 				<td>
+				 					<center><font size="3" color="#ffffff"></font></center>
+			 					</td>
+			 				</tr>
+			 				<tr>
+				 				<td>
+									  <center><img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}" 
+									  class="img-polaroid"  style="height: 160px; width: 120px; position: relative; left: 50px;"/></center>
+				 				</td>
+							</tr>	
+				 			<tr>
+				 				<td>
+				 					<center><font size="2" color="#ffffff" th:text="${Employee.name}"></font></center>
+			 					</td>
+				 			</tr>
+
+				 		</table>
+			 		</div>
+
+			 		<div id="personal_center">
+			 		  
+			 			<br/>
+			 			
+				 		<table >
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Name : </font>
+				 				</td>
+					 				<td>
+				 					<input type="text"  class="input-xxlarge" name="name" th:field="*{name}" placeholder="employee name" required="true" maxlength="100" />
+				 				</td>
+				 			</tr>
+				 			<tr>
+				 				<td>
+				 					<font size="2" color="#ffffff">Letters : </font>
+				 				</td>
+				 				<td>
+				 					<input type="text" class="input-medium" id="letter" name="letter" th:field="*{id}" placeholder="Letters" required="true" maxlength="10" />
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Job: </font>
+				 				</td>
+				 				<td>
+				 					<select name="job" style="height: 25px;" th:field="*{job}" required="true">
+												  		<option value=""></option>
+												  <option th:each="job : ${job}"  th:value="${job.id}" th:text="${job.title}"></option>
+									</select>
+				 				</td>
+				 			</tr>
+				 			<tr>
+				 				<td>
+				 					<font size="2" color="#ffffff">User SAP: </font>
+				 				</td>
+				 				<td>
+				 					<input type="text" class="input-large" name="userSAP" th:field="*{sap}" placeholder="employee workplace " required="true" maxlength="10" />
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Joining Date : </font>
+				 				</td>
+				 				<td>
+				 					<input type="date"  class="input-medium" name="dateinit" th:field="*{joinDate}" required="true" />
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2"  color="#ffffff">Extension : </font>
+				 				</td>
+				 				<td>
+				 					<input type="text" id="ext" class="input-large" th:field="*{extension}" placeholder="extension"  onKeyDown="if(this.value.length==4) return false;" />
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Work Space: </font>
+				 				</td>
+				 				<td>
+				 					<input type="text" class="input-xxlarge" th:field="*{wsName}" placeholder="workspace name" required="true" maxlength="100"/>
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Cost Center: </font>
+				 				</td>
+				 				<td>
+				 					 <select name="cost" style="height: 25px;" th:field="*{costCenter}" required="true">
+												  		<option value=""></option>
+												  		<option th:each="cost : ${costcenter}"  th:value="${cost.id}" th:text="${cost.title}"></option>
+												
+									</select>
+				 				</td>
+				 			</tr>
+				 			<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Work Place: </font>
+				 				</td>
+				 				<td>
+				 					<input type="text" class="input-large" th:field="*{workplace}" placeholder="work place"  maxlength="10" />
+				 				</td>
+				 			</tr>
+				 				<tr>	
+				 				<td>
+				 					<font size="2" color="#ffffff">Rate Prf : </font>
+				 				</td>
+				 				<td>
+				 					 <select style="height: 25px;" th:field="*{ratePrf}" required="true">
+												  <option value=""></option>
+												  <option th:each="rate : ${rateprf}"  th:value="${rate.id}" th:text="${rate.title}"></option>
+									 </select>
+				 				</td>
+				 			</tr>
+				 			
+				 			
+				 		</table>
+				 		
+			 		</div>
+
+			 			<div id="personal_right">
+			 		<br/>
+			 		<br/>	
+			 			<table >
+
+			 			<tr>
+				 				<td style="width:200px; ">
+				 					<center><font size="3"></font></center>
+			 					</td>
+			 				</tr>
+			 				<tr>
+				 				<td style="width:200px;" >
+				 					<div >
+									  		<center><img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}" 
+									  		class="img-polaroid" style="height: 160px; width: 120px; position: relative; left: 50px;" /></center>
+									</div>
+				 				</td>
+							</tr>	
+				 			<tr>
+				 				<td style="width:200px;">
+				 					<center><font size="2" color="#e9ebee">Mentor / Tutor</font></center>
+			 					</td>
+				 			</tr>
+				 		</table>
+				 	</div>		
+				 		 	
+			</div>	
+			
+			  <div id="buttons">
+					<a href="ProcessEmployeeRegistration">
+						<button class="btn btn-primary"  type="submit" onclick="validateFilds()">
+							Save
+						</button>
+					</a>
+					<a href="Employee">
+						<button class="btn btn-warning" type="button">
+							Cancel
+						</button>
+					</a>
+									  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+									  					<button type="button">
+									  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+									  					</button>
+									  				</a>
+									  				<ul class="dropdown-menu">
+											<li><a href="mainPage"><font size="2" color="#555"><i
+														class="icon-home"></i> Back to Main Page</font></a></li>
+																						<li><a href="#ModalPG" data-toggle="modal"><font
+														size="2" color="#555"><i class="icon-question-sign"></i>
+															Information</font></a></li>
+													</ul>
+									  				
+				</div>
+
+				<br />
+				<br /> 
+			</form>						  		
+</body>
+
+</html>

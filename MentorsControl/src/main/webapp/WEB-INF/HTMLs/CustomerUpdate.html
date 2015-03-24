@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+	<meta charset="utf-8"></meta>
+	<title>Customer Update</title>
+
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/bootstrap.js"></script>
+
+			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+		
+		</head>
+		<body>
+
+
+	<div th:include="NavMain :: navMain"></div>
+
+	
+					  		<div id="center">
+					  			<form name="customerform" action="#" th:action="@{/CustomerUpdate}" th:object="${Customer}" method="post">
+						  			<section>
+						  				<div class="container-fluid">
+						  					<div class="row-fluid">
+											 		
+												  <fieldset>
+												    <legend>New Customer Registration</legend>
+												    <label>Project identification</label>
+												    <input type="text" class="input-large" placeholder="Example " disabled="true" />
+												    <label>Description</label>
+												    <input type="text" th:field="*{description}" name="customer_description" class="input-xxlarge" placeholder="input the Customer description" required="true" maxlength="100" />
+												  	<input type="hidden" th:field="*{active}" value="0" />
+												  	<label>Client Unit</label>
+												  	<select th:field="*{unit}" required="true">
+												  		<option value="">Select the Unit</option>
+												  		<option th:each="uni : ${unit}" th:value="${uni.id}" th:text="${uni.description}"></option>
+												  	</select>
+												  </fieldset>
+												
+											</div>
+										</div>								
+				 					</section>
+				 					<br/>
+				 					<br/>
+				 					<section>
+										<div class="container-fluid">
+										  <div class="row-fluid">
+											<div class="well well-small">
+											
+											  <div id="buttons">
+											  <a href="ProcessCustomerRegistration">
+											  	<button class="btn btn-primary"  type="submit">
+											  		Save
+											  	</button>
+											  	</a>
+											  	<a href="Customer.html">
+												  	<button class="btn btn-warning" type="button">
+												  		Cancel
+												  	</button>
+											  	</a>
+											  		</div>
+												</div>
+											</div>
+										</div>
+								 	</section> 
+							 	</form>
+			 				</div>
+
+
+
+
+						
+ 
+</body>
+
+</html>

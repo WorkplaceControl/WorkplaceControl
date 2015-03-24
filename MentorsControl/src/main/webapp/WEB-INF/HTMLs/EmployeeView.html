@@ -1,0 +1,384 @@
+<html>
+<head>
+<meta charset="utf-8"></meta>
+<title>Employee View</title>
+
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="css/principal.css" />
+
+<script type="text/javascript">
+				function disableFilds(){	
+					if(document.unitform.inactive.checked){	
+							document.unitform.unit_description.disabled = 1;							
+					}else{
+							document.unitform.unit_description.disabled = 0;							
+					}
+				}
+				function validateFilds(){
+					 if(document.unitform.unit_description.value == ""){
+							alert("Unit description field cannot be empty"); 
+							exit;	
+					 }	
+				}
+			</script>
+
+
+
+
+</head>
+<body>
+
+
+<div th:include="NavMain :: navMain"></div>
+
+
+
+	<div id="personal_info">
+		<br />
+		<center>
+			<font size="5" color="#ffffff">Employee Informations</font>
+		</center>
+
+		<div id="personal_left">
+			<br /> <br />
+			<table>
+				<tr>
+					<td>
+						<center>
+							<font size="3" color="#ffffff"></font>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center>
+							<img
+								th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
+								class="img-polaroid"
+								style="height: 160px; width: 120px; position: relative; left: 80px;" />
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<center>
+							<font size="2" color="#ffffff" th:text="${Employee.name}"
+								style="position: relative; left: 80px;"></font>
+						</center>
+					</td>
+				</tr>
+
+			</table>
+		</div>
+
+		<div id="personal_center">
+			<br />
+			<table>
+				<tr>
+					<td><font size="3" color="#ffffff">Name : </font></td>
+					<td><font size="3" color="#ffffff" th:text="${Employee.name}"></font>
+					</td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Id : </font></td>
+					<td><font size="3" color="#ffffff" th:text="${Employee.id}"></font>
+					</td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Job Description : </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.job.title}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">User SAP: </font></td>
+					<td><font size="3" color="#ffffff" th:text="${Employee.sap}"></font>
+					</td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Joining Date: </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${#dates.format(Employee.joinDate, 'MM/dd/yyyy')}" ></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Job: </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.job.title}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Status : </font></td>
+					<td>
+						<div th:switch="${Employee.active}">
+						<font size="3" color="#ffffff"
+						th:case="0">Active</font>
+						<font size="3" color="#ffffff"
+						th:case="1">Inactive</font>
+						</div>	
+					</td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Extension : </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.extension}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">WorkSpace Name : </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.wsName}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Email : </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="@{${Employee.id}+'@gft.com'}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Link WorkSpace: </font></td>
+					<td><font size="3" color="#ffffff"><a
+							th:attr="href=@{'https://workspace.gft.com/epfis/employeeProfiles/search/showEmployee.do?userid='+${Employee.id}}">Click
+								here to access</a></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Years GFT : </font></td>
+					<td><font size="3" color="#ffffff" th:text="${yearGFT}"></font>
+					</td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Cost Center : </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.costCenter.title}"></font></td>
+				</tr>
+				<tr>
+					<td><font size="3" color="#ffffff">Rate Prf: </font></td>
+					<td><font size="3" color="#ffffff"
+						th:text="${Employee.ratePrf.title}"></font></td>
+				</tr>
+
+			</table>
+		</div>
+
+		<div id="personal_right">
+			<br /> <br />
+			<table>
+
+				<tr>
+					<td style="width: 200px;">
+						<center>
+							<font size="3"></font>
+						</center>
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 200px;">
+						<div>
+							<center>
+								<img
+									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+									class="img-polaroid"
+									style="height: 160px; width: 120px; position: relative; left: 50px;" />
+							</center>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td style="width: 200px;">
+						<center>
+							<font size="2" color="#e9ebee">Mentor / Tutor</font>
+						</center>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+
+	<!-- Informations about employee projects -->
+	<div id="project">
+		<section>
+			<br />
+			<div class="container-fluid">
+				<div class="row-fluid">
+
+
+					<form class="navbar-search pull-left">
+						<fieldset>
+							<legend>
+								<ul class="legenda">
+									<li>Project Informations</li>
+									<li class="legenda_search"></li>
+
+								</ul>
+							</legend>
+						</fieldset>
+					</form>
+
+					<table class="table table-bordered" font-color="#ffffff">
+						<tr style="background-color: #00339f; border: 0px solid #00339f;">
+							<td>
+								<center>
+									<font size="3" color="white">Project</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Customer</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Unit</font>
+								</center>
+							</td>
+
+						</tr>
+
+						<tr th:each="empAssign : ${EmployeeAssignment}">
+							<div th:if="${empAssign.active == 0}">
+								<td th:text="${empAssign.project.description}"></td>
+								<td th:text="${empAssign.project.customer.description}">
+									<center>
+										<font size="3" color="#333"></font>
+									</center>
+								</td>
+								<td th:text="${empAssign.project.customer.unit.description}">
+									<center>
+										<font size="3" color="#333">Exemplo Unit</font>
+									</center>
+								</td>
+
+							</div>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br />
+	<hr width="100%"></hr>
+	<br />
+
+
+	<!--Modal to add project -->
+
+
+
+
+
+	<!-- Informations about employee Mentee -->
+	<div id="mentees">
+		<section>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<fieldset>
+						<legend>
+							<ul class="legenda">
+								<li>Employee Mentees</li>
+								<li class="legenda_search"></li>
+								<li style="position: relative; left: 450px;"></li>
+								<li style="position: relative; left: 455px;"></li>
+							</ul>
+						</legend>
+						<div id="mentee_img" th:each="emp : ${Employeels}">
+									  		<div th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}">
+										  			<div th:if="${emp.mentorId == null}">
+										  				<center><p  th:text="'Tutor of'"></p></center>
+										  			</div>
+										  			<div th:if="${emp.mentorId != null}">
+										  				<center><p  th:text="'Mentor of'"></p></center>
+										  			</div>
+										  			
+										  		<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+										  			
+										  			<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}" class="img-polaroid"/>
+										  			<center><p th:text="${emp.id}"></p></center>
+										  			<center><font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font></center>
+										  		</a>
+										  		
+									  		</div>
+						</div>
+
+					</fieldset>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br />
+	<hr width="100%"></hr>
+	<br />
+
+	<!-- Table with Informations about the history of employee mentor -->
+	<div id="project">
+		<section>
+			<br />
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<fieldset>
+						<legend>
+							<ul class="legenda">
+								<li>Mentor History</li>
+								<li class="legenda_search"></li>
+								<li style="position: relative; left: 445px;"></li>
+								<li style="position: relative; left: 450px;"></li>
+							</ul>
+						</legend>
+					</fieldset>
+
+					<table class="table table-bordered" font-color="#ffffff">
+						<tr style="background-color: #00339f; border: 0px solid #00339f;">
+							<td>
+								<center>
+									<font size="3" color="white">Mentor Name</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Start Date</font>
+								</center>
+							</td>
+							<td>
+								<center>
+									<font size="3" color="white">Finish Date</font>
+								</center>
+							</td>
+
+						</tr>
+
+			<tr th:each="menthist : ${MentorHistory}">
+			<div th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
+								<td>
+			 						<div th:each="emp : ${Employeels}">
+										<div th:if="${menthist.mentorId == emp.id}">
+											<center>
+												<font size="3" color="#333" th:text="${emp.name}"></font>
+											</center>
+										</div>
+									</div>
+								</td>
+								<td>
+									<center>
+										<font size="3" color="#333" th:text="${menthist.startDate}"></font>
+									</center>
+								</td>
+								<td>
+									<center>
+										<font size="3" color="#333" th:text="${menthist.finishDate}">Finish
+											Date</font>
+									</center>
+								</td>
+
+							</div>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+	</div>
+	<br />
+	<br />
+ 
+</body>
+
+</html>
