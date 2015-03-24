@@ -11,86 +11,75 @@
 	</center>
 	<div style="padding-left: 100px;">
 		<h3>Cost Center</h3>
-			<font color="green">Cost center insert into data base</font> 
-			<p th:text="${numCost}" color="green"></p>
-			<p>Error to insert the Cost Centers Below</p>
-			<table>
-				<tr th:each="costerror : ${costerror}">
-					<td>
-						<font th:text="costerror.id"></font><font th:text="costerror.title"></font>
-					</td>
-				</tr>
-			</table>
+		<font color="green">Cost center insert into data base</font>
+		<p th:text="${numCost}" color="green"></p>
+		<p>Error to insert the Cost Centers Below</p>
+		<table>
+			<tr th:each="costerror : ${costerror}">
+				<td><font th:text="costerror.id"></font><font
+					th:text="costerror.title"></font></td>
+			</tr>
+		</table>
 		<h3>Job</h3>
-			<font color="green">Jobs insert into data base</font> 
-			<p th:text="${numJob}"></p>
-			</div>
-			<div th:if="${joberror > 0}"> <!--testar-->
-			<p>Error to insert the Jobs Below</p>
-			<table>
-				<tr th:each="joberror : ${joberror}">
-					<td>
-						<font th:text="joberror.id"></font><font th:text="joberror.title"></font>
-					</td>
-				</tr>
-			</table>
-			</div>
-		<h3>Unit</h3>
-		<font color="green">Units insert into data base</font> 
-			<p th:text="${numUnit}"></p>
-			<p>Error to insert the Units Below</p>
-			<table>
-				<tr th:each="uniterror : ${uniterror}">
-					<td>
-						<font th:text="uniterror.id"></font><font th:text="uniterror.description"></font>
-					</td>
-				</tr>
-			</table>
-		<h3>Customer</h3>
-			<font color="green">Customers insert into data base</font> 
-			<p th:text="${numCustomer}"></p>
-			<p>Error to insert the Customers Below</p>
-			<table>
-				<tr th:each="customererror : ${customererror}">
-					<td>
-						<font th:text="customererror.id"></font><font th:text="customererror.description"></font>
-					</td>
-				</tr>
-			</table>
-		<h3>Project</h3>
-			<font color="green">Projects insert into data base</font> 
-			<p th:text="${numProj}"></p>
-			<p>Error to insert the Projects Below</p>
-			<table>
-				<tr th:each="projecterror : ${projecterror}">
-					<td>
-						<font th:text="projecterror.id"></font><font th:text="projecterror.description"></font>
-					</td>
-				</tr>
-			</table>
-		<h3>Employee</h3>
-			<font color="green">Employees insert into data base</font> 
-			<p th:text="${numEmployee}"></p>
-			<p>Error to insert the Employees Below</p>
-			<table>
-				<tr th:each="employeeerror : ${employeeerror}">
-					<td>
-						<font th:text="employeeerror.id"></font><font th:text="employeeerror.description"></font>
-					</td>
-				</tr>
-			</table>
-		<h3>Employee including in Project</h3>
-			<font color="green">Employee to project insert into data base</font> 
-			<p th:text="${numEmpAssign}"></p>
-				<p>Error to include project to user Below</p>
-			<table>
-				<tr th:each="empassignerror : ${empassignerror}">
-					<td>
-						<font th:text="empassignerror.id"></font><font th:text="empassignerror.description"></font>
-					</td>
-				</tr>
-			</table>
+		<font color="green">Jobs insert into data base</font>
+		<p th:text="${numJob}"></p>
 	</div>
-	 
+	<p>Error to insert the Jobs Below</p>
+	<table>
+		<tr th:each="joberror : ${joberror}">
+			<td><font th:text="joberror.id"></font><font
+				th:text="joberror.title"></font></td>
+		</tr>
+	</table>
+	<h3>Unit</h3>
+	<font color="green">Units insert into data base</font>
+	<p th:text="${numUnit}"></p>
+	<p>Error to insert the Units Below</p>
+	<table>
+		<tr th:each="uniterror : ${uniterror}">
+			<td><font th:text="uniterror.id"></font><font
+				th:text="uniterror.description"></font></td>
+		</tr>
+	</table>
+	<h3>Customer</h3>
+	<font color="green">Customers insert into data base</font>
+	<p th:text="${numCustomer}"></p>
+	<p>Error to insert the Customers Below</p>
+	<table>
+		<tr th:each="customererror : ${customererror}">
+			<td><font th:text="customererror.id"></font><font
+				th:text="customererror.description"></font></td>
+		</tr>
+	</table>
+	<h3>Project</h3>
+	<font color="green">Projects insert into data base</font>
+	<p th:text="${numProj}"></p>
+	<p>Error to insert the Projects Below</p>
+	<table>
+		<tr th:each="projecterror : ${projecterror}">
+			<td><font th:text="projecterror.id"></font><font
+				th:text="projecterror.description"></font></td>
+		</tr>
+	</table>
+	<h3>Employee</h3>
+	<font color="green">Employees insert into data base</font>
+	<p th:text="${numEmployee}"></p>
+	<p>Error to insert the Employees Below</p>
+	<table>
+		<tr th:each="employeeerror : ${employeeerror}">
+			<td><font th:text="employeeerror.id"></font><font
+				th:text="employeeerror.description"></font></td>
+		</tr>
+	</table>
+	<h3>Employee including in Project</h3>
+	<font color="green">Employee to project insert into data base</font>
+	<p th:text="${numEmpAssign}"></p>
+	<p>Error to include project to user Below</p>
+	<table>
+		<tr th:each="empassignerror : ${empassignerror}">
+			<td><font th:text="empassignerror.id"></font><font
+				th:text="empassignerror.description"></font></td>
+		</tr>
+	</table>
 </body>
 </html>
