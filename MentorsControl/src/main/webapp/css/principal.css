@@ -176,6 +176,11 @@
 	display:block;
 	border-top: 1px solid #ddd;
 }
+
+#pag_mentorreportview .alert{
+	width: auto;
+}
+
 .legenda li{
 		width: 300px;
 		list-style: none;

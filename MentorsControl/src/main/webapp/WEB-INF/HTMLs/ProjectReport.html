@@ -15,34 +15,30 @@
 			<script type="text/javascript">
 				
 				$(document).ready(function(){
-					  $("input").keyup(function(){
-						  	var x = $( "input[name=search]" ).val();
-							var x = x.toLowerCase()
-						
-					     	$('tr.project').each(function( index ) {
-					     			if(x == ""){
-					     				$(this).show();
-					     			}
-					     			var description = $( this ).parent().find("td.description")[index].innerHTML;
-					     			var description = description.toLowerCase();
+					$(".btn-View").attr("disabled" ,true);
+					$("input").keyup(function(){
+						var x = $( "input[name=search]" ).val();
+						x = x.toLowerCase();
+
+						$('tr.project').each(function( index ) {
+					    	if(x == ""){
+					     		$(this).show();
+					     	}
+					     	var description = $( this ).parent().find("td.description")[index].innerHTML;
+					     	description = description.toLowerCase();
 					     			
-					     			var id = $( this ).parent().find("td.id")[index].innerHTML;
-					     		    if(description.substring(0 ,x.length ) == x || id.substring(0 ,x.length) == x){
-					     		    	
-					     		    }else{
-					     		    	$(this).hide(500);
-					     		    	
-					     		    
-					     		    }
-					     		
-					     	});;
-	
-					  });
-					  
-					  $(".viewReport").click(function(){
-						  $(".btn-View").Attr("disabled" ,false);
-					  });
+					     	var id = $( this ).parent().find("td.id")[index].innerHTML;
+					     	if(description.substring(0 ,x.length ) == x || id.substring(0 ,x.length) == x){
+					     	}else{
+					     		$(this).hide(500);
+							}
+						});
 					});
+
+					$(".viewReport").click(function(){
+						$(".btn-View").attr("disabled" ,false);
+					});
+				});
 				
 				
 					

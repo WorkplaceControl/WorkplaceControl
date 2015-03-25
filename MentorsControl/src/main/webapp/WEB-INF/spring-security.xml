@@ -21,9 +21,8 @@
 			<intercept-url pattern="/Login" access="permitAll" />
 			<intercept-url pattern="/accessdenied" access="permitAll" />
 
-			
-	</http>
 
+	</http>	
 	<beans:bean id="mongoUserDetailsService" class="br.com.gft.controller.MongoUserDetailsService" /> 	
 	
 	<!-- Select users and user_roles from database -->

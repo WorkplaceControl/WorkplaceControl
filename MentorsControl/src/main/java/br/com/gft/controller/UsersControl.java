@@ -59,6 +59,27 @@ public class UsersControl {
 	public String noAccess() {
 		return "accessdenied";
 	}
+	
+	
+	/**
+	 * this method is to return error page
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/GeneralError")
+	public String GeneralError() {
+		return "GeneralError";
+	}
+		
+	/**
+	 * this method is to return error page
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/400Error")
+	public String Error400() {
+		return "400Error";
+	}
 
 	/**
 	 * this method is to register user
