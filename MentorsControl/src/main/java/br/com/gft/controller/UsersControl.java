@@ -62,7 +62,7 @@ public class UsersControl {
 	
 	
 	/**
-	 * this method is to return error page
+	 * this method is to return General error page
 	 * 
 	 * @return
 	 */
@@ -70,9 +70,10 @@ public class UsersControl {
 	public String GeneralError() {
 		return "GeneralError";
 	}
+	
 		
 	/**
-	 * this method is to return error page
+	 * this method is to return 400 error page
 	 * 
 	 * @return
 	 */
@@ -94,10 +95,10 @@ public class UsersControl {
 	 */
 	@RequestMapping(value = "/ProcessUser", method = RequestMethod.POST)
 	public String ProcessUser(
-			@RequestParam("username") String username,
-			@RequestParam("pass") String pass,
-			@RequestParam("repass") String repass,
-			@RequestParam("userRole") int userRole,
+			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
+			@RequestParam(Paths.ATTRIBUTE_UC_PASS) String pass,
+			@RequestParam(Paths.ATTRIBUTE_UC_REPASS) String repass,
+			@RequestParam(Paths.ATTRIBUTE_UC_USER_ROLE) int userRole,
 			Model model)
 			throws Exception {
 		List<Users> users = userserv.getUsers();
@@ -126,7 +127,7 @@ public class UsersControl {
 		}else{
 			usersControlMessage = 6;
 		}
-		model.addAttribute("usersControlMessage", usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
 		return "mainPage";
 	}
 
@@ -143,25 +144,21 @@ public class UsersControl {
 	 */
 	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
 	public String UpdateUser(
-			@RequestParam("username") String username,
-			@RequestParam("newPass") String pass,
-			@RequestParam("repPass") String repass,
-			@RequestParam("oldPass") String oldpass, Model model)
+			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
+			@RequestParam(Paths.ATTRIBUTE_UC_PASS) String pass,
+			@RequestParam(Paths.ATTRIBUTE_UC_REPASS) String repass,
+			@RequestParam(Paths.ATTRIBUTE_UC_OLD_PASS) String oldpass, Model model)
 			throws Exception {
 		List<Users> users = userserv.getUsers();
 		user = userserv.getUser(username);
 		int usersControlMessage;
 		int test = 0;
-		System.out.println("pass : " + pass);
-		System.out.println("repass : " + repass);
-		System.out.println("oldpass : " + oldpass);
 		for (int i = 0; i < users.size(); i++) {
 			if (username.equals(users.get(i).getUsername())) {
 				user = users.get(i);
 				test = 1;
 			}
 		}
-		System.out.println("bd oldpass : " + user.getPassword());
 		if (test == 1) {
 			if (oldpass.equals(user.getPassword())) {
 				if (pass.equals(repass)) {
@@ -180,7 +177,7 @@ public class UsersControl {
 		} else {
 			usersControlMessage = 5;
 		}
-		model.addAttribute("usersControlMessage", usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
 		return "mainPage";
 	}
 

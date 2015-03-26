@@ -36,7 +36,7 @@
 					});
 
 					$(".viewReport").click(function(){
-						$(".btn-View").attr("disabled" ,false);
+						$(".btn-View").attr("disabled", !$(".viewReport:checked").size() > 0);
 					});
 				});
 				

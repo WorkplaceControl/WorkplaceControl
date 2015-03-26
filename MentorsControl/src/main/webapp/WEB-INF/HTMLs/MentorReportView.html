@@ -28,7 +28,7 @@
 		
 			<fieldset th:each="job : ${job}">
 				<legend class="legenda"
-					th:text="${job.title} + ' (' + ${job.id} + ')'"></legend>
+					th:text="${job.title} + ' (' + ${job.id} + ')' + ${mentor.size()} "></legend>
 				<table class="table table-striped">
 					<tr>
 						<th>Mentor Letters</th>
@@ -55,6 +55,14 @@
 		</div>
 	</div>
 
-
+	<script type="text/javascript">
+		$(function(){
+			$(".table", "fieldset").each(function(){
+				if($("tr", this).size() == 1){
+					$(this).parent().hide();
+				}
+			});
+		});
+	</script>
 </body>
 </html>

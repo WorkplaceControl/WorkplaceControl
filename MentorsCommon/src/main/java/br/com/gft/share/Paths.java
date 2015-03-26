@@ -1,5 +1,7 @@
 package br.com.gft.share;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 public class Paths {
 	
 	/* MainControl */
@@ -20,5 +22,15 @@ public class Paths {
 	public static final String 	ATTRIBUTE_MHC_JOB = "job";
 	public static final String 	ATTRIBUTE_MHC_COST = "cost";
 	public static final String 	ATTRIBUTE_MHC_RATE= "rate";
+	
+	/*UsersControl*/
+		/*ProcessUser*/
+	public static final String 	ATTRIBUTE_UC_USERNAME = "username";
+	public static final String 	ATTRIBUTE_UC_PASS = "pass";
+	public static final String 	ATTRIBUTE_UC_REPASS = "repass";
+	public static final String 	ATTRIBUTE_UC_USER_ROLE = "userRole";
+	public static final String 	ATTRIBUTE_UC_USERS_CONTROL_MESSAGE = "usersControlMessage";
 		
+		/*UpdateUser*/
+	public static final String ATTRIBUTE_UC_OLD_PASS = "oldPass";
 }
