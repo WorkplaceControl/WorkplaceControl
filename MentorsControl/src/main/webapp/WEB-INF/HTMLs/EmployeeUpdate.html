@@ -14,10 +14,7 @@
 
 
 <script type="text/javascript">
-	function add
-() {
-		$('#myModal').modal('show');
-	}
+
 
 	$(document).ready(function() {
 		$("#ext").bind("keyup blur focus", function(e) {
@@ -52,20 +49,11 @@
 		th:object="${Employee}" method="post">
 		<div id="personal_info">
 			<br />
-			<center>
-				<font size="5" color="#ffffff">Employee Informations</font>
-			</center>
+				<p id ="Employee_Header">Employee Informations</p>
 
 			<div id="personal_left">
 				<br /> <br />
 				<table>
-					<tr>
-						<td>
-							<center>
-								<font size="3" color="#ffffff"></font>
-							</center>
-						</td>
-					</tr>
 					<tr>
 						<td>
 							<center>
@@ -78,37 +66,35 @@
 					</tr>
 					<tr>
 						<td>
-							<center>
 								<font size="2" color="#ffffff"
-									style="position: relative; left: 25%"
+									style="position: relative; left: 50%"
 									th:text="${Employee.name}"></font>
-							</center>
 						</td>
 					</tr>
 
 				</table>
 			</div>
-
+			<center>
 			<div id="personal_center">
 
 				<br />
 
 				<table>
 					<tr>
-						<td><font size="2" color="#ffffff">Name : </font></td>
-						<td><input type="text" class="input-xxlarge" name="name"
+						<th>Name: </th>
+						<td><input type="text" class="input-field" name="name"
 							th:field="*{name}" placeholder="Input employee name"
-							required="true" maxlenght="100" /></td>
+							required="true" maxlength="100" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Letters : </font></td>
-						<td><input type="text" class="input-medium" id="letter"
+						<th>Letters: </th>
+						<td><input type="text" class="input-field" id="letter"
 							th:field="*{id}" placeholder="input the letters " required="true"
-							maxlenght="4" /></td>
+							maxlength="4" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Job: </font></td>
-						<td><select name="job" style="height: 25px;"
+						<th>Job: </th>
+						<td><select name="job" class="input-field"
 							th:field="*{job}" required="true" id="job">
 								<option id="tempJob" th:value="${job.id}" th:text="${job.title}"
 									th:selected="${job.id}"></option>
@@ -118,32 +104,32 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">User SAP: </font></td>
-						<td><input type="text" class="input-large" name="userSAP"
+						<th>User SAP: </th>
+						<td><input type="text" class="input-field" name="userSAP"
 							th:field="*{sap}" placeholder="input the employee workplace "
 							required="true" maxlenght="10" /></td>
 					</tr>
 
 					<tr>
-						<td><font size="2" color="#ffffff">Joining Date : </font></td>
-						<td><input type="date" name="joinDate"
+						<th>Joining Date: </th>
+						<td><input type="date" name="joinDate" class="input-field"
 							th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
 							required="true" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Extension : </font></td>
-						<td><input type="text" name="ext" id="ext"
-							class="input-large" th:field="*{extension}" maxlenght="4" /></td>
+						<th>Extension: </th>
+						<td><input type="text" name="ext" class="input-field"
+							 th:field="*{extension}" maxlenght="4" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">WorkSpace: </font></td>
-						<td><input type="text" class="input-xxlarge"
+						<th>WorkSpace: </th>
+						<td><input type="text" class="input-field"
 							th:field="*{wsName}" placeholder="input the workspace name"
 							required="true" maxlenght="100" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Cost Center: </font></td>
-						<td><select name="cost" style="height: 25px;"
+						<th>Cost Center: </th>
+						<td><select name="cost" class="input-field"
 							th:field="*{costCenter}" required="true" id="cost">
 								<option id="tempCost" th:value="*{costCenter.id}"
 									th:text="*{costCenter.title}" th:selected="*{costCenter.id}"></option>
@@ -153,15 +139,16 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Work Place: </font></td>
-						<td><input type="text" class="input-large"
+						<th>Work Place: </th>
+						<td><input type="text" class="input-field"
 							th:field="*{workplace}" placeholder="input the work place"
 							maxlenght="10" /></td>
 					</tr>
 					<tr>
-						<td><font size="2" color="#ffffff">Rate Prf : </font></td>
-						<td><select style="height: 25px;" th:field="*{ratePrf}"
-							required="true" id="rate">
+						<th>Rate Prf: </th>
+						<td>
+						<select th:field="*{ratePrf}"
+								required="true" class="input-field">
 								<option id="tempRate" th:value="*{ratePrf.id}"
 									th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
 								<option th:each="rate : ${rateprfs}" th:value="${rate.id}"
@@ -173,35 +160,22 @@
 				</table>
 
 			</div>
-
+			</center>
 			<div id="personal_right">
 				<br /> <br />
 				<table>
 
 					<tr>
-						<td style="width: 200px;">
-							<center>
-								<font size="3"></font>
-							</center>
-						</td>
-					</tr>
-					<tr>
-						<td style="width: 200px;">
+						<td>
 							<div>
-								<center>
-									<img
-										th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
-										class="img-polaroid"
-										style="height: 160px; width: 120px; position: relative; left: 50px;" />
-								</center>
+								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+									 class="img-polaroid"/>								
 							</div>
 						</td>
 					</tr>
 					<tr>
-						<td style="width: 200px;">
-							<center>
-								<font size="2" color="#e9ebee" th:text="${Employee.mentorId}"></font>
-							</center>
+						<td id = "right_width">
+								<font th:text="${Employee.mentorId}"></font>
 						</td>
 					</tr>
 				</table>

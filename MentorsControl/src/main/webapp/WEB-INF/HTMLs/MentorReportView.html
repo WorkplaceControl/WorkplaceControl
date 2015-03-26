@@ -28,7 +28,7 @@
 		
 			<fieldset th:each="job : ${job}">
 				<legend class="legenda"
-					th:text="${job.title} + ' (' + ${job.id} + ')' + ${mentor.size()} "></legend>
+					th:text="${job.title} + ' (' + ${job.id} + ')'} "></legend>
 				<table class="table table-striped">
 					<tr>
 						<th>Mentor Letters</th>
