@@ -1,4 +1,7 @@
-
+html, body {
+	min-width: 980px;
+	position: relative;
+}
 #login{
 		height: auto;
 		width:100%;	
@@ -89,6 +92,13 @@
 	padding-top: 10px;
 }
 
+#buttons #left_header{
+	text-align: left;
+	float: left;
+	padding-right: 80px;
+	padding-top: 10px;
+}
+
 
 #personal_info{
 		width: auto;
@@ -109,6 +119,31 @@
 		
 }
 
+#personal_left #personal_name{
+		color: #ffffff;
+		position: relative; 
+		left: 50px;
+		text-align:center;
+		
+}
+
+#personal_right #personal_mentor{
+		color: #ffffff;
+		position: relative; 
+		left: 50px;
+		text-align:center;
+		
+}
+
+#personal_left img{
+		width: 120px;
+		height: 160px;
+		position: relative;
+		left: 50px;
+		background-color: #fff;
+		float: left;
+		text-align: center;
+}
 
 #personal_center{
 		width: 50%;
@@ -120,16 +155,23 @@
 		float: left;
 }
 
-
-#personal_center th{
-		text-align:right;
+#table_employee_view th, #table_employee_view td, 
+#table_employee_update th, #table_employee_update td {
+		text-align:left;
 		padding-right: 5px;
-		<font-size: 11px;
+		font-size: 11px;
 		color: #ffffff;
-		padding-bottom: 21px;
  		font-size: 16px;
 }
 
+#table_employee_view th, #table_employee_update th {
+	text-align:right;
+	padding-bottom:5px;
+}
+
+#table_employee_view th, #table_employee_view td {
+	padding-bottom: 7px;
+}
 
 #personal_right{
 		width: 22%;
@@ -140,9 +182,6 @@
 		float: right;
 }
 
-#personal_right .right_width{
-		width: 200px;
-}
 
 
 #personal_right img{
@@ -229,7 +268,6 @@
 
 td.input-field, td .input-field {
 	width: 300px;
-	height: auto;
 }
 
 #frmEmployee #buttons {
@@ -244,6 +282,7 @@ td.input-field, td .input-field {
 }
 
 #Employee_Header {
+		padding-top:10px;
 		text-align: center;
 		color:#ffffff;
 		font-size: 30px;
@@ -256,5 +295,9 @@ td.input-field, td .input-field {
 
 .modal-body input[type="date"] {
 	height: auto;
+}
+
+#mentees #legenda_view {
+	padding-top: 10px;
 }
 }

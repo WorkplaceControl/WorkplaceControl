@@ -1,27 +1,15 @@
 package br.com.gft.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
-
-import org.omg.CORBA.Request;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.util.CookieGenerator;
 
-import br.com.gft.MentorsCommon.Employee;
-import br.com.gft.MentorsCommon.UserRole;
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UsersService;
-import br.com.gft.share.UserRoleInfo;
 import br.com.gft.share.Paths;
 
 /**
@@ -145,20 +133,26 @@ public class UsersControl {
 	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
 	public String UpdateUser(
 			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
-			@RequestParam(Paths.ATTRIBUTE_UC_PASS) String pass,
-			@RequestParam(Paths.ATTRIBUTE_UC_REPASS) String repass,
-			@RequestParam(Paths.ATTRIBUTE_UC_OLD_PASS) String oldpass, Model model)
+			@RequestParam(Paths.ATTRIBUTE_UC_NEW_PASS) String pass,
+			@RequestParam(Paths.ATTRIBUTE_UC_REP_PASS) String repass,
+			@RequestParam(Paths.ATTRIBUTE_UC_OLD_PASS) String oldpass,
+			@RequestParam("redirect") String URL, Model model)
 			throws Exception {
+		
+		String[] path = URL.split("/");
+		String page = path[path.length - 1];
 		List<Users> users = userserv.getUsers();
 		user = userserv.getUser(username);
 		int usersControlMessage;
 		int test = 0;
+		
 		for (int i = 0; i < users.size(); i++) {
 			if (username.equals(users.get(i).getUsername())) {
 				user = users.get(i);
 				test = 1;
 			}
 		}
+		
 		if (test == 1) {
 			if (oldpass.equals(user.getPassword())) {
 				if (pass.equals(repass)) {
@@ -177,8 +171,9 @@ public class UsersControl {
 		} else {
 			usersControlMessage = 5;
 		}
+		
 		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
-		return "mainPage";
+				return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}
 
 }

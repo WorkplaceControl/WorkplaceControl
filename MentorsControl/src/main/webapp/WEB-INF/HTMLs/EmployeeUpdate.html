@@ -1,4 +1,4 @@
-<html>
+﻿<html>
 <head>
 <meta charset="utf-8"></meta>
 <title>Employee Update</title>
@@ -48,28 +48,21 @@
 	<form action="#" th:action="@{/ProcessEmployeeUpdate}"
 		th:object="${Employee}" method="post">
 		<div id="personal_info">
-			<br />
 				<p id ="Employee_Header">Employee Informations</p>
 
 			<div id="personal_left">
 				<br /> <br />
 				<table>
 					<tr>
-						<td>
-							<center>
+					<td>
 								<img
 									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
-									class="img-polaroid"
-									style="height: 160px; width: 120px; position: relative; left: 50px;" />
-							</center>
-						</td>
+									class="img-polaroid"/>
+					</td>
 					</tr>
+					
 					<tr>
-						<td>
-								<font size="2" color="#ffffff"
-									style="position: relative; left: 50%"
-									th:text="${Employee.name}"></font>
-						</td>
+						<td id ="personal_name"	th:text="${Employee.name}"></td>
 					</tr>
 
 				</table>
@@ -79,7 +72,7 @@
 
 				<br />
 
-				<table>
+				<table id = "table_employee_update">
 					<tr>
 						<th>Name: </th>
 						<td><input type="text" class="input-field" name="name"
@@ -166,17 +159,11 @@
 				<table>
 
 					<tr>
-						<td>
-							<div>
 								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
-									 class="img-polaroid"/>								
-							</div>
-						</td>
+									 class="img-polaroid"/>							
 					</tr>
 					<tr>
-						<td id = "right_width">
-								<font th:text="${Employee.mentorId}"></font>
-						</td>
+						<td id ="personal_mentor" th:text="${Employee.mentorId}"></td>
 					</tr>
 				</table>
 			</div>
@@ -191,7 +178,9 @@
 				<button class="btn btn-warning" type="button">Cancel</button>
 			</a>
 		</div>
-		<br /> <br />
+		<br />
+		<hr width="100%"></hr>
+		<br />
 	</form>
 
 
@@ -211,18 +200,17 @@
 				<div class="row-fluid">
 
 
-					<form class="navbar-search pull-left">
 						<fieldset>
 							<legend>
+							<div id="buttons">
 								<ul class="legenda">
-									<li>Project Informations</li>
-									<li class="legenda_search"></li>
-									<li style="position: relative; left: 445px;"><a
-										href="#ModalAP" role="button" class="btn" data-toggle="modal">
+									<li id ="left_header">Project Informations</li>
+									<li>
+									<a href="#ModalAP" role="button" class="btn" data-toggle="modal">
 											<i class="icon-plus"></i><font size="1" color="#555">
 												Add Project</font>
 									</a></li>
-									<li style="position: relative; left: 450px;" class="dropdown">
+									<li>
 										<a id="drop1" href="#" role="button" class="dropdown-toggle"
 										data-toggle="dropdown">
 											<button type="button">
@@ -239,9 +227,9 @@
 
 									</li>
 								</ul>
-							</legend>
+								</div>
+								</legend>
 						</fieldset>
-					</form>
 
 					<table class="table table-bordered" font-color="#ffffff">
 						<tr style="background-color: #00339f; border: 0px solid #00339f;">
@@ -359,19 +347,23 @@
 		<section>
 			<div class="container-fluid">
 				<div class="row-fluid">
+				
+				
+				
 					<fieldset>
 						<legend>
+						<div id ="buttons">
 							<ul class="legenda">
-								<li>Employee Mentees</li>
+								<li id="left_header">Employee Mentees</li>
 								<li class="legenda_search"></li>
-								<li style="position: relative; left: 54%;"><a
+								<li><a
 									href="#ModalAM" role="button" class="btn" data-toggle="modal">
 										<center>
 											<i class="icon-plus"></i><font size="1" color="#555">
 												Add Mentee</font>
 										</center>
 								</a></li>
-								<li style="position: relative; left: 54%;"><a
+								<li><a
 									href="#ModalAT" role="button" class="btn" data-toggle="modal">
 										<center>
 											<i class="icon-plus"></i><font size="1" color="#555">
@@ -379,6 +371,7 @@
 										</center>
 								</a></li>
 							</ul>
+							</div>
 						</legend>
 						<div id="mentee_img" th:each="emp : ${Employeels}">
 							<div
@@ -517,7 +510,6 @@
 			<br />
 			<div class="container-fluid">
 				<div class="row-fluid">
-					<form class="navbar-search pull-left">
 						<fieldset>
 							<legend>
 								<ul class="legenda">
@@ -528,7 +520,6 @@
 								</ul>
 							</legend>
 						</fieldset>
-					</form>
 
 					<table class="table table-bordered" font-color="#ffffff">
 						<tr style="background-color: #00339f; border: 0px solid #00339f;">

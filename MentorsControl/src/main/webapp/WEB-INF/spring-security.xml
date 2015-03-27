@@ -19,7 +19,6 @@
 		<logout logout-success-url="/Login" />	
 			
 			<intercept-url pattern="/Login" access="permitAll" />
-			<intercept-url pattern="/mainPage" access="hasRole('ROLE_ADMIN')" />
 			<intercept-url pattern="/accessdenied" access="permitAll" />
 
 

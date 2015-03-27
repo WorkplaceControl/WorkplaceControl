@@ -32,5 +32,7 @@ public class Paths {
 	public static final String 	ATTRIBUTE_UC_USERS_CONTROL_MESSAGE = "usersControlMessage";
 		
 		/*UpdateUser*/
+	public static final String ATTRIBUTE_UC_NEW_PASS = "newPass";
+	public static final String ATTRIBUTE_UC_REP_PASS = "repPass";
 	public static final String ATTRIBUTE_UC_OLD_PASS = "oldPass";
 }

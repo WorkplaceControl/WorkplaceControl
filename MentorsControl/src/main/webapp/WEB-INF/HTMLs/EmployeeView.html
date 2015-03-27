@@ -40,9 +40,7 @@
 
 	<div id="personal_info">
 		<br />
-		<center>
-			<font size="5" color="#ffffff">Employee Informations</font>
-		</center>
+			<p id ="Employee_Header">Employee Informations</p>
 
 		<div id="personal_left">
 			<br /> <br />
@@ -75,90 +73,76 @@
 
 			</table>
 		</div>
-
+	<center>
 		<div id="personal_center">
 			<br />
-			<table>
+			<table id ="table_employee_view">
 				<tr>
-					<td><font size="3" color="#ffffff">Name : </font></td>
-					<td><font size="3" color="#ffffff" th:text="${Employee.name}"></font>
-					</td>
+					<th>Name: </th>
+					<td th:text="${Employee.name}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Id : </font></td>
-					<td><font size="3" color="#ffffff" th:text="${Employee.id}"></font>
-					</td>
+					<th>Letters: </th>
+					<td th:text="${Employee.id}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Job Description : </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.job.title}"></font></td>
+					<th>Job Description : </th>
+					<td th:text="${Employee.job.title}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">User SAP: </font></td>
-					<td><font size="3" color="#ffffff" th:text="${Employee.sap}"></font>
-					</td>
+					<th>User SAP: </th>
+					<td th:text="${Employee.sap}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Joining Date: </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${#dates.format(Employee.joinDate, 'MM/dd/yyyy')}" ></font></td>
+					<th>Joining Date: </th>
+					<td th:text="${#dates.format(Employee.joinDate, 'MM/dd/yyyy')}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Job: </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.job.title}"></font></td>
+					<th>Job: </th>
+					<td	th:text="${Employee.job.title}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Status : </font></td>
-					<td>
-						<div th:switch="${Employee.active}">
+					<th>Status: </th>
+					<td th:switch="${Employee.active}">
 						<font size="3" color="#ffffff"
 						th:case="0">Active</font>
-						<font size="3" color="#ffffff"
-						th:case="1">Inactive</font>
-						</div>	
+						<font th:case="1">Inactive</font>	
 					</td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Extension : </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.extension}"></font></td>
+					<th>Extension: </th>
+					<td th:text="${Employee.extension}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">WorkSpace Name : </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.wsName}"></font></td>
+					<th> WorkSpace Name: </th>
+					<td th:text="${Employee.wsName}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Email : </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="@{${Employee.id}+'@gft.com'}"></font></td>
+					<th>Email: </th>
+					<td th:text="@{${Employee.id}+'@gft.com'}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Link WorkSpace: </font></td>
-					<td><font size="3" color="#ffffff"><a
+					<th>Link WorkSpace: </th>
+					<td><a
 							th:attr="href=@{'https://workspace.gft.com/epfis/employeeProfiles/search/showEmployee.do?userid='+${Employee.id}}">Click
-								here to access</a></font></td>
+								here to access</a></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Years GFT : </font></td>
-					<td><font size="3" color="#ffffff" th:text="${yearGFT}"></font>
-					</td>
+					<th>Years GFT: </th>
+					<td th:text="${yearGFT}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Cost Center : </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.costCenter.title}"></font></td>
+					<th>Cost Center: </th>
+					<td	th:text="${Employee.costCenter.title}"></td>
 				</tr>
 				<tr>
-					<td><font size="3" color="#ffffff">Rate Prf: </font></td>
-					<td><font size="3" color="#ffffff"
-						th:text="${Employee.ratePrf.title}"></font></td>
+					<th>Rate Prf: </th>
+					<td th:text="${Employee.ratePrf.title}"></td>
 				</tr>
 
 			</table>
 		</div>
+		</center>
 
 		<div id="personal_right">
 			<br /> <br />
@@ -202,18 +186,14 @@
 			<div class="container-fluid">
 				<div class="row-fluid">
 
-
-					<form class="navbar-search pull-left">
 						<fieldset>
 							<legend>
 								<ul class="legenda">
 									<li>Project Informations</li>
 									<li class="legenda_search"></li>
-
 								</ul>
 							</legend>
 						</fieldset>
-					</form>
 
 					<table class="table table-bordered" font-color="#ffffff">
 						<tr style="background-color: #00339f; border: 0px solid #00339f;">
@@ -274,8 +254,8 @@
 				<div class="row-fluid">
 					<fieldset>
 						<legend>
-							<ul class="legenda">
-								<li>Employee Mentees</li>
+							<ul class="legenda" id = "legenda_view">
+								<li style ="padding-top: 10px">Employee Mentees</li>
 								<li class="legenda_search"></li>
 								<li style="position: relative; left: 450px;"></li>
 								<li style="position: relative; left: 455px;"></li>

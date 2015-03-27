@@ -43,25 +43,30 @@
 			<section>
 	<form action="#" th:action="@{/UpdateUser}" th:object="${Users}"
 		method="post">
-		<div id="myModal2" class="modal hide fade" tabindex="-1" role="dialog"
+		<div id="ModalCP" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<h3 id="myModalLabel">Change Password</h3>
 			</div>
 			<div class="modal-body">
-
-				<label>username</label> <input type="text" name="username"
-					placeholder="Username" maxlength="64" required="true" /> <label>old
-					password</label> <input type="password" name="oldPass"
-					placeholder="Old password" maxlength="64"
-					required="true" /> <label>new password</label> <input
-					type="password" name="newPass"
-					placeholder="new password" maxlength="64"
-					required="true" /> <label>repeat password</label> <input
-					type="password" name="repPass"
-					placeholder="repeat new password" maxlength="64"
-					required="true" />
-
+				<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />
+				
+				<div th:if="${session.roleUser} == 1">
+					<label>Username</label>
+					<input type="text" name="username" placeholder="What username do you like to change?" maxlength="64" required="true" /> 
+				</div>
+				<div th:if="${session.roleUser} == 2">
+					<input type="hidden" name="username" placeholder="Auto" th:value="${session.user}" required="true" /> 
+				</div>
+				
+				<label>old password</label> 
+				<input type="password" name="oldPass" placeholder="Old password" maxlength="64" required="true" /> 
+				
+				<label>new password</label> 
+				<input type="password" name="newPass" placeholder="new password" maxlength="64" required="true" /> 
+				
+				<label>repeat password</label> 
+				<input type="password" name="repPass" placeholder="repeat new password" maxlength="64" required="true" />
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -70,7 +75,7 @@
 		</div>
 	</form>
 	</section>
-	
+		
 						<!-- Messages About Registration-->
 		<section>
 	<div style="width: 100%; margin: 0 auto;">
