@@ -41,7 +41,7 @@
 							<li><a href="#tab2" data-toggle="tab"> New Employees <span
 									class="badge badge-info" th:text="${qtyNews}"></span>
 							</a></li>
-							<li><a href="#tab3" data-toggle="tab"> Pending <span
+							<li><a href="#tab3" data-toggle="tab" class="active"> Pending <span
 									class="badge badge-warning" th:text="${qtyPending}"></span>
 							</a></li>
 							<li><a href="#tab4" data-toggle="tab"> Alerts <span
@@ -81,7 +81,17 @@
 						</div>
 					</div>
 
-
+					<script type="text/javascript">
+						$(function(){
+							if ($("#tab2 .alert").size() > 0) {
+								$('a[href="#tab2"]').tab('show');
+							} else if ($("#tab3 .alert").size() > 0) {
+								$('a[href="#tab3"]').tab('show');
+							} else if ($("#tab4 .alert").size() > 0) {
+								$('a[href="#tab4"]').tab('show');
+							}
+						});
+					</script>
 				</div>
 			</div>
 		</section>
