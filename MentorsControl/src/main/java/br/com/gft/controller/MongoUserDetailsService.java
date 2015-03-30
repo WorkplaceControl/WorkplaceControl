@@ -35,7 +35,6 @@ public class MongoUserDetailsService implements UserDetailsService {
 		// New Login object
 		Users user = new Users();
 		
-//		Integer userId = Integer.parseInt(username);
 		
 		/* If MongoTemplate bean is null, instantiates a new one */
 		List<Users> users = userserv.getUsers();
@@ -50,16 +49,25 @@ public class MongoUserDetailsService implements UserDetailsService {
 		 */
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
-		//TODO RAFAEL DEMO CODE
+		// Set type of permission
 		if (user.getUserRole() == UserRoleInfo.Admin.getIndex() ) {
 			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.Admin.getValue()));
 		} else {
 			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.User.getValue()));
 		}	
-		
-		/* Pass the values to the User object and returns it */
-		userdetails = new User(user.getUsername(), user.getPassword(),
-				authorities);
-		return userdetails;
-	}
-}
+
+		// verify enable/disable account
+		if (user.getEnable() == 1) {
+			
+			/* Pass the values to the User object and returns it */
+			userdetails = new User (user.getUsername(), user.getPassword(), authorities);
+			return userdetails;
+			
+			}else{
+				
+			/* Pass the values to the User object and returns it */
+			userdetails = null;
+			return userdetails;	
+			}
+		}
+	}	

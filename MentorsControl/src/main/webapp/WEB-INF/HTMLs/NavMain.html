@@ -46,27 +46,18 @@
 										<li><a href="CostCenter">Cost Center</a></li>
 
 
-										<div th:if="${session.roleUser == 2}">
-
-											<li class="divider"></li>
-											<li><a href="#ModalLG" data-toggle="modal"><font
-													size="2" color="#555"><i class="icon-question-sign"></i>
-														User guide</font></a></li>
-											<li><a href="#ModalCP" data-toggle="modal"><font
-													size="2" color="#555"><i class="icon-pencil"></i>
-														Change Password</font></a></li>
-										</div>
-
-
 										<div th:if="${session.roleUser == 1}">
 
 											<li class="divider"></li>
 											<li class="dropdown-submenu" id="dropSub"><a
 												tabindex="-1">More options</a>
 												<ul class="dropdown-menu" id="dropSub">
-													<li><a href="#myModal" data-toggle="modal"><font
+													<li><a href="#ModalAU" data-toggle="modal"><font
 															size="2" color="#555"><i class=" icon-plus-sign"></i>
 																Register User</font></a></li>
+													<li><a href="#ModalST" data-toggle="modal"><font
+															size="2" color="#555"><i class=" icon-pencil"></i>
+																Change User Status</font></a></li>
 													<li><a href="#ModalCP" data-toggle="modal"><font
 															size="2" color="#555"><i class="icon-pencil"></i>
 																Change Password</font></a></li>
@@ -76,6 +67,18 @@
 															size="2" color="#555"><i
 																class="icon-question-sign"></i> User guide</font></a></li>
 												</ul></li>
+										</div>
+										
+										
+										<div th:if="${session.roleUser == 2}">
+
+											<li class="divider"></li>
+											<li><a href="#ModalLG" data-toggle="modal"><font
+													size="2" color="#555"><i class="icon-question-sign"></i>
+														User guide</font></a></li>
+											<li><a href="#ModalCP" data-toggle="modal"><font
+													size="2" color="#555"><i class="icon-pencil"></i>
+														Change Password</font></a></li>
 										</div>
 									</ul></li>
 

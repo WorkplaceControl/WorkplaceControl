@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UsersService;
@@ -23,17 +24,13 @@ public class UsersControl {
 	UsersService userserv = new UsersService();
 	Users user = new Users();
 
-
-
 	/**
 	 * this method is to verify authentication to add user
 	 * 
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value = {"/", "", "/Login"})
-	public String processLogin(Model model) {
-		
+	public String processLogin() {
 		return "Login";
 	}
 	
@@ -77,7 +74,7 @@ public class UsersControl {
 	 * @param pass
 	 * @param repass
 	 * @param userRole
-	 * @param model
+	 * @param redirAttr
 	 * @return
 	 * @throws Exception
 	 */
@@ -87,8 +84,11 @@ public class UsersControl {
 			@RequestParam(Paths.ATTRIBUTE_UC_PASS) String pass,
 			@RequestParam(Paths.ATTRIBUTE_UC_REPASS) String repass,
 			@RequestParam(Paths.ATTRIBUTE_UC_USER_ROLE) int userRole,
-			Model model)
+			@RequestParam("redirect") String URL,
+			RedirectAttributes redirAttr)
 			throws Exception {
+		String[] path = URL.split("/");
+		String page = path[path.length - 1];
 		List<Users> users = userserv.getUsers();
 		int test = 0;
 		for (int i = 0; i < users.size(); i++) {
@@ -113,10 +113,10 @@ public class UsersControl {
 				usersControlMessage = 1;
 			}
 		}else{
-			usersControlMessage = 6;
+			usersControlMessage = 2;
 		}
-		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
-		return "mainPage";
+		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}
 
 	/**
@@ -126,7 +126,7 @@ public class UsersControl {
 	 * @param pass
 	 * @param repass
 	 * @param oldpass
-	 * @param model
+	 * @param redirAttr
 	 * @return
 	 * @throws Exception
 	 */
@@ -136,7 +136,8 @@ public class UsersControl {
 			@RequestParam(Paths.ATTRIBUTE_UC_NEW_PASS) String pass,
 			@RequestParam(Paths.ATTRIBUTE_UC_REP_PASS) String repass,
 			@RequestParam(Paths.ATTRIBUTE_UC_OLD_PASS) String oldpass,
-			@RequestParam("redirect") String URL, Model model)
+			@RequestParam("redirect") String URL,
+			RedirectAttributes redirAttr)
 			throws Exception {
 		
 		String[] path = URL.split("/");
@@ -144,36 +145,76 @@ public class UsersControl {
 		List<Users> users = userserv.getUsers();
 		user = userserv.getUser(username);
 		int usersControlMessage;
-		int test = 0;
+		int action = 0;
 		
 		for (int i = 0; i < users.size(); i++) {
 			if (username.equals(users.get(i).getUsername())) {
 				user = users.get(i);
-				test = 1;
+				action = 1;
 			}
 		}
 		
-		if (test == 1) {
+		if (action == 1) {
 			if (oldpass.equals(user.getPassword())) {
 				if (pass.equals(repass)) {
 					user.setUsername(username);
 					user.setPassword(pass);
 					user.setEnable(1);
 					userserv.alterUser(user);
-					usersControlMessage = 2;
-				} else {
 					usersControlMessage = 3;
+				} else {
+					usersControlMessage = 4;
 				}
 
 			} else {
-				usersControlMessage = 4;
+				usersControlMessage = 5;
 			}
 		} else {
-			usersControlMessage = 5;
+			usersControlMessage = 6;
 		}
 		
-		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
 				return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}
-
+	
+	/**
+	 * this method is enable/disable user
+	 * 
+	 * @param username
+	 * @param redirAttr
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/UserStatus", method = RequestMethod.POST)
+	public String UserStatus(
+			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
+			@RequestParam("status") int status,
+			@RequestParam("redirect") String URL,
+			RedirectAttributes redirAttr)
+		
+		throws Exception {
+		String[] path = URL.split("/");
+		String page = path[path.length - 1];
+			List<Users> users = userserv.getUsers();
+			user = userserv.getUser(username);
+			int usersControlMessage;
+			int action = 0;
+		
+	for (int i = 0; i < users.size(); i++) {
+		if (username.equals(users.get(i).getUsername())) {
+			user = users.get(i);
+			action = 1;
+			}
+		}
+	if (action == 1) {
+				user.setEnable(status);
+				userserv.alterUser(user);
+				usersControlMessage = 7;
+			} else {
+				usersControlMessage = 8;
+			}	
+	redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+			return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
+	}
 }
+

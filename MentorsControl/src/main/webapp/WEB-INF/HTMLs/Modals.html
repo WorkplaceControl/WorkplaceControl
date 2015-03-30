@@ -1,33 +1,33 @@
-
-		<!-- Modal to add user-->
 <div th:fragment="modals">
+		
+		
+		<!-- Modal to add user-->
+
 		<section>
 	<form action="#" th:action="@{/ProcessUser}" th:object="${Users}"
 		method="post">
-		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog"
+		<div id="ModalAU" class="modal hide fade" tabindex="-1" role="dialog"
 			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
 				<h3 id="myModalLabel">User Registration</h3>
 			</div>
 			<div class="modal-body">
 
-				<label>username</label> <input type="text" class="input-large"
-					name="username" placeholder="user name" maxlength="64"
-					required="true" /> <label>password</label> <input type="password"
-					name="pass" placeholder="password"
-					maxlength="64" required="true" /> <label>repeat password</label> <input
-					type="password" name="repass"
-					placeholder="repeat password" maxlength="64"
-					required="true" /> 
+			
+		<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />	
+	<label>username</label>
+		<input type="text" class="input-large" name="username" placeholder="user name" maxlength="64" required="true" />
+	 <label>password</label>
+	    <input type="password" name="pass" placeholder="password" maxlength="64" required="true" />
+	 <label>repeat password</label>
+	 	 <input type="password" name="repass" placeholder="repeat password" maxlength="64" required="true" /> 
 				<label>User Control</label>
 				<select name ="userRole" required="true">
-				<option value="">Choice an Option</option>
+				<option value=""></option>
 				<option value="1">Administrator</option>
+				<option value="2">RH</option>
 				<option value="2">User</option>
 				</select>
-				<fieldset>
-<font size="2" color="red"> <b>ATENÇÃO: o navegador irá redirecionar para a página de Login após esta operação</b></font>
-				</fieldset>
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
@@ -38,6 +38,39 @@
 	</form>
 	</section>
 	
+	
+	
+	<!-- Modal to enable/disable user-->
+
+	<section>
+	<form action="#" th:action="@{/UserStatus}" th:object="${Users}"
+		method="post">
+		<div id="ModalST" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel">User Status</h3>
+			</div>
+			<div class="modal-body">
+
+			
+		<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />	
+			<label>Username</label>
+		<input type="text" class="input-large" name="username" placeholder="username to enable/disable" maxlength="64" required="true" />
+	 <label>Choice an Option</label>
+		<select name ="status" required="true">
+				<option value=""></option>
+				<option value="1">Enable</option>
+				<option value="0">Disable</option>
+				</select>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
+		</div>
+
+	</form>
+	</section>
 	
 				<!-- Modal to change password -->
 			<section>
@@ -53,10 +86,10 @@
 				
 				<div th:if="${session.roleUser} == 1">
 					<label>Username</label>
-					<input type="text" name="username" placeholder="What username do you like to change?" maxlength="64" required="true" /> 
+					<input type="text" name="username" placeholder="User to change" maxlength="64" required="true" /> 
 				</div>
 				<div th:if="${session.roleUser} == 2">
-					<input type="hidden" name="username" placeholder="Auto" th:value="${session.user}" required="true" /> 
+					<input type="hidden" name="username" th:value="${session.user}" required="true" /> 
 				</div>
 				
 				<label>old password</label> 
@@ -77,8 +110,7 @@
 	</section>
 		
 						<!-- Messages About Registration-->
-		<section>
-	<div style="width: 100%; margin: 0 auto;">
+		<section class ="user_messages">
 		<div th:if="${usersControlMessage == 0}" class="alert alert-success" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			Registered with Success !!
@@ -88,30 +120,39 @@
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			Password must be equals !!
 		</div>
+		
+		<div th:if="${usersControlMessage == 2}" class="alert alert-error" id="alert">
+			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+			Username already registered !!
+		</div>
 
-		<div th:if="${usersControlMessage == 2}" class="alert alert-success" id="alert">
+		<div th:if="${usersControlMessage == 3}" class="alert alert-success" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			Password updated with Success !!
 		</div>
 
-		<div th:if="${usersControlMessage == 3}" class="alert alert-error" id="alert">
+		<div th:if="${usersControlMessage == 4}" class="alert alert-error" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			New password must be equals !!
 		</div>
 
-		<div th:if="${usersControlMessage == 4}" class="alert alert-error" id="alert">
+		<div th:if="${usersControlMessage == 5}" class="alert alert-error" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			Old password not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 5}" class="alert alert-error" id="alert">
+		<div th:if="${usersControlMessage == 6}" class="alert alert-error" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
 			Username not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 6}" class="alert alert-error" id="alert">
+		<div th:if="${usersControlMessage == 7}" class="alert alert-success" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
-			Username already registered !!
+			User Status changed with Success !!
 		</div>
-	</div>
+		<div th:if="${usersControlMessage == 8}" class="alert alert-error" id="alert">
+			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+			Occurred an error trying to change status of this user!!
+		</div>
+
 		</section>
 	
 					<!-- Modal Login Guide-->

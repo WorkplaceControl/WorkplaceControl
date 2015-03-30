@@ -21,6 +21,7 @@ import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.EmployeeAssignment;
 import br.com.gft.MentorsCommon.Job;
+import br.com.gft.MentorsCommon.Mentor;
 import br.com.gft.MentorsCommon.MentorHistory;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.RatePrf;
@@ -213,6 +214,9 @@ public class EmployeeControl {
 			@RequestParam("cost") String costCenterId,
 			@RequestParam("rate") int ratePrfId, Model model) {
 
+		List<Mentor> mentor = new ArrayList<Mentor>();
+		mentor = new EmployeeService().selectEmployees();
+		
 		Employee employee = new EmployeeService().getEmployee(employeeId);
 		index = employeeId;
 		data = employee.getJoinDate();
@@ -233,6 +237,7 @@ public class EmployeeControl {
 				.getMentorHistorys();
 		EmployeeAssignment employeeassignment = new EmployeeAssignment();
 
+		model.addAttribute("mentor", mentor);
 		model.addAttribute("Employee", employee);
 		model.addAttribute("Employeels", employeels);
 		model.addAttribute("job", job);

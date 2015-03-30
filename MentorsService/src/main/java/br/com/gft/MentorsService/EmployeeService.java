@@ -256,6 +256,40 @@ public class EmployeeService {
 	}
 	
 	/**
+	 * this method is to select mentors and show the mentee quantity
+	 * @return
+	 */
+	public List<Mentor> selectEmployees(){
+		List<Employee> employee1 = new ArrayList<Employee>();
+		List<Employee> employee2 = new ArrayList<Employee>();
+		List<Mentor> mentor = new ArrayList<Mentor>();
+		EmployeeService empserv = new EmployeeService();
+		employee1 = empserv.getEmployees();
+		employee2 = empserv.getEmployees();
+
+		for( int i=0 ; i<employee1.size() ; i++ ){
+			Mentor ment = new Mentor();
+			int count = 0;
+				
+				for( int s=0 ; s<employee2.size() ; s++ ){
+					if( employee1.get(i).getId().equals(employee2.get(s).getMentorId()) ){
+						count++;
+					}		
+				}
+				ment.setCost(employee1.get(i).getCostCenter().getId());
+				ment.setRate(employee1.get(i).getRatePrf().getId());
+				ment.setId(employee1.get(i).getId());
+				ment.setJobId(employee1.get(i).getJob().getId());
+				ment.setName(employee1.get(i).getName());
+				ment.setQtyMentee(count);
+				mentor.add(ment);
+				
+		}
+		return mentor;
+	}
+	
+	
+	/**
 	 * this method is to get the selected Project to report
 	 * @param id
 	 * @return

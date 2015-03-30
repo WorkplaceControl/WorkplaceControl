@@ -432,15 +432,17 @@
 								<h3 id="myModalLabel">Add new mentee to employee</h3>
 							</div>
 
-							<div class="modal-body">
-							
-						
+							<div class="modal-body">		
 							 <select style="height: 25px;" name = "id" th:field="*{id}" required="true">
-								<option th:each="emp : ${Employeels}" th:value="${emp.id}"
-									th:text="${emp.id} + ' (' + ${emp.mentorId} +')'" th:title="'Mentee ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
-							</select>		
-
+								
+								
+								<div th:each="emp : ${Employeels}">
+								<option th:each="ment : ${mentor}" th:if="${emp.Id == ment.Id}" th:value="${emp.id}"
+									th:text="${emp.id} + ' (Nº Mentees: ' + ${ment.qtyMentee} +')'" th:title="'Mentee Name: ' + ${emp.name}"></option>
 							</div>
+							</select>
+							</div>
+							
 
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
@@ -475,7 +477,6 @@
 								<option th:each="emp : ${Employeels}" th:value="${emp.id}"
 								th:text="${emp.id} + ' (' + ${emp.mentorId} +')'" th:title="'Mentee: ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
 									</select>
-
 							</div>
 							<div class="modal-footer">
 								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>

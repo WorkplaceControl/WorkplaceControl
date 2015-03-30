@@ -300,4 +300,8 @@ td.input-field, td .input-field {
 #mentees #legenda_view {
 	padding-top: 10px;
 }
+.user_messages #alert{
+		width: 96%;
+		position: relative;
+		top: 60%;
 }
