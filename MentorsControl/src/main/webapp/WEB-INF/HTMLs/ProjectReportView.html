@@ -1,68 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1"></meta>
-<title>Project Report</title>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-responsive.css" />
-<link rel="stylesheet" type="text/css" href="css/principal.css" />
-</head>
-
-
-	<div th:include="NavMain :: navMain"></div>
-
-
-<body bgcolor="#F8F8F8">
-	<section>
-		<div class="container-fluid">
-			<div class="row-fluid">
-
-
-
-				<div th:each="proj : ${project}"
-					style="width: 100%; border: 1px solid #aaa; float: left; margin: 0 auto;">
-					<div
-						style="border: 1px solid #ddd; width: auto; height: 25px; padding: 7px; background-color: #E8E8E8;">
-						<font color="#555" size="5" th:text="${proj.description}"></font>
-					</div>
-
-					<div style="width: 90%; margin: 0 auto;">
-						<div th:each="job : ${job}">
-							<fieldset style="clear:both">
-								<legend th:text="${job.title}"></legend>
-							</fieldset>
-
-							<div th:each="empassign : ${empassigns}" th:if="${proj.id == empassign.project.id}" style="width: 15%; float:left;">
-								
+	<head>
+		<meta charset="ISO-8859-1"></meta>
+		<title>Project Report</title>
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+	
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+	</head>
+	
+	<body bgcolor="#F8F8F8">
+		<div th:include="NavMain :: navMain"></div>
+		
+		<section>
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<div th:each="proj : ${project}" style="width: 100%; border: 1px solid #aaa; float: left; margin: 0 auto;" class="project">
+						<div style="border: 1px solid #ddd; width: auto; height: 25px; padding: 7px; background-color: #E8E8E8;">
+							<font color="#555" size="5" th:text="${proj.description}"></font>
+						</div>
+	
+						<div style="width: 90%; margin: 0 auto;">
+							<div th:each="job : ${job}" class="job">
+								<fieldset style="clear: both">
+									<legend th:text="${job.title}"></legend>
+								</fieldset>
+	
+								<div th:each="empassign : ${empassigns}" th:if="${proj.id == empassign.project.id}" style="width: 15%; float: left;">
 									<center>
-										<div id="mentee_img_min" th:each="emp : ${employeeLs}"
-											th:if="${emp.id == empassign.employee.id and job.id == emp.job.id}">
-											<a href="#"
-												th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+										<div class="mentee_img_min" th:each="emp : ${employeeLs}" th:if="${emp.id == empassign.employee.id and job.id == emp.job.id}">
+											<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
 												<table>
 													<tr>
-														<td><center>
-																<img
-																	th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}"
-																	class="img-polaroid" />
-															</center></td>
+														<td>
+															<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}" class="img-polaroid" />
+														</td>
 													</tr>
 													<tr>
-														<td><center>
-																<font size="2" th:text="${#strings.abbreviate(emp.name , 12)}"
-																	></font>
-															</center></td>
+														<td>
+															<font size="2" th:text="${#strings.abbreviate(emp.name , 12)}"></font>
+														</td>
 													</tr>
 													<tr>
-														<td><center>
-																<font size="1"
-																	th:text="${'Workplace : ' + #strings.abbreviate(emp.workplace , 12)}"
-																	></font>
-															</center></td>
+														<td>
+															<font size="1" th:text="${'Workplace : ' + #strings.abbreviate(emp.workplace , 12)}"></font>
+														</td>
 													</tr>
 												</table>
 											</a>
@@ -70,15 +54,23 @@
 									</center>
 								</div>
 							</div>
-					
+						</div>
 					</div>
-
-
+					<br />
 				</div>
-				<br />
 			</div>
-		</div>
-	</section>
-	 
-</body>
+		</section>
+		
+		<script type="text/javascript">
+			$(function(){
+				$(".project").each(function() {
+					$(".job", this).each(function() {
+						if (!$("a", this).size()) {
+							$(this).hide();
+						}
+					});
+				});
+			});
+		</script>
+	</body>
 </html>

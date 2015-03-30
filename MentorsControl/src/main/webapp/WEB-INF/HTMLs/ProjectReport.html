@@ -15,7 +15,10 @@
 			<script type="text/javascript">
 				
 				$(document).ready(function(){
-					$(".btn-View").attr("disabled" ,true);
+					var btnChange = function(){
+						$(".btn-View").attr("disabled", !$(".viewReport:checked").size());
+					};
+					
 					$("input").keyup(function(){
 						var x = $( "input[name=search]" ).val();
 						x = x.toLowerCase();
@@ -24,21 +27,21 @@
 					    	if(x == ""){
 					     		$(this).show();
 					     	}
+					    	
 					     	var description = $( this ).parent().find("td.description")[index].innerHTML;
 					     	description = description.toLowerCase();
 					     			
 					     	var id = $( this ).parent().find("td.id")[index].innerHTML;
+					     	
 					     	if(description.substring(0 ,x.length ) == x || id.substring(0 ,x.length) == x){
-					     	}else{
+					     		
+					     	} else {
 					     		$(this).hide(500);
 							}
 						});
 					});
 
-					$(".viewReport").click(function(){					
-						$(".btn-View").attr("disabled", !$(".viewReport:checked").size() > 0);
-					});
-					
+					$(".viewReport").click(btnChange);
 				});
 				
 				
