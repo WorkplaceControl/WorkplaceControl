@@ -13,7 +13,7 @@
 	
 		<!-- Declaring the login page, the default landing page after login, and the default page for any access denied.
 			 Also declares that Spring Security should always use default landing page after login -->	
-		<form-login login-page="/Login" default-target-url="/mainPage" authentication-failure-url="/accessdenied" always-use-default-target = "true"/>
+		<form-login login-page="/Login" default-target-url="/mainPage" authentication-failure-url="/Login/error" always-use-default-target = "true"/>
 				
 				<!-- Declaring the default page for landing after logout -->		
 		<logout logout-success-url="/Login" />	

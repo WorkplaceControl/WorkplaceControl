@@ -31,7 +31,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 	 * valid Spring Data's User
 	 */
 
-	public UserDetails loadUserByUsername(String username)throws UsernameNotFoundException, DataAccessException {
+	public UserDetails loadUserByUsername(String username){
 		// New Login object
 		Users user = new Users();
 		

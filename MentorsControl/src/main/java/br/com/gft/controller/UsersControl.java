@@ -2,6 +2,8 @@ package br.com.gft.controller;
 
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +31,24 @@ public class UsersControl {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = {"/", "", "/Login"})
+	@RequestMapping(value = "/Login")
 	public String processLogin() {
 		return "Login";
 	}
+	
+	/**
+	 * this method is to verify authentication to add user
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/Login?authError")
+	public String LoginError(Model model)
+	{
+		int authError = 1;
+		model.addAttribute("authError", authError);
+		return "Login";
+	}
+
 	
 
 	/**

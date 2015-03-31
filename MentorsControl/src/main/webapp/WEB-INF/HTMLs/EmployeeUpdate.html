@@ -13,31 +13,6 @@
 	href="css/bootstrap-responsive.css" />
 
 
-<script type="text/javascript">
-
-
-	$(document).ready(function() {
-		$("#ext").bind("keyup blur focus", function(e) {
-			e.preventDefault();
-			var expre = /[^\d]/g;
-			$(this).val($(this).val().replace(expre, ''));
-		});
-
-		$("#rate").hover(function() {
-			$("#tempRate").hide();
-		});
-
-		$("#cost").hover(function() {
-			$("#tempCost").hide();
-		});
-
-		$("#job").hover(function() {
-			$("#tempJob").hide();
-		});
-
-	});
-</script>
-
 </head>
 <body>
 
@@ -140,7 +115,7 @@
 					<tr>
 						<th>Rate Prf: </th>
 						<td>
-						<select th:field="*{ratePrf}"
+						<select th:field="*{ratePrf}" id="rate"
 								required="true" class="input-field">
 								<option id="tempRate" th:value="*{ratePrf.id}"
 									th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
@@ -159,8 +134,10 @@
 				<table>
 
 					<tr>
+					<td>
 								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
 									 class="img-polaroid"/>							
+					</td>
 					</tr>
 					<tr>
 						<td id ="personal_mentor" th:text="${Employee.mentorId}"></td>
@@ -659,6 +636,23 @@
 	</div>
 	<br />
 	<br />
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#ext").bind("keyup blur focus", function(e) {
+			e.preventDefault();
+			var expre = /[^\d]/g;
+			$(this).val($(this).val().replace(expre, ''));
+		});
+		$("#rate").hover(function() {
+			$("#tempRate").hide();
+		});
+		$("#cost").hover(function() {
+			$("#tempCost").hide();
+		});
+		$("#job").hover(function() {
+			$("#tempJob").hide();
+		});
+	});
+</script>
 </body>
 </html>

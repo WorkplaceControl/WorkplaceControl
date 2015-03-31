@@ -1,6 +1,5 @@
 <html>
 <head>
-
 <meta charset="UTF-8"></meta>
 <title>Login Workplace Control</title>
 <script type="text/javascript" src="js/jquery.js"></script>
@@ -46,16 +45,19 @@
 				method="POST">
 				<font color="white"><center>Workplace Control</center>
 					<br />
+					<div th:if="${authError == 1}">
+					<p>Error</p>
+					</div>
 					<div class="form-group" style="padding-left: 9%;">
 						<label for="InputUsername">Username</label> <input type="text"
 							name="j_username" id="j_username" placeholder="username@gft.com"
-							style="heigth: 30px;" required="true" />
+							style="heigth: 30px;" />
 					</div>
 
 					<div class="form-group" style="padding-left: 9%;">
 						<label for="InputPassword">Password</label> <input type="password"
 							name="j_password" id="j_password" placeholder="Password"
-							style="heigth: 30px;" required="true" />
+							style="heigth: 30px;" />
 					</div>
 					<center>
 						<button type="submit" class="btn btn-primary">Login</button>
@@ -63,12 +65,6 @@
 			</form>
 
 		</div>
-	</div>
-		<div th:if="${user == 'anonymousUser' or user == 'ROLE_ADMIN' or user == null}">
-		<script type="text/javascript">
-				document.getElementById("dropLogin").disabled = true;
-				document.getElementById("drop1").disabled = true;
-		</script>
 	</div>
 </body>
 </html>
