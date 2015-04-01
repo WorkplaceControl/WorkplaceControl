@@ -29,6 +29,9 @@
 				<br /> <br />
 				<table>
 					<tr>
+						<td id ="personal_name"	th:text="'Employee'"></td>
+					</tr>
+					<tr>
 					<td>
 								<img
 									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
@@ -37,7 +40,7 @@
 					</tr>
 					
 					<tr>
-						<td id ="personal_name"	th:text="${Employee.name}"></td>
+						<td id ="personal_name"	th:text="${Employee.Id}"></td>
 					</tr>
 
 				</table>
@@ -132,14 +135,16 @@
 			<div id="personal_right">
 				<br /> <br />
 				<table>
-
+					<tr>
+						<td id ="personal_mentor" th:text="'Mentor/Tutor'"></td>
+					</tr>
 					<tr>
 					<td>
 								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
 									 class="img-polaroid"/>							
 					</td>
 					</tr>
-					<tr>
+					<tr th:if="${Employee.mentorId} != null">
 						<td id ="personal_mentor" th:text="${Employee.mentorId}"></td>
 					</tr>
 				</table>

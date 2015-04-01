@@ -2,29 +2,6 @@ html, body {
 	min-width: 980px;
 	position: relative;
 }
-#login{
-		height: auto;
-		width:100%;	
-		background-color: #00339f;
-		font: 6px;
-		position: relative;
-		top: 20%;
-		padding: 2% 0;
-		
-	}
-	
-#login_form{
-		height: auto;
-		width:250px;	
-		background-color: #00339f;
-		font: 6px;
-		opacity:0.9;
-		margin: 0 auto;
-	}
-	
-	#login_form #loginForm {
-		margin: 0;
-	}
 	
 #alert{
 		width:70%;
@@ -305,3 +282,40 @@ td.input-field, td .input-field {
 		position: relative;
 		top: 60%;
 }
+#wrong-infs{
+	text-align:center;
+	color: #f01919;
+	font-weight:bolder;
+	margin:10px;
+}
+.form-group {
+	color: #ffffff;
+	text-align:center;
+}
+#login-header{
+	color: #ffffff;
+	text-align:center;
+	margin: 0;
+}
+#main{
+	height: 100%;
+	width:100%;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+div#login{
+		height: auto;
+		width:100%;	
+		background-color: #00339f;
+		position: absolute;
+		top: 50%;
+		padding: 20px 0;
+		margin: -120px auto 0 auto !important;
+		
+	}
+	
+#loginForm{
+		width:300px;	
+		margin: 0 auto;
+	}

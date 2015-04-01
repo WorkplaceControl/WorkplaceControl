@@ -40,12 +40,12 @@
 													</tr>
 													<tr>
 														<td>
-															<font size="2" th:text="${#strings.abbreviate(emp.name , 12)}"></font>
+															<font size="2" th:text="${emp.name}"></font>
 														</td>
 													</tr>
 													<tr>
 														<td>
-															<font size="1" th:text="${'Workplace : ' + #strings.abbreviate(emp.workplace , 12)}"></font>
+															<font size="1" th:text="${'Workplace : ' + emp.workplace}"></font>
 														</td>
 													</tr>
 												</table>

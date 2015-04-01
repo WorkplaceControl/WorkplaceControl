@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UsersService;
@@ -42,6 +44,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 			if (users.get(i).getUsername().equals(username)) {
 				user = users.get(i);
 			}
+			
 		}
 		/*
 		 * Creates a list of GrantedAuthority and add the default

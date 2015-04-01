@@ -1,8 +1,6 @@
 package br.com.gft.MentorsCommon;
 
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,14 +8,13 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 public class Employee implements Serializable{
@@ -68,6 +65,8 @@ public class Employee implements Serializable{
 	private String tutorId;
 	@Column
 	private int active;
+	@Transient
+	private int qtyMentee;
 	
 	public Employee() {
 	}
@@ -229,7 +228,9 @@ public class Employee implements Serializable{
 		this.active = active;
 	}
 
-
+	public void setQtyMentee(int qtyMentee) {
+		this.qtyMentee = qtyMentee;
+	}
 	
 	
 	

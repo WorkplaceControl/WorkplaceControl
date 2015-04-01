@@ -13,9 +13,10 @@
 			<link rel="stylesheet" type="text/css" href="css/principal.css" />
 				
 			<script type="text/javascript">
-			$(".btn-View").attr('disabled', 'disabled');
+			
 			
 				$(document).ready(function(){
+					$(".btn-View").attr('disabled', 'disabled');
 					var btnChange = function(){
 						$(".btn-View").attr("disabled", !$(".viewReport:checked").size());
 					};

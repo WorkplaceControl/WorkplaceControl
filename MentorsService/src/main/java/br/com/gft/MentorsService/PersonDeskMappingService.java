@@ -82,6 +82,7 @@ public class PersonDeskMappingService {
 
 		String svgTemplate = tempDir + File.separator + fileNames[0];
 		String excelPersonDeskMap = tempDir + File.separator + fileNames[1];
+		
 		try {
 			File svgFile = new File(svgTemplate);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();

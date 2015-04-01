@@ -31,7 +31,7 @@ public class UsersControl {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = {"/Login", "/"})
+	@RequestMapping(value = {"/Login", "/", ""}, method = RequestMethod.GET)
 	public String processLogin( ) {
 		return "Login";
 	}
