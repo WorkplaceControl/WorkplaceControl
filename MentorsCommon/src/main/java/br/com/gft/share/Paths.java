@@ -4,9 +4,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 public class Paths {
 	
-	/* General */
-	public static final int  ATTRIBUTE_PAGINATION = 10;
-	
 	/* MainControl */
 	public static final String  ATTRIBUTE_MC_USER = "user";
 	public static final String 	ATTRIBUTE_MC_ROLE_USER = "roleUser";

@@ -35,6 +35,8 @@ import br.com.gft.MentorsService.MentorHistoryService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.RatePrfService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 
 /**
  * this Class is to control requests and reponses of employees pages to server
@@ -54,12 +56,15 @@ public class EmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Employee", method = RequestMethod.GET)
-	public String showEmployee(Model model) {
-		EmployeeService employeeservice = new EmployeeService();
-		List<Employee> employee = employeeservice.getEmployees();
-		model.addAttribute("Employee", employee);
+	public String showEmployee(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		EmployeeService service = new EmployeeService();
+		Pagination pagination = new Pagination(service.getEmployees().size(), page);
+		
+		model.addAttribute("url", "Employee");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Employee", service.getPagedEmployees(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Employee";
-
 	}
 
 	/**
@@ -193,7 +198,7 @@ public class EmployeeControl {
 			EmployeeService employeeservice = new EmployeeService();
 			employeeservice.addEmployee(employee);	
 		}
-			showEmployee(model);
+			showEmployee(null, model);
 			model.addAttribute("checker" , checker);
 			return "Employee";
 	}
@@ -305,7 +310,7 @@ public class EmployeeControl {
 		employee.setCost_Center(cost);
 		EmployeeService employeeservice = new EmployeeService();
 		employeeservice.alterEmployee(employee);
-		showEmployee(model);
+		showEmployee(null, model);
 		return "Employee";
 	}
 
@@ -343,7 +348,7 @@ public class EmployeeControl {
 		employee.setCost_Center(cost);
 		employeeservice.alterEmployee(employee);
 		EmployeeControl employeecontrol = new EmployeeControl();
-		employeecontrol.showEmployee(model);
+		employeecontrol.showEmployee(null, model);
 		return "Employee";
 
 	}

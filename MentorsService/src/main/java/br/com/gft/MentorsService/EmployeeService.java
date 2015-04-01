@@ -53,6 +53,13 @@ public class EmployeeService {
 		return rateprf;
 	}
 	
+	public List<Employee> getPagedEmployees(int inicio, int quantidade){
+		EmployeeDAO.setup();
+		EmployeeDAO employeedao = new EmployeeDAO();
+		List<Employee> employee = employeedao.getPagedEmployees(inicio, quantidade);
+		return employee;
+	}
+	
 	public List<Employee> getEmployees(){
 		EmployeeDAO.setup();
 		EmployeeDAO employeedao = new EmployeeDAO();

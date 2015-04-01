@@ -1,0 +1,42 @@
+<div class="row" th:fragment="pagination">
+	<div class="col-xs-12 text-center" th:if="${ pagination.getPages() > 1 }">
+		<div class='pagination pagination-centered'>
+			<ul class="pagination">
+				<li th:class="${pagination.getCurrent() == 1}? 'disabled' : ''">
+					<span th:if='${pagination.getCurrent() == 1}'>&larr; First</span>
+					
+					<a th:if='${pagination.getCurrent() != 1}' th:href="@{${url + '?page=1'}}">&larr; First</a>
+				</li>
+				
+				<li th:class="${pagination.getCurrent() != 1}? '' : 'disabled'">
+					<span th:if='${pagination.getCurrent() == 1}'>&laquo;</span>
+					
+					<a th:if='${pagination.getCurrent() != 1}' th:href="@{${url + '?page='+ (pagination.getCurrent() - 1)}}" title='Go to previous page'>&laquo;</a>
+				</li>
+
+				<li th:each="item : ${#numbers.sequence(pagination.getFirstPage(),pagination.getLastPage())}" 
+					th:class="${item == pagination.getCurrent() ? 'active' : '' }">
+					<span th:if='${item == pagination.getCurrent()}' th:text='${item}'>1</span>
+					 
+					<a th:if='${item != pagination.getCurrent()}' th:href="@{${url + '?page=' + item }}">
+						<span th:text='${item}'>1</span>
+					</a>
+				</li>
+
+				<li th:class="${pagination.getCurrent() != pagination.getPages()}? '' : 'disabled'">
+					<span th:if='${pagination.getCurrent() == pagination.getPages()}'>&raquo;</span>
+					
+					<a th:if='${pagination.getCurrent() != pagination.getPages()}' 
+						th:href="@{${url + '?page='+(pagination.getCurrent() + 1)}}" title='Go to next page'>&raquo;</a>
+				</li>
+				
+				<li th:class="${pagination.getCurrent() == pagination.getPages()}? 'disabled' : ''">
+					<span th:if='${pagination.getCurrent() == pagination.getPages()}'>Last &rarr;</span>
+					
+					<a th:if='${pagination.getCurrent() != pagination.getPages()}' 
+						th:href="@{${url + '?page='+ pagination.getPages()}}">Last &rarr;</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

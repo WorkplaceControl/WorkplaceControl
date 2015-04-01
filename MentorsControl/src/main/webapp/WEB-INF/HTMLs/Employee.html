@@ -1,4 +1,4 @@
-<html>
+ <html>
 <head>
 <meta charset="utf-8"></meta>
 <title>Employee</title>
@@ -47,7 +47,7 @@
 			$( document ).ready(function(){
 				  $("input").keyup(function(){
 					  	var x = $( "input[name=search]" ).val();
-						var x = x.toLowerCase()
+						var x = x.toLowerCase();
 					
 				     	$('tr.employee').each(function( index ) {
 				     			if(x == ""){
@@ -82,8 +82,6 @@
 	</div>
 
 	<div th:include="NavMain :: navMain"></div>
-
-
 	
 	<div id="employee_list">
 		<section>
@@ -245,6 +243,9 @@
 			</div>
 		</section>
 	</div>
+	
+	<div th:include="Pagination :: pagination"></div>
+	
 	<br />
 	<br />
  
