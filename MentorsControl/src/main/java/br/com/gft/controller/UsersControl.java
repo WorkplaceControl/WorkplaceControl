@@ -31,24 +31,10 @@ public class UsersControl {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/Login")
-	public String processLogin() {
+	@RequestMapping(value = {"/Login", "/"})
+	public String processLogin( ) {
 		return "Login";
 	}
-	
-	/**
-	 * this method is to verify authentication to add user
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/Login?authError")
-	public String LoginError(Model model)
-	{
-		int authError = 1;
-		model.addAttribute("authError", authError);
-		return "Login";
-	}
-
 	
 
 	/**
@@ -81,6 +67,17 @@ public class UsersControl {
 	@RequestMapping(value = "/400Error")
 	public String Error400() {
 		return "400Error";
+	}
+	
+	
+	/**
+	 * this method is to show Users page to read Users informations
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/Users", method = RequestMethod.GET)
+	public String showUsers() {
+		return "Users";
 	}
 
 	/**
