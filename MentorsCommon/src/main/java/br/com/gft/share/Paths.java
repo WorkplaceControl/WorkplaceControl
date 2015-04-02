@@ -1,7 +1,5 @@
 package br.com.gft.share;
 
-import org.springframework.web.bind.annotation.RequestParam;
-
 public class Paths {
 	
 	/* MainControl */

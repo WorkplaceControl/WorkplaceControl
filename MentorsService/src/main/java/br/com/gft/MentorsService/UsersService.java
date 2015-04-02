@@ -43,4 +43,16 @@ public class UsersService {
 		List<Users> user = userdao.findUsers();
 		return user;
 	}
+	
+	public List<Users> getUsers(int begin, int quantity){
+		UsersDAO.setup();
+		
+		return new UsersDAO().findUsers(begin, quantity);
+	}
+	
+	public List<Users> getUsersInactive(int begin, int quantity){
+		UsersDAO.setup();
+		
+		return new UsersDAO().findUsersInactive(begin, quantity);
+	}
 }

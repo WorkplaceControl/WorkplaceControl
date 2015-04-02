@@ -333,3 +333,16 @@ div#login{
   background-color: #337ab7 !important;
   border-color: #337ab7 !important;
 }
+
+.table thead tr {
+	background-color: #00339f;
+	border: 0px solid #00339f;
+	color: #fff;
+	font-weight: normal;
+	text-align: center;
+}
+
+#user_list {
+	margin: 0 auto;
+	width: 70%;
+}
