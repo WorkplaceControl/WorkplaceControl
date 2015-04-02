@@ -36,6 +36,7 @@ public class CostCenterControl {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("costcenter", service.getPagedCostCenters(pagination.getBegin(), pagination.getQuantity()));
 				
+		
 		return "CostCenter";
 	}
 	
