@@ -17,6 +17,7 @@ import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.share.Pagination;
 
 /**
  * this Class is to control request and responses of Project pages
@@ -33,10 +34,16 @@ public class ProjectControl {
 	 * @return
 	 */
 	@RequestMapping(value="/Project" , method = RequestMethod.GET)
-	public String showProject(Model model){
-		ProjectService projectservice = new ProjectService();
-		List<Project> project = projectservice.getProjects();
-		model.addAttribute("Project" , project);
+	public String showProject(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		ProjectService service = new ProjectService();
+		List<Project> project = service.getProjects();
+		
+Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
+		
+		model.addAttribute("url", "Projects");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Project", service.getPagedProjects(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Project";
 	}
 	
@@ -46,10 +53,15 @@ public class ProjectControl {
 	 * @return
 	 */
 	@RequestMapping(value="/ProjectInactive" , method = RequestMethod.GET)
-	public String showProjectInactive(Model model){
-		ProjectService projectservice = new ProjectService();
-		List<Project> project = projectservice.getProjectsInactive();
-		model.addAttribute("Project" , project);
+	public String showProjectInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		ProjectService service = new ProjectService();
+		List<Project> project = service.getProjectsInactive();
+		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
+		
+		model.addAttribute("url", "Projects");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Project", service.getPagedProjectsInactive(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Project";
 	}
 
@@ -84,7 +96,7 @@ public class ProjectControl {
 		project.setCustomer(customer);
 		ProjectService projectservice = new ProjectService();
 		projectservice.addProject(project);
-		showProject(model);
+		showProject(null, model);
 		return "Project";
 	}
 	
@@ -124,7 +136,7 @@ public class ProjectControl {
 		project.setCustomer(customer);
 		ProjectService projectservice = new ProjectService();
 		projectservice.alterProject(project);
-		showProject(model);
+		showProject(null, model);
 		return "Project";
 	}
 	
@@ -144,7 +156,7 @@ public class ProjectControl {
 		project.setCustomer(customer);
 		project.setActive(1);
 		projectservice.alterProject(project);
-		showProject(model);
+		showProject(null, model);
 		return "Project";
 	}
 	

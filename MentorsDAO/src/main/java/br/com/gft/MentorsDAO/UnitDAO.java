@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.CostCenter;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Unit;
 
 public class UnitDAO {
@@ -38,6 +39,22 @@ public class UnitDAO {
 		Unit unit = new Unit();
 		unit = em.find(Unit.class,unitId);
 		return unit;
+	}
+	
+	public List<Unit> findPagedUnits(int inicio, int quantidade){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit where active = 0 order by description asc" , Unit.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Unit> unit = (Collection<Unit>) query.getResultList();
+		return (List<Unit>) unit;
+	}
+	
+	public List<Unit> findPagedUnitsInactive(int inicio, int quantidade){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit order by description asc" , Unit.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Unit> unit = (Collection<Unit>) query.getResultList();
+		return (List<Unit>) unit;
 	}
 	
 	public List<Unit> findUnits(){

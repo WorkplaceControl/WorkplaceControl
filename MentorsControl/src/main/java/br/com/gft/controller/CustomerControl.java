@@ -15,6 +15,7 @@ import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.share.Pagination;
 
 /**
  * This class to control request and responses of Customer
@@ -31,10 +32,16 @@ public class CustomerControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Customer", method = RequestMethod.GET)
-	public String showCustomer(Model model) {
-		CustomerService customerservice = new CustomerService();
-		List<Customer> customer = customerservice.getCustomers();
-		model.addAttribute("Customer", customer);
+	public String showCustomer(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CustomerService service = new CustomerService();
+		List<Customer> customer = service.getCustomers();
+		
+		
+Pagination pagination = new Pagination(service.getCustomers().size(), page);
+		
+		model.addAttribute("url", "job");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Customer", service.getPagedCustomers(pagination.getBegin(), pagination.getQuantity()));
 		return "Customer";
 	}
 	
@@ -44,10 +51,13 @@ public class CustomerControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/CustomerInactive", method = RequestMethod.GET)
-	public String showCustomerInactive(Model model) {
-		CustomerService customerservice = new CustomerService();
-		List<Customer> customer = customerservice.getCustomersInactive();
-		model.addAttribute("Customer", customer);
+	public String showCustomerInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CustomerService service = new CustomerService();
+		Pagination pagination = new Pagination(service.getCustomersInactive().size(), page);
+		
+		model.addAttribute("url", "Customer");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Customer", service.getPagedCustomersInactive(pagination.getBegin(), pagination.getQuantity()));
 		return "Customer";
 	}
 	
@@ -86,7 +96,7 @@ public class CustomerControl {
 		customer.setUnit(unit);
 		CustomerService customerservice = new CustomerService();
 		customerservice.addCustomer(customer);
-		showCustomer(model);
+		showCustomer(null, model);
 		return "Customer";
 	}
 
@@ -129,7 +139,7 @@ public class CustomerControl {
 		customer.setUnit(unit);
 		CustomerService customerservice = new CustomerService();
 		customerservice.alterCustomer(customer);
-		showCustomer(model);
+		showCustomer(null, model);
 		return "Customer";
 	}
 	
@@ -150,7 +160,7 @@ public class CustomerControl {
 		customer.setUnit(unit);
 		customer.setActive(1);
 		customerservice.alterCustomer(customer);
-		showCustomer(model);
+		showCustomer(null, model);
 		return "Customer";
 	}
 }

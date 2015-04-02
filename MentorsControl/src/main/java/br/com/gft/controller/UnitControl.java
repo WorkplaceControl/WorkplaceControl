@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CostCenterService;
+import br.com.gft.MentorsService.JobService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.share.Pagination;
 
 /**
  * this Class is to control requests and responses from unit pages
@@ -29,10 +31,14 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value="/Unit" , method = RequestMethod.GET)
-	public String showUnit(Model model){
-		UnitService unitservice = new UnitService();
-		List<Unit> unit = unitservice.getUnits();
-		model.addAttribute("Unit" , unit);
+	public String showUnit(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		UnitService service = new UnitService();
+		Pagination pagination = new Pagination(service.getUnits().size(), page);
+		
+		model.addAttribute("url", "Unit");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Unit", service.getPagedUnits(pagination.getBegin(), pagination.getQuantity()));
+				
 		return "Unit";
 		
 	}
@@ -43,10 +49,14 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value="/UnitInactive" , method = RequestMethod.GET)
-	public String showUnitInactive(Model model){
-		UnitService unitservice = new UnitService();
-		List<Unit> unit = unitservice.getUnitsInactive();
-		model.addAttribute("Unit" , unit);
+	public String showUnitInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		UnitService service = new UnitService();
+		Pagination pagination = new Pagination(service.getUnitsInactive().size(), page);
+		
+		model.addAttribute("url", "UnitInactive");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Unit", service.getPagedUnitsInactive(pagination.getBegin(), pagination.getQuantity()));
+				
 		return "Unit";
 		
 	}
@@ -73,7 +83,7 @@ public class UnitControl {
 	public String ProcessUnitForm(@ModelAttribute("Unit") Unit unit, Model model){
 		UnitService unitservice = new UnitService();
 		unitservice.addUnit(unit);
-		showUnit(model);
+		showUnit(null, model);
 		return "Unit";
 		
 	}
@@ -108,7 +118,7 @@ public class UnitControl {
 		UnitService unitservice = new UnitService();
 		unit.setId(index);
 		unitservice.alterUnit(unit);
-		showUnit(model);
+		showUnit(null, model);
 		return "Unit";
 	}
 	
@@ -127,7 +137,7 @@ public class UnitControl {
 		unit.setActive(1);
 		UnitService unitservice = new UnitService();
 		unitservice.alterUnit(unit);
-		showUnit(model);
+		showUnit(null, model);
 		return "Unit";
 	}
 	

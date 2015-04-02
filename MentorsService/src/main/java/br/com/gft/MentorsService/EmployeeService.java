@@ -56,7 +56,14 @@ public class EmployeeService {
 	public List<Employee> getPagedEmployees(int inicio, int quantidade){
 		EmployeeDAO.setup();
 		EmployeeDAO employeedao = new EmployeeDAO();
-		List<Employee> employee = employeedao.getPagedEmployees(inicio, quantidade);
+		List<Employee> employee = employeedao.findPagedEmployees(inicio, quantidade);
+		return employee;
+	}
+	
+	public List<Employee> getPagedEmployeesInactive(int inicio, int quantidade){
+		EmployeeDAO.setup();
+		EmployeeDAO employeedao = new EmployeeDAO();
+		List<Employee> employee = employeedao.findPagedEmployeesInactive(inicio, quantidade);
 		return employee;
 	}
 	
@@ -75,12 +82,14 @@ public class EmployeeService {
 	}
 	
 	public Employee getEmployee(String employeeId){
-		Employee employee = new Employee();
 		EmployeeDAO.setup();
-		EmployeeDAO employeedao = new EmployeeDAO();
-		employee = employeedao.findEmployee(employeeId);
-		return employee;
+		return new EmployeeDAO().findEmployee(employeeId);
 	}
+	
+//	public List<Employee> findQtyMentee(String employeeId){
+//		EmployeeDAO.setup();
+//		return new EmployeeDAO().findQtyMentee(employeeId);
+//	} 
 	
 	public void alterEmployee(Employee employee){
 		EmployeeDAO.setup();

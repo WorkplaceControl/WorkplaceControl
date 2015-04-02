@@ -2,10 +2,12 @@ package br.com.gft.MentorsService;
 
 import java.util.List;
 
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsDAO.CustomerDAO;
+import br.com.gft.MentorsDAO.JobDAO;
 import br.com.gft.MentorsDAO.ProjectDAO;
 import br.com.gft.MentorsDAO.UnitDAO;
 
@@ -16,7 +18,6 @@ public class ProjectService {
 	public void addProject(Project project){
 		ProjectDAO.setup();	
 		projectdao.insertProject(project);
-		System.out.println("Passou aqui");
 	}
 
 	public List<Customer> getCustomers() {
@@ -44,6 +45,20 @@ public class ProjectService {
 		ProjectDAO.setup();
 		ProjectDAO projectdao = new ProjectDAO();
 		List<Project> project = projectdao.findProjectsInactive();
+		return project;
+	}
+	
+	public List<Project> getPagedProjects(int inicio, int quantidade){
+		ProjectDAO.setup();
+		ProjectDAO projectdao = new ProjectDAO();
+		List<Project> project = projectdao.findPagedProjects(inicio, quantidade);
+		return project;
+	}
+	
+	public List<Project> getPagedProjectsInactive(int inicio, int quantidade){
+		ProjectDAO.setup();
+		ProjectDAO projectdao = new ProjectDAO();
+		List<Project> project = projectdao.findPagedProjectsInactive(inicio, quantidade);
 		return project;
 	}
 	

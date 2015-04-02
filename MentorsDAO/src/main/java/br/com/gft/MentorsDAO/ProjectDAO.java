@@ -19,7 +19,9 @@ import javax.persistence.TypedQuery;
 
 
 
+
 import br.com.gft.MentorsCommon.Customer;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Unit;
 
@@ -54,6 +56,21 @@ public class ProjectDAO {
 		return project;
 	}
 	
+	public List<Project> findPagedProjects(int inicio, int quantidade){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 order by description asc" , Project.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Project> project = (Collection<Project>) query.getResultList();
+		return (List<Project>) project;
+	}
+	
+	public List<Project> findPagedProjectsInactive(int inicio, int quantidade){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project order by description asc" , Project.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Project> project = (Collection<Project>) query.getResultList();
+		return (List<Project>) project;
+	}
 
 	public List<Project> findProjects(){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 order by description asc" , Project.class);

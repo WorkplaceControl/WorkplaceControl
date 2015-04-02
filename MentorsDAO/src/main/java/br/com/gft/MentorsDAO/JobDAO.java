@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Job;
 
 
@@ -43,6 +44,22 @@ public class JobDAO {
 	    job.setId(job.getId());
 	    job.setTitle(job.getTitle());
 		return job;
+	}
+	
+	public List<Job> findPagedJobs(int inicio, int quantidade){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job where active = 0 order by position asc" , Job.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Job> job = (Collection<Job>) query.getResultList();
+		return (List<Job>) job;
+	}
+	
+	public List<Job> findPagedJobsInactive(int inicio, int quantidade){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job" , Job.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<Job> job = (Collection<Job>) query.getResultList();
+		return (List<Job>) job;
 	}
 	
 	public List<Job> findJobs(){

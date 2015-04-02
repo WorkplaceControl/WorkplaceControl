@@ -152,10 +152,11 @@
 			Occurred an error trying to change status of this user, verify if the user really exists!!
 		</div>
 		</section>
-	
-					<!-- Modal Login Guide-->
+
+					<!-- Modal User Guide-->
+					
 					<section>
-				<div id="ModalLG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				    <h3 id="myModalLabel">Login User Guide</h3>
@@ -192,10 +193,12 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 
 
 		
 							<!--  Employee Guide -->
+<div th:fragment="employeeGuide">
 	<section>
 <div id="ModalEG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -238,8 +241,10 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
 											<!--  Job Guide -->
+	<div th:fragment="jobGuide">
 	<section>
 <div id="ModalJG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -282,8 +287,10 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
 				<!--  Project Guide -->
+<div th:fragment="projectGuide">
 	<section>
 <div id="ModalPG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -326,8 +333,10 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
 				<!--  Customer Guide -->
+<div th:fragment="customerGuide">
 	<section>
 <div id="ModalCG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -370,8 +379,10 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
 				<!--  Client Unit Guide -->
+				<div th:fragment="clientUnitGuide">
 	<section>
 <div id="ModalCUG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -414,8 +425,9 @@
 				  </div>
 				</div>
 				</section>
-				
+				</div>
 					<!--  Cost Center Guide -->
+	<div th:fragment="costCenterGuide">
 	<section>
 <div id="ModalCCG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
@@ -458,10 +470,12 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
 				<!--  Excel Import Guide -->
+				<div th:fragment="excelImportGuide">
 	<section>
-<div id="ModalEIP" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div id="ModalEIG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				  <div class="modal-header">
 				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 				    <h3 id="myModalLabel">Employee User Guide</h3>
@@ -502,5 +516,5 @@
 				  </div>
 				</div>
 				</section>
+				</div>
 				
-</div>

@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.CostCenter;
+import br.com.gft.MentorsCommon.Job;
 
 
 public class CostCenterDAO {
@@ -41,6 +42,22 @@ public class CostCenterDAO {
 		CostCenter cost = new CostCenter();
 		cost = em.find(CostCenter.class, costCenterId);
 		return cost;
+	}
+	
+	public List<CostCenter> findPagedCostCenters(int inicio, int quantidade){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from Cost_Center where active = 0 order by id desc" , CostCenter.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<CostCenter> costcenter = (Collection<CostCenter>) query.getResultList();
+		return (List<CostCenter>) costcenter;
+	}
+	
+	public List<CostCenter> findPagedCostCentersInactive(int inicio, int quantidade){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from Cost_Center order by id desc" , CostCenter.class);
+		query.setFirstResult(inicio);
+		query.setMaxResults(quantidade);
+		Collection<CostCenter> costcenter = (Collection<CostCenter>) query.getResultList();
+		return (List<CostCenter>) costcenter;
 	}
 	
 	public List<CostCenter> findCostCenters(){

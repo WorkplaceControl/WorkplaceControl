@@ -42,37 +42,26 @@
 		<br />
 			<p id ="Employee_Header">Employee Informations</p>
 
-		<div id="personal_left">
-			<br /> <br />
-			<table>
-				<tr>
+			<div id="personal_left">
+				<br /> <br />
+				<table>
+					<tr>
+						<td id ="personal_name"	th:text="'Employee'"></td>
+					</tr>
+					<tr>
 					<td>
-						<center>
-							<font size="3" color="#ffffff"></font>
-						</center>
+								<img
+									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
+									class="img-polaroid"/>
 					</td>
-				</tr>
-				<tr>
-					<td>
-						<center>
-							<img
-								th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
-								class="img-polaroid"
-								style="height: 160px; width: 120px; position: relative; left: 80px;" />
-						</center>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<center>
-							<font size="2" color="#ffffff" th:text="${Employee.name}"
-								style="position: relative; left: 80px;"></font>
-						</center>
-					</td>
-				</tr>
+					</tr>
+					
+					<tr>
+						<td id ="personal_name"	th:text="${Employee.Id}"></td>
+					</tr>
 
-			</table>
-		</div>
+				</table>
+			</div>
 	<center>
 		<div id="personal_center">
 			<br />
@@ -145,37 +134,22 @@
 		</center>
 
 		<div id="personal_right">
-			<br /> <br />
-			<table>
-
-				<tr>
-					<td style="width: 200px;">
-						<center>
-							<font size="3"></font>
-						</center>
+				<br /> <br />
+				<table>
+					<tr>
+						<td id ="personal_mentor" th:text="'Mentor/Tutor'"></td>
+					</tr>
+					<tr>
+					<td>
+								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+									 class="img-polaroid"/>							
 					</td>
-				</tr>
-				<tr>
-					<td style="width: 200px;">
-						<div>
-							<center>
-								<img
-									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
-									class="img-polaroid"
-									style="height: 160px; width: 120px; position: relative; left: 50px;" />
-							</center>
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td style="width: 200px;">
-						<center>
-							<font size="2" color="#e9ebee">Mentor / Tutor</font>
-						</center>
-					</td>
-				</tr>
-			</table>
-		</div>
+					</tr>
+					<tr th:if="${Employee.mentorId} != null">
+						<td id ="personal_mentor" th:text="${Employee.mentorId}"></td>
+					</tr>
+				</table>
+			</div>
 	</div>
 
 

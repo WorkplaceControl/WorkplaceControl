@@ -417,7 +417,9 @@
 							<div class="modal-body">		
 							 <select style="height: 25px;" name = "id" th:field="*{id}" required="true">
 								
-								
+<!-- 								<div th:each="qty : ${qtyMentee}"> -->
+<!-- 								<div th:text="${qty.id}></div> -->
+<!-- 								</div> -->
 								<div th:each="emp : ${Employeels}">
 								<option th:each="ment : ${mentor}" th:if="${emp.Id == ment.Id}" th:value="${emp.id}"
 									th:text="${emp.id} + ' (Nº Mentees: ' + ${ment.qtyMentee} +')'" th:title="'Mentee Name: ' + ${emp.name}"></option>

@@ -2,7 +2,9 @@ package br.com.gft.MentorsService;
 
 import java.util.List;
 
+import br.com.gft.MentorsDAO.EmployeeDAO;
 import br.com.gft.MentorsDAO.JobDAO;
+import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Job;
 
 
@@ -12,7 +14,6 @@ public class JobService {
 	public void processJob(Job job){
 		JobDAO.setup();
 		JobDAO jobdao = new JobDAO( );
-		System.out.println("service : " + job.getTitle());
 		jobdao.insertJob(job);
 	}
 	
@@ -30,6 +31,20 @@ public class JobService {
 		return jobs;
 	}
 	
+	public List<Job> getPagedJobs(int inicio, int quantidade){
+		JobDAO.setup();
+		JobDAO jobdao = new JobDAO();
+		List<Job> job = jobdao.findPagedJobs(inicio, quantidade);
+		return job;
+	}
+	
+	public List<Job> getPagedJobsInactive(int inicio, int quantidade){
+		JobDAO.setup();
+		JobDAO jobdao = new JobDAO();
+		List<Job> job = jobdao.findPagedJobsInactive(inicio, quantidade);
+		return job;
+	}
+
 	public void alterJob(Job job){
 		JobDAO.setup();
 		JobDAO jobdao = new JobDAO();

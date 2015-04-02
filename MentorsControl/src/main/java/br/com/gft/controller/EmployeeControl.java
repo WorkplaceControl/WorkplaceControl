@@ -64,6 +64,7 @@ public class EmployeeControl {
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("Employee", service.getPagedEmployees(pagination.getBegin(), pagination.getQuantity()));
 		
+		
 		return "Employee";
 	}
 
@@ -74,10 +75,16 @@ public class EmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/EmployeeInactive", method = RequestMethod.GET)
-	public String showEmployeeInactive(Model model) {
-		EmployeeService employeeservice = new EmployeeService();
-		List<Employee> employee = employeeservice.getEmployeesInactive();
-		model.addAttribute("Employee", employee);
+	public String showEmployeeInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		EmployeeService service = new EmployeeService();
+		Pagination pagination = new Pagination(service.getEmployeesInactive().size(), page);
+		
+		
+		
+		
+		model.addAttribute("url", "EmployeeInactive");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Employee", service.getPagedEmployeesInactive(pagination.getBegin(), pagination.getQuantity()));
 		return "Employee";
 
 	}
@@ -222,6 +229,7 @@ public class EmployeeControl {
 		List<Mentor> mentor = new ArrayList<Mentor>();
 		mentor = new EmployeeService().selectEmployees();
 		
+		
 		Employee employee = new EmployeeService().getEmployee(employeeId);
 		index = employeeId;
 		data = employee.getJoinDate();
@@ -233,6 +241,7 @@ public class EmployeeControl {
 		List<RatePrf> rateprfs = new RatePrfService().getRatePrfs();
 		CostCenter cost = new CostCenterService().getCostCenter(costCenterId);
 		employee.setCost_Center(cost);
+//		List<Employee> qtyMentee = new EmployeeService().findQtyMentee(employeeId);
 		List<CostCenter> costs = new CostCenterService().getCostCenters();
 		List<Project> project = new ProjectService().getProjects();
 		List<Customer> customer = new CustomerService().getCustomers();
@@ -241,7 +250,8 @@ public class EmployeeControl {
 		List<MentorHistory> mentorhistory = new MentorHistoryService()
 				.getMentorHistorys();
 		EmployeeAssignment employeeassignment = new EmployeeAssignment();
-
+		
+//		model.addAttribute("qtyMentee", qtyMentee);
 		model.addAttribute("mentor", mentor);
 		model.addAttribute("Employee", employee);
 		model.addAttribute("Employeels", employeels);

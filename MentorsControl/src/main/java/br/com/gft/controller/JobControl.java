@@ -16,6 +16,7 @@ import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
+import br.com.gft.share.Pagination;
 /**
  * this Class is to control request and responses of Job pages
  * @author mlav
@@ -31,10 +32,14 @@ public class JobControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Job", method = RequestMethod.GET)
-	public String showJob(Model model) {
-		JobService jobservice = new JobService();
-		List<Job> job = jobservice.getJobs();
-		model.addAttribute("job" , job);
+	public String showJob(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		JobService service = new JobService();
+		Pagination pagination = new Pagination(service.getJobs().size(), page);
+		
+		model.addAttribute("url", "Job");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("job", service.getPagedJobs(pagination.getBegin(), pagination.getQuantity()));
+				
 		return "Job";
 	}
 	
@@ -44,10 +49,15 @@ public class JobControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/JobInactive", method = RequestMethod.GET)
-	public String showJobInactive(Model model) {
-		JobService jobservice = new JobService();
-		List<Job> job = jobservice.getJobsInactive();
-		model.addAttribute("job" , job);
+	public String showJobInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		JobService service = new JobService();
+		List<Job> job = service.getJobs();
+		Pagination pagination = new Pagination(service.getJobsInactive().size(), page);
+		
+		model.addAttribute("url", "JobInactive");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("job", service.getPagedJobsInactive(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Job";
 	}
 	
@@ -74,7 +84,7 @@ public class JobControl {
 		JobService jobservice = new JobService();
 		jobservice.processJob(job);
 		model.addAttribute("Job" , job);
-		showJob(model);
+		showJob(null, model);
 		return "Job";
 	}
 	
@@ -109,7 +119,7 @@ public class JobControl {
 		JobService jobservice = new JobService();
 		job.setId(index);
 		jobservice.alterJob(job);
-		showJob(model);
+		showJob(null, model);
 		return "Job";
 	}
 	
@@ -122,14 +132,13 @@ public class JobControl {
 	 */
 	@RequestMapping(value = "/JobInactivate", method=RequestMethod.GET)
 	public  String ProcessJobInactive(@RequestParam(value="id") String id,@RequestParam(value="title") String title , Model model) {
-		System.out.println("title del = " + id);
 		Job job = new Job();
 		job.setId(id);
 		job.setTitle(title);
 		job.setActive(1);
 		JobService jobservice = new JobService();
 		jobservice.alterJob(job);
-		showJob(model);
+		showJob(null, model);
 		return "Job";
 	}
 	

@@ -13,6 +13,7 @@ import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
+import br.com.gft.share.Pagination;
 /**
  * 
  * @author mlav
@@ -27,10 +28,14 @@ public class CostCenterControl {
 	 * this code is to show the page with allow user to read all cost centers active and inactive
 	 */
 	@RequestMapping(value = "/CostCenter", method = RequestMethod.GET)
-	public String showCostCenter(Model model) {
-		CostCenterService costcenterservice = new CostCenterService();
-		List<CostCenter> costcenter = costcenterservice.getCostCenters();
-		model.addAttribute("costcenter", costcenter);
+	public String showCostCenter(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CostCenterService service = new CostCenterService();
+		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
+		
+		model.addAttribute("url", "CostCenter");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("costcenter", service.getPagedCostCenters(pagination.getBegin(), pagination.getQuantity()));
+				
 		return "CostCenter";
 	}
 	
@@ -38,11 +43,14 @@ public class CostCenterControl {
 	 * this code is to get cost centers including inactive 
 	 */
 	@RequestMapping(value = "/CostCenterInactive", method = RequestMethod.GET)
-	public String showCostCenterInactive(Model model) {
-		CostCenterService costcenterservice = new CostCenterService();
-		List<CostCenter> costcenter = costcenterservice
-				.getCostCentersInactive();
-		model.addAttribute("costcenter", costcenter);
+	public String showCostCenterInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CostCenterService service = new CostCenterService();
+		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
+		
+		model.addAttribute("url", "CostCenter");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("costcenter", service.getPagedCostCentersInactive(pagination.getBegin(), pagination.getQuantity()));
+				
 		return "CostCenter";
 	}
 	
@@ -66,7 +74,7 @@ public class CostCenterControl {
 		model.addAttribute("CostCenter", costcenter);
 		CostCenterService costcenterservice = new CostCenterService();
 		costcenterservice.addCostCenter(costcenter);
-		showCostCenter(model);
+		showCostCenter(null, model);
 		return "CostCenter";
 	}
 	
@@ -99,7 +107,7 @@ public class CostCenterControl {
 		CostCenterService costcenterservice = new CostCenterService();
 		costcenter.setId(index);
 		costcenterservice.alterCostCenter(costcenter);
-		showCostCenter(model);
+		showCostCenter(null, model);
 		return "CostCenter";
 	}
 	
@@ -120,7 +128,7 @@ public class CostCenterControl {
 		costcenter.setActive(1);
 		CostCenterService costcenterservice = new CostCenterService();
 		costcenterservice.alterCostCenter(costcenter);
-		showCostCenter(model);
+		showCostCenter(null, model);
 		return "CostCenter";
 	}
 	

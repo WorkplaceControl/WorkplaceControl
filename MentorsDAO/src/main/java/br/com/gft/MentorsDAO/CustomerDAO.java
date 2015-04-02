@@ -13,7 +13,9 @@ import javax.persistence.TypedQuery;
 
 
 
+
 import br.com.gft.MentorsCommon.Customer;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Unit;
 
 
@@ -48,6 +50,24 @@ public class CustomerDAO {
 			customer = em.find(Customer.class, CustomerId);
 			return customer;
 			
+		}
+		
+		@SuppressWarnings("unchecked")
+		public List<Customer> findPagedCustomers(int inicio, int quantidade){
+			TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active=0 order by description asc" , Customer.class);
+			query.setFirstResult(inicio);
+			query.setMaxResults(quantidade);
+			Collection<Customer> customer = (Collection<Customer>) query.getResultList();
+			return (List<Customer>) customer;
+		}
+		
+		@SuppressWarnings("unchecked")
+		public List<Customer> findPagedCustomersInactive(int inicio, int quantidade){
+			TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer order by description asc" , Customer.class);
+			query.setFirstResult(inicio);
+			query.setMaxResults(quantidade);
+			Collection<Customer> customer = (Collection<Customer>) query.getResultList();
+			return (List<Customer>) customer;
 		}
 
 		@SuppressWarnings("unchecked")

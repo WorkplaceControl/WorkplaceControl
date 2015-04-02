@@ -3,9 +3,11 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.Customer;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsDAO.CustomerDAO;
+import br.com.gft.MentorsDAO.JobDAO;
 import br.com.gft.MentorsDAO.ProjectDAO;
 import br.com.gft.MentorsDAO.UnitDAO;
 
@@ -43,6 +45,20 @@ public class CustomerService {
 		CustomerDAO.setup();
 		CustomerDAO customerdao = new CustomerDAO();
 		List<Customer> customer = customerdao.findCustomersInactive();
+		return customer;
+	}
+	
+	public List<Customer> getPagedCustomers(int inicio, int quantidade){
+		CustomerDAO.setup();
+		CustomerDAO customerdao = new CustomerDAO();
+		List<Customer> customer = customerdao.findPagedCustomers(inicio, quantidade);
+		return customer;
+	}
+	
+	public List<Customer> getPagedCustomersInactive(int inicio, int quantidade){
+		CustomerDAO.setup();
+		CustomerDAO customerdao = new CustomerDAO();
+		List<Customer> customer = customerdao.findPagedCustomers(inicio, quantidade);
 		return customer;
 	}
 	
