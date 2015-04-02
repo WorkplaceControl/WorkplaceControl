@@ -2,8 +2,6 @@ package br.com.gft.controller;
 
 import java.util.List;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +11,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UsersService;
+import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
 /**
@@ -23,7 +22,8 @@ import br.com.gft.share.Paths;
  */
 @Controller
 public class UsersControl {
-	UsersService userserv = new UsersService();
+	
+	UsersService service = new UsersService();
 	Users user = new Users();
 
 	/**
@@ -35,7 +35,6 @@ public class UsersControl {
 	public String processLogin( ) {
 		return "Login";
 	}
-	
 
 	/**
 	 * this method is to deny access when user don`t have privileges
@@ -47,7 +46,6 @@ public class UsersControl {
 		return "accessdenied";
 	}
 	
-	
 	/**
 	 * this method is to return General error page
 	 * 
@@ -58,7 +56,6 @@ public class UsersControl {
 		return "GeneralError";
 	}
 	
-		
 	/**
 	 * this method is to return 400 error page
 	 * 
@@ -76,7 +73,13 @@ public class UsersControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Users", method = RequestMethod.GET)
-	public String showUsers() {
+	public String showUsers(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		Pagination pagination = new Pagination(service.getUsers().size(), page);
+		
+		model.addAttribute("url", "Users");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Users";
 	}
 
@@ -102,10 +105,10 @@ public class UsersControl {
 			throws Exception {
 		String[] path = URL.split("/");
 		String page = path[path.length - 1];
-		List<Users> users = userserv.getUsers();
+		List<Users> users = service.getUsers();
 		int test = 0;
 		for (int i = 0; i < users.size(); i++) {
-			user = userserv.getUser(username);
+			user = service.getUser(username);
 			if (username.equals(users.get(i).getUsername())) {
 				test = 1;
 			}
@@ -119,7 +122,7 @@ public class UsersControl {
 				user.setPassword(pass);
 				user.setUserRole(userRole);
 				user.setEnable(1);
-				userserv.addUser(user);
+				service.addUser(user);
 	
 				usersControlMessage = 0;
 			} else {
@@ -155,8 +158,8 @@ public class UsersControl {
 		
 		String[] path = URL.split("/");
 		String page = path[path.length - 1];
-		List<Users> users = userserv.getUsers();
-		user = userserv.getUser(username);
+		List<Users> users = service.getUsers();
+		user = service.getUser(username);
 		int usersControlMessage;
 		int action = 0;
 		
@@ -173,7 +176,7 @@ public class UsersControl {
 					user.setUsername(username);
 					user.setPassword(pass);
 					user.setEnable(1);
-					userserv.alterUser(user);
+					service.alterUser(user);
 					usersControlMessage = 3;
 				} else {
 					usersControlMessage = 4;
@@ -208,8 +211,8 @@ public class UsersControl {
 		throws Exception {
 		String[] path = URL.split("/");
 		String page = path[path.length - 1];
-			List<Users> users = userserv.getUsers();
-			user = userserv.getUser(username);
+			List<Users> users = service.getUsers();
+			user = service.getUser(username);
 			int usersControlMessage;
 			int action = 0;
 		
@@ -221,7 +224,7 @@ public class UsersControl {
 		}
 	if (action == 1) {
 				user.setEnable(status);
-				userserv.alterUser(user);
+				service.alterUser(user);
 				usersControlMessage = 7;
 			} else {
 				usersControlMessage = 8;
@@ -229,5 +232,6 @@ public class UsersControl {
 	redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
 			return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}
+
 }
 

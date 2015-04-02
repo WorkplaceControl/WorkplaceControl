@@ -8,49 +8,73 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.UserRole;
 import br.com.gft.MentorsCommon.Users;
 
 public class UsersDAO {
+	
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
-	
+
 	public static void setup(){ 
-	emf = Persistence.createEntityManagerFactory("test");
-	em = emf.createEntityManager();
+		emf = Persistence.createEntityManagerFactory("test");
+		em = emf.createEntityManager();
 	}
-	
+
 	public void insertUsers(Users user) throws Exception {
 		em.getTransaction().begin();
 		em.persist(user);
 		em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	public void insertUserRole(UserRole userrole) throws Exception {
 		em.getTransaction().begin();
 		em.persist(userrole);
 		em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	public void updateUsers(Users user){
 		em.getTransaction().begin();
 		em.merge(user);
 		em.getTransaction().commit();
 		em.close();
 	}
-	
+
 	public Users findUser(String userId){
 		Users user = new Users();
 		user = em.find(Users.class, userId);
 		return user;
 	}
-	
+
 	public List<Users> findUsers(){
 		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users" , Users.class);
 		Collection<Users> users = (Collection<Users>) query.getResultList();
+		
 		return (List<Users>) users;
 	}
+
+	public List<Users> findUsers(int begin, int quantity){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1" , Users.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		
+		Collection<Users> users = (Collection<Users>) query.getResultList();
+		
+		return (List<Users>) users;
+	}
+
+	public List<Users> findUsersInactive(int begin, int quantity){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 0" , Users.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		
+		Collection<Users> users = (Collection<Users>) query.getResultList();
+		
+		return (List<Users>) users;
+	}
+
 }
