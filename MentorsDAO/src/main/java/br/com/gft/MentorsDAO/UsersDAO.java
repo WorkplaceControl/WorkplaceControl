@@ -16,7 +16,7 @@ public class UsersDAO {
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 
-	public static void setup(){ 
+	public UsersDAO(){ 
 		emf = Persistence.createEntityManagerFactory("test");
 		em = emf.createEntityManager();
 	}
@@ -45,6 +45,7 @@ public class UsersDAO {
 	public Users findUser(String userId){
 		Users user = new Users();
 		user = em.find(Users.class, userId);
+		
 		return user;
 	}
 

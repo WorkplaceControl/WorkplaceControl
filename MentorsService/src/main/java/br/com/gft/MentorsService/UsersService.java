@@ -7,52 +7,33 @@ import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsDAO.UsersDAO;
 
 public class UsersService {
-	
-	
+
 	public void addUser(Users user) throws Exception {
-		UsersDAO.setup();
-		UsersDAO usersdao = new UsersDAO();
-		usersdao.insertUsers(user);
-		
+		new UsersDAO().insertUsers(user);
 	}
 	
 	public void addUserRole(UserRole userrole) throws Exception {
-		UsersDAO.setup();
-		UsersDAO usersdao = new UsersDAO();
-		usersdao.insertUserRole(userrole);
-		
+		new UsersDAO().insertUserRole(userrole);
 	}
 	
 	public void alterUser(Users user){
-		UsersDAO.setup();
-		UsersDAO usersdao = new UsersDAO();
-		usersdao.updateUsers(user);
+		new UsersDAO().updateUsers(user);
 	}
 	
 	public Users getUser(String userId){
-		Users user = new Users();
-		UsersDAO.setup();
-		UsersDAO userdao = new UsersDAO();
-		user = userdao.findUser(userId);
-		return user;
+		return new UsersDAO().findUser(userId);
 	}
 	
 	public List<Users> getUsers(){
-		UsersDAO.setup();
-		UsersDAO userdao = new UsersDAO();
-		List<Users> user = userdao.findUsers();
-		return user;
+		return new UsersDAO().findUsers();
 	}
 	
 	public List<Users> getUsers(int begin, int quantity){
-		UsersDAO.setup();
-		
 		return new UsersDAO().findUsers(begin, quantity);
 	}
 	
 	public List<Users> getUsersInactive(int begin, int quantity){
-		UsersDAO.setup();
-		
 		return new UsersDAO().findUsersInactive(begin, quantity);
 	}
+	
 }

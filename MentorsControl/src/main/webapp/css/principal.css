@@ -2,16 +2,17 @@ html, body {
 	min-width: 980px;
 	position: relative;
 }
-	
-#alert{
-		width:70%;
-		position: relative;
-		top: 60%;
+
+#alert {
+	width: 70%;
+	position: relative;
+	top: 60%;
 }
 
-.well well-small{
-			background-color: #013d83;
+.well well-small {
+	background-color: #013d83;
 }
+
 .header {
 	margin: 0;
 	padding: 0 25px;
@@ -19,7 +20,7 @@ html, body {
 	text-align: right;
 }
 
-.header .name_aplication{
+.header .name_aplication {
 	line-height: 40px;
 	font-size: 25px;
 	float: left;
@@ -29,172 +30,162 @@ html, body {
 
 #ul_header {
 	text-align: right;
-	line-height:40px;
+	line-height: 40px;
 	display: inline-block;
 }
 
-.header li{
+.header li {
 	display: inline;
 	list-style: none;
-	border-right: 1px solid #999;			
+	border-right: 1px solid #999;
 }
 
-.header img{
-		 		width: 200px;
-		 		height: 40px;
-
+.header img {
+	width: 200px;
+	height: 40px;
 }
 
-#center{
-		width: 70%;
-		height: auto;
-		margin: 0 auto;
-		padding-right: 20px;
-		padding-left: 20px;
+#center {
+	width: 70%;
+	height: auto;
+	margin: 0 auto;
+	padding-right: 20px;
+	padding-left: 20px;
 }
 
-
-#center form{
-		margin: 0 auto;
-		padding: 20px;
+#center form {
+	margin: 0 auto;
+	padding: 20px;
 }
 
-#center input{
-		height: 28px;
+#center input {
+	height: 28px;
 }
 
-#buttons{
+#buttons {
 	text-align: right;
 	padding-right: 80px;
 	padding-top: 10px;
 }
 
-#buttons #left_header{
+#buttons #left_header {
 	text-align: left;
 	float: left;
 	padding-right: 80px;
 	padding-top: 10px;
 }
 
-
-#personal_info{
-		width: auto;
-		height: 490px;
-		font: 6px;
-		background-color: #00339f;
-		opacity:0.9;
-
+#personal_info {
+	width: auto;
+	height: auto;
+	background-color: #00339f;
+	opacity: 0.9;
+	padding: 0 0 20px;
 }
 
-#personal_left{
-		width: 22%;
-		height: 390px;
-		background-color: #00339f;
-		font: 6px;
-		opacity:0.9;
-		float: left;
-		
+#personal_left {
+	width: 22%;
+	height: 390px;
+	background-color: #00339f;
+	font: 6px;
+	opacity: 0.9;
+	float: left;
 }
 
-#personal_left #personal_name{
-		color: #ffffff;
-		position: relative; 
-		left: 50px;
-		text-align:center;
-		
+#personal_left #personal_name {
+	color: #ffffff;
+	position: relative;
+	left: 50px;
+	text-align: center;
 }
 
-#personal_right #personal_mentor{
-		color: #ffffff;
-		position: relative; 
-		left: 50px;
-		text-align:center;
-		
+#personal_right #personal_mentor {
+	color: #ffffff;
+	position: relative;
+	left: 50px;
+	text-align: center;
 }
 
-#personal_left img{
-		width: 120px;
-		height: 160px;
-		position: relative;
-		left: 50px;
-		background-color: #fff;
-		float: left;
-		text-align: center;
+#personal_left img {
+	width: 120px;
+	height: 160px;
+	position: relative;
+	left: 50px;
+	background-color: #fff;
+	float: left;
+	text-align: center;
 }
 
-#personal_center{
-		width: 50%;
-		height: 390px;
-		padding-left: 10px;
-		padding-right: 10px;
-		background-color: #00339f;
-		opacity:0.9;
-		float: left;
+#personal_center {
+	width: 50%;
+	height: 390px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: #00339f;
+	opacity: 0.9;
+	float: left;
 }
 
 #table_employee_view, #table_employee_update {
-margin: 0 auto;
+	margin: 0 auto;
 }
 
-#table_employee_view th, #table_employee_view td, 
-#table_employee_update th, #table_employee_update td {
-		text-align:left;
-		padding-right: 5px;
-		font-size: 11px;
-		color: #ffffff;
- 		font-size: 16px;
+#table_employee_view th, #table_employee_view td, #table_employee_update th,
+	#table_employee_update td {
+	text-align: left;
+	padding-right: 5px;
+	font-size: 11px;
+	color: #ffffff;
+	font-size: 16px;
 }
 
 #table_employee_view th, #table_employee_update th {
-	text-align:right;
-	padding-bottom:5px;
+	text-align: right;
+	padding-bottom: 5px;
 }
 
 #table_employee_view th, #table_employee_view td {
 	padding-bottom: 7px;
 }
 
-#personal_right{
-		width: 22%;
-		height: 390px;
-		background-color: #00339f;
-		font: 6px;
-		opacity:0.9;
-		float: right;
+#personal_right {
+	width: 22%;
+	height: 390px;
+	background-color: #00339f;
+	font: 6px;
+	opacity: 0.9;
+	float: right;
 }
 
-
-
-#personal_right img{
-		width: 120px;
-		height: 160px;
-		position: relative;
-		left: 50px;
-		background-color: #fff;
-		float: left;
-		text-align: center;
+#personal_right img {
+	width: 120px;
+	height: 160px;
+	position: relative;
+	left: 50px;
+	background-color: #fff;
+	float: left;
+	text-align: center;
 }
 
-
-#project{
-		width: 70%;
-		margin: 0 auto;
+#project {
+	width: 70%;
+	margin: 0 auto;
 }
 
-#mentees{
-		width: 70%;
-		margin: 0 auto;
-		background-color: #cbcaca;
+#mentees {
+	width: 70%;
+	margin: 0 auto;
+	background-color: #cbcaca;
 }
 
-#import{
-		width: 85%;
-		margin: 0 auto;
+#import {
+	width: 85%;
+	margin: 0 auto;
 }
 
-#employee_list{
-	    width: 85%;
-	    margin: 0 auto;
+#employee_list {
+	width: 85%;
+	margin: 0 auto;
 }
 
 #pag_mentorreportview .legenda {
@@ -202,76 +193,74 @@ margin: 0 auto;
 	border-bottom: 0;
 	font-weight: bold;
 	background-color: #f9f9f9;
-	text-align:left;
-	display:block;
+	text-align: left;
+	display: block;
 	border-top: 1px solid #ddd;
 }
 
-#pag_mentorreportview .alert{
+#pag_mentorreportview .alert {
 	width: auto;
 }
 
-.legenda li{
-		width: 300px;
-		list-style: none;
-		display: inline;
-		}
-
-#mentee_img{
-	   float: left;
-	   padding-right: 60px;
-	   overflow: hidden;
+.legenda li {
+	width: 300px;
+	list-style: none;
+	display: inline;
 }
 
-		#mentee_img img{
-					   height: 130px;
-					   width: 100px;
-					   float: left;
-					  }
-
-.mentee_img_min{
-	  float: left;
-	  height: 180px;
-	   padding-right: 50px;		      
+#mentee_img {
+	float: left;
+	padding-right: 60px;
+	overflow: hidden;
 }
 
-		.mentee_img_min img{
-			   height: 120px;
-			   width: 94px;
-			   float: left;
-			      
-		}
-				
+#mentee_img img {
+	height: 130px;
+	width: 100px;
+	float: left;
+}
+
+.mentee_img_min {
+	float: left;
+	height: 180px;
+	padding-right: 50px;
+}
+
+.mentee_img_min img {
+	height: 120px;
+	width: 94px;
+	float: left;
+}
 
 #frmEmployee {
-	position:relative; text-align:right;
-		}
+	position: relative;
+	text-align: right;
+}
 
 td.input-field, td .input-field {
 	width: 300px;
 }
 
 #frmEmployee #buttons {
-	position:relative;
-	display:inline-block;
+	position: relative;
+	display: inline-block;
 	text-align: left;
 	padding-top: 10px;
-		}
-		
-.info td{
-		height: 20px;
 }
 
-#Employee_Header {
-		padding-top:10px;
-		text-align: center;
-		color:#ffffff;
-		font-size: 30px;
+.info td {
+	height: 20px;
 }
 
+#Employee_Header, .form-header {
+	padding-top: 10px;
+	text-align: center;
+	color: #ffffff;
+	font-size: 30px;
+}
 
-.table-bordered{
-	   height: 30px;
+.table-bordered {
+	height: 30px;
 }
 
 .modal-body input[type="date"] {
@@ -281,76 +270,85 @@ td.input-field, td .input-field {
 #mentees #legenda_view {
 	padding-top: 10px;
 }
-.user_messages #alert{
-		width: 96%;
-		position: relative;
-		top: 60%;
+
+.user_messages #alert {
+	width: 96%;
+	position: relative;
+	top: 60%;
 }
-#wrong-infs{
-	text-align:center;
+
+#wrong-infs {
+	text-align: center;
 	color: #f01919;
-	font-weight:bolder;
-	margin:10px;
+	font-weight: bolder;
+	margin: 10px;
 }
+
 .form-group {
 	color: #ffffff;
-	text-align:center;
+	text-align: center;
 }
-#login-header{
+
+#login-header {
 	color: #ffffff;
-	text-align:center;
+	text-align: center;
 	margin: 0;
 }
-#main{
+
+#main {
 	height: 100%;
-	width:100%;
+	width: 100%;
 	margin: 0;
 	padding: 0;
 	position: relative;
 }
-div#login{
-		height: auto;
-		width:100%;	
-		background-color: #00339f;
-		position: absolute;
-		top: 50%;
-		padding: 20px 0;
-		margin: -120px auto 0 auto !important;
-		
-	}
-	
-#loginForm{
-		width:300px;	
-		margin: 0 auto;
-	}
+
+div#login {
+	height: auto;
+	width: 100%;
+	background-color: #00339f;
+	position: absolute;
+	top: 50%;
+	padding: 20px 0;
+	margin: -120px auto 0 auto !important;
+}
+
+#loginForm {
+	width: 300px;
+	margin: 0 auto;
+}
 
 /*********/
-.pagination > .active >a, 
-.pagination > .active >a:focus, 
-.pagination > .active >a:hover, 
-.pagination > .active >span, 
-.pagination > .active >span:focus, 
-.pagination > .active >span:hover {
-  z-index: 2;
-  color: #fff !important;
-  cursor: default !important;
-  background-color: #337ab7 !important;
-  border-color: #337ab7 !important;
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover,
+	.pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover
+	{
+	z-index: 2;
+	color: #fff !important;
+	cursor: default !important;
+	background-color: #337ab7 !important;
+	border-color: #337ab7 !important;
 }
 
 .table thead tr {
 	background-color: #00339f;
 	border: 0px solid #00339f;
 	color: #fff;
+}
+
+.table thead tr th {
 	font-weight: normal;
 	text-align: center;
 }
 
 #user_list {
 	margin: 0 auto;
-	width: 70%;
+	width: 75%;
 }
 
 #modals_employee_update form {
 	margin: 0;
+}
+
+.text-center {
+	text-align: center !important;
 }

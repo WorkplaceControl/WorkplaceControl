@@ -53,7 +53,7 @@ public class MongoUserDetailsService implements UserDetailsService {
 		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 		
 		// Set type of permission
-		if (user.getUserRole() == UserRoleInfo.Admin.getIndex() ) {
+		if (user.getUserRole().getId() == UserRoleInfo.Admin.getIndex() ) {
 			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.Admin.getValue()));
 		} else {
 			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.User.getValue()));

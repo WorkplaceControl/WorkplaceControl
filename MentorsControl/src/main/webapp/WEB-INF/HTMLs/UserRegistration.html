@@ -1,0 +1,89 @@
+<html>
+	<head>
+		<meta charset="utf-8"></meta>
+		<title>User Registration</title>
+
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+		<link rel="stylesheet" type="text/css" href="css/principal.css"/>
+				
+	</head>
+	
+	<body>
+		<div th:include="NavMain :: navMain"></div>
+		
+		<br/>
+
+		<form action="#" th:action="@{/ProcessUser}" th:object="${Users}" id="frmUser" method="post">	
+			<div id="personal_info">
+				<h2 class="form-header">User Registration</h2>
+
+	 			<br/>
+		 			
+				<table id="table_employee_update">
+					<tr>
+						<th>Username:</th>
+						
+						<td>
+							<input type="text" class="input-field" name="username"  
+								placeholder="Input username" maxlength="64" required="required" />
+						</td>
+					</tr>
+						
+					<tr>
+						<th>Password:</th>
+						
+						<td>
+							<input type="password" class="input-field" placeholder="Password" 
+								name="pass" maxlength="64" required="required" id="pass" />
+						</td>
+					</tr>
+						
+					<tr>
+						<th>Repeat Password:</th>
+						
+						<td>
+							<input type="password" class="input-field" placeholder="Repeat Password" 
+								name="repass" maxlength="64" required="required" id="repass" />
+						</td>
+					</tr>
+						
+					<tr>
+						<th>User Control:</th>
+						
+						<td>
+							<select name="userRole" class="input-field" required="required">
+								<option value=""></option>
+								<option th:each="role : ${userRoles}" th:value="${role.id}" th:text="${role.userRole}"></option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				
+				<div id="buttons">
+					<button class="btn btn-primary" type="submit">Save</button>
+					
+					<a href="User">
+						<button class="btn btn-warning" type="button">Cancel</button>
+					</a>
+				</div>
+	 		</div>
+
+			<br /> <br /> 
+		</form>
+		
+		<script type="text/javascript">
+			$(function(){
+				$('#frmUser').submit(function(e){
+					if ($('#pass').val() != $('#repass').val()) {
+						alert("Password must be equals!!");
+						return false;
+					}
+				});
+			})
+		</script>
+	</body>
+</html>

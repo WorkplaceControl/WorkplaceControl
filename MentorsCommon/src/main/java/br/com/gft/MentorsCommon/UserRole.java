@@ -7,14 +7,16 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
+@Entity
+@Table(name = "user_role")
 public class UserRole implements Serializable {
 
-//	@Id
+	@Id
+	@Column(name = "role_id")
 	private int id;
 
-//	@Column(name = "role_user")
-//	private String userRole;
+	@Column(name = "role_description")
+	private String userRole;
 
 	public UserRole() {
 
@@ -23,7 +25,7 @@ public class UserRole implements Serializable {
 	public UserRole(int id, String userRole) {
 		super();
 		this.id = id;
-//		this.userRole = userRole;
+		this.userRole = userRole;
 	}
 
 	public int getId() {
@@ -34,12 +36,12 @@ public class UserRole implements Serializable {
 		this.id = id;
 	}
 
-//	public String getUserRole() {
-//		return userRole;
-//	}
-//
-//	public void setUserRole(String userRole) {
-//		this.userRole = userRole;
-//	}
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
 
 }

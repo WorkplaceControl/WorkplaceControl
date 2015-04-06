@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -14,31 +17,31 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class Users implements Serializable {
 
+	@Id
 	@SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
 	@Column(name = "id", updatable = false)
 	private int id;
 
-	@Id
 	@Column(name = "username")
 	private String username;
-
+	
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "user_role")
-	private int userRole;
+	//@Column(name = "user_role")
+	@ManyToOne
+	@JoinColumn(name = "user_role", referencedColumnName = "role_id")
+	private UserRole userRole;
 
 	@Column(name = "enable")
 	private int enable;
-
 	
 	public Users() {
 
 	}
 
-	public Users(int id, String username, String password, int userRole,
-			int enable) {
+	public Users(int id, String username, String password, UserRole userRole, int enable) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -71,11 +74,11 @@ public class Users implements Serializable {
 		this.password = password;
 	}
 
-	public int getUserRole() {
+	public UserRole getUserRole() {
 		return userRole;
 	}
 
-	public void setUserRole(int userRole) {
+	public void setUserRole(UserRole userRole) {
 		this.userRole = userRole;
 	}
 
