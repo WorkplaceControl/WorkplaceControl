@@ -1,520 +1,850 @@
 <div th:fragment="modals">
-		
-		
-		<!-- Modal to add user-->
 
-		<section>
-	<form action="#" th:action="@{/ProcessUser}" th:object="${Users}"
-		method="post">
-		<div id="ModalAU" class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<h3 id="myModalLabel">User Registration</h3>
-			</div>
-			<div class="modal-body">
 
-			
-		<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />	
-	<label>username</label>
-		<input type="text" class="input-large" name="username" placeholder="user name" maxlength="64" required="true" />
-	 <label>password</label>
-	    <input type="password" name="pass" placeholder="password" maxlength="64" required="true" />
-	 <label>repeat password</label>
-	 	 <input type="password" name="repass" placeholder="repeat password" maxlength="64" required="true" /> 
-				<label>User Control</label>
-				<select name ="userRole" required="true">
-				<option value=""></option>
-				<option value="1">Administrator</option>
-				<option value="2">RH</option>
-				<option value="2">User</option>
-				</select>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</div>
-		</div>
+	<!-- Modal to add user-->
 
-	</form>
+	<section>
+		<form action="#" th:action="@{/ProcessUser}" th:object="${Users}"
+			method="post">
+			<div id="ModalAU" class="modal hide fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<h3 id="myModalLabel">User Registration</h3>
+				</div>
+				<div class="modal-body">
+
+
+					<input type="hidden" name="redirect"
+						th:value="${#httpServletRequest.requestURI}" /> <label>username</label>
+					<input type="text" class="input-large" name="username"
+						placeholder="user name" maxlength="64" required="true" /> <label>password</label>
+					<input type="password" name="pass" placeholder="password"
+						maxlength="64" required="true" /> <label>repeat password</label>
+					<input type="password" name="repass" placeholder="repeat password"
+						maxlength="64" required="true" /> <label>User Control</label> <select
+						name="userRole" required="true">
+						<option value=""></option>
+						<option value="1">Administrator</option>
+						<option value="2">RH</option>
+						<option value="2">User</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+
+		</form>
 	</section>
-	
-	
-	
+
+
+
 	<!-- Modal to enable/disable user-->
 
 	<section>
-	<form action="#" th:action="@{/UserStatus}" th:object="${Users}"
-		method="post">
-		<div id="ModalST" class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<h3 id="myModalLabel">User Status</h3>
-			</div>
-			<div class="modal-body">
+		<form action="#" th:action="@{/UserStatus}" th:object="${Users}"
+			method="post">
+			<div id="ModalST" class="modal hide fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<h3 id="myModalLabel">User Status</h3>
+				</div>
+				<div class="modal-body">
 
-			
-		<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />	
-			<label>Username</label>
-		<input type="text" class="input-large" name="username" placeholder="username to enable/disable" maxlength="64" required="true" />
-	 <label>Choice an Option</label>
-		<select name ="status" required="true">
-				<option value="1">Enable</option>
-				<option value="0">Disable</option>
-				</select>
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</div>
-		</div>
 
-	</form>
+					<input type="hidden" name="redirect"
+						th:value="${#httpServletRequest.requestURI}" /> <label>Username</label>
+					<input type="text" class="input-large" name="username"
+						placeholder="username to enable/disable" maxlength="64"
+						required="true" /> <label>Choice an Option</label> <select
+						name="status" required="true">
+						<option value="1">Enable</option>
+						<option value="0">Disable</option>
+					</select>
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+
+		</form>
+	</section>
+
+	<!-- Modal to change password -->
+	<section>
+		<form action="#" th:action="@{/UpdateUser}" th:object="${Users}"
+			method="post">
+			<div id="ModalCP" class="modal hide fade" tabindex="-1" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-header">
+					<h3 id="myModalLabel">Change Password</h3>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" name="redirect"
+						th:value="${#httpServletRequest.requestURI}" />
+
+					<div th:if="${session.roleUser} == 1">
+						<label>Username</label> <input type="text" name="username"
+							placeholder="User to change" maxlength="64" required="true" />
+					</div>
+					<div th:if="${session.roleUser} == 2">
+						<input type="hidden" name="username" th:value="${session.user}"
+							required="true" />
+					</div>
+
+					<label>old password</label> <input type="password" name="oldPass"
+						placeholder="Old password" maxlength="64" required="true" /> <label>new
+						password</label> <input type="password" name="newPass"
+						placeholder="new password" maxlength="64" required="true" /> <label>repeat
+						password</label> <input type="password" name="repPass"
+						placeholder="repeat new password" maxlength="64" required="true" />
+				</div>
+				<div class="modal-footer">
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button type="submit" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</form>
 	</section>
 	
-				<!-- Modal to change password -->
-			<section>
-	<form action="#" th:action="@{/UpdateUser}" th:object="${Users}"
-		method="post">
-		<div id="ModalCP" class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<h3 id="myModalLabel">Change Password</h3>
-			</div>
-			<div class="modal-body">
-				<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />
-				
-				<div th:if="${session.roleUser} == 1">
-					<label>Username</label>
-					<input type="text" name="username" placeholder="User to change" maxlength="64" required="true" /> 
-				</div>
-				<div th:if="${session.roleUser} == 2">
-					<input type="hidden" name="username" th:value="${session.user}" required="true" /> 
-				</div>
-				
-				<label>old password</label> 
-				<input type="password" name="oldPass" placeholder="Old password" maxlength="64" required="true" /> 
-				
-				<label>new password</label> 
-				<input type="password" name="newPass" placeholder="new password" maxlength="64" required="true" /> 
-				
-				<label>repeat password</label> 
-				<input type="password" name="repPass" placeholder="repeat new password" maxlength="64" required="true" />
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				<button type="submit" class="btn btn-primary">Save</button>
-			</div>
-		</div>
-	</form>
-	</section>
-		
-						<!-- Messages About Registration-->
-		<section class ="user_messages">
-		<div th:if="${usersControlMessage == 0}" class="alert alert-success" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+	<!-- Messages-->
+	<section class="user_messages">
+		<div th:if="${usersControlMessage == 0}" class="alert alert-success"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Registered with Success !!
 		</div>
 
-		<div th:if="${usersControlMessage == 1}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 1}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Password must be equals !!
 		</div>
-		
-		<div th:if="${usersControlMessage == 2}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+
+		<div th:if="${usersControlMessage == 2}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Username already registered !!
 		</div>
 
-		<div th:if="${usersControlMessage == 3}" class="alert alert-success" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 3}" class="alert alert-success"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Password updated with Success !!
 		</div>
 
-		<div th:if="${usersControlMessage == 4}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 4}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			New password must be equals !!
 		</div>
 
-		<div th:if="${usersControlMessage == 5}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 5}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Old password not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 6}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 6}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			Username not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 7}" class="alert alert-success" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
+		<div th:if="${usersControlMessage == 7}" class="alert alert-success"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
 			User Status changed with Success !!
 		</div>
-		<div th:if="${usersControlMessage == 8}" class="alert alert-error" id="alert">
-			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
-			Occurred an error trying to change status of this user, verify if the user really exists!!
+		<div th:if="${usersControlMessage == 8}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
+			Occurred an error trying to change status of this user, verify if the
+			user really exists!!
 		</div>
-		</section>
+	</section>
 
-					<!-- Modal User Guide-->
-					
-					<section>
-				<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Login User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> registering new user</b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	to register a new user , click in the icon  <img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" /> 
-				    	and select the option sign in ,  fill the fields in the modal like the example bellow<br /><br />
-				    	<center><img src="img/modalSignin.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	the username and password allows use just 64 characters , after
-				    	select the user type using "Administrative User" to user with full access and "Project Leader" where allows access just to create reports
+	<!-- Modal User Guide-->
 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Change password </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	to register a new user , click in the icon  <img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" /> 
-				    	and select the option "Change Password" ,  fill the fields in the modal like the example bellow<br /><br />
-				    	<center><img src="img/modalChangePass.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	the username and old password must be the same you are using , the fields new password and repeat password type the new password 
-
-				    </font>
-				    </p>
-				    
-
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-
-
-		
-							<!--  Employee Guide -->
-<div th:fragment="employeeGuide">
 	<section>
-<div id="ModalEG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+		<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Login User Guide</h3>
+			</div>
+			<div class="modal-body">
+				<fieldset>
+					<legend>
+						<font size="4"> <b> registering new user</b></font>
+					</legend>
+				</fieldset>
+				<p>
+					<font size="2"> to register a new user , click in the icon
+						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
+						and select the option sign in , fill the fields in the modal like
+						the example bellow<br />
+					<br />
+						<center>
+							<img src="img/modalSignin.JPG" style="heigth: 80%; width: 80%;" />
+						</center>
+						<br />
+					<br /> the username and password allows use just 64 characters ,
+						after select the user type using "Administrative User" to user
+						with full access and "Project Leader" where allows access just to
+						create reports
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-				
-											<!--  Job Guide -->
-	<div th:fragment="jobGuide">
-	<section>
-<div id="ModalJG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+					</font>
+				</p>
+				<fieldset>
+					<legend>
+						<font size="4"> <b> Change password </b></font>
+					</legend>
+				</fieldset>
+				<p>
+					<font size="2"> to register a new user , click in the icon
+						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
+						and select the option "Change Password" , fill the fields in the
+						modal like the example bellow<br />
+					<br />
+						<center>
+							<img src="img/modalChangePass.JPG"
+								style="heigth: 80%; width: 80%;" />
+						</center>
+						<br />
+					<br /> the username and old password must be the same you are
+						using , the fields new password and repeat password type the new
+						password
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-				
-				<!--  Project Guide -->
-<div th:fragment="projectGuide">
-	<section>
-<div id="ModalPG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+					</font>
+				</p>
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-				
-				<!--  Customer Guide -->
-<div th:fragment="customerGuide">
-	<section>
-<div id="ModalCG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-				
-				<!--  Client Unit Guide -->
-				<div th:fragment="clientUnitGuide">
-	<section>
-<div id="ModalCUG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+			</div>
+		</div>
+	</section>
+</div>
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-					<!--  Cost Center Guide -->
-	<div th:fragment="costCenterGuide">
-	<section>
-<div id="ModalCCG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+<!-- Modals to Update Employee -->	
+	
+<div  id ="modals_employee_update" th:fragment="updateEmployee">
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
-				</div>
-				</section>
-				</div>
-				
-				<!--  Excel Import Guide -->
-				<div th:fragment="excelImportGuide">
-	<section>
-<div id="ModalEIG" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				  <div class="modal-header">
-				    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-				    <h3 id="myModalLabel">Employee User Guide</h3>
-				  </div>
-				  <div class="modal-body">
-				  	<fieldset>
-				  		<legend><font size="4" > <b> Function Search </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 the search function is a field that allow you to find employees just typing the name or id like image below.
-				    	 <center><img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" /></center><br /><br />
-				    	 the option "include removed employee" , will include inactives employee on search. 
-				    </font>
-				    </p>
-				    <fieldset>
-				  		<legend><font size="4" > <b> Employee add / view / edit / remove  </b></font></legend>
-				  	</fieldset>
-				    <p><font size="2" >
-				    	 
-				    	<center><img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" /></center><br /><br />
-				    	To register a new employee use the button <i class="icon-plus"></i> Add Employee and you will be redirected to the page to register a new employee.<br/>
-				    	To view employee informations use the button <i class="icon-eye-open"></i> and you will be redirected to the page of the employee selected .<br/> 
-				    	To update employee informations use the button <i class="icon-pencil"></i> and you will be redirected to the page of the employee selected , this link will also allow you to add employee to the project and mentee to the Mentor.<br/> 
-				    	To remove employee use the button <i class="icon-trash"></i> after insert the leaving date at the popup like image bellow. <br/>
-				    	<br/>
-				    	<br/>
-				    	<center><img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" /></center><br /><br />
-				    		<br/>
-				    		<br/>
-				    		<br/>
-				    </font>
-				    </p>
-				    
+<!--Modal to add project -->
+<section>
+	<div class="container-fluid">
+		<div class="row-fluid">
 
-				  </div>
-				  <div class="modal-footer">
-				    <button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-				  </div>
+			<form action="#"
+				th:action="@{/EmployeeAssignment(id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+				th:object="${Assignment}" method="post">
+				<!-- Modal -->
+				<div id="ModalAP" class="modal hide fade" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h3 id="myModalLabel">Add new project to employee</h3>
+					</div>
+					<div class="modal-body">
+
+
+
+						<label>Project</label> <select style="height: 25px;"
+							th:field="*{project}" required="true">
+							<option value=""></option>
+							<option th:each="proj : ${Project}" th:value="${proj.id}"
+								th:text="${proj.description}"></option>
+						</select>
+
+
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+						<button class="btn btn-primary">Save changes</button>
+					</div>
 				</div>
-				</section>
+
+			</form>
+
+		</div>
+	</div>
+</section>
+
+<!--Modal to add mentee -->
+
+<section>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<form action="#"
+				th:action="@{/EmployeeAddMentee(employeeId=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+				th:object="${Employee}" method="post">
+				<div id="ModalAM" class="modal hide fade" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">
+							<font th:text="'x'"></font>
+						</button>
+						<h3 id="myModalLabel">Add new mentee to employee</h3>
+					</div>
+
+					<div class="modal-body">
+						<select style="height: 25px;" name="id" th:field="*{id}"
+							required="true">
+								<option th:each="ment : ${qtyMentee}"
+									th:value="${ment.id}"
+									th:text="${ment.id} + ' (Nº Mentees: ' + ${ment.qtyMentee} +')'"
+									th:title="'Mentee Name: ' + ${ment.name}"></option>
+						</select>
+					</div>
+
+
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+						<button class="btn btn-primary">Save Changes</button>
+					</div>
+
 				</div>
-				
+			</form>
+		</div>
+	</div>
+</section>
+
+<!--Modal to add tutor -->
+
+<section>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<!-- Modal -->
+			<form action="#"
+				th:action="@{/EmployeeAddTutor(employeeId=${Employee.id}  , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+				th:object="${Employee}" method="post">
+				<div id="ModalAT" class="modal hide fade" tabindex="-1"
+					role="dialog" aria-labelledby="myModalLabel"
+					aria-hidden="true">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"
+							aria-hidden="true">×</button>
+						<h3 id="myModalLabel">Add new Tutor to employee</h3>
+					</div>
+					<div class="modal-body">
+
+						<select style="height: 25px;" th:field="*{id}"
+							required="true">
+							<option th:each="emp : ${Employeels}" th:value="${emp.id}"
+								th:text="${emp.id} + ' (' + ${emp.mentorId} +')'"
+								th:title="'Mentee: ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+						<button class="btn btn-primary">Save Changes</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+</div>
+
+
+
+<!--  Employee Guide -->
+
+<section th:fragment="employeeGuide">
+	<div id="ModalEG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+<!--  Job Guide -->
+
+<section th:fragment="jobGuide">
+	<div id="ModalJG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+<!--  Project Guide -->
+
+
+<section th:fragment="projectGuide">
+	<div id="ModalPG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+
+<!--  Customer Guide -->
+
+<section th:fragment="customerGuide">
+	<div id="ModalCG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+
+<!--  Client Unit Guide -->
+
+<section th:fragment="clientUnitGuide">
+	<div id="ModalCUG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+<!--  Cost Center Guide -->
+
+<section th:fragment="costCenterGuide">
+	<div id="ModalCCG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+
+<!--  Excel Import Guide -->
+
+<section th:fragment="excelImportGuide">
+	<div id="ModalEIG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Employee User Guide</h3>
+		</div>
+		<div class="modal-body">
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Function Search </b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2"> the search function is a field that allow
+					you to find employees just typing the name or id like image below.
+					<center>
+						<img src="img/employeeSearch.JPG" style="heigth: 80%; width: 80%;" />
+					</center>
+					<br />
+				<br /> the option "include removed employee" , will include
+					inactives employee on search.
+				</font>
+			</p>
+			<fieldset>
+				<legend>
+					<font size="4"> <b> Employee add / view / edit / remove
+					</b></font>
+				</legend>
+			</fieldset>
+			<p>
+				<font size="2">
+
+					<center>
+						<img src="img/employeeCRUD.JPG" style="heigth: 40%; width: 40%;" />
+					</center>
+					<br />
+				<br /> To register a new employee use the button <i
+					class="icon-plus"></i> Add Employee and you will be redirected to
+					the page to register a new employee.<br /> To view employee
+					informations use the button <i class="icon-eye-open"></i> and you
+					will be redirected to the page of the employee selected .<br /> To
+					update employee informations use the button <i class="icon-pencil"></i>
+					and you will be redirected to the page of the employee selected ,
+					this link will also allow you to add employee to the project and
+					mentee to the Mentor.<br /> To remove employee use the button <i
+					class="icon-trash"></i> after insert the leaving date at the popup
+					like image bellow. <br /> <br /> <br />
+					<center>
+						<img src="img/modalLeavDate.JPG" style="heigth: 70%; width: 70%;" />
+					</center>
+					<br />
+				<br /> <br /> <br /> <br />
+				</font>
+			</p>
+
+
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
+		</div>
+	</div>
+</section>
+
+

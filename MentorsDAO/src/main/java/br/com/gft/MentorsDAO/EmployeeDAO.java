@@ -66,23 +66,17 @@ public class EmployeeDAO {
 	}
 	
 	
-//	public List<Employee> findQtyMentee(String employeeId){
-//		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select m.id, count(*) as mentee from employee m, employee e where e.mentor_id = m.id group by m.id", Employee.class);
-//		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
-//		return (List<Employee>) employee;
-//	}
-//	
-//	public List<Employee> findQtyMentee(String employeeId){
-//		Query query = em.createQuery("select m.id, count(*) as mentee from employee m, employee e where e.mentor_id = m.id group by m.id");
-//		Collection<Employee> employee  = (Collection<Employee>) query.getResultList () ;
-//				return (List<Employee>) employee;
-//	}
-	
 	public List<Employee> findEmployeesInactive(){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
 		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
 		return (List<Employee>) employee;
 	}
 
+	public List<Employee> findQtyMentee(){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select "
+				+ "*, count(mentor_id) as qtyMentee from employee group by id order by qtyMentee asc" , Employee.class);
+		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
+		return (List<Employee>) employee;
+	}
 
 }

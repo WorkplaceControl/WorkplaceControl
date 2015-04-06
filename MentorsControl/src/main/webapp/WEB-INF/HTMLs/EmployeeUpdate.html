@@ -18,134 +18,129 @@
 
 
 	<div th:include="NavMain :: navMain"></div>
+	<div th:include="Modals :: updateEmployee"></div>
 
 
 	<form action="#" th:action="@{/ProcessEmployeeUpdate}"
 		th:object="${Employee}" method="post">
 		<div id="personal_info">
-				<p id ="Employee_Header">Employee Informations</p>
+			<p id="Employee_Header">Employee Informations</p>
 
 			<div id="personal_left">
 				<br /> <br />
 				<table>
 					<tr>
-						<td id ="personal_name"	th:text="'Employee'"></td>
+						<td id="personal_name" th:text="'Employee'"></td>
 					</tr>
 					<tr>
-					<td>
-								<img
-									th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
-									class="img-polaroid"/>
-					</td>
+						<td><img
+							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
+							class="img-polaroid" /></td>
 					</tr>
-					
+
 					<tr>
-						<td id ="personal_name"	th:text="${Employee.Id}"></td>
+						<td id="personal_name" th:text="${Employee.Id}"></td>
 					</tr>
 
 				</table>
 			</div>
-			<center>
-			<div id="personal_center">
+				<div id="personal_center">
 
-				<br />
+					<br />
 
-				<table id = "table_employee_update">
-					<tr>
-						<th>Name: </th>
-						<td><input type="text" class="input-field" name="name"
-							th:field="*{name}" placeholder="Input employee name"
-							required="true" maxlength="100" /></td>
-					</tr>
-					<tr>
-						<th>Letters: </th>
-						<td><input type="text" class="input-field" id="letter"
-							th:field="*{id}" placeholder="input the letters " required="true"
-							maxlength="4" /></td>
-					</tr>
-					<tr>
-						<th>Job: </th>
-						<td><select name="job" class="input-field"
-							th:field="*{job}" required="true" id="job">
-								<option id="tempJob" th:value="${job.id}" th:text="${job.title}"
-									th:selected="${job.id}"></option>
-								<option th:each="job : ${jobs}" th:value="${job.id}"
-									th:text="${job.title}" th:selected="${job.id}"></option>
+					<table id="table_employee_update">
+						<tr>
+							<th>Name:</th>
+							<td><input type="text" class="input-field" name="name"
+								th:field="*{name}" placeholder="Input employee name"
+								required="true" maxlength="100" /></td>
+						</tr>
+						<tr>
+							<th>Letters:</th>
+							<td><input type="text" class="input-field" id="letter"
+								th:field="*{id}" placeholder="input the letters "
+								required="true" maxlength="4" /></td>
+						</tr>
+						<tr>
+							<th>Job:</th>
+							<td><select name="job" class="input-field" th:field="*{job}"
+								required="true" id="job">
+									<option id="tempJob" th:value="${job.id}"
+										th:text="${job.title}" th:selected="${job.id}"></option>
+									<option th:each="job : ${jobs}" th:value="${job.id}"
+										th:text="${job.title}" th:selected="${job.id}"></option>
 
-						</select></td>
-					</tr>
-					<tr>
-						<th>User SAP: </th>
-						<td><input type="text" class="input-field" name="userSAP"
-							th:field="*{sap}" placeholder="input the employee workplace "
-							required="true" maxlenght="10" /></td>
-					</tr>
+							</select></td>
+						</tr>
+						<tr>
+							<th>User SAP:</th>
+							<td><input type="text" class="input-field" name="userSAP"
+								th:field="*{sap}" placeholder="input the employee workplace "
+								required="true" maxlength="10" /></td>
+						</tr>
 
-					<tr>
-						<th>Joining Date: </th>
-						<td><input type="date" name="joinDate" class="input-field"
-							th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
-							required="true" /></td>
-					</tr>
-					<tr>
-						<th>Extension: </th>
-						<td><input type="text" name="ext" class="input-field"
-							 th:field="*{extension}" maxlenght="4" /></td>
-					</tr>
-					<tr>
-						<th>WorkSpace: </th>
-						<td><input type="text" class="input-field"
-							th:field="*{wsName}" placeholder="input the workspace name"
-							required="true" maxlenght="100" /></td>
-					</tr>
-					<tr>
-						<th>Cost Center: </th>
-						<td><select name="cost" class="input-field"
-							th:field="*{costCenter}" required="true" id="cost">
-								<option id="tempCost" th:value="*{costCenter.id}"
-									th:text="*{costCenter.title}" th:selected="*{costCenter.id}"></option>
-								<option th:each="cost : ${costcenters}" th:value="${cost.id}"
-									th:text="${cost.title}"></option>
+						<tr>
+							<th>Joining Date:</th>
+							<td><input type="date" name="joinDate" class="input-field"
+								th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
+								required="true" /></td>
+						</tr>
+						<tr>
+							<th>Ramal:</th>
+							<td><input type="text" name="ext" class="input-field"
+								th:field="*{extension}" placeholder="input the extension" maxlength="4" /></td>
+						</tr>
+						<tr>
+							<th>WorkSpace:</th>
+							<td><input type="text" class="input-field"
+								th:field="*{wsName}" placeholder="input the workspace name"
+								required="true" maxlength="100" /></td>
+						</tr>
+						<tr>
+							<th>Cost Center:</th>
+							<td><select name="cost" class="input-field"
+								th:field="*{costCenter}" required="true" id="cost">
+									<option id="tempCost" th:value="*{costCenter.id}"
+										th:text="*{costCenter.title}" th:selected="*{costCenter.id}"></option>
+									<option th:each="cost : ${costcenters}" th:value="${cost.id}"
+										th:text="${cost.title}"></option>
 
-						</select></td>
-					</tr>
-					<tr>
-						<th>Work Place: </th>
-						<td><input type="text" class="input-field"
-							th:field="*{workplace}" placeholder="input the work place"
-							maxlenght="10" /></td>
-					</tr>
-					<tr>
-						<th>Rate Prf: </th>
-						<td>
-						<select th:field="*{ratePrf}" id="rate"
-								required="true" class="input-field">
-								<option id="tempRate" th:value="*{ratePrf.id}"
-									th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
-								<option th:each="rate : ${rateprfs}" th:value="${rate.id}"
-									th:text="${rate.title}"></option>
-						</select></td>
-					</tr>
+							</select></td>
+						</tr>
+						<tr>
+							<th>Work Place:</th>
+							<td><input type="text" class="input-field"
+								th:field="*{workplace}" placeholder="input the work place"
+								maxlength="10" /></td>
+						</tr>
+						<tr>
+							<th>Rate Prf:</th>
+							<td><select th:field="*{ratePrf}" id="rate" required="true"
+								class="input-field">
+									<option id="tempRate" th:value="*{ratePrf.id}"
+										th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
+									<option th:each="rate : ${rateprfs}" th:value="${rate.id}"
+										th:text="${rate.title}"></option>
+							</select></td>
+						</tr>
 
 
-				</table>
+					</table>
 
-			</div>
-			</center>
+				</div>
 			<div id="personal_right">
 				<br /> <br />
 				<table>
 					<tr>
-						<td id ="personal_mentor" th:text="'Mentor/Tutor'"></td>
+						<td id="personal_mentor" th:text="'Mentor/Tutor'"></td>
 					</tr>
 					<tr>
-					<td>
-								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
-									 class="img-polaroid"/>							
-					</td>
+						<td><img
+							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+							class="img-polaroid" /></td>
 					</tr>
 					<tr th:if="${Employee.mentorId} != null">
-						<td id ="personal_mentor" th:text="${Employee.mentorId}"></td>
+						<td id="personal_mentor" th:text="${Employee.mentorId}"></td>
 					</tr>
 				</table>
 			</div>
@@ -182,36 +177,19 @@
 				<div class="row-fluid">
 
 
-						<fieldset>
-							<legend>
+					<fieldset>
+						<legend>
 							<div id="buttons">
 								<ul class="legenda">
-									<li id ="left_header">Project Informations</li>
-									<li>
-									<a href="#ModalAP" role="button" class="btn" data-toggle="modal">
-											<i class="icon-plus"></i><font size="1" color="#555">
-												Add Project</font>
+									<li id="left_header">Project Informations</li>
+									<li><a href="#ModalAP" role="button" class="btn"
+										data-toggle="modal"> <i class="icon-plus"></i><font
+											size="1" color="#555"> Add Project</font>
 									</a></li>
-									<li>
-										<a id="drop1" href="#" role="button" class="dropdown-toggle"
-										data-toggle="dropdown">
-											<button type="button">
-												<img src="img/tres-barras.png"
-													style="width: 30px; heigth: 40px;" />
-											</button>
-									</a>
-										<ul class="dropdown-menu">
-											<li><a href="mainPage"><font size="2" color="#555"><i
-														class="icon-home"></i> Back to Main Page</font></a></li>
-											<li><a href="#ModalEUG"><font size="2" color="#555"><i
-														class="icon-question-sign"></i> User guide</font></a></li>
-										</ul>
-
-									</li>
 								</ul>
-								</div>
-								</legend>
-						</fieldset>
+							</div>
+						</legend>
+					</fieldset>
 
 					<table class="table table-bordered" font-color="#ffffff">
 						<tr style="background-color: #00339f; border: 0px solid #00339f;">
@@ -270,53 +248,7 @@
 	<br />
 
 
-	<!--Modal to add project -->
-
-	<section>
-		<div class="container-fluid">
-			<div class="row-fluid">
-
-				<form action="#"
-					th:action="@{/EmployeeAssignment(id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
-					th:object="${Assignment}" method="post">
-					<!-- Modal -->
-					<div id="ModalAP" class="modal hide fade" tabindex="-1"
-						role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal"
-								aria-hidden="true">×</button>
-							<h3 id="myModalLabel">Add new project to employee</h3>
-						</div>
-						<div class="modal-body">
-
-
-
-							<label>Project</label> <select style="height: 25px;"
-								th:field="*{project}" required="true">
-								<option value=""></option>
-								<option th:each="proj : ${Project}" th:value="${proj.id}"
-									th:text="${proj.description}"></option>
-							</select>
-
-
-						</div>
-						<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-							<button class="btn btn-primary">Save changes</button>
-						</div>
-					</div>
-
-				</form>
-
-			</div>
-		</div>
-	</section>
-
-
-
-
 	<div th:if="${verifyMent == 0}" style="width: 70%; margin: 0 auto;">
-
 		<div class="alert alert-error">
 			<button type="button" class="close" data-dismiss="alert"
 				th:text="'x'"></button>
@@ -329,30 +261,30 @@
 		<section>
 			<div class="container-fluid">
 				<div class="row-fluid">
-				
-				
-				
+
+
+
 					<fieldset>
 						<legend>
-						<div id ="buttons">
-							<ul class="legenda">
-								<li id="left_header">Employee Mentees</li>
-								<li class="legenda_search"></li>
-								<li><a
-									href="#ModalAM" role="button" class="btn" data-toggle="modal">
-										<center>
-											<i class="icon-plus"></i><font size="1" color="#555">
-												Add Mentee</font>
-										</center>
-								</a></li>
-								<li><a
-									href="#ModalAT" role="button" class="btn" data-toggle="modal">
-										<center>
-											<i class="icon-plus"></i><font size="1" color="#555">
-												Add Trainee</font>
-										</center>
-								</a></li>
-							</ul>
+							<div id="buttons">
+								<ul class="legenda">
+									<li id="left_header">Employee Mentees</li>
+									<li class="legenda_search"></li>
+									<li><a href="#ModalAM" role="button" class="btn"
+										data-toggle="modal">
+											<center>
+												<i class="icon-plus"></i><font size="1" color="#555">
+													Add Mentee</font>
+											</center>
+									</a></li>
+									<li><a href="#ModalAT" role="button" class="btn"
+										data-toggle="modal">
+											<center>
+												<i class="icon-plus"></i><font size="1" color="#555">
+													Add Trainee</font>
+											</center>
+									</a></li>
+								</ul>
 							</div>
 						</legend>
 						<div id="mentee_img" th:each="emp : ${Employeels}">
@@ -393,84 +325,6 @@
 
 
 
-		<!--Modal to add mentee -->
-
-		<section>
-			<div class="container-fluid">
-				<div class="row-fluid">
-					
-					<!-- Modal -->
-					<form action="#"
-						th:action="@{/EmployeeAddMentee(employeeId=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
-						th:object="${Employee}" method="post">
-						<div id="ModalAM" class="modal hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">
-									<font th:text="'x'"></font>
-								</button>
-								<h3 id="myModalLabel">Add new mentee to employee</h3>
-							</div>
-
-							<div class="modal-body">		
-							 <select style="height: 25px;" name = "id" th:field="*{id}" required="true">
-								
-<!-- 								<div th:each="qty : ${qtyMentee}"> -->
-<!-- 								<div th:text="${qty.id}></div> -->
-<!-- 								</div> -->
-								<div th:each="emp : ${Employeels}">
-								<option th:each="ment : ${mentor}" th:if="${emp.Id == ment.Id}" th:value="${emp.id}"
-									th:text="${emp.id} + ' (Nº Mentees: ' + ${ment.qtyMentee} +')'" th:title="'Mentee Name: ' + ${emp.name}"></option>
-							</div>
-							</select>
-							</div>
-							
-
-							<div class="modal-footer">
-								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-								<button class="btn btn-primary">Save Changes</button>
-							</div>
-
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
-		
-		<!--Modal to add tutor -->
-
-		<section>
-			<div class="container-fluid">
-				<div class="row-fluid">
-					<!-- Modal -->
-					<form action="#"
-						th:action="@{/EmployeeAddTutor(employeeId=${Employee.id}  , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
-						th:object="${Employee}" method="post">
-						<div id="ModalAT" class="modal hide fade" tabindex="-1"
-							role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal"
-									aria-hidden="true">×</button>
-								<h3 id="myModalLabel">Add new Tutor to employee</h3>
-							</div>
-							<div class="modal-body">
-
-								<select style="height: 25px;" th:field="*{id}" required="true">
-								<option th:each="emp : ${Employeels}" th:value="${emp.id}"
-								th:text="${emp.id} + ' (' + ${emp.mentorId} +')'" th:title="'Mentee: ' + ${emp.name} + ', Mentor: (' + ${emp.mentorId} +')'"></option>
-									</select>
-							</div>
-							<div class="modal-footer">
-								<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-								<button class="btn btn-primary">Save Changes</button>
-							</div>
-						</div>
-					</form>
-				</div>
-			</div>
-		</section>
 
 
 	</div>
@@ -495,24 +349,24 @@
 			<br />
 			<div class="container-fluid">
 				<div class="row-fluid">
-						<fieldset>
-							<legend>
-								<ul class="legenda">
-									<li>Mentor History</li>
-									<li class="legenda_search"></li>
-									<li style="position: relative; left: 445px;"></li>
-									<li style="position: relative; left: 450px;"></li>
-								</ul>
-							</legend>
-						</fieldset>
+					<fieldset>
+						<legend>
+							<ul class="legenda">
+								<li>Mentor History</li>
+								<li class="legenda_search"></li>
+								<li style="position: relative; left: 445px;"></li>
+								<li style="position: relative; left: 450px;"></li>
+							</ul>
+						</legend>
+					</fieldset>
 
 					<table class="table table-bordered" font-color="#ffffff">
 						<tr style="background-color: #00339f; border: 0px solid #00339f;">
-							<td>
-								<center>
-									<font size="3" color="white">Type</font>
-								</center>
-							</td>
+<!-- 							<td> -->
+<!-- 								<center> -->
+<!-- 									<font size="3" color="white">Type</font> -->
+<!-- 								</center> -->
+<!-- 							</td> -->
 							<td>
 								<center>
 									<font size="3" color="white">Mentor Name</font>
@@ -536,34 +390,17 @@
 						</tr>
 
 						<tr th:each="menthist : ${MentorHistory}">
-							<div 
+							<div
 								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
-								
-
 
 <!-- 								<td> -->
 <!-- 									<div th:each="emp : ${Employeels}"> -->
-<!-- 							<div th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}"> -->
-<!-- 								<div th:if="${emp.mentorId == null}"> -->
-<!-- 									<center> -->
-<!-- 								<font size="3" color="#333" th:text="Trainee"></font> -->
-<!-- 									</center> -->
-<!-- 								</div> -->
-<!-- 								<div th:if="${emp.mentorId != null}"> -->
-<!-- 									<center> -->
-<!-- 								<font size="3" color="#333" th:text="Mentee"></font> -->
-<!-- 									</center> -->
-<!-- 								</div> -->
+<!-- 										<center> -->
+<!-- 											<font size="3" color="#333" th:text="NULL"></font> -->
+<!-- 										</center> -->
 <!-- 									</div> -->
 <!-- 								</td> -->
-								
-								
-								<td>
-								<div th:each="emp : ${Employeels}">
-								<center><font size="3" color="#333" th:text="NULL"></font></center>
-								</div>
-								</td>
-								
+
 								<td>
 									<div th:each="emp : ${Employeels}">
 										<div th:if="${menthist.mentorId == emp.id}">
@@ -579,63 +416,59 @@
 											th:text="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"></font>
 									</center>
 								</td>
-								<!--div th:if="${menthist.finishDate != null}"-->
 								<td>
 									<center>
-										<font size="3" color="#333"
-											th:text="${menthist.finishDate}">Finish
+										<font size="3" color="#333" th:text="${menthist.finishDate}">Finish
 											Date</font>
 									</center>
 								</td>
 								<!--/div-->
-								<td>
-								<a th:attr="href=@{'#myModalMH'+${menthist.id}}"
+								<td><a th:attr="href=@{'#myModalMH'+${menthist.id}}"
 									data-toggle="modal">
 										<center>
-											<button type="submit" role="button" class="btn" data-toggle="modal">
+											<button type="submit" role="button" class="btn"
+												data-toggle="modal">
 												<i class="icon-pencil"></i>
 											</button>
 										</center>
-								</a>
-								</td>
-								</div>
-							
-							<section>
-									
-									<!-- Modal Mentor History -->
-										
-										<form action="#"
-											th:action="@{/ProcessMentorsHistoryUpdate(histId=${menthist.id},employeeId=${Employee.id},job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
-											method="post">
-											<div th:attr="id=@{'myModalMH'+${menthist.id}}"
-												class="modal hide fade" tabindex="-1" role="dialog"
-												aria-labelledby="myModalLabel" aria-hidden="true">
-												<div class="modal-header">
-													<button type="button" class="close" data-dismiss="modal"
-														aria-hidden="true">
-														<font th:text="'x'"></font>
-													</button>
-													<h3 id="myModalLabel">Edit Mentor History</h3>
-												</div>
-												<div class="modal-body">
-													<label>Start Date</label> <input type="date"
-														class="input-large"
-														th:value="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"
-														name="start_date" required="true" /> <label>Finish
-														Date</label> <input type="date" class="input-large"
-														th:value="${menthist.finishDate}"
-														name="finish_date" required="true" />
-												</div>
-												<div class="modal-footer">
-													<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-													<button type="submit" class="btn btn-primary">Save
-														Changes</button>
-												</div>
-											</div>
-										</form>
-							</section>
-							
-							</tr>
+								</a></td>
+							</div>
+
+
+<!-- 	Modal Mentor History  -->
+<section>
+	<form action="#"
+		th:action="@{/ProcessMentorsHistoryUpdate(histId=${menthist.id},employeeId=${Employee.id},job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
+		method="post">
+		<div th:attr="id=@{'myModalMH'+${menthist.id}}"
+			class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<font th:text="'x'"></font>
+				</button>
+				<h3 id="myModalLabel">Edit Mentor History</h3>
+			</div>
+			<div class="modal-body">
+				<label>Start Date</label> <input type="date"
+					class="input-large"
+					th:value="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"
+					name="start_date" required="true" /> <label>Finish
+					Date</label> <input type="date" class="input-large"
+					th:value="${menthist.finishDate}" name="finish_date"
+					required="true" />
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+				<button type="submit" class="btn btn-primary">Save
+					Changes</button>
+			</div>
+			</div>
+	</form>
+</section>
+
+						</tr>
 					</table>
 				</div>
 			</div>
@@ -643,23 +476,23 @@
 	</div>
 	<br />
 	<br />
-<script type="text/javascript">
-	$(document).ready(function() {
-		$("#ext").bind("keyup blur focus", function(e) {
-			e.preventDefault();
-			var expre = /[^\d]/g;
-			$(this).val($(this).val().replace(expre, ''));
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$("#ext").bind("keyup blur focus", function(e) {
+				e.preventDefault();
+				var expre = /[^\d]/g;
+				$(this).val($(this).val().replace(expre, ''));
+			});
+			$("#rate").hover(function() {
+				$("#tempRate").hide();
+			});
+			$("#cost").hover(function() {
+				$("#tempCost").hide();
+			});
+			$("#job").hover(function() {
+				$("#tempJob").hide();
+			});
 		});
-		$("#rate").hover(function() {
-			$("#tempRate").hide();
-		});
-		$("#cost").hover(function() {
-			$("#tempCost").hide();
-		});
-		$("#job").hover(function() {
-			$("#tempJob").hide();
-		});
-	});
-</script>
+	</script>
 </body>
 </html>

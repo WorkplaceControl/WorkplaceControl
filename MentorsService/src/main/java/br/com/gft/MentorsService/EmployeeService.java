@@ -74,6 +74,13 @@ public class EmployeeService {
 		return employee;
 	}
 	
+	public List<Employee> getQtyMentee(){
+		EmployeeDAO.setup();
+		EmployeeDAO employeedao = new EmployeeDAO();
+		List<Employee> employee = employeedao.findQtyMentee();
+		return employee;
+	}
+	
 	public List<Employee> getEmployeesInactive(){
 		EmployeeDAO.setup();
 		EmployeeDAO employeedao = new EmployeeDAO();
@@ -85,11 +92,6 @@ public class EmployeeService {
 		EmployeeDAO.setup();
 		return new EmployeeDAO().findEmployee(employeeId);
 	}
-	
-//	public List<Employee> findQtyMentee(String employeeId){
-//		EmployeeDAO.setup();
-//		return new EmployeeDAO().findQtyMentee(employeeId);
-//	} 
 	
 	public void alterEmployee(Employee employee){
 		EmployeeDAO.setup();

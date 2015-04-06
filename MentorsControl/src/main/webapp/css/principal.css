@@ -132,6 +132,10 @@ html, body {
 		float: left;
 }
 
+#table_employee_view, #table_employee_update {
+margin: 0 auto;
+}
+
 #table_employee_view th, #table_employee_view td, 
 #table_employee_update th, #table_employee_update td {
 		text-align:left;
@@ -345,4 +349,8 @@ div#login{
 #user_list {
 	margin: 0 auto;
 	width: 70%;
+}
+
+#modals_employee_update form {
+	margin: 0;
 }

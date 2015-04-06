@@ -24,160 +24,119 @@
 						
 			<form action="#" th:action="@{/ProcessEmployeeRegistration}" th:object="${Employee}" id ="frmEmployee" method="post">	
 			
-			<div id="personal_info">
-			 		<br/>
-			 		<center><font size="5" color="#ffffff">Employee Informations</font></center>
-			 		
-			 		<div id="personal_left">
-			 			<br/>
-			 			<br/>
-				 		<table>
-				 			<tr>
-				 				<td>
-				 					<center><font size="3" color="#ffffff"></font></center>
-			 					</td>
-			 				</tr>
-			 				<tr>
-				 				<td>
-									  <center><img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}" 
-									  class="img-polaroid"  style="height: 160px; width: 120px; position: relative; left: 50px;"/></center>
-				 				</td>
-							</tr>	
-				 			<tr>
-				 				<td>
-				 					<center><font size="2" color="#ffffff" th:text="${Employee.name}"></font></center>
-			 					</td>
-				 			</tr>
+<div id="personal_info">
+			<p id="Employee_Header">Employee Informations</p>
 
-				 		</table>
-			 		</div>
+			<div id="personal_left">
+				<br /> <br />
+				<table>
+					<tr>
+						<td id="personal_name" th:text="'New Employee'"></td>
+					</tr>
+					<tr>
+						<td><img
+							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
+							class="img-polaroid" /></td>
+					</tr>
+
+				</table>
+			</div>
 
 			 		<div id="personal_center">
 			 		  
 			 			<br/>
 			 			
-				 		<table >
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Name : </font>
-				 				</td>
-					 				<td>
-				 					<input type="text"  class="input-xxlarge" name="name" th:field="*{name}" placeholder="employee name" required="true" maxlength="100" />
-				 				</td>
-				 			</tr>
-				 			<tr>
-				 				<td>
-				 					<font size="2" color="#ffffff">Letters : </font>
-				 				</td>
-				 				<td>
-				 					<input type="text" class="input-medium" id="letter" name="letter" th:field="*{id}" placeholder="Letters" required="true" maxlength="10" />
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Job: </font>
-				 				</td>
-				 				<td>
-				 					<select name="job" style="height: 25px;" th:field="*{job}" required="true">
-												  		<option value=""></option>
-												  <option th:each="job : ${job}"  th:value="${job.id}" th:text="${job.title}"></option>
+						<table id="table_employee_update">
+						<tr>
+							<th>Name:</th>
+							<td><input type="text" class="input-field" name="name"
+								th:field="*{name}" placeholder="Input employee name"
+								required="true" maxlength="100" /></td>
+						</tr>
+						<tr>
+							<th>Letters:</th>
+							<td><input type="text" class="input-field" id="letter"
+								th:field="*{id}" placeholder="input the letters "
+								required="true" maxlength="4" /></td>
+						</tr>
+						<tr>
+							<th>Job:</th>
+										<td>
+										<select name="job" class="input-field" th:field="*{job}"
+								required="true" id="job">
+						   		<option value=""></option>
+								  <option th:each="job : ${job}"  th:value="${job.id}" th:text="${job.title}"></option>
 									</select>
 				 				</td>
-				 			</tr>
-				 			<tr>
-				 				<td>
-				 					<font size="2" color="#ffffff">User SAP: </font>
-				 				</td>
-				 				<td>
-				 					<input type="text" class="input-large" name="userSAP" th:field="*{sap}" placeholder="employee workplace " required="true" maxlength="10" />
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Joining Date : </font>
-				 				</td>
-				 				<td>
-				 					<input type="date"  class="input-medium" name="dateinit" th:field="*{joinDate}" required="true" />
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2"  color="#ffffff">Extension : </font>
-				 				</td>
-				 				<td>
-				 					<input type="text" id="ext" class="input-large" th:field="*{extension}" placeholder="extension"  onKeyDown="if(this.value.length==4) return false;" />
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Work Space: </font>
-				 				</td>
-				 				<td>
-				 					<input type="text" class="input-xxlarge" th:field="*{wsName}" placeholder="workspace name" required="true" maxlength="100"/>
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Cost Center: </font>
-				 				</td>
-				 				<td>
-				 					 <select name="cost" style="height: 25px;" th:field="*{costCenter}" required="true">
-												  		<option value=""></option>
+
+						</tr>
+						<tr>
+							<th>User SAP:</th>
+							<td><input type="text" class="input-field" name="userSAP"
+								th:field="*{sap}" placeholder="input the employee workplace "
+								required="true" maxlength="10" /></td>
+						</tr>
+
+						<tr>
+							<th>Joining Date:</th>
+							<td><input type="date" name="joinDate" class="input-field"
+								th:field="*{joinDate}"
+								required="true" /></td>
+						</tr>
+						<tr>
+							<th>Ramal:</th>
+							<td><input type="text" name="ext" class="input-field"
+								th:field="*{extension}" placeholder="input the ramal" minlength="4" maxlength="4"/></td>
+						</tr>
+						<tr>
+							<th>WorkSpace:</th>
+							<td><input type="text" class="input-field"
+								th:field="*{wsName}" placeholder="input the workspace name"
+								required="true" maxlength="100" /></td>
+						</tr>
+						<tr>
+							<th>Cost Center:</th>
+							<td>
+							<select name="cost" class="input-field"
+								th:field="*{costCenter}" required="true" id="cost">
+									<option value=""></option>
 												  		<option th:each="cost : ${costcenter}"  th:value="${cost.id}" th:text="${cost.title}"></option>
-												
-									</select>
-				 				</td>
-				 			</tr>
-				 			<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Work Place: </font>
-				 				</td>
-				 				<td>
-				 					<input type="text" class="input-large" th:field="*{workplace}" placeholder="work place"  maxlength="10" />
-				 				</td>
-				 			</tr>
-				 				<tr>	
-				 				<td>
-				 					<font size="2" color="#ffffff">Rate Prf : </font>
-				 				</td>
-				 				<td>
-				 					 <select style="height: 25px;" th:field="*{ratePrf}" required="true">
-												  <option value=""></option>
+							</select>
+							</td>
+						</tr>
+						<tr>
+							<th>Work Place:</th>
+							<td><input type="text" class="input-field"
+								th:field="*{workplace}" placeholder="input the work place"
+								maxlength="10" /></td>
+						</tr>
+						<tr>
+							<th>Rate Prf:</th>
+							<td><select th:field="*{ratePrf}" id="rate" required="true"
+								class="input-field">
+									 <option value=""></option>
 												  <option th:each="rate : ${rateprf}"  th:value="${rate.id}" th:text="${rate.title}"></option>
-									 </select>
-				 				</td>
-				 			</tr>
-				 			
-				 			
-				 		</table>
+							</select></td>
+						</tr>
+
+
+					</table>
 				 		
 			 		</div>
 
 			 			<div id="personal_right">
-			 		<br/>
-			 		<br/>	
-			 			<table >
-
-			 			<tr>
-				 				<td style="width:200px; ">
-				 					<center><font size="3"></font></center>
-			 					</td>
-			 				</tr>
-			 				<tr>
-				 				<td style="width:200px;" >
-				 					<div >
-									  		<center><img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}" 
-									  		class="img-polaroid" style="height: 160px; width: 120px; position: relative; left: 50px;" /></center>
-									</div>
-				 				</td>
-							</tr>	
-				 			<tr>
-				 				<td style="width:200px;">
-				 					<center><font size="2" color="#e9ebee">Mentor / Tutor</font></center>
-			 					</td>
-				 			</tr>
-				 		</table>
-				 	</div>		
+				<br /> <br />
+				<table>
+					<tr>
+						<td id="personal_mentor" th:text="'Mentor/Tutor'"></td>
+					</tr>
+					<tr>
+						<td><img
+							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
+							class="img-polaroid" /></td>
+					</tr>
+				</table>
+			</div>
 				 		 	
 			</div>	
 			

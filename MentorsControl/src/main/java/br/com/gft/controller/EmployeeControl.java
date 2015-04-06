@@ -225,10 +225,7 @@ public class EmployeeControl {
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
 			@RequestParam("rate") int ratePrfId, Model model) {
-
-		List<Mentor> mentor = new ArrayList<Mentor>();
-		mentor = new EmployeeService().selectEmployees();
-		
+	
 		
 		Employee employee = new EmployeeService().getEmployee(employeeId);
 		index = employeeId;
@@ -241,7 +238,7 @@ public class EmployeeControl {
 		List<RatePrf> rateprfs = new RatePrfService().getRatePrfs();
 		CostCenter cost = new CostCenterService().getCostCenter(costCenterId);
 		employee.setCost_Center(cost);
-//		List<Employee> qtyMentee = new EmployeeService().findQtyMentee(employeeId);
+		List<Employee> qtyMentee = new EmployeeService().getQtyMentee();
 		List<CostCenter> costs = new CostCenterService().getCostCenters();
 		List<Project> project = new ProjectService().getProjects();
 		List<Customer> customer = new CustomerService().getCustomers();
@@ -251,8 +248,7 @@ public class EmployeeControl {
 				.getMentorHistorys();
 		EmployeeAssignment employeeassignment = new EmployeeAssignment();
 		
-//		model.addAttribute("qtyMentee", qtyMentee);
-		model.addAttribute("mentor", mentor);
+		model.addAttribute("qtyMentee", qtyMentee);
 		model.addAttribute("Employee", employee);
 		model.addAttribute("Employeels", employeels);
 		model.addAttribute("job", job);

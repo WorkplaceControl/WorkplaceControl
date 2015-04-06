@@ -228,6 +228,10 @@ public class Employee implements Serializable{
 		this.active = active;
 	}
 
+	public int getQtyMentee() {
+		return qtyMentee;
+	}
+
 	public void setQtyMentee(int qtyMentee) {
 		this.qtyMentee = qtyMentee;
 	}

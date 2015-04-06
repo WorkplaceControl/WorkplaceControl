@@ -8,7 +8,7 @@ create table Employee(
                     join_date        date          not null,
                     Leaving_Date     date ,
                     Workplace        varchar(10) ,
-                    extension        numeric(4) ,
+                    extension        integer ,
                     job_id           varchar(10)  not null,
                     Rate_Prf_id      integer  ,
                     Cost_Center_id   varchar(10) not null,
