@@ -13,6 +13,7 @@
 		<class>br.com.gft.MentorsCommon.Job</class>
 		<class>br.com.gft.MentorsCommon.Users</class>
 		<class>br.com.gft.MentorsCommon.UserRole</class>
+		<class>br.com.gft.MentorsCommon.Mentor</class>
 		
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 

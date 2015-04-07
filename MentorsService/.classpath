@@ -156,9 +156,8 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2.jar" sourcepath="M2_REPO/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2-sources.jar">
+	<classpathentry kind="var" path="M2_REPO/org/apache/commons/commons-lang3/3.4/commons-lang3-3.4.jar">
 		<attributes>
-			<attribute name="javadoc_location" value="jar:file:/C:/Users/glhu/.m2/repository/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2-javadoc.jar!/"/>
 			<attribute name="org.eclipse.jst.component.dependency" value="../"/>
 		</attributes>
 	</classpathentry>

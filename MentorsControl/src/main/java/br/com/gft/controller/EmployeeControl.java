@@ -1,12 +1,8 @@
 package br.com.gft.controller;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -28,7 +24,6 @@ import br.com.gft.MentorsCommon.RatePrf;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.CustomerService;
-import br.com.gft.MentorsService.EmployeeAssignService;
 import br.com.gft.MentorsService.EmployeeService;
 import br.com.gft.MentorsService.JobService;
 import br.com.gft.MentorsService.MentorHistoryService;
@@ -36,7 +31,6 @@ import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.RatePrfService;
 import br.com.gft.MentorsService.UnitService;
 import br.com.gft.share.Pagination;
-import br.com.gft.share.Paths;
 
 /**
  * this Class is to control requests and reponses of employees pages to server
@@ -238,7 +232,7 @@ public class EmployeeControl {
 		List<RatePrf> rateprfs = new RatePrfService().getRatePrfs();
 		CostCenter cost = new CostCenterService().getCostCenter(costCenterId);
 		employee.setCost_Center(cost);
-		List<Employee> qtyMentee = new EmployeeService().getQtyMentee();
+		List<Mentor> qtyMentee = new EmployeeService().getQtyMentee();
 		List<CostCenter> costs = new CostCenterService().getCostCenters();
 		List<Project> project = new ProjectService().getProjects();
 		List<Customer> customer = new CustomerService().getCustomers();

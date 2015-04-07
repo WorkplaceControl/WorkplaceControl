@@ -6,10 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Employee;
+import br.com.gft.MentorsCommon.Mentor;
 
 
 
@@ -72,11 +72,12 @@ public class EmployeeDAO {
 		return (List<Employee>) employee;
 	}
 
-	public List<Employee> findQtyMentee(){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select "
-				+ "*, count(mentor_id) as qtyMentee from employee group by id order by qtyMentee asc" , Employee.class);
-		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
-		return (List<Employee>) employee;
+	
+	public List<Mentor> findQtyMentee(){
+		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("select id, name, job_id, count(mentor_id) as qtymentee from employee group by id order by qtymentee asc" , Mentor.class);
+		Collection<Mentor> mentor  = (Collection<Mentor>) query.getResultList();
+		return (List<Mentor>) mentor;
 	}
-
+	
+	
 }

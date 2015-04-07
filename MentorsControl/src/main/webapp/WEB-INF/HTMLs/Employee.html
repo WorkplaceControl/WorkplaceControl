@@ -99,12 +99,14 @@
 										style="width: 200px;" /></li>
 									<li><input type="checkbox" id="isInactive" /><font
 										size="2" color="#555">Include Removed Employee</font></li>
-									<li style="position: relative; left: 52%;"><a
+									<li id ="buttons_position">
+										<ul>
+									<li><a
 										href="EmployeeRegistration"><button type="button">
 												<i class="icon-plus"></i><font size="1" color="#555">
 													Add Employee</font>
 											</button></a></li>
-									<li style="position: relative; left: 52%;" class="dropdown">
+									<li class="dropdown">
 										<a id="drop1" href="#" role="button" class="dropdown-toggle" 
 										data-toggle="dropdown">
 											<button type="button">
@@ -120,6 +122,8 @@
 															Employee guide</font></a></li>
 										</ul>
 
+									</li>
+									</ul>
 									</li>
 								</ul>
 							</legend>
@@ -176,9 +180,10 @@
 							<div th:if="${emp.mentorId != null}">
 								<td th:text="${emp.mentorId}"></td>
 							</div>
-							<div th:if="${emp.mentorId == null and emp.tutorId == null}">
-								<td></td>
+							<div th:if="${emp.mentorId == null}">
+							<td>&nbsp;</td>
 							</div>
+							
 							<td style="width: 20px;"><a href="#"
 								th:href="@{/EmployeeView(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
 									<center>

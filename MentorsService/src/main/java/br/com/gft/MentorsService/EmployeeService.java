@@ -13,13 +13,11 @@ import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Mentor;
-import br.com.gft.MentorsCommon.MentorHistory;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.RatePrf;
 import br.com.gft.MentorsDAO.CostCenterDAO;
 import br.com.gft.MentorsDAO.EmployeeDAO;
 import br.com.gft.MentorsDAO.JobDAO;
-import br.com.gft.MentorsDAO.ProjectDAO;
 import br.com.gft.MentorsDAO.RatePrfDAO;
 
 
@@ -74,11 +72,11 @@ public class EmployeeService {
 		return employee;
 	}
 	
-	public List<Employee> getQtyMentee(){
+	public List<Mentor> getQtyMentee(){
 		EmployeeDAO.setup();
 		EmployeeDAO employeedao = new EmployeeDAO();
-		List<Employee> employee = employeedao.findQtyMentee();
-		return employee;
+		List<Mentor> mentor = employeedao.findQtyMentee();
+		return mentor;
 	}
 	
 	public List<Employee> getEmployeesInactive(){
@@ -260,8 +258,6 @@ public class EmployeeService {
 						count++;
 					}		
 				}
-				ment.setCost(employee1.get(i).getCostCenter().getId());
-				ment.setRate(employee1.get(i).getRatePrf().getId());
 				ment.setId(employee1.get(i).getId());
 				ment.setJobId(employee1.get(i).getJob().getId());
 				ment.setName(employee1.get(i).getName());
@@ -294,8 +290,6 @@ public class EmployeeService {
 						count++;
 					}		
 				}
-				ment.setCost(employee1.get(i).getCostCenter().getId());
-				ment.setRate(employee1.get(i).getRatePrf().getId());
 				ment.setId(employee1.get(i).getId());
 				ment.setJobId(employee1.get(i).getJob().getId());
 				ment.setName(employee1.get(i).getName());
