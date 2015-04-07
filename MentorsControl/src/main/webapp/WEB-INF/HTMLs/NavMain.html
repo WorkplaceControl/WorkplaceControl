@@ -1,18 +1,23 @@
 <!--	Essa função faz com que as  MainPage herde Header-->
 <div th:fragment="navMain">
 	<div th:include="Modals :: modals"></div>
+	
 	<section>
 		<div class="container-fluid">
 			<div class="row-fluid">
 				<div class="well well-small">
 					<ul class="header">
-						<li class="name_aplication"><a href="mainPage">WorkPlace Control</a></li>
+						<li class="name_aplication">
+							<a href="mainPage">WorkPlace Control</a>
+						</li>
+						
 						<ul id="ul_header">
-							<li style="padding-right: 30px; padding-left: 30px;"
-								th:text="'Welcome, ' + ${session.user} + '!'"></li>
+							<li style="padding-right: 30px; padding-left: 30px;" th:text="'Welcome, ' + ${session.user} + '!'"></li>
+							
 							<li style="padding-right: 30px; padding-left: 30px; border: none;">
 								<a href="j_spring_security_logout"> Logout </a>
 							</li>
+							
 							<li style="border: none;"><img src="img/logo-GFT.png" /></li>
 						</ul>
 					</ul>
@@ -29,14 +34,10 @@
 				<div id="navbar" class="navbar navbar-inverse">
 					<div class="navbar-inner">
 						<div class="container" style="width: auto;">
-
-							<ul class="nav" role="navigation"
-								style="position: relative; left: 70px;">
-
-								<li class="dropdown"><a id="drop1" href="#" role="button"
-									class="dropdown-toggle" data-toggle="dropdown">
-										Registration <b class="caret"></b>
-								</a>
+							<ul class="nav" role="navigation" style="position: relative; left: 70px;">
+								<li class="dropdown">
+									<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Registration <b class="caret"></b></a>
+									
 									<ul class="dropdown-menu">
 										<li><a href="Employee">Employee</a></li>
 										<li><a href="Job">Job</a></li>
@@ -44,67 +45,92 @@
 										<li><a href="Customer">Customer</a></li>
 										<li><a href="Unit">Client Unit</a></li>
 										<li><a href="CostCenter">Cost Center</a></li>
-										<li><a href="Users">Users</a></li>
 
 										<div th:if="${session.roleUser == 1}">
-
+											<li><a href="Users">Users</a></li>
 											<li class="divider"></li>
-											<li class="dropdown-submenu" id="dropSub"><a
-												tabindex="-1">More options</a>
+											<li class="dropdown-submenu" id="dropSub">
+												<a tabindex="-1">More options</a>
+												
 												<ul class="dropdown-menu" id="dropSub">
-													<li><a href="#ModalST" data-toggle="modal"><font
-															size="2" color="#555"><i class=" icon-pencil"></i>
-																Change User Status</font></a></li>
-													<li><a href="#ModalCP" data-toggle="modal"><font
-															size="2" color="#555"><i class="icon-pencil"></i>
-																Change Password</font></a></li>
-													<li><a href="mainPage"><font size="2" color="#555"><i
-																class="icon-home"></i> Back to Main Page</font></a></li>
-													<li><a href="#ModalUG" data-toggle="modal"><font
-															size="2" color="#555"><i
-																class="icon-question-sign"></i> User guide</font></a></li>
-												</ul></li>
+													<li>
+														<a href="#ModalCP" data-toggle="modal">
+															<font size="2" color="#555">
+																<i class="icon-pencil"></i>
+																Change Password
+															</font>
+														</a>
+													</li>
+													
+													<li>
+														<a href="mainPage">
+															<font size="2" color="#555">
+																<i class="icon-home"></i> 
+																Back to Main Page
+															</font>
+														</a>
+													</li>
+													
+													<li>
+														<a href="#ModalUG" data-toggle="modal">
+															<font size="2" color="#555">
+																<i class="icon-question-sign"></i>
+																User guide
+															</font>
+														</a>
+													</li>
+												</ul>
+												</li>
 										</div>
 										
 										
 										<div th:if="${session.roleUser == 2}">
-
 											<li class="divider"></li>
-											<li><a href="#ModalUG" data-toggle="modal"><font
-													size="2" color="#555"><i class="icon-question-sign"></i>
-														User guide</font></a></li>
-											<li><a href="#ModalCP" data-toggle="modal"><font
-													size="2" color="#555"><i class="icon-pencil"></i>
-														Change Password</font></a></li>
+											
+											<li>
+												<a href="#ModalCP" data-toggle="modal">
+													<font size="2" color="#555">
+														<i class="icon-pencil"></i>
+														Change Password
+													</font>
+												</a>
+											</li>
+											
+											<li>
+												<a href="#ModalUG" data-toggle="modal">
+													<font size="2" color="#555">
+														<i class="icon-question-sign"></i>
+														User guide
+													</font>
+												</a>
+											</li>
 										</div>
-									</ul></li>
+									</ul>
+								</li>
 
-								<li class="dropdown"><a href="#" id="drop2" role="button"
-									class="dropdown-toggle" data-toggle="dropdown">Import<b
-										class="caret"></b></a>
+								<li class="dropdown">
+									<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Import<b class="caret"></b></a>
 
 									<ul class="dropdown-menu">
 										<li><a href="showImport">New Employees</a></li>
 										<li><a href="InitialImport">Initial Import</a></li>
 										<li><a href="Mapping">Mapping</a></li>
-									</ul></li>
+									</ul>
+								</li>
 
-								<li class="dropdown"><a href="#" id="drop2" role="button"
-									class="dropdown-toggle" data-toggle="dropdown">Reports<b
-										class="caret"></b></a>
+								<li class="dropdown">
+									<a href="#" id="drop2" role="button" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
 
 									<ul class="dropdown-menu">
 										<li><a href="MentorReport">Mentors x Mentees</a></li>
 										<li><a href="ProjectReport">Employees x	Project</a></li>
-									</ul></li>
-
+									</ul>
+								</li>
 							</ul>
-
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-
 	</section>
 </div>

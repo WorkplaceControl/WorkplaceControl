@@ -1,6 +1,5 @@
 package br.com.gft.MentorsDAO;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,7 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import br.com.gft.MentorsCommon.UserRole;
 import br.com.gft.MentorsCommon.Users;
 
 public class UsersDAO {
@@ -28,13 +26,6 @@ public class UsersDAO {
 		em.close();
 	}
 
-	public void insertUserRole(UserRole userrole) throws Exception {
-		em.getTransaction().begin();
-		em.persist(userrole);
-		em.getTransaction().commit();
-		em.close();
-	}
-
 	public void updateUsers(Users user){
 		em.getTransaction().begin();
 		em.merge(user);
@@ -42,40 +33,38 @@ public class UsersDAO {
 		em.close();
 	}
 
-	public Users findUser(String userId){
-		Users user = new Users();
-		user = em.find(Users.class, userId);
-		
-		return user;
+	public Users findUser(String username){
+		return em.find(Users.class, username);
 	}
 
 	public List<Users> findUsers(){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users" , Users.class);
-		Collection<Users> users = (Collection<Users>) query.getResultList();
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1 order by username" , Users.class);
+
+		return (List<Users>) query.getResultList();
+	}
+
+	public List<Users> findUsersInactive(){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users order by username" , Users.class);
 		
-		return (List<Users>) users;
+		return (List<Users>) query.getResultList();
 	}
 
 	public List<Users> findUsers(int begin, int quantity){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1 order by username" , Users.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
 		
-		Collection<Users> users = (Collection<Users>) query.getResultList();
-		
-		return (List<Users>) users;
+		return (List<Users>) query.getResultList();
 	}
 
 	public List<Users> findUsersInactive(int begin, int quantity){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 0" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users order by username" , Users.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
 		
-		Collection<Users> users = (Collection<Users>) query.getResultList();
-		
-		return (List<Users>) users;
+		return (List<Users>) query.getResultList();
 	}
 
 }

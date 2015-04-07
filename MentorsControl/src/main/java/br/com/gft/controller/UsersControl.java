@@ -10,13 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.com.gft.MentorsCommon.CostCenter;
-import br.com.gft.MentorsCommon.Employee;
-import br.com.gft.MentorsCommon.Job;
-import br.com.gft.MentorsCommon.RatePrf;
-import br.com.gft.MentorsCommon.UserRole;
 import br.com.gft.MentorsCommon.Users;
-import br.com.gft.MentorsService.EmployeeService;
 import br.com.gft.MentorsService.UserRoleService;
 import br.com.gft.MentorsService.UsersService;
 import br.com.gft.share.Pagination;
@@ -76,7 +70,7 @@ public class UsersControl {
 
 
 	/**
-	 * this method is to show Users page to read Users informations
+	 * this method is to show Users page to read inactive Users informations
 	 * 
 	 * @return
 	 */
@@ -90,6 +84,22 @@ public class UsersControl {
 
 		return "Users";
 	}
+	
+	/**
+	 * this method is to show Users page to read inactive Users informations
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/UsersInactive", method = RequestMethod.GET)
+	public String showUsersInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		Pagination pagination = new Pagination(service.getUsersInactive().size(), page);
+
+		model.addAttribute("url", "UsersInactive");
+		model.addAttribute("pagination", pagination);
+		model.addAttribute("Users", service.getUsersInactive(pagination.getBegin(), pagination.getQuantity()));
+
+		return "Users";
+	}
 
 	/**
 	 * this method is to register user
@@ -98,7 +108,6 @@ public class UsersControl {
 	 * @param pass
 	 * @param repass
 	 * @param userRole
-	 * @param redirAttr
 	 * @return
 	 * @throws Exception
 	 */
@@ -108,7 +117,7 @@ public class UsersControl {
 			@RequestParam(Paths.ATTRIBUTE_UC_PASS) String pass,
 			@RequestParam(Paths.ATTRIBUTE_UC_REPASS) String repass,
 			@RequestParam(Paths.ATTRIBUTE_UC_USER_ROLE) int userRole, 
-			RedirectAttributes redirAttr) throws Exception {
+			Model model) throws Exception {
 		
 		List<Users> users = service.getUsers();
 		
@@ -140,9 +149,10 @@ public class UsersControl {
 			usersControlMessage = 2;
 		}
 		
-		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		showUsers(null, model);
 		
-		return "redirect:Users";
+		return "Users";
 	}
 
 	/**
@@ -156,19 +166,144 @@ public class UsersControl {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/UpdateUser", method = RequestMethod.POST)
+	@RequestMapping(value = "/ProcessUserUpdate", method = RequestMethod.POST)
 	public String UpdateUser(
+			@RequestParam("username") String username,
+			@RequestParam("pass") String pass,
+			@RequestParam("repass") String repass,
+			@RequestParam("userRole") int userRole, 
+			Model model) throws Exception {
+
+		List<Users> users = service.getUsers();
+		int usersControlMessage;
+		int action = 0;
+
+		for (int i = 0; i < users.size(); i++) {
+			if (username.equals(users.get(i).getUsername())) {
+				user = users.get(i);
+				action = 1;
+			}
+		}
+
+		if (action == 1) {
+			if (pass.equals(repass)) {
+				user.setUsername(username);
+				
+				if (pass.equals("")) {
+					user.setPassword(new UsersService().getUser(username).getPassword());
+				} else {
+					user.setPassword(pass);
+				}
+				
+				user.setUserRole(new UserRoleService().getUserRole(userRole));
+				user.setEnable(1);
+				
+				service.alterUser(user);
+				
+				usersControlMessage = 3;
+			} else {
+				usersControlMessage = 4;
+			}
+		} else {
+			usersControlMessage = 6;
+		}
+
+		showUsers(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		
+		return "Users";
+	}
+
+	/**
+	 * this method is enable/disable user
+	 * 
+	 * @param id
+	 * @param status
+	 * @param redirAttr
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/UserStatus", method = RequestMethod.GET)
+	public String UserStatus(
+			@RequestParam("username") String username,
+			@RequestParam("status") int status,
+			Model model) throws Exception {
+		
+		user = service.getUser(username);
+		int usersControlMessage;
+		int action = user != null ? 1 : 0;
+
+		if (action == 1) {
+			user.setEnable(status == 1 ? 0 : 1);
+			
+			service.alterUser(user);
+			
+			usersControlMessage = 7;
+		} else {
+			usersControlMessage = 8;
+		}
+		
+		showUsers(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		return "Users";
+	}
+
+	/**
+	 * this method is to show user registration page
+	 * 
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/UserRegistration", method = RequestMethod.GET)
+	public String showUserRegistration(@ModelAttribute("Users") Users user, Model model) {
+		model.addAttribute("userRoles", new UserRoleService().getUserRoles());
+		
+		return "UserRegistration";
+	}
+	
+	/**
+	 * this method is to show user update page
+	 * 
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/UserUpdate", method = RequestMethod.GET)
+	public String showUserUpdate(@RequestParam("username") String username, Model model) {
+		model.addAttribute("user", new UsersService().getUser(username));
+		model.addAttribute("userRoles", new UserRoleService().getUserRoles());
+		
+		return "UserUpdate";
+	}
+
+	/**
+	 * this method is update password
+	 * 
+	 * @param username
+	 * @param pass
+	 * @param repass
+	 * @param oldpass
+	 * @param redirAttr
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/UpdateUserPassword", method = RequestMethod.POST)
+	public String UpdateUserPassword(
 			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
 			@RequestParam(Paths.ATTRIBUTE_UC_NEW_PASS) String pass,
 			@RequestParam(Paths.ATTRIBUTE_UC_REP_PASS) String repass,
 			@RequestParam(Paths.ATTRIBUTE_UC_OLD_PASS) String oldpass,
 			@RequestParam("redirect") String URL,
+			@RequestParam(value = "query", required = false) String query,
 			RedirectAttributes redirAttr) throws Exception {
 
 		String[] path = URL.split("/");
-		String page = path[path.length - 1];
+		String page = path[path.length - 1] + (!query.equals("null") && query != null ? "?" + query : "");
+		
 		List<Users> users = service.getUsers();
 		user = service.getUser(username);
+		
 		int usersControlMessage;
 		int action = 0;
 
@@ -185,12 +320,13 @@ public class UsersControl {
 					user.setUsername(username);
 					user.setPassword(pass);
 					user.setEnable(1);
+		
 					service.alterUser(user);
+					
 					usersControlMessage = 3;
 				} else {
 					usersControlMessage = 4;
 				}
-
 			} else {
 				usersControlMessage = 5;
 			}
@@ -202,62 +338,5 @@ public class UsersControl {
 		
 		return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}
-
-	/**
-	 * this method is enable/disable user
-	 * 
-	 * @param username
-	 * @param redirAttr
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value = "/UserStatus", method = RequestMethod.POST)
-	public String UserStatus(
-			@RequestParam(Paths.ATTRIBUTE_UC_USERNAME) String username,
-			@RequestParam("status") int status,
-			@RequestParam("redirect") String URL,
-			RedirectAttributes redirAttr) throws Exception {
-		
-		String[] path = URL.split("/");
-		String page = path[path.length - 1];
-		List<Users> users = service.getUsers();
-		user = service.getUser(username);
-		int usersControlMessage;
-		int action = 0;
-
-		for (int i = 0; i < users.size(); i++) {
-			if (username.equals(users.get(i).getUsername())) {
-				user = users.get(i);
-				action = 1;
-			}
-		}
-		
-		if (action == 1) {
-			user.setEnable(status);
-			service.alterUser(user);
-			usersControlMessage = 7;
-		} else {
-			usersControlMessage = 8;
-		}	
-		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
-		return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
-	}
-
-	/**
-	 * this method is to show user registration page
-	 * 
-	 * @param user
-	 * @param model
-	 * @return
-	 */
-	@RequestMapping(value = "/UserRegistration", method = RequestMethod.GET)
-	public String showEmployeeRegistration(@ModelAttribute("Users") Users user, Model model) {
-		model.addAttribute("userRoles", new UserRoleService().getUserRoles());
-		
-		System.out.println(new UserRoleService().getUserRoles());
-		
-		return "UserRegistration";
-	}
-
 }
 

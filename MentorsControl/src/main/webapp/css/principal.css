@@ -241,7 +241,7 @@ button {
 .legenda li {
 	width: auto;
 	list-style: none;
-	display: inline;
+	display: inline-block;
 }
 
 #mentee_img {

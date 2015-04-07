@@ -2,7 +2,6 @@ package br.com.gft.MentorsService;
 
 import java.util.List;
 
-import br.com.gft.MentorsCommon.UserRole;
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsDAO.UsersDAO;
 
@@ -12,20 +11,20 @@ public class UsersService {
 		new UsersDAO().insertUsers(user);
 	}
 	
-	public void addUserRole(UserRole userrole) throws Exception {
-		new UsersDAO().insertUserRole(userrole);
-	}
-	
 	public void alterUser(Users user){
 		new UsersDAO().updateUsers(user);
 	}
 	
-	public Users getUser(String userId){
-		return new UsersDAO().findUser(userId);
+	public Users getUser(String username){
+		return new UsersDAO().findUser(username);
 	}
 	
 	public List<Users> getUsers(){
 		return new UsersDAO().findUsers();
+	}
+	
+	public List<Users> getUsersInactive(){
+		return new UsersDAO().findUsersInactive();
 	}
 	
 	public List<Users> getUsers(int begin, int quantity){

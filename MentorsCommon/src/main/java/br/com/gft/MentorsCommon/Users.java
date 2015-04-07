@@ -17,12 +17,12 @@ import javax.persistence.Table;
 @Table(name = "users")
 public class Users implements Serializable {
 
-	@Id
 	@SequenceGenerator(name = "users_id_seq", sequenceName = "users_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
 	@Column(name = "id", updatable = false)
 	private int id;
 
+	@Id
 	@Column(name = "username")
 	private String username;
 	

@@ -30,49 +30,52 @@
 										</li>
 										
 										<li>
-											<input type="checkbox" id="isInactive" />
-											
-											<font size="2" color="#555">Include Removed Users</font>
-										</li>
-										<li id ="buttons_position">
-										<ul>
-										<li>
-											<a href="UserRegistration">
-												<button type="button">
-													<i class="icon-plus"></i>
-													<font size="1" color="#555"> Add User</font>
-												</button>
-											</a>
+											<label>
+												<input type="checkbox" id="isInactive" /> 
+												Include Removed Users
+											</label>
 										</li>
 										
-										<li class="dropdown">
-											<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
-												<button type="button">
-													<img src="img/tres-barras.png" style="width: 30px; heigth: 40px;" />
-												</button>
-											</a>
-										
-											<ul class="dropdown-menu">
+										<li id="buttons_position">
+											<ul>
 												<li>
-													<a href="mainPage">
-														<font size="2" color="#555">
-															<i class="icon-home"></i>
-															Back to Main Page
-														</font>
+													<a href="UserRegistration">
+														<button type="button">
+															<i class="icon-plus"></i>
+															<font size="1" color="#555"> Add User</font>
+														</button>
 													</a>
 												</li>
-												
-												<li>
-													<a href="#ModalEG" data-toggle="modal">
-														<font size="2" color="#555">
-															<i class="icon-question-sign"></i>
-															User guide
-														</font>
+										
+												<li class="dropdown">
+													<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+														<button type="button">
+															<img src="img/tres-barras.png" style="width: 30px; heigth: 40px;" />
+														</button>
 													</a>
+												
+													<ul class="dropdown-menu">
+														<li>
+															<a href="mainPage">
+																<font size="2" color="#555">
+																	<i class="icon-home"></i>
+																	Back to Main Page
+																</font>
+															</a>
+														</li>
+														
+														<li>
+															<a href="#ModalEG" data-toggle="modal">
+																<font size="2" color="#555">
+																	<i class="icon-question-sign"></i>
+																	User guide
+																</font>
+															</a>
+														</li>
+													</ul>
 												</li>
 											</ul>
 										</li>
-										</ul></li>
 									</ul>
 								</legend>
 							</fieldset>
@@ -81,11 +84,9 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th style="width: 200px;">Username</th>
+									<th>Username</th>
 									
-									<th style="width: 20px;">User Role</th>
-									
-									<th style="width: 20px;">View</th>
+									<th>User Role</th>
 									
 									<th style="width: 20px;">Edit</th>
 									
@@ -100,15 +101,7 @@
 									<td th:text="${user.userRole.getUserRole()}"></td>
 									
 									<td style="width: 20px;" class="text-center">
-										<a href="#" th:href="@{/UserView(id=${user.id})}">
-											<button type="submit" class="btn btn-default btn-lg">
-												<i class="icon-eye-open"></i>
-											</button>
-										</a>
-									</td>
-									
-									<td style="width: 20px;" class="text-center">
-										<a href="#" th:href="@{/UserUpdate(id=${user.id})}">
+										<a href="#" th:href="@{/UserUpdate(username=${user.username})}">
 											<button type="submit" class="btn btn-default btn-lg">
 												<i class="icon-pencil"></i>
 											</button>
@@ -116,9 +109,10 @@
 									</td>
 									
 									<td style="width: 20px;" class="text-center">
-										<a href="#" th:href="@{/UserInactivate(id=${user.id})}">
+										<a href="#" th:href="@{/UserStatus(username=${user.username}, status=${user.enable})}" class="remove">
 											<button type="input" role="button" class="btn btn-default btn-lg">
-												<i class="icon-trash"></i>
+												<i class="icon-trash" th:if="${user.enable == 1}"></i>
+												<i class="icon-repeat" th:if="${user.enable == 0}"></i>
 											</button>
 										</a>
 									</td>
@@ -129,5 +123,28 @@
 				</div>
 			</section>
 		</div>
+		
+		<script type="text/javascript">
+			$(function(){
+				$(".remove").click(function(){
+					if (!confirm("Are you sure?")) {
+						return false;
+					}
+				});
+				
+				page = window.location.href.split("/")
+				if (page[page.length - 1] == "UsersInactive") {
+					$('#isInactive').prop("checked", true);
+				}
+				
+				$('#isInactive').change(function() {
+					if ($( this ).is( ':checked' )) {
+						window.location.href = 'UsersInactive';
+					} else {
+						window.location.href = 'Users';
+					}
+				});
+			});
+		</script>
 	</body>
 </html>

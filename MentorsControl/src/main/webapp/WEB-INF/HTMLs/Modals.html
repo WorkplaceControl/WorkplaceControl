@@ -1,106 +1,28 @@
 <div th:fragment="modals">
 
-
-	<!-- Modal to add user-->
-
-	<section>
-		<form action="#" th:action="@{/ProcessUser}" th:object="${Users}"
-			method="post">
-			<div id="ModalAU" class="modal hide fade" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-					<h3 id="myModalLabel">User Registration</h3>
-				</div>
-				<div class="modal-body">
-
-
-					<input type="hidden" name="redirect"
-						th:value="${#httpServletRequest.requestURI}" /> <label>username</label>
-					<input type="text" class="input-large" name="username"
-						placeholder="user name" maxlength="64" required="true" /> <label>password</label>
-					<input type="password" name="pass" placeholder="password"
-						maxlength="64" required="true" /> <label>repeat password</label>
-					<input type="password" name="repass" placeholder="repeat password"
-						maxlength="64" required="true" /> <label>User Control</label> <select
-						name="userRole" required="true">
-						<option value=""></option>
-						<option value="1">Administrator</option>
-						<option value="2">RH</option>
-						<option value="2">User</option>
-					</select>
-				</div>
-				<div class="modal-footer">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</div>
-			</div>
-
-		</form>
-	</section>
-
-
-
-	<!-- Modal to enable/disable user-->
-
-	<section>
-		<form action="#" th:action="@{/UserStatus}" th:object="${Users}"
-			method="post">
-			<div id="ModalST" class="modal hide fade" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-header">
-					<h3 id="myModalLabel">User Status</h3>
-				</div>
-				<div class="modal-body">
-
-
-					<input type="hidden" name="redirect"
-						th:value="${#httpServletRequest.requestURI}" /> <label>Username</label>
-					<input type="text" class="input-large" name="username"
-						placeholder="username to enable/disable" maxlength="64"
-						required="true" /> <label>Choice an Option</label> <select
-						name="status" required="true">
-						<option value="1">Enable</option>
-						<option value="0">Disable</option>
-					</select>
-				</div>
-				<div class="modal-footer">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-					<button type="submit" class="btn btn-primary">Save</button>
-				</div>
-			</div>
-
-		</form>
-	</section>
-
 	<!-- Modal to change password -->
 	<section>
-		<form action="#" th:action="@{/UpdateUser}" th:object="${Users}"
-			method="post">
-			<div id="ModalCP" class="modal hide fade" tabindex="-1" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
+		<form action="#" th:action="@{/UpdateUserPassword}" th:object="${Users}" method="post">
+			<div id="ModalCP" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-header">
 					<h3 id="myModalLabel">Change Password</h3>
 				</div>
+				
 				<div class="modal-body">
-					<input type="hidden" name="redirect"
-						th:value="${#httpServletRequest.requestURI}" />
+					<input type="hidden" name="redirect" th:value="${#httpServletRequest.requestURI}" />
+					<input type="hidden" name="query" th:value="${#httpServletRequest.queryString}" />
+					<input type="hidden" name="username" th:value="${session.user}" />
 
-					<div th:if="${session.roleUser} == 1">
-						<label>Username</label> <input type="text" name="username"
-							placeholder="User to change" maxlength="64" required="true" />
-					</div>
-					<div th:if="${session.roleUser} == 2">
-						<input type="hidden" name="username" th:value="${session.user}"
-							required="true" />
-					</div>
-
-					<label>old password</label> <input type="password" name="oldPass"
-						placeholder="Old password" maxlength="64" required="true" /> <label>new
-						password</label> <input type="password" name="newPass"
-						placeholder="new password" maxlength="64" required="true" /> <label>repeat
-						password</label> <input type="password" name="repPass"
-						placeholder="repeat new password" maxlength="64" required="true" />
+					<label>Old Password</label>
+					<input type="password" name="oldPass" placeholder="Old password" maxlength="64" required="true" />
+					
+					<label>New Password</label>
+					<input type="password" name="newPass" placeholder="New password" maxlength="64" required="true" />
+					
+					<label>Repeat Password</label>
+					<input type="password" name="repPass" placeholder="Repeat new password" maxlength="64" required="true" />
 				</div>
+				
 				<div class="modal-footer">
 					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 					<button type="submit" class="btn btn-primary">Save</button>
