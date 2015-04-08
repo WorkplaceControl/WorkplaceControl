@@ -1,26 +1,20 @@
 package br.com.gft.MentorsDAO;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Mentor;
 
-
-
-
 public class EmployeeDAO {
-	private static EntityManagerFactory emf;
-	private static EntityManager em;
 	
-	public static void setup(){ 
-	emf = Persistence.createEntityManagerFactory("test");
-	em = emf.createEntityManager();
+	private EntityManager em;
+	
+	public EmployeeDAO(){ 
+		em = Persistence.createEntityManagerFactory("test").createEntityManager();
 	}
 	
 	public void insertEmployee(Employee employee){
@@ -38,46 +32,45 @@ public class EmployeeDAO {
 	}
 	
 	public Employee findEmployee(String employeeId) {
-		Employee employee = new Employee();
-	    employee = em.find(Employee.class,  employeeId);
-		return employee;
+		return em.find(Employee.class,  employeeId);
 	}
 		
 	public List<Employee> findPagedEmployees(int inicio, int quantidade){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by ws_name asc" , Employee.class);
+
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
-		Collection<Employee> employee = (Collection<Employee>) query.getResultList();
-		return (List<Employee>) employee;
+		
+		return (List<Employee>) query.getResultList();
 	}
 	
 	public List<Employee> findPagedEmployeesInactive(int inicio, int quantidade){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
+		
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
-		Collection<Employee> employee = (Collection<Employee>) query.getResultList();
-		return (List<Employee>) employee;
+		
+		return (List<Employee>) query.getResultList();
 	}
 	
 	public List<Employee> findEmployees(){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by ws_name asc" , Employee.class);
-		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
-		return (List<Employee>) employee;
+		
+		return (List<Employee>) query.getResultList();
 	}
 	
 	
 	public List<Employee> findEmployeesInactive(){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
-		Collection<Employee> employee  = (Collection<Employee>) query.getResultList();
-		return (List<Employee>) employee;
+
+		return (List<Employee>) query.getResultList();
 	}
 
 	
 	public List<Mentor> findQtyMentee(){
 		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("select id, name, job_id, cost_center_id, rate_prf_id, count(mentor_id) as qtymentee from employee group by id order by qtymentee asc", Mentor.class);
-		Collection<Mentor> mentor  = (Collection<Mentor>) query.getResultList();
-		return (List<Mentor>) mentor;
+
+		return (List<Mentor>) query.getResultList();
 	}
-	
 	
 }

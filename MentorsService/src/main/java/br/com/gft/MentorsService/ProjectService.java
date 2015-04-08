@@ -8,60 +8,37 @@ import br.com.gft.MentorsDAO.CustomerDAO;
 import br.com.gft.MentorsDAO.ProjectDAO;
 
 public class ProjectService {
-	ProjectDAO projectdao = new ProjectDAO();
-	
 	
 	public void addProject(Project project){
-		ProjectDAO.setup();	
-		projectdao.insertProject(project);
+		new ProjectDAO().insertProject(project);
 	}
 
 	public List<Customer> getCustomers() {
 		return new CustomerDAO().findCustomers(); 
 	}
 	
-	
 	public Project getProject(int projectId){
-		Project project = new Project();
-		ProjectDAO.setup();
-		project = projectdao.findProject(projectId);
-		return project;
+		return new ProjectDAO().findProject(projectId);
 	}
 	
 	public List<Project> getProjects(){
-		ProjectDAO.setup();
-		ProjectDAO projectdao = new ProjectDAO();
-		List<Project> project = projectdao.findProjects();
-		return project;
+		return new ProjectDAO().findProjects();
 	}
 	
 	public List<Project> getProjectsInactive(){
-		ProjectDAO.setup();
-		ProjectDAO projectdao = new ProjectDAO();
-		List<Project> project = projectdao.findProjectsInactive();
-		return project;
+		return new ProjectDAO().findProjectsInactive();
 	}
 	
 	public List<Project> getPagedProjects(int inicio, int quantidade){
-		ProjectDAO.setup();
-		ProjectDAO projectdao = new ProjectDAO();
-		List<Project> project = projectdao.findPagedProjects(inicio, quantidade);
-		return project;
+		return new ProjectDAO().findPagedProjects(inicio, quantidade);
 	}
 	
 	public List<Project> getPagedProjectsInactive(int inicio, int quantidade){
-		ProjectDAO.setup();
-		ProjectDAO projectdao = new ProjectDAO();
-		List<Project> project = projectdao.findPagedProjectsInactive(inicio, quantidade);
-		return project;
+		return new ProjectDAO().findPagedProjectsInactive(inicio, quantidade);
 	}
 	
-	
-	
 	public void alterProject(Project project){
-		ProjectDAO.setup();
-		ProjectDAO projectdao = new ProjectDAO();
-		projectdao.updateProject(project);
+		new ProjectDAO().updateProject(project);
 	}
 	
 }

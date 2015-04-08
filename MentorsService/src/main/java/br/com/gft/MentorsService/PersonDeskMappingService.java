@@ -37,31 +37,36 @@ public class PersonDeskMappingService {
 		for (int i = 0; i < files.length; i++) {
 			MultipartFile file = files[i];
 			String name = fileNames[i];
+			
 			try {
 				byte[] bytes = file.getBytes();
 
 				// Creating the directory to store file
-				String rootPath = System.getProperty("user.dir");
+				//String rootPath = System.getProperty("user.dir");
+				
 				File dir = new File(tempDir);
+				
 				if (!dir.exists())
 					dir.mkdirs();
 
 				// Create the file on server
 				File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+				
 				stream.write(bytes);
 				stream.close();
-
 			} catch (Exception e) {
 				throw new Exception("Couldn't upload your file. Please check your input!");
 			}
 		}
+		
 		return updateSVG(fileNames);
 	}
 
 	private Map<String, String> getEmployeesFromExcel(String file) {
 		Workbook wb;
 		Map<String, String> employeesMap = new HashMap<String, String>();
+		
 		try {
 			wb = new HSSFWorkbook(new FileInputStream(file));
 			Sheet sheet = wb.getSheetAt(0);
@@ -75,11 +80,11 @@ public class PersonDeskMappingService {
 		} catch (Exception e) {
 			System.out.println("Check you Excel does not countains messy lines");
 		}
+		
 		return employeesMap;
 	}
 
 	private String updateSVG(String[] fileNames) throws Exception {
-
 		String svgTemplate = tempDir + File.separator + fileNames[0];
 		String excelPersonDeskMap = tempDir + File.separator + fileNames[1];
 		
@@ -116,6 +121,7 @@ public class PersonDeskMappingService {
 					}
 				}
 			}
+			
 			// write the content into xml file
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
@@ -123,6 +129,7 @@ public class PersonDeskMappingService {
 			String outputFilePath = tempDir + File.separator + "OutputMap.svg";
 			StreamResult result = new StreamResult(new File(outputFilePath));
 			transformer.transform(source, result);
+			
 			return outputFilePath;
 		} catch (Exception e) {
 			throw new Exception("Updating SGV failed. Check you files!");

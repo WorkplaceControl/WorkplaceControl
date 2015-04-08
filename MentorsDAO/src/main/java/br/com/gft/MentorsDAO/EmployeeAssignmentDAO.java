@@ -1,24 +1,19 @@
 package br.com.gft.MentorsDAO;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.EmployeeAssignment;
-import br.com.gft.MentorsCommon.Project;
-
 
 public class EmployeeAssignmentDAO {
-	private static EntityManagerFactory emf;
-	private static EntityManager em;
 	
-	public static void setup(){ 
-	emf = Persistence.createEntityManagerFactory("test");
-	em = emf.createEntityManager();
+	private EntityManager em;
+	
+	public EmployeeAssignmentDAO(){ 
+		em = Persistence.createEntityManagerFactory("test").createEntityManager();
 	}
 
 	public void insertEmployeeAssignnment(EmployeeAssignment empAssign) {
@@ -36,19 +31,18 @@ public class EmployeeAssignmentDAO {
 	}
 	
 	public EmployeeAssignment findEmployeeAssignment(String employeeId){
-		EmployeeAssignment empAssign = new EmployeeAssignment();
-		return empAssign = em.find(EmployeeAssignment.class,  employeeId);
+		return em.find(EmployeeAssignment.class,  employeeId);
 	}
 	
 	public List<EmployeeAssignment> findEmployeeAssignments(String employeeId){
 		TypedQuery<EmployeeAssignment> query = (TypedQuery<EmployeeAssignment>) em.createNativeQuery("select * from Employee_Assignment where active = 0 and Employee_id = '"+ employeeId +"' order by project_id asc" , EmployeeAssignment.class);
-		Collection<EmployeeAssignment> empAssign  = (Collection<EmployeeAssignment>) query.getResultList();
-		return (List<EmployeeAssignment>) empAssign;
+
+		return (List<EmployeeAssignment>) query.getResultList();
 	}
 	
 	public List<EmployeeAssignment> getEmployeeAssignments(){
 		TypedQuery<EmployeeAssignment> query = (TypedQuery<EmployeeAssignment>) em.createNativeQuery("select * from Employee_Assignment where active = 0 order by project_id asc" , EmployeeAssignment.class);
-		Collection<EmployeeAssignment> empAssign  = (Collection<EmployeeAssignment>) query.getResultList();
-		return (List<EmployeeAssignment>) empAssign;
+
+		return (List<EmployeeAssignment>) query.getResultList();
 	}
 }

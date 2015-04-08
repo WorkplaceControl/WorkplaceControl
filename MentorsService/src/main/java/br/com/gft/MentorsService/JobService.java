@@ -2,61 +2,37 @@ package br.com.gft.MentorsService;
 
 import java.util.List;
 
-import br.com.gft.MentorsDAO.EmployeeDAO;
-import br.com.gft.MentorsDAO.JobDAO;
-import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Job;
-
-
+import br.com.gft.MentorsDAO.JobDAO;
 
 public class JobService {
 	
 	public void processJob(Job job){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO( );
-		jobdao.insertJob(job);
+		new JobDAO().insertJob(job);
 	}
 	
 	public List<Job> getJobs(){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		List<Job> jobs = jobdao.findJobs();
-		return jobs;
+		return new JobDAO().findJobs();
 	}
 	
 	public List<Job> getJobsInactive(){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		List<Job> jobs = jobdao.findJobsInactive();
-		return jobs;
+		return new JobDAO().findJobsInactive();
 	}
 	
 	public List<Job> getPagedJobs(int inicio, int quantidade){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		List<Job> job = jobdao.findPagedJobs(inicio, quantidade);
-		return job;
+		return new JobDAO().findPagedJobs(inicio, quantidade);
 	}
 	
 	public List<Job> getPagedJobsInactive(int inicio, int quantidade){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		List<Job> job = jobdao.findPagedJobsInactive(inicio, quantidade);
-		return job;
+		return new JobDAO().findPagedJobsInactive(inicio, quantidade);
 	}
 
 	public void alterJob(Job job){
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		jobdao.updateJob(job);
+		new JobDAO().updateJob(job);
 	}
 	
 	public Job getJob(String jobId){
-		Job job = new Job();
-		JobDAO.setup();
-		JobDAO jobdao = new JobDAO();
-		job = jobdao.finJob(jobId);
-		return job;
+		return new JobDAO().finJob(jobId);
 	}
     
 }

@@ -3,62 +3,36 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.CostCenter;
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsDAO.CostCenterDAO;
-import br.com.gft.MentorsDAO.JobDAO;
 
 public class CostCenterService {
 
 	public void addCostCenter(CostCenter costcenter) throws Exception {
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		costcenterdao.insertCostCenter(costcenter);
-
+		new CostCenterDAO().insertCostCenter(costcenter);
 	}
 
 	public List<CostCenter> getCostCenters() {
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		List<CostCenter> costcenter = costcenterdao.findCostCenters();
-		return costcenter;
+		return new CostCenterDAO().findCostCenters();
 	}
 
 	public List<CostCenter> getCostCentersInactive() {
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		List<CostCenter> costcenter = costcenterdao.findCostCentersInactive();
-		return costcenter;
+		return new CostCenterDAO().findCostCentersInactive();
 	}
 	
 	public List<CostCenter> getPagedCostCenters(int inicio, int quantidade){
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		List<CostCenter> costcenter = costcenterdao.findPagedCostCenters(inicio, quantidade);
-		return costcenter;
+		return new CostCenterDAO().findPagedCostCenters(inicio, quantidade);
 	}
 	
 	public List<CostCenter> getPagedCostCentersInactive(int inicio, int quantidade){
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		List<CostCenter> costcenter = costcenterdao.findPagedCostCentersInactive(inicio, quantidade);
-		return costcenter;
+		return new CostCenterDAO().findPagedCostCentersInactive(inicio, quantidade);
 	}
 
 	public CostCenter getCostCenter(String costCenterId) {
-		CostCenter costcenter = new CostCenter();
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		costcenter = costcenterdao.findCost(costCenterId);
-		return costcenter;
+		return new CostCenterDAO().findCost(costCenterId);
 	}
 
 	public void alterCostCenter(CostCenter costcenter) {
-		CostCenterDAO.setup();
-		CostCenterDAO costcenterdao = new CostCenterDAO();
-		costcenterdao.updateCostCenter(costcenter);
+		new CostCenterDAO().updateCostCenter(costcenter);
 	}
 
-	public void showCost() {
-
-	}
 }

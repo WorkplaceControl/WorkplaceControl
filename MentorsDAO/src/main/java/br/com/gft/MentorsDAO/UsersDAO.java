@@ -3,7 +3,6 @@ package br.com.gft.MentorsDAO;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -11,12 +10,10 @@ import br.com.gft.MentorsCommon.Users;
 
 public class UsersDAO {
 	
-	private static EntityManagerFactory emf;
-	private static EntityManager em;
+	private EntityManager em;
 
 	public UsersDAO(){ 
-		emf = Persistence.createEntityManagerFactory("test");
-		em = emf.createEntityManager();
+		em = Persistence.createEntityManagerFactory("test").createEntityManager();
 	}
 
 	public void insertUsers(Users user) throws Exception {

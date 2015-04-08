@@ -1,37 +1,19 @@
 package br.com.gft.MentorsDAO;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
-
-
-
-
-
-
-
-
-
-import br.com.gft.MentorsCommon.Customer;
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Project;
-import br.com.gft.MentorsCommon.Unit;
 
 public class ProjectDAO {
-	private static EntityManagerFactory emf;
-	private static EntityManager em;
 
-	public static void setup(){ 
-		emf = Persistence.createEntityManagerFactory("test");
-		em = emf.createEntityManager();
+	private EntityManager em;
+
+	public ProjectDAO(){ 
+		em = Persistence.createEntityManagerFactory("test").createEntityManager();
 	}
 
 	public void insertProject(Project project) {
@@ -49,40 +31,37 @@ public class ProjectDAO {
 	}
 
 	public Project findProject(int projectId) {
-		em.getTransaction().begin();
-		Project project = new Project();
-		project = em.find(Project.class, projectId);
-		em.close();
-		return project;
+		return em.find(Project.class, projectId);
 	}
 	
 	public List<Project> findPagedProjects(int inicio, int quantidade){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 order by description asc" , Project.class);
+		
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
-		Collection<Project> project = (Collection<Project>) query.getResultList();
-		return (List<Project>) project;
+
+		return (List<Project>) query.getResultList();
 	}
 	
 	public List<Project> findPagedProjectsInactive(int inicio, int quantidade){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project order by description asc" , Project.class);
+		
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
-		Collection<Project> project = (Collection<Project>) query.getResultList();
-		return (List<Project>) project;
+		
+		return (List<Project>) query.getResultList();
 	}
 
 	public List<Project> findProjects(){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 order by description asc" , Project.class);
-		Collection<Project> project  = (Collection<Project>) query.getResultList();
-		return (List<Project>) project;
+		
+		return (List<Project>) query.getResultList();
 	}
 	
 	public List<Project> findProjectsInactive(){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project order by description asc" , Project.class);
-		Collection<Project> project  = (Collection<Project>) query.getResultList();
-		return (List<Project>) project;
+		
+		return (List<Project>) query.getResultList();
 	}
-
 
 }

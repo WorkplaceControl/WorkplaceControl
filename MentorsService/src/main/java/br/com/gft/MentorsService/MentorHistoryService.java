@@ -3,73 +3,56 @@ package br.com.gft.MentorsService;
 import java.util.Date;
 import java.util.List;
 
-import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.MentorHistory;
-import br.com.gft.MentorsCommon.Project;
-import br.com.gft.MentorsDAO.CostCenterDAO;
 import br.com.gft.MentorsDAO.MentorHistoryDAO;
 
-
 public class MentorHistoryService {
-	
+
 	public void addMentorHistory(MentorHistory mentorhistory) throws Exception {
-		MentorHistoryDAO.setup();
-		MentorHistoryDAO mentorhistorydao = new MentorHistoryDAO();
-		mentorhistorydao.insertMentorHistory(mentorhistory);
-		
+		new MentorHistoryDAO().insertMentorHistory(mentorhistory);
+
 	}
-	
-	public List<MentorHistory> getMentorHistorys(){
-		MentorHistoryDAO.setup();
-		MentorHistoryDAO mentorhistorydao = new MentorHistoryDAO();
-		List<MentorHistory> mentorhistory = mentorhistorydao.findMentorHistorys();
-		return mentorhistory;
+
+	public List<MentorHistory> getMentorHistorys() {
+		return new MentorHistoryDAO().findMentorHistorys();
 	}
-	
-	public void alterMentorHistory(MentorHistory mentorhistory){
-		MentorHistoryDAO.setup();
-		MentorHistoryDAO mentorhistorydao = new MentorHistoryDAO();
-		mentorhistorydao.updateMentorHistory(mentorhistory);
+
+	public void alterMentorHistory(MentorHistory mentorhistory) {
+		new MentorHistoryDAO().updateMentorHistory(mentorhistory);
 	}
-	
-	public MentorHistory getMentorHistory(int employeeId){
-		MentorHistory mentorhistory = new MentorHistory();
-		MentorHistoryDAO.setup();
-		MentorHistoryDAO mentorhistorydao = new MentorHistoryDAO();
-		mentorhistory =  mentorhistorydao.findMentorHistory(employeeId);
-		return mentorhistory;
+
+	public MentorHistory getMentorHistory(int employeeId) {
+		return new MentorHistoryDAO().findMentorHistory(employeeId);
 	}
-	
+
 	/**
 	 * this method is to set the finish date on table employee history
+	 * 
 	 * @param id
 	 * @param oldMente
 	 * @param sysDate
 	 */
-	public void addFinishDate(String id , String oldMente ,Date sysDate){
-		MentorHistoryDAO.setup();
+	public void addFinishDate(String id, String oldMente, Date sysDate) {
 		MentorHistoryDAO mentorhistorydao = new MentorHistoryDAO();
 		List<MentorHistory> ments = mentorhistorydao.findMentorHistorys();
-			if(ments.size() > 1){
-			    for(int i=0 ; i< ments.size() ; i++ ){
-			    	String aux = ments.get(i).getEmployee().getId();
-						    	if(ments.get(i).getMentorId() != null  && ments.get(i).getFinishDate() == null){
-							    	if (ments.get(i).getEmployee().getId().equals(id) && ments.get(i).getMentorId().equals(oldMente)) {
-								    		ments.get(i).setFinishDate(sysDate);
-								    		mentorhistorydao.updateMentorHistory(ments.get(i));
-							    		}
-						    	}
-						    	
-				    			if(ments.get(i).getTutorId() != null && ments.get(i).getFinishDate() == null){
-							    	if (ments.get(i).getTutorId().equals(oldMente) && ments.get(i).getEmployee().getId().equals(id) && ments.get(i).getFinishDate().equals(null)) {
-							    		ments.get(i).setFinishDate(sysDate);
-							    		mentorhistorydao.updateMentorHistory(ments.get(i));
-						    		}
-				    			}
-					    	}
-			    	}
+		
+		if (ments.size() > 1) {
+			for (MentorHistory ment : ments) {
+				if (ment.getMentorId() != null && ment.getFinishDate() == null) {
+					if (ment.getEmployee().getId().equals(id) && ment.getMentorId().equals(oldMente)) {
+						ment.setFinishDate(sysDate);
+						mentorhistorydao.updateMentorHistory(ment);
+					}
+				}
 
-			    }
+				if (ment.getTutorId() != null && ment.getFinishDate() == null) {
+					if (ment.getTutorId().equals(oldMente) && ment.getEmployee().getId().equals(id) && ment.getFinishDate().equals(null)) {
+						ment.setFinishDate(sysDate);
+						mentorhistorydao.updateMentorHistory(ment);
+					}
+				}
+			}
+		}
+	}
+	
 }
-
-

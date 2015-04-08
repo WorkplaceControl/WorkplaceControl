@@ -3,57 +3,44 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.EmployeeAssignment;
-import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsDAO.EmployeeAssignmentDAO;
-import br.com.gft.MentorsDAO.ProjectDAO;
 
 public class EmployeeAssignService {
 
 	public void addEmployeeAssign(EmployeeAssignment emp){
-		EmployeeAssignmentDAO.setup();
-		EmployeeAssignmentDAO empdao = new EmployeeAssignmentDAO();
-		empdao.insertEmployeeAssignnment(emp);
-		System.out.println("Passou aqui");
+		new EmployeeAssignmentDAO().insertEmployeeAssignnment(emp);
 	}
 	
 	public void updateEmployeeAssign(EmployeeAssignment emp){
-		EmployeeAssignmentDAO.setup();
-		EmployeeAssignmentDAO empdao = new EmployeeAssignmentDAO();
-		empdao.updateEmployeeAssignment(emp);
-		System.out.println("Passou aqui");
+		new EmployeeAssignmentDAO().updateEmployeeAssignment(emp);
 	}
 	
 	public List<EmployeeAssignment> getEmployeeAssigns(String employeeId){
-		EmployeeAssignmentDAO.setup();
-		EmployeeAssignmentDAO empdao = new EmployeeAssignmentDAO();
-		List<EmployeeAssignment> empAssign = empdao.findEmployeeAssignments(employeeId);
-		System.out.println("Passou aqui");
-		return empAssign;
+		return new EmployeeAssignmentDAO().findEmployeeAssignments(employeeId);
 	}
 	
 	public List<EmployeeAssignment> getEmployeeAssignsAll(){
-		EmployeeAssignmentDAO.setup();
-		EmployeeAssignmentDAO empdao = new EmployeeAssignmentDAO();
-		List<EmployeeAssignment> empAssign = empdao.getEmployeeAssignments();
-		return empAssign;
+		return new EmployeeAssignmentDAO().getEmployeeAssignments();
 	}
 	
 	/**
-	 * this method is to verify if exist this register to employee in the project informed 
+	 * this method is to verify if exist this register to employee in the project informed
+	 *  
 	 * @param employeeId
 	 * @param projId
+	 * 
 	 * @return
 	 */
 	public int existsRegister(String employeeId , int projId){
-		List<EmployeeAssignment> employeeassigments = new EmployeeAssignService().getEmployeeAssignsAll();
 		int verify = 0;
-		for(int i=0 ; i<employeeassigments.size() ; i++){
-			if(employeeassigments.get(i).getEmployee().getId().equals(employeeId) && employeeassigments.get(i).getProject().getId() == projId ){
+		
+		for (EmployeeAssignment employeeAssignment : new EmployeeAssignService().getEmployeeAssignsAll()) {
+			if (employeeAssignment.getEmployee().getId().equals(employeeId) && employeeAssignment.getProject().getId() == projId) {
 				verify = 1;
 			}
-
 		}
-		return verify;
 		
+		return verify;
 	}
+	
 }
