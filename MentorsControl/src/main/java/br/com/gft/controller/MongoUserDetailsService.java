@@ -3,16 +3,12 @@ package br.com.gft.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.dao.DataAccessException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UsersService;
@@ -23,54 +19,35 @@ import br.com.gft.share.UserRoleInfo;
 @Controller
 public class MongoUserDetailsService implements UserDetailsService {
 
-	/* New instance of Spring Data's User */
-	private org.springframework.security.core.userdetails.User userdetails;
-
-	UsersService userserv = new UsersService();
-
 	/**
 	 * Method that authenticates the user receiving the username and returns a
 	 * valid Spring Data's User
 	 */
 
 	public UserDetails loadUserByUsername(String username){
-		// New Login object
-		Users user = new Users();
+		Users user = new UsersService().getUser(username);
+		User details = null;
 		
-		
-		/* If MongoTemplate bean is null, instantiates a new one */
-		List<Users> users = userserv.getUsers();
-		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).getUsername().equals(username)) {
-				user = users.get(i);
-			}
+		if (user != null) {
+			/*
+			 * Creates a list of GrantedAuthority and add the default
+			 * SimpleGrantedAuthority
+			 */
+			List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 			
-		}
-		/*
-		 * Creates a list of GrantedAuthority and add the default
-		 * SimpleGrantedAuthority
-		 */
-		List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-		
-		// Set type of permission
-		if (user.getUserRole().getId() == UserRoleInfo.Admin.getIndex() ) {
-			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.Admin.getValue()));
-		} else {
-			authorities.add(new SimpleGrantedAuthority(UserRoleInfo.User.getValue()));
-		}	
+			if (user.getUserRole().getId() == UserRoleInfo.Admin.getIndex()) {
+				authorities.add(new SimpleGrantedAuthority(UserRoleInfo.Admin.getValue()));
+			} else {
+				authorities.add(new SimpleGrantedAuthority(UserRoleInfo.User.getValue()));
+			}
 
-		// verify enable/disable account
-		if (user.getEnable() == 1) {
-			
-			/* Pass the values to the User object and returns it */
-			userdetails = new User (user.getUsername(), user.getPassword(), authorities);
-			return userdetails;
-			
-			}else{
-				
-			/* Pass the values to the User object and returns it */
-			userdetails = null;
-			return userdetails;	
+			// verify enable/disable account
+			if (user.getEnable() == 1) {
+				/* Pass the values to the User object and returns it */
+				details = new User(user.getUsername(), user.getPassword(), authorities);
 			}
 		}
-	}	
+		
+		return details;
+	}
+}	

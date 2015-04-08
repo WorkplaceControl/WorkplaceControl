@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -12,20 +14,26 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "Employee")
 public class Mentor implements Serializable{
+	
 	@Id
 	@Column(name="id")
 	private String id;
+	
 	@Column(name="name")
 	private String name;
+	
 	@Column(name="job_id")
 	private String jobId;
+	
+	@Column(name="rate_prf_id")
+	private int rate;
+	
+	@Column(name="cost_center_id")
+	private String cost;
+	
 	@Column(name="qtymentee")
 	private int qtyMentee;
-	@Transient
-	private String cost;
-	@Transient
-	private int rate;
-
+	
 	public Mentor() {
 	}
 	
@@ -36,12 +44,12 @@ public class Mentor implements Serializable{
 		this.jobId = jobId;
 	}
 	
-	public Mentor(String id, String name, String jobId, int qtyMentee) {
+	public Mentor(String id, String jobId, String cost, int rate) {
 		super();
 		this.id = id;
-		this.name = name;
 		this.jobId = jobId;
-		this.qtyMentee = qtyMentee;
+		this.cost = cost;
+		this.rate= rate;
 	}
 
 	public String getId() {
@@ -59,7 +67,23 @@ public class Mentor implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public int getRate() {
+		return rate;
+	}
 
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+	public String getCost() {
+		return cost;
+	}
+
+	public void setCost(String cost) {
+		this.cost = cost;
+	}
+	
 	public String getJobId() {
 		return jobId;
 	}
@@ -74,22 +98,6 @@ public class Mentor implements Serializable{
 
 	public void setQtyMentee(int qtyMentee) {
 		this.qtyMentee = qtyMentee;
-	}
-
-	public String getCost() {
-		return cost;
-	}
-
-	public void setCost(String cost) {
-		this.cost = cost;
-	}
-
-	public int getRate() {
-		return rate;
-	}
-
-	public void setRate(int rate) {
-		this.rate = rate;
 	}
 
 }

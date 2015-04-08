@@ -28,11 +28,14 @@
 					});
 					
 				
-				});
 			
+			page = window.location.href.split("/");
+			page = page[page.length - 1].split("?");
 			
+			if (page[0] == "EmployeeInactive") {
+				$('#isInactive').prop("checked", true);
+			}
 			/* this code is to make  on server a solicitation of datas with inactives  */
-			$( document ).ready(function(){ 
 				$( '#isInactive' ).click( function() {
 					  if ($( this ).is( ':checked' )) {
 						   	window.location.href = 'EmployeeInactive';
@@ -40,11 +43,9 @@
 				        	window.location.href = 'Employee';
 				        }
 				  });
-			});
 			
 			/* this code is filter results and display just the results that is equals typed by user , 
 			   otherwise the content will be hidden */ 
-			$( document ).ready(function(){
 				  $("input").keyup(function(){
 					  	var x = $( "input[name=search]" ).val();
 						var x = x.toLowerCase();
@@ -94,161 +95,146 @@
 							<legend>
 								<ul class="legenda">
 									<li>Employees</li>
-									<li class="legenda_search"><input type="text"
-										class="search-query" name="search" placeholder="Search"
-										style="width: 200px;" /></li>
-									<li><input type="checkbox" id="isInactive" /><font
-										size="2" color="#555">Include Removed Employee</font></li>
+									
+									<li class="legenda_search">
+										<input type="text" class="search-query" name="search" placeholder="Search" style="width: 200px;" />
+									</li>
+									
+									<li>
+										<label>
+											<input type="checkbox" id="isInactive" /> 
+											Include Removed Employees
+										</label>
+									</li>
+									
 									<li id ="buttons_position">
 										<ul>
-									<li><a
-										href="EmployeeRegistration"><button type="button">
-												<i class="icon-plus"></i><font size="1" color="#555">
-													Add Employee</font>
-											</button></a></li>
-									<li class="dropdown">
-										<a id="drop1" href="#" role="button" class="dropdown-toggle" 
-										data-toggle="dropdown">
-											<button type="button">
-												<img src="img/tres-barras.png"
-													style="width: 30px; heigth: 40px;" />
-											</button> 
-									</a>
-										<ul class="dropdown-menu">
-											<li><a href="mainPage"><font size="2" color="#555"><i
-														class="icon-home"></i> Back to Main Page</font></a></li>
-																						<li><a href="#ModalEG" data-toggle="modal"><font
-														size="2" color="#555"><i class="icon-question-sign"></i>
-															Employee guide</font></a></li>
+											<li>
+												<a href="EmployeeRegistration">
+													<button type="button">
+														<i class="icon-plus"></i>
+														Add Employee
+													</button>
+												</a>
+											</li>
+											
+											<li class="dropdown">
+												<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+													<button type="button">
+														<img src="img/tres-barras.png" style="width: 30px; heigth: 40px;" />
+													</button>
+												</a>
+												
+												<ul class="dropdown-menu">
+													<li>
+														<a href="mainPage">
+															<i class="icon-home"></i>
+															Back to Main Page
+														</a>
+													</li>
+													
+													<li>
+														<a href="#ModalEG" data-toggle="modal">
+															<i class="icon-question-sign"></i>
+															Employee guide
+														</a>
+													</li>
+												</ul>
+											</li>
 										</ul>
-
-									</li>
-									</ul>
 									</li>
 								</ul>
 							</legend>
 						</fieldset>
 					</form>
 
-					<table class="table table-bordered" font-color="#ffffff">
-						<tr style="background-color: #00339f; border: 0px solid #00339f;">
-							<td style="width: 80px;">
-								<center>
-									<font size="3" color="#fff">Letters</font>
-								</center>
-							</td>
-							<td style="width: 300px;">
-								<center>
-									<font size="3" color="#fff">Name</font>
-								</center>
-							</td>
-							<td style="width: 200px;">
-								<center>
-									<font size="3" color="#fff">Job</font>
-								</center>
-							</td>
-							<td style="width: 120px;">
-								<center>
-									<font size="3" color="#fff">Mentor/Tutor</font>
-								</center>
-							</td>
-							<td style="width: 20px;">
-								<center>
-									<font size="2" color="#fff">View</font>
-								</center>
-							</td>
-
-							<td style="width: 20px;">
-								<center>
-									<font size="2" color="#fff">Edit</font>
-								</center>
-							</td>
-							<td style="width: 20px;">
-								<center>
-									<font size="2" color="#fff">Remove</font>
-								</center>
-							</td>
-						</tr>
-
-						<tr th:each="emp : ${Employee}" class="employee">
-							<td th:text="${emp.id}" class="id"></td>
-							<td th:text="${emp.wsName}" class="ws_name"></td>
-							<td th:text="${emp.job.id}"></td>
-							<div th:if="${emp.tutorId != null}">
-								<td th:text="${emp.tutorId}"></td>
-							</div>
-							<div th:if="${emp.mentorId != null}">
-								<td th:text="${emp.mentorId}"></td>
-							</div>
-							<div th:if="${emp.mentorId == null}">
-							<td>&nbsp;</td>
-							</div>
-							
-							<td style="width: 20px;"><a href="#"
-								th:href="@{/EmployeeView(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
-									<center>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th style="width: 80px;">Letters</th>
+								
+								<th style="width: 300px;">Name</th>
+								
+								<th style="width: 200px;">Job</th>
+								
+								<th style="width: 120px;">Mentor/Tutor</th>
+								
+								<th style="width: 20px;">View</th>
+	
+								<th style="width: 20px;">Edit</th>
+								
+								<th style="width: 20px;">Remove</th>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr th:each="emp : ${Employee}" class="employee">
+								<td th:text="${emp.id}" class="id"></td>
+								
+								<td th:text="${emp.wsName}" class="ws_name"></td>
+								
+								<td th:text="${emp.job.id}"></td>
+								
+								<td th:text="${emp.tutorId}"  th:if="${emp.tutorId != null}"></td>
+								
+								<td  th:if="${emp.mentorId != null}" th:text="${emp.mentorId}"></td>
+								
+								<td th:if="${emp.mentorId == null}">&nbsp;</td>
+								
+								<td style="width: 20px;" class="text-center">
+									<a href="#" th:href="@{/EmployeeView(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
 										<button type="submit" class="btn btn-default btn-lg">
 											<i class="icon-eye-open"></i>
 										</button>
-									</center>
-							</a></td>
-							<td style="width: 20px;"><a href="#"
-								th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
-									<center>
+									</a>
+								</td>
+								
+								<td style="width: 20px;" class="text-center">
+									<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:if="${emp.active == 0}">
 										<button type="submit" class="btn btn-default btn-lg">
 											<i class="icon-pencil"></i>
 										</button>
-									</center>
-							</a></td>
-							<td style="width: 20px;">
-								<center>
-
-									<button type="input" th:attr="href=@{'#mymodal'+${emp.id}}"
-										role="button" class="btn btn-default btn-lg"
-										data-toggle="modal">
-										<i class="icon-trash"></i>
-									</button>
-
-
-
-
-
-								</center>
-							</td>
-							<td th:text="${emp.active}" class="active"></td>
-							<!-- Modal -->
-							<form action="#"
-								th:action="@{/EmployeeInactivate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}"
-								th:object="${emp}" method="post">
-								<div th:attr="id=@{'mymodal'+${emp.id}}" class="modal hide fade"
-									tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-									aria-hidden="true">
-									<div class="modal-header">
-										<h3 id="myModalLabel">Select the leaving date to employee</h3>
+									</a>
+									
+									<div th:unless="${emp.active == 0}">-</div>
+								</td>
+								
+								<td style="width: 20px;" class="text-center">
+									<div th:if="${emp.active == 0}">
+	
+										<a type="input" th:attr="href=@{'#mymodal'+${emp.id}}" role="button" class="btn btn-default btn-lg" data-toggle="modal">
+											<i class="icon-trash"></i>
+										</a>
+	
+										<!-- Modal -->
+										<form action="#" th:action="@{/EmployeeInactivate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:object="${emp}" method="post">
+											<div th:attr="id=@{'mymodal'+${emp.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+												<div class="modal-header">
+													<h3 id="myModalLabel">Select the leaving date to employee</h3>
+												</div>
+												
+												<div class="modal-body">
+													<input type="date" name="leaving_date" placeholder="input the end date" style="width: 300px; heigth: 30px;" />
+												</div>
+												
+												<div class="modal-footer">
+													<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+													<button type="submit" class="btn btn-primary">Save</button>
+												</div>
+											</div>
+										</form>
 									</div>
-									<div class="modal-body">
-
-										<input type="date" name="leaving_date"
-											placeholder="input the end date"
-											style="width: 300px; heigth: 30px;" />
-
-									</div>
-									<div class="modal-footer">
-
-										<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-
-										<button type="submit" class="btn btn-primary">Save</button>
-
-									</div>
-								</div>
-							</form>
-
-						</tr>
+									
+									<div th:unless="${emp.active == 0}">-</div>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
 		</section>
 	</div>
+
 	
 	<div th:include="Pagination :: pagination"></div>
 	

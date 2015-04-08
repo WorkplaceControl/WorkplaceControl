@@ -1,72 +1,69 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-	<meta charset="utf-8"></meta>
-	<title>Job Update</title>
-	
-			<script type="text/javascript" src="js/jquery.js"></script>
-			<script type="text/javascript" src="js/bootstrap.js"></script>
+<meta charset="utf-8"></meta>
+<title>Job Update</title>
 
-			<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
-			<link rel="stylesheet" type="text/css" href="css/principal.css" />
-	
-		</head>
-		<body>
-					
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/bootstrap-responsive.css" />
+<link rel="stylesheet" type="text/css" href="css/principal.css" />
+
+</head>
+<body>
+
 
 	<div th:include="NavMain :: navMain"></div>
 
 
-					  		<div id="center">
-					  		<form action="#" th:action="@{/ProcessJobUpdate}" th:object="${Job}" method="post">
-					  			<section>
-						  				<div class="container-fluid">
-						  					<div class="row-fluid">
-						  						
-											 	 <fieldset>
-												    <legend>Job Update </legend>
-												    <label>Job identification</label>
-												    <input type="text" name="job_id" th:field="*{id}" class="input-large"  required="true" maxlength="30" disabled="true" />
-												    <label>Description</label>
-												    <input type="text"  th:field="*{title}" name="jod_description" class="input-xxlarge"  required="true" maxlength="30" />
-												  	<label>Job position</label>
-												    <input type="number" name="job_id" th:field="*{position}" class="input-large"  placeholder="input the job identification " required="true" maxlength="30"/>
-												</fieldset>
-											</div>
-										</div>								
-				 					</section>
-				 					<br/>
-				 					<br/>
-				 					<section>
-										<div class="container-fluid">
-										  <div class="row-fluid">
-											<div class="well well-small">
-											  <div id="buttons">
-											  <a href="ProcessJobUpdate">
-											  	<button class="btn btn-primary" onclick="validateFilds();" type="submit" >
-											  		Save
-											  	</button>
-											  	</a>
-											  	<a href="Job">
-											  	<button class="btn btn-warning" type="button">
-											  		Cancel
-											  	</button>
-											  	</a>
-											  		</div>
-												</div>
-											</div>
-										</div>
-								 	</section> 
-							 	</form>
-			 				</div>
+	<div id="center">
+		<form action="#" th:action="@{/ProcessJobUpdate}" th:object="${Job}"
+			method="post">
+			<section>
+				<div class="container-fluid">
+					<div class="row-fluid">
+
+						<fieldset>
+							<legend>Job Update </legend>
+							<label>Job identification</label> <input type="text"
+								name="job_id" th:field="*{id}" class="input-large"
+								required="true" maxlength="30" disabled="true" /> <label>Description</label>
+							<input type="text" th:field="*{title}" name="jod_description"
+								class="input-xxlarge" required="true" maxlength="30" /> <label>Job
+								position</label> <input type="number" name="job_id"
+								th:field="*{position}" class="input-large"
+								placeholder="input the job identification " required="true"
+								maxlength="30" />
+						</fieldset>
+					</div>
+				</div>
+			</section>
+			<br /> <br />
+			<section>
+				<div class="container-fluid">
+					<div class="row-fluid">
+						<div class="well well-small">
+							<div id="buttons">
+								<button class="btn btn-primary" type="submit">Save</button>
+								<button class="btn btn-warning" type="button">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</form>
+	</div>
 
 
 
 
-						
- 
+
+
 </body>
 
 </html>

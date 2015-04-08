@@ -36,7 +36,7 @@
 						<th>Mentee quantity</th>
 						<th>Edit Mentor</th>
 					</tr>
-					<tr th:each="ment : ${mentor}" th:if="${ment.jobId == job.id}">
+					<tr th:each="ment : ${mentor}" th:if="${ment.jobId == job.id} and ${ment.qtyMentee > 0}">
 						<td th:text="${ment.id}"></td>
 						<td th:text="${#strings.abbreviate(ment.name,18)}"
 							th:title="${ment.name}"></td>

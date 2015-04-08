@@ -31,6 +31,7 @@ import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.RatePrfService;
 import br.com.gft.MentorsService.UnitService;
 import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 
 /**
  * this Class is to control requests and reponses of employees pages to server
@@ -215,10 +216,10 @@ public class EmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/EmployeeUpdate", method = RequestMethod.GET)
-	public String EmployeeUpdate(@RequestParam("id") String employeeId,
-			@RequestParam("job") String jobId,
-			@RequestParam("cost") String costCenterId,
-			@RequestParam("rate") int ratePrfId, Model model) {
+	public String EmployeeUpdate(@RequestParam(Paths.ATTRIBUTE_EC_ID) String employeeId,
+			@RequestParam(Paths.ATTRIBUTE_EC_JOB) String jobId,
+			@RequestParam(Paths.ATTRIBUTE_EC_COST) String costCenterId,
+			@RequestParam(Paths.ATTRIBUTE_EC_RATE) int ratePrfId, Model model) {
 	
 		
 		Employee employee = new EmployeeService().getEmployee(employeeId);
@@ -242,22 +243,22 @@ public class EmployeeControl {
 				.getMentorHistorys();
 		EmployeeAssignment employeeassignment = new EmployeeAssignment();
 		
-		model.addAttribute("qtyMentee", qtyMentee);
-		model.addAttribute("Employee", employee);
-		model.addAttribute("Employeels", employeels);
-		model.addAttribute("job", job);
-		model.addAttribute("jobs", jobs);
-		model.addAttribute("costcenter", cost);
-		model.addAttribute("costcenters", costs);
-		model.addAttribute("rateprf", rateprf);
-		model.addAttribute("rateprfs", rateprfs);
-		model.addAttribute("Project", project);
-		model.addAttribute("Customer", customer);
-		model.addAttribute("Unit", unit);
-		model.addAttribute("EmployeeAssignment",
+		model.addAttribute(Paths.ATTRIBUTE_EC_QTY_MENTEE, qtyMentee);
+		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE, employee);
+		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_LIST, employeels);
+		model.addAttribute(Paths.ATTRIBUTE_EC_JOB, job);
+		model.addAttribute(Paths.ATTRIBUTE_EC_JOBS, jobs);
+		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTER, cost);
+		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTERS, costs);
+		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRF, rateprf);
+		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRFS, rateprfs);
+		model.addAttribute(Paths.ATTRIBUTE_EC_PROJECT, project);
+		model.addAttribute(Paths.ATTRIBUTE_EC_CUSTOMER, customer);
+		model.addAttribute(Paths.ATTRIBUTE_EC_UNIT, unit);
+		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_ASSIGNMENT,
 				employee.getEmployeeassignment());
-		model.addAttribute("Assignment", employeeassignment);
-		model.addAttribute("MentorHistory", mentorhistory);
+		model.addAttribute(Paths.ATTRIBUTE_EC_ASSIGNMENT, employeeassignment);
+		model.addAttribute(Paths.ATTRIBUTE_EC_MENTOR_HISTORY, mentorhistory);
 
 		return "EmployeeUpdate";
 

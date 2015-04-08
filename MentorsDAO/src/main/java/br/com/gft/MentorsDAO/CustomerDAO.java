@@ -24,12 +24,10 @@ public class CustomerDAO {
 	private static EntityManagerFactory emf;
 	private static EntityManager em;
 	
-	
-	public static void setup(){ 
+	public CustomerDAO() {
 		emf = Persistence.createEntityManagerFactory("test");
 		em = emf.createEntityManager();
-		}
-	
+	}
 	
 		public void insertCustomer(Customer customer) throws Exception{
 			em.getTransaction().begin();

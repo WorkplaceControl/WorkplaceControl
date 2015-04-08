@@ -3,70 +3,42 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.Customer;
-import br.com.gft.MentorsCommon.Job;
-import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsDAO.CustomerDAO;
-import br.com.gft.MentorsDAO.JobDAO;
-import br.com.gft.MentorsDAO.ProjectDAO;
 import br.com.gft.MentorsDAO.UnitDAO;
 
 public class CustomerService {
 
 	public List<Unit> getUnits(){
-		UnitDAO.setup();
-		UnitDAO unitdao = new UnitDAO();
-		return unitdao.findUnits();
-		
+		return new UnitDAO().findUnits();
 	}
 	
 	public void addCustomer(Customer customer) throws Exception{
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		customerdao.insertCustomer(customer);
+		new CustomerDAO().insertCustomer(customer);
 	}
 	
 	public Customer getCustomer(int customerId){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		Customer customer = new Customer();
-		customer = customerdao.findCustomer(customerId);
-		return customer;	
+		return new CustomerDAO().findCustomer(customerId);	
 	}
 	
 	public List<Customer> getCustomers(){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		List<Customer> customer = customerdao.findCustomers();
-		return customer;
+		return new CustomerDAO().findCustomers();
 	}
 	
 	public List<Customer> getCustomersInactive(){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		List<Customer> customer = customerdao.findCustomersInactive();
-		return customer;
+		return new CustomerDAO().findCustomersInactive();
 	}
 	
 	public List<Customer> getPagedCustomers(int inicio, int quantidade){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		List<Customer> customer = customerdao.findPagedCustomers(inicio, quantidade);
-		return customer;
+		return new CustomerDAO().findPagedCustomers(inicio, quantidade);
 	}
 	
 	public List<Customer> getPagedCustomersInactive(int inicio, int quantidade){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		List<Customer> customer = customerdao.findPagedCustomers(inicio, quantidade);
-		return customer;
+		return new CustomerDAO().findPagedCustomers(inicio, quantidade);
 	}
 	
 	public void alterCustomer(Customer customer){
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		customerdao.updateCustomer(customer);
+		new CustomerDAO().updateCustomer(customer);
 	}
-	
 	
 }

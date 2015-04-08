@@ -74,7 +74,7 @@ public class EmployeeDAO {
 
 	
 	public List<Mentor> findQtyMentee(){
-		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("select id, name, job_id, count(mentor_id) as qtymentee from employee group by id order by qtymentee asc" , Mentor.class);
+		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("select id, name, job_id, cost_center_id, rate_prf_id, count(mentor_id) as qtymentee from employee group by id order by qtymentee asc", Mentor.class);
 		Collection<Mentor> mentor  = (Collection<Mentor>) query.getResultList();
 		return (List<Mentor>) mentor;
 	}

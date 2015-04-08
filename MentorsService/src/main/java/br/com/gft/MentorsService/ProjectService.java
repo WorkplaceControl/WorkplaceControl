@@ -2,14 +2,10 @@ package br.com.gft.MentorsService;
 
 import java.util.List;
 
-import br.com.gft.MentorsCommon.Job;
-import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Customer;
-import br.com.gft.MentorsCommon.Unit;
+import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsDAO.CustomerDAO;
-import br.com.gft.MentorsDAO.JobDAO;
 import br.com.gft.MentorsDAO.ProjectDAO;
-import br.com.gft.MentorsDAO.UnitDAO;
 
 public class ProjectService {
 	ProjectDAO projectdao = new ProjectDAO();
@@ -21,9 +17,7 @@ public class ProjectService {
 	}
 
 	public List<Customer> getCustomers() {
-		CustomerDAO.setup();
-		CustomerDAO customerdao = new CustomerDAO();
-		return customerdao.findCustomers(); 
+		return new CustomerDAO().findCustomers(); 
 	}
 	
 	

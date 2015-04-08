@@ -166,18 +166,16 @@ public class EmployeeService {
 	 * @return
 	 */
 	public List<Employee> employeeVerify(){
-		List<Employee> employeeLsa = new ArrayList<Employee>();
-		employeeLsa = new EmployeeService().getEmployees();
-		List<Employee> employeeLsb = new ArrayList<Employee>();
-		employeeLsb = new EmployeeService().getEmployees();
+		List<Employee> employeeLsa = new EmployeeService().getEmployees();
+		List<Employee> employeeLsb = new EmployeeService().getEmployees();
 		List<Employee> employeeError = new ArrayList<Employee>();
-	
+		
 		for(int i=0 ; i< employeeLsa.size() ; i++ ){
-			if(employeeLsa.get(i).getIsMentor() == 1 || employeeLsa.get(i).getIsTutor() == 1 ){
-				for(int s=0 ; s<employeeLsb.size() ; s++ ){
-					if(employeeLsa.get(i).getJob().getPosition() <= employeeLsb.get(s).getJob().getPosition() &&
-					   employeeLsa.get(i).getId() == employeeLsb.get(s).getId()){
+			if(employeeLsa.get(i).getIsMentor() == 1 || employeeLsa.get(i).getIsTutor() == 1){
+				for(int s=0 ; s<employeeLsb.size(); s++ ){
+					if(employeeLsa.get(i).getJob().getPosition() <= employeeLsb.get(s).getJob().getPosition() && employeeLsa.get(i).getId() == employeeLsb.get(s).getId()){
 						employeeError.add(employeeLsb.get(s));
+						System.out.println(employeeLsa.get(i).getId() + " -- " + employeeLsb.get(s).getId());
 					}
 				}
 			}
@@ -233,73 +231,7 @@ public class EmployeeService {
 		}	
 		return newEmployees;
 		
-	}
-	
-	/**
-	 * this method is to select mentors and show the mentee quantity
-	 * @return
-	 */
-	public List<Mentor> selectMentors(){
-		List<Employee> employee1 = new ArrayList<Employee>();
-		List<Employee> employee2 = new ArrayList<Employee>();
-		List<Mentor> mentor = new ArrayList<Mentor>();
-		EmployeeService empserv = new EmployeeService();
-		employee1 = empserv.getEmployees();
-		employee2 = empserv.getEmployees();
-
-		for( int i=0 ; i<employee1.size() ; i++ ){
-			Mentor ment = new Mentor();
-			int count = 0;
-			
-			if(employee1.get(i).getIsMentor() == 1){
-				
-				for( int s=0 ; s<employee2.size() ; s++ ){
-					if( employee1.get(i).getId().equals(employee2.get(s).getMentorId()) ){
-						count++;
-					}		
-				}
-				ment.setId(employee1.get(i).getId());
-				ment.setJobId(employee1.get(i).getJob().getId());
-				ment.setName(employee1.get(i).getName());
-				ment.setQtyMentee(count);
-				mentor.add(ment);
-				
-			}
-		}
-		return mentor;
-	}
-	
-	/**
-	 * this method is to select mentors and show the mentee quantity
-	 * @return
-	 */
-	public List<Mentor> selectEmployees(){
-		List<Employee> employee1 = new ArrayList<Employee>();
-		List<Employee> employee2 = new ArrayList<Employee>();
-		List<Mentor> mentor = new ArrayList<Mentor>();
-		EmployeeService empserv = new EmployeeService();
-		employee1 = empserv.getEmployees();
-		employee2 = empserv.getEmployees();
-
-		for( int i=0 ; i<employee1.size() ; i++ ){
-			Mentor ment = new Mentor();
-			int count = 0;
-				
-				for( int s=0 ; s<employee2.size() ; s++ ){
-					if( employee1.get(i).getId().equals(employee2.get(s).getMentorId()) ){
-						count++;
-					}		
-				}
-				ment.setId(employee1.get(i).getId());
-				ment.setJobId(employee1.get(i).getJob().getId());
-				ment.setName(employee1.get(i).getName());
-				ment.setQtyMentee(count);
-				mentor.add(ment);
-				
-		}
-		return mentor;
-	}
-	
+	}	
 	
 	/**
 	 * this method is to get the selected Project to report

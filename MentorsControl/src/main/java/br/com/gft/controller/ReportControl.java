@@ -56,9 +56,8 @@ public class ReportControl {
 	@RequestMapping(value = "/MentorReport", method = RequestMethod.GET)
 	public String showMentorReport(Model model) {
 
-		List<Mentor> mentor = new ArrayList<Mentor>();
+		List<Mentor> mentor = new EmployeeService().getQtyMentee();
 		List<Job> jobs = new JobService().getJobs();
-		mentor = new EmployeeService().selectMentors();
 		model.addAttribute("mentor", mentor);
 		model.addAttribute("job", jobs);
 

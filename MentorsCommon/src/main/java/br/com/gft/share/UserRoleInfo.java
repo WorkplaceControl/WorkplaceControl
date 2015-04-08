@@ -1,6 +1,6 @@
 package br.com.gft.share;
 
-public enum UserRoleInfo{
+public enum UserRoleInfo {
 
 	Admin("ROLE_ADMIN", 1),
 	User("ROLE_USER", 2);
