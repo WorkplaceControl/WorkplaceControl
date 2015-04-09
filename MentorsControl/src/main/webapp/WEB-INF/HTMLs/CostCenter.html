@@ -100,8 +100,11 @@
 									  				<input type="text" name="search" class="search-query" placeholder="Search"  style="width: 200px;"/>
 									  			</li>
 									  			<li>
-									  				<input type="checkbox" id="isInactive" /> <font size="2" color="#555">Include Removed Cost Center</font>
-									  			</li>
+										<label>
+											<input type="checkbox" id="isInactive" /> 
+											Include Removed Cost Centers
+										</label>
+									</li>
 									  			<li id ="buttons_position">
 										  			<ul>
 											  			<li>
@@ -161,9 +164,10 @@
 											
 				  						<td style="width: 20px;" class="remove">
 				  							<center>
-					  							<a href="#" th:href="@{/ProcessCostCenterInactivate(id=${cost.id} , title=${cost.title})}">
+					  							<a href="#" th:href="@{/CostCenterStatus(id=${cost.id} , status=${cost.active})}" class = "remove">
 					  									<button type="input" class="btn btn-default btn-lg">
-		 													<i class="icon-trash"></i>
+		 													<i class="icon-trash" th:if="${cost.active == 0}"></i>
+														<i class="icon-repeat" th:if="${cost.active == 1}"></i>
 														</button>
 												</a>
 											</center>
@@ -178,7 +182,28 @@
 <div th:include="Pagination :: pagination"></div>			
 			<br/>
 			<br/>
-	 	
+	 	<script type="text/javascript">
+			$(function(){
+				$(".remove").click(function(){
+					if (!confirm("Are you sure?")) {
+						return false;
+					}
+				});
+				
+				page = window.location.href.split("/")
+				if (page[page.length - 1] == "CostCenterInactive") {
+					$('#isInactive').prop("checked", true);
+				}
+				
+				$('#isInactive').change(function() {
+					if ($( this ).is( ':checked' )) {
+						window.location.href = 'CostCenterInactive';
+					} else {
+						window.location.href = 'CostCenter';
+					}
+				});
+			});
+		</script>
 </body>
 
 </html>

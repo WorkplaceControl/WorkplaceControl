@@ -68,9 +68,7 @@ public class ImportEmployeeControl {
 	private String surname2 = "";
 	private String ws_name = null;
 	private String sap = "";
-	private String title = "";
 	private String id;
-	private String description;
 	private int numId;
 	ExcelContent excelcontent = new ExcelContent();
 	
@@ -357,20 +355,7 @@ public class ImportEmployeeControl {
 	    	int numEmployee = 1;
 	    	employeeLs = excelcontent.excelEmployee(fileName);
 	    	for(int i=0 ; i < employeeLs.size() ; i++){
-//	    		System.out.println("");
-//	    		System.out.println(" ==== Employee === ");
-//	    		System.out.println("");
-//	    		System.out.println("name: " + employeeLs.get(i).getName());
-//	    		System.out.println("SAP: " + employeeLs.get(i).getSap());
-//	    		System.out.println("WS_name: " + employeeLs.get(i).getWsName());
-//	    		System.out.println("Letters: " + employeeLs.get(i).getId());
-//	    		System.out.println("join date: " + employeeLs.get(i).getJoinDate());
-//	    		System.out.println("Job id: " + employeeLs.get(i).getJob().getId());
-//	    		System.out.println("rate: " + employeeLs.get(i).getRatePrf().getId());
-//	    		System.out.println("Cost: " + employeeLs.get(i).getCostCenter().getId());
-//	    		System.out.println("WorkPlace: " + employeeLs.get(i).getWorkplace());
-//	    		System.out.println("extension: " + employeeLs.get(i).getExtension());
-//	    		employeeLs.get(i).setActive(0);
+	    		employeeLs.get(i).setActive(0);
 	    		 
 	    		if(employeeLs.get(i).getId().equals("") || 
 	    			 employeeLs.get(i).getSap().equals("") ||

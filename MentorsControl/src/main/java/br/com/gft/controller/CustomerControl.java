@@ -16,6 +16,7 @@ import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.UnitService;
 import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 
 /**
  * This class to control request and responses of Customer
@@ -26,6 +27,8 @@ import br.com.gft.share.Pagination;
 public class CustomerControl {
 
 	private int index;
+	Customer customer = new Customer();
+	CustomerService service = new CustomerService();
 	/**
 	 * this method is show page to read Customer
 	 * @param model
@@ -33,8 +36,6 @@ public class CustomerControl {
 	 */
 	@RequestMapping(value = "/Customer", method = RequestMethod.GET)
 	public String showCustomer(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CustomerService service = new CustomerService();
-		List<Customer> customer = service.getCustomers();
 		
 		
 Pagination pagination = new Pagination(service.getCustomers().size(), page);
@@ -52,7 +53,6 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 */
 	@RequestMapping(value = "/CustomerInactive", method = RequestMethod.GET)
 	public String showCustomerInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CustomerService service = new CustomerService();
 		Pagination pagination = new Pagination(service.getCustomersInactive().size(), page);
 		
 		model.addAttribute("url", "Customer");
@@ -90,7 +90,6 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 			@RequestParam("description") String description,
 			@RequestParam("unit") int unitId, Model model) throws Exception {
 		Unit unit = new UnitService().getUnit(unitId);
-		Customer customer = new Customer();
 		customer.setDescription(description);
 		customer.setActive(0);
 		customer.setUnit(unit);
@@ -109,7 +108,6 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	@RequestMapping(value = "/CustomerUpdate", method = RequestMethod.GET)
 	public String ShowCustomerUpdate(@RequestParam(value = "id") int id,
 			Model model) {
-		Customer customer = new Customer();
 		index = id;
 		customer.setActive(0);
 		CustomerService customerservice = new CustomerService();
@@ -131,8 +129,7 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	public String ProcessProjectUpdate(
 			@RequestParam("description") String description,
 			@RequestParam("unit") int unitId, Model model) {
-		Unit unit = new UnitService().getUnit(unitId);
-		Customer customer = new Customer();
+		Unit unit = new UnitService().getUnit(unitId);		
 		customer.setId(index);
 		customer.setDescription(description);
 		customer.setActive(0);
@@ -150,17 +147,25 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/CustomerInactivate", method = RequestMethod.GET)
-	public String ProcessProjectInactivate(@RequestParam("id") int customerId,
-			@RequestParam("unit") int unitId, Model model) {
-		Unit unit = new UnitService().getUnit(unitId);
-		Customer customer = new Customer();
-		CustomerService customerservice = new CustomerService();
-		customer = customerservice.getCustomer(customerId);
-		customer.setUnit(unit);
-		customer.setActive(1);
-		customerservice.alterCustomer(customer);
+	@RequestMapping(value = "/CustomerStatus", method = RequestMethod.GET)
+	public String ProcessProjectInactivate(@RequestParam("id") int id,
+										   @RequestParam("status") int status, Model model) {
+		customer = service.getCustomer(id);
+		int ControlMessages;
+		int action = customer != null ? 1 : 0;
+
+		if (action == 1) {
+			customer.setActive(status == 1 ? 0 : 1);
+			
+			service.alterCustomer(customer);
+			
+			ControlMessages = 7;
+		} else {
+			ControlMessages = 8;
+		}
+		
 		showCustomer(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		return "Customer";
 	}
 }

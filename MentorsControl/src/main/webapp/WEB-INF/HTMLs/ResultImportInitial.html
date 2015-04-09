@@ -3,82 +3,94 @@
 <head>
 <meta charset="ISO-8859-1"></meta>
 <title>Import Initial</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<link rel="stylesheet" type="text/css" href="css/principal.css" />
+<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+<link rel="stylesheet" type="text/css"
+	href="css/bootstrap-responsive.css" />
 </head>
-<body bgcolor="#F8F8F8">
+<body>
+<div th:include="NavMain :: navMain"></div>
 
 	<center>
 		<h2>Import Initial Results</h2>
 	</center>
-	<div style="padding-left: 100px;">
+	<div>
 		<h3>Cost Center</h3>
 		<font color="green">Cost center insert into data base</font>
 		<p th:text="${numCost}" color="green"></p>
-		<p>Error to insert the Cost Centers Below</p>
-		<table>
+		
+		<table th:if="${costerror > 0}">
+		<th>Error to insert the Cost Centers Below</th>
 			<tr th:each="costerror : ${costerror}">
-				<td><font th:text="costerror.id"></font><font
-					th:text="costerror.title"></font></td>
+				<td th:text="costerror.id"></td>
+				<td	th:text="costerror.title"></td>
 			</tr>
 		</table>
 		<h3>Job</h3>
 		<font color="green">Jobs insert into data base</font>
-		<p th:text="${numJob}"></p>
+		<p th:text="${numJob}"></p>	
 	</div>
-	<p>Error to insert the Jobs Below</p>
 	<table>
+	<th>Error to insert the Jobs Below</th>
+	
 		<tr th:each="joberror : ${joberror}">
-			<td><font th:text="joberror.id"></font><font
-				th:text="joberror.title"></font></td>
+			<td th:text="joberror.id"></td>
+			<td th:text="joberror.title"></td>
 		</tr>
 	</table>
 	<h3>Unit</h3>
 	<font color="green">Units insert into data base</font>
 	<p th:text="${numUnit}"></p>
-	<p>Error to insert the Units Below</p>
-	<table>
+	<table th:if="${uniterror > 0}">
+	<th>Error to insert the Units Below</th>
+	
 		<tr th:each="uniterror : ${uniterror}">
-			<td><font th:text="uniterror.id"></font><font
-				th:text="uniterror.description"></font></td>
+			<td th:text="uniterror.id"></td>
+			<td	th:text="uniterror.description"></td>
 		</tr>
 	</table>
 	<h3>Customer</h3>
 	<font color="green">Customers insert into data base</font>
 	<p th:text="${numCustomer}"></p>
-	<p>Error to insert the Customers Below</p>
-	<table>
+	<table th:if="${customererror > 0}">
+	<th>Error to insert the Customers Below</th>
+	
 		<tr th:each="customererror : ${customererror}">
-			<td><font th:text="customererror.id"></font><font
-				th:text="customererror.description"></font></td>
+			<td th:text="customererror.id"></td>
+			<td th:text="customererror.description"></td>
 		</tr>
 	</table>
 	<h3>Project</h3>
 	<font color="green">Projects insert into data base</font>
 	<p th:text="${numProj}"></p>
-	<p>Error to insert the Projects Below</p>
-	<table>
+	<table th:if="${projecterror > 0}">
+	<th>Error to insert the Projects Below</th>
 		<tr th:each="projecterror : ${projecterror}">
-			<td><font th:text="projecterror.id"></font><font
-				th:text="projecterror.description"></font></td>
+			<td th:text="projecterror.id"></td>
+			<td th:text="projecterror.description"></td>
 		</tr>
 	</table>
 	<h3>Employee</h3>
 	<font color="green">Employees insert into data base</font>
 	<p th:text="${numEmployee}"></p>
-	<p>Error to insert the Employees Below</p>
-	<table>
+	<table th:if="${employeeerror > 0}">
+	<th>Error to insert the Employees Below</th>
 		<tr th:each="employeeerror : ${employeeerror}">
-			<td><font th:text="employeeerror.id"></font><font
-				th:text="employeeerror.description"></font></td>
+			<td th:text="employeeerror.id"></td>
+			<td th:text="employeeerror.description"></td>
 		</tr>
 	</table>
+	
 	<h3>Employee including in Project</h3>
 	<font color="green">Employee to project insert into data base</font>
 	<p th:text="${numEmpAssign}"></p>
-	<p>Error to include project to user Below</p>
-	<table>
+	<table th:if="${empassignerror > 0}">
+	<th>Error to include project to user Below</th>
 		<tr th:each="empassignerror : ${empassignerror}">
-			<td><font th:text="empassignerror.id"></font><font
-				th:text="empassignerror.description"></font></td>
+			<td th:text="empassignerror.id"></td>
+			<td th:text="empassignerror.description"></td>
 		</tr>
 	</table>
 </body>

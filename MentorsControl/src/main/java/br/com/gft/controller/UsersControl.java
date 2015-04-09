@@ -130,7 +130,7 @@ public class UsersControl {
 		}
 
 		Users user = new Users();
-		int usersControlMessage;
+		int ControlMessages;
 		
 		if (test != 1) {
 			if (pass.equals(repass)) {
@@ -141,15 +141,15 @@ public class UsersControl {
 				
 				service.addUser(user);
 
-				usersControlMessage = 0;
+				ControlMessages = 0;
 			} else {
-				usersControlMessage = 1;
+				ControlMessages = 1;
 			}
 		} else {
-			usersControlMessage = 2;
+			ControlMessages = 2;
 		}
 		
-		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		showUsers(null, model);
 		
 		return "Users";
@@ -175,7 +175,7 @@ public class UsersControl {
 			Model model) throws Exception {
 
 		List<Users> users = service.getUsers();
-		int usersControlMessage;
+		int ControlMessages;
 		int action = 0;
 
 		for (int i = 0; i < users.size(); i++) {
@@ -200,16 +200,16 @@ public class UsersControl {
 				
 				service.alterUser(user);
 				
-				usersControlMessage = 3;
+				ControlMessages = 3;
 			} else {
-				usersControlMessage = 4;
+				ControlMessages = 4;
 			}
 		} else {
-			usersControlMessage = 6;
+			ControlMessages = 6;
 		}
 
 		showUsers(null, model);
-		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		return "Users";
 	}
@@ -230,7 +230,7 @@ public class UsersControl {
 			Model model) throws Exception {
 		
 		user = service.getUser(username);
-		int usersControlMessage;
+		int ControlMessages;
 		int action = user != null ? 1 : 0;
 
 		if (action == 1) {
@@ -238,13 +238,13 @@ public class UsersControl {
 			
 			service.alterUser(user);
 			
-			usersControlMessage = 7;
+			ControlMessages = 7;
 		} else {
-			usersControlMessage = 8;
+			ControlMessages = 8;
 		}
 		
 		showUsers(null, model);
-		model.addAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		return "Users";
 	}
 
@@ -304,7 +304,7 @@ public class UsersControl {
 		List<Users> users = service.getUsers();
 		user = service.getUser(username);
 		
-		int usersControlMessage;
+		int ControlMessages;
 		int action = 0;
 
 		for (int i = 0; i < users.size(); i++) {
@@ -323,18 +323,18 @@ public class UsersControl {
 		
 					service.alterUser(user);
 					
-					usersControlMessage = 3;
+					ControlMessages = 3;
 				} else {
-					usersControlMessage = 4;
+					ControlMessages = 4;
 				}
 			} else {
-				usersControlMessage = 5;
+				ControlMessages = 5;
 			}
 		} else {
-			usersControlMessage = 6;
+			ControlMessages = 6;
 		}
 
-		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_UC_USERS_CONTROL_MESSAGE, usersControlMessage);
+		redirAttr.addFlashAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		return "redirect:" + (page.equals("") || page == null ? "mainPage" : page);
 	}

@@ -7,17 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Project;
-import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
-import br.com.gft.MentorsService.UnitService;
 import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 
 /**
  * this Class is to control request and responses of Project pages
@@ -27,7 +24,8 @@ import br.com.gft.share.Pagination;
 @Controller
 public class ProjectControl {
 	private int index;
-
+	Project project = new Project();
+	ProjectService service = new ProjectService();
 	/**
 	 * this method is to show job page to read projects registered
 	 * @param model
@@ -36,7 +34,6 @@ public class ProjectControl {
 	@RequestMapping(value="/Project" , method = RequestMethod.GET)
 	public String showProject(@RequestParam(value = "page", required = false) Integer page, Model model) {
 		ProjectService service = new ProjectService();
-		List<Project> project = service.getProjects();
 		
 Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
 		
@@ -55,7 +52,6 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	@RequestMapping(value="/ProjectInactive" , method = RequestMethod.GET)
 	public String showProjectInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
 		ProjectService service = new ProjectService();
-		List<Project> project = service.getProjectsInactive();
 		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
 		
 		model.addAttribute("url", "Projects");
@@ -73,8 +69,7 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 */
 	@RequestMapping(value="/ProjectRegistration" , method = RequestMethod.GET)
 	public String showProjectRegistration(@ModelAttribute("Project") Project project , Model model){
-		ProjectService projectservice = new ProjectService();
-		List<Customer> cus = projectservice.getCustomers();
+		List<Customer> cus = service.getCustomers();
 		model.addAttribute("customer" , cus);
 		return "ProjectRegistration";
 	}
@@ -89,13 +84,11 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	@RequestMapping(value="/ProcessProjectRegistration", method=RequestMethod.POST)
 	public String processProjectForm(@RequestParam("description") String description, @RequestParam("customer") int customerId, Model model) {
 		Customer customer = new CustomerService().getCustomer(customerId);
-		Project project = new Project();
 		project.setDescription(description);
 		project.setDescription(description);
 		project.setActive(0);
 		project.setCustomer(customer);
-		ProjectService projectservice = new ProjectService();
-		projectservice.addProject(project);
+		service.addProject(project);
 		showProject(null, model);
 		return "Project";
 	}
@@ -108,12 +101,10 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 */
 	@RequestMapping(value = "/ProjectUpdate", method = RequestMethod.GET)
 	public String ShowProjectRegistration(@RequestParam(value="id") int id, Model model) {
-		Project project = new Project();
 		index = id;
 		project.setActive(0);
-		ProjectService projectservice = new ProjectService();
-		project = projectservice.getProject(id);
-		List<Customer> cus = projectservice.getCustomers();
+		project = service.getProject(id);
+		List<Customer> cus = service.getCustomers();
 		model.addAttribute("customer" , cus);
 		model.addAttribute("Project" , project);
 		return "ProjectUpdate";
@@ -129,13 +120,11 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	@RequestMapping(value = "/ProcessProjectUpdate", method=RequestMethod.POST)
 	public String ProcessProjectUpdate(@RequestParam("description") String description, @RequestParam("customer") int customerId , Model model) {
 		Customer customer = new CustomerService().getCustomer(customerId);
-		Project project = new Project();
 		project.setId(index);
 		project.setDescription(description);
 		project.setActive(0);
 		project.setCustomer(customer);
-		ProjectService projectservice = new ProjectService();
-		projectservice.alterProject(project);
+		service.alterProject(project);
 		showProject(null, model);
 		return "Project";
 	}
@@ -147,16 +136,27 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/ProcessProjectInactivate", method=RequestMethod.GET)
-	public String ProcessProjectInactivate( @RequestParam("id") int projectId , @RequestParam("customer") int customerId , Model model) {
-		Customer customer = new CustomerService().getCustomer(customerId);
-		Project project = new Project();
-		ProjectService projectservice = new ProjectService();
-		project = projectservice.getProject(projectId);
-		project.setCustomer(customer);
-		project.setActive(1);
-		projectservice.alterProject(project);
+	@RequestMapping(value = "/ProjectStatus", method=RequestMethod.GET)
+	public String ProcessProjectInactivate( @RequestParam("id") int id,
+											@RequestParam("status") int status , Model model) {
+		
+		
+		project = service.getProject(id);
+		int ControlMessages;
+		int action = project != null ? 1 : 0;
+
+		if (action == 1) {
+			project.setActive(status == 1 ? 0 : 1);
+			
+			service.alterProject(project);
+			
+			ControlMessages = 7;
+		} else {
+			ControlMessages = 8;
+		}
+		
 		showProject(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		return "Project";
 	}
 	

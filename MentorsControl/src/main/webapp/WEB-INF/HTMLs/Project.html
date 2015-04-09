@@ -92,8 +92,11 @@
 									  				<input type="text" class="search-query" name="search" placeholder="Search"  style="width: 200px; heigth:30px;" />
 									  			</li>
 									  			<li>
-									  				<input type="checkbox"  id="isInactive" /><font size="2" color="#555">Include Removed Employee</font>
-									  			</li>
+											<label>
+												<input type="checkbox" id="isInactive" /> 
+												Include Removed Projects
+											</label>
+										</li>
 									  			<li id ="buttons_position">
 									  			<ul>
 									  			<li>
@@ -124,20 +127,20 @@
 							</fieldset>
 								 <table class="table table-bordered">
 				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
-				  						<td>
-				  							<center><font size="3" color="#fff">Project Id</font></center>
+				  						<td class ="text-center">
+				  							<font size="3" color="#fff">Project Id</font>
 				  						</td>
 				  						<td>
-				  							<center><font size="3" color="#fff">Project Description</font></center>
+				  							<font size="3" color="#fff">Project Description</font>
 				  						</td>
 				  						<td>
-				  							<center><font size="3" color="#fff">Project Customer</font></center>
+				  							<font size="3" color="#fff">Project Customer</font>
 				  						</td>
 				  						<td>
-				  							<center><font size="3" color="#fff">Edit</font></center>
+				  							<font size="3" color="#fff">Edit</font>
 				  						</td>
 				  						<td>
-				  							<center><font size="3" color="#fff">Active</font></center>
+				  							<font size="3" color="#fff">Active</font>
 				  						</td>
 				  					</tr>
 
@@ -156,10 +159,11 @@
 										</a>
 				  						</td>
 				  						<td style="width:20px;">
-				  						  <a href="#" th:href="@{/ProcessProjectInactivate(id=${proj.id} , customer=${proj.customer.id})}">
+				  						  <a href="#" th:href="@{/ProjectStatus(id=${proj.id} , status=${proj.active})}" class = "remove">
 				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
-	 													<i class="icon-trash"></i>
+	 													<i class="icon-trash" th:if="${proj.active == 0}"></i>
+														<i class="icon-repeat" th:if="${proj.active == 1}"></i>
 												</button>
 											</center>
 										</a>
@@ -175,7 +179,28 @@
 			<br/>
 			<br/>
 		
-
+<script type="text/javascript">
+			$(function(){
+				$(".remove").click(function(){
+					if (!confirm("Are you sure?")) {
+						return false;
+					}
+				});
+				
+				page = window.location.href.split("/")
+				if (page[page.length - 1] == "ProjectInactive") {
+					$('#isInactive').prop("checked", true);
+				}
+				
+				$('#isInactive').change(function() {
+					if ($( this ).is( ':checked' )) {
+						window.location.href = 'ProjectInactive';
+					} else {
+						window.location.href = 'Project';
+					}
+				});
+			});
+		</script>
 </body>
 
 </html>

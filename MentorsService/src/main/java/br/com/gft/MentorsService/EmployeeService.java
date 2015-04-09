@@ -159,8 +159,8 @@ public class EmployeeService {
 			if(employee.getName() == null ||
 					employee.getWorkplace() == null ||
 					employee.getExtension() == 0 ||
-					employee.getMentorId() == null && 
-					employee.getTutorId() == null){
+					employee.getMentorId() == null){ 
+//					employee.getTutorId() == null){
 				employeePending.add(employee);
 			}
 		}

@@ -33,7 +33,7 @@
 	
 	<!-- Messages-->
 	<section class="user_messages">
-		<div th:if="${usersControlMessage == 0}" class="alert alert-success"
+		<div th:if="${ControlMessages == 0}" class="alert alert-success"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
@@ -41,7 +41,7 @@
 			Registered with Success !!
 		</div>
 
-		<div th:if="${usersControlMessage == 1}" class="alert alert-error"
+		<div th:if="${ControlMessages == 1}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
@@ -49,7 +49,7 @@
 			Password must be equals !!
 		</div>
 
-		<div th:if="${usersControlMessage == 2}" class="alert alert-error"
+		<div th:if="${ControlMessages == 2}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
@@ -57,7 +57,7 @@
 			Username already registered !!
 		</div>
 
-		<div th:if="${usersControlMessage == 3}" class="alert alert-success"
+		<div th:if="${ControlMessages == 3}" class="alert alert-success"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
@@ -65,7 +65,7 @@
 			Password updated with Success !!
 		</div>
 
-		<div th:if="${usersControlMessage == 4}" class="alert alert-error"
+		<div th:if="${ControlMessages == 4}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
@@ -73,28 +73,28 @@
 			New password must be equals !!
 		</div>
 
-		<div th:if="${usersControlMessage == 5}" class="alert alert-error"
+		<div th:if="${ControlMessages == 5}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
 			</button>
 			Old password not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 6}" class="alert alert-error"
+		<div th:if="${ControlMessages == 6}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
 			</button>
 			Username not exist or is not the correct !!
 		</div>
-		<div th:if="${usersControlMessage == 7}" class="alert alert-success"
+		<div th:if="${ControlMessages == 7}" class="alert alert-success"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
 			</button>
-			User Status changed with Success !!
+			Status changed with Success !!
 		</div>
-		<div th:if="${usersControlMessage == 8}" class="alert alert-error"
+		<div th:if="${ControlMessages == 8}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>

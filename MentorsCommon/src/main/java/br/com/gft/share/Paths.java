@@ -2,6 +2,9 @@ package br.com.gft.share;
 
 public class Paths {
 	
+	/* General */
+	public static final String 	ATTRIBUTE_CONTROL_MESSAGES = "ControlMessages";
+	
 	/* MainControl */
 	public static final String  ATTRIBUTE_MC_USER = "user";
 	public static final String 	ATTRIBUTE_MC_ROLE_USER = "roleUser";
@@ -27,7 +30,7 @@ public class Paths {
 	public static final String 	ATTRIBUTE_UC_PASS = "pass";
 	public static final String 	ATTRIBUTE_UC_REPASS = "repass";
 	public static final String 	ATTRIBUTE_UC_USER_ROLE = "userRole";
-	public static final String 	ATTRIBUTE_UC_USERS_CONTROL_MESSAGE = "usersControlMessage";
+	
 		
 		/*UpdateUser*/
 	public static final String ATTRIBUTE_UC_NEW_PASS = "newPass";

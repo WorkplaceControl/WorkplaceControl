@@ -392,15 +392,6 @@
 						<tr th:each="menthist : ${MentorHistory}">
 							<div
 								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
-
-<!-- 								<td> -->
-<!-- 									<div th:each="emp : ${Employeels}"> -->
-<!-- 										<center> -->
-<!-- 											<font size="3" color="#333" th:text="NULL"></font> -->
-<!-- 										</center> -->
-<!-- 									</div> -->
-<!-- 								</td> -->
-
 								<td>
 									<div th:each="emp : ${Employeels}">
 										<div th:if="${menthist.mentorId == emp.id}">

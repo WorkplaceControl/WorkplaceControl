@@ -14,6 +14,7 @@ import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
 import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 /**
  * 
  * @author mlav
@@ -23,13 +24,14 @@ import br.com.gft.share.Pagination;
 @Controller
 public class CostCenterControl {
 	private String index;
+	CostCenter costcenter = new CostCenter();
+	CostCenterService service = new CostCenterService();
 	
 	/**
 	 * this code is to show the page with allow user to read all cost centers active and inactive
 	 */
 	@RequestMapping(value = "/CostCenter", method = RequestMethod.GET)
 	public String showCostCenter(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CostCenterService service = new CostCenterService();
 		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
 		
 		model.addAttribute("url", "CostCenter");
@@ -45,7 +47,7 @@ public class CostCenterControl {
 	 */
 	@RequestMapping(value = "/CostCenterInactive", method = RequestMethod.GET)
 	public String showCostCenterInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CostCenterService service = new CostCenterService();
+	
 		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
 		
 		model.addAttribute("url", "CostCenter");
@@ -85,7 +87,6 @@ public class CostCenterControl {
 	@RequestMapping(value = "/CostCenterUpdate", method = RequestMethod.GET)
 	public String ShowCostCenterRegistration(
 			@RequestParam(value = "id") String id, Model model) {
-		CostCenter costcenter = new CostCenter();
 		costcenter.setId(id);
 		index = id;
 		costcenter.setActive(0);
@@ -119,17 +120,26 @@ public class CostCenterControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/ProcessCostCenterInactivate", method = RequestMethod.GET)
-	public String ProcessCostCenterUpdate(
-			@RequestParam(value = "id") String id,
-			@RequestParam(value = "title") String title, Model model) {
-		CostCenter costcenter = new CostCenter();
-		costcenter.setId(id);
-		costcenter.setTitle(title);
-		costcenter.setActive(1);
-		CostCenterService costcenterservice = new CostCenterService();
-		costcenterservice.alterCostCenter(costcenter);
+	@RequestMapping(value = "/CostCenterStatus", method = RequestMethod.GET)
+	public String ProcessCostCenterUpdate(@RequestParam(value = "id") String id,
+										  @RequestParam(value = "status") int status, Model model) {
+		
+		costcenter = service.getCostCenter(id);
+		int ControlMessages;
+		int action = costcenter != null ? 1 : 0;
+
+		if (action == 1) {
+			costcenter.setActive(status == 1 ? 0 : 1);
+			
+			service.alterCostCenter(costcenter);
+			
+			ControlMessages = 7;
+		} else {
+			ControlMessages = 8;
+		}
+		
 		showCostCenter(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		return "CostCenter";
 	}
 	

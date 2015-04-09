@@ -27,7 +27,7 @@ public class UnitService {
 	}
 	
 	public List<Unit> getPagedUnitsInactive(int inicio, int quantidade){
-		return new UnitDAO().findPagedUnits(inicio, quantidade);
+		return new UnitDAO().findPagedUnitsInactive(inicio, quantidade);
 	}
 	
 	public Unit getUnit(long unitId){

@@ -17,6 +17,7 @@ import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
 import br.com.gft.share.Pagination;
+import br.com.gft.share.Paths;
 /**
  * this Class is to control request and responses of Job pages
  * @author mlav
@@ -25,6 +26,8 @@ import br.com.gft.share.Pagination;
 @Controller
 public class JobControl {
 	private String index;
+	JobService service = new JobService();
+	Job job = new Job();
 	
 	/**
 	 * this method is to show job page to read jobs registered
@@ -33,9 +36,8 @@ public class JobControl {
 	 */
 	@RequestMapping(value = "/Job", method = RequestMethod.GET)
 	public String showJob(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		JobService service = new JobService();
+
 		Pagination pagination = new Pagination(service.getJobs().size(), page);
-		
 		model.addAttribute("url", "Job");
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("job", service.getPagedJobs(pagination.getBegin(), pagination.getQuantity()));
@@ -50,7 +52,6 @@ public class JobControl {
 	 */
 	@RequestMapping(value = "/JobInactive", method = RequestMethod.GET)
 	public String showJobInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		JobService service = new JobService();
 		List<Job> job = service.getJobs();
 		Pagination pagination = new Pagination(service.getJobsInactive().size(), page);
 		
@@ -96,7 +97,6 @@ public class JobControl {
 	 */
 	@RequestMapping(value = "/JobUpdate", method = RequestMethod.GET)
 	public String ShowJobUpdate(@RequestParam(value="id") String id, Model model) {
-		Job job = new Job();
 		job.setId(id);
 		index = id;
 		job.setActive(0);
@@ -130,15 +130,27 @@ public class JobControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/JobInactivate", method=RequestMethod.GET)
-	public  String ProcessJobInactive(@RequestParam(value="id") String id,@RequestParam(value="title") String title , Model model) {
-		Job job = new Job();
-		job.setId(id);
-		job.setTitle(title);
-		job.setActive(1);
-		JobService jobservice = new JobService();
-		jobservice.alterJob(job);
+	@RequestMapping(value = "/JobStatus", method=RequestMethod.GET)
+	public  String ProcessJobInactive(@RequestParam(value="id") String id,
+									  @RequestParam(value="status") int status , Model model) {
+		
+		
+		job = service.getJob(id);
+		int ControlMessages;
+		int action = job != null ? 1 : 0;
+
+		if (action == 1) {
+			job.setActive(status == 1 ? 0 : 1);
+			
+			service.alterJob(job);
+			
+			ControlMessages = 7;
+		} else {
+			ControlMessages = 8;
+		}
+		
 		showJob(null, model);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		return "Job";
 	}
 	
