@@ -71,10 +71,11 @@
 								<div th:if="${qtyErrors > 0}">
 									<div class="alert alert-error"
 										th:each="error : ${employeeError}">
-
+								<a href="#"
+										th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}">
 										<font
 											th:text="${error.wsName}+ ' has Mentor with the same position'"></font>
-
+								</a>
 									</div>
 								</div>
 							</div>

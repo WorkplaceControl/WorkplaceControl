@@ -130,17 +130,23 @@
 				</div>
 			<div id="personal_right">
 				<br /> <br />
-				<table>
+				<table th:if="${mentor} != null">
 					<tr>
 						<td id="personal_mentor" th:text="'Mentor/Tutor'"></td>
 					</tr>
+					
 					<tr>
-						<td><img
-							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.mentorId}}"
-							class="img-polaroid" /></td>
+						<td>
+							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" />
+						</td>
 					</tr>
-					<tr th:if="${Employee.mentorId} != null">
-						<td id="personal_mentor" th:text="${Employee.mentorId}"></td>
+					
+					<tr>
+						<td>
+							<p id="personal_mentor">
+								<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}"  th:text="${mentor.id}"></a>
+							</p>
+						</td>
 					</tr>
 				</table>
 			</div>

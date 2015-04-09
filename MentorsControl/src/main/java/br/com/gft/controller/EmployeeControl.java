@@ -200,9 +200,9 @@ public class EmployeeControl {
 	 */
 	@RequestMapping(value = "/EmployeeUpdate", method = RequestMethod.GET)
 	public String EmployeeUpdate(@RequestParam(Paths.ATTRIBUTE_EC_ID) String employeeId,
-			@RequestParam(Paths.ATTRIBUTE_EC_JOB) String jobId,
-			@RequestParam(Paths.ATTRIBUTE_EC_COST) String costCenterId,
-			@RequestParam(Paths.ATTRIBUTE_EC_RATE) int ratePrfId, Model model) {
+								 @RequestParam(Paths.ATTRIBUTE_EC_JOB) String jobId,
+								 @RequestParam(Paths.ATTRIBUTE_EC_COST) String costCenterId,
+								 @RequestParam(Paths.ATTRIBUTE_EC_RATE) int ratePrfId, Model model) {
 		
 		EmployeeService employeeService = new EmployeeService();
 		JobService jobService = new JobService();
@@ -210,6 +210,7 @@ public class EmployeeControl {
 		CostCenterService costCenterService = new CostCenterService();
 		
 		Employee employee = employeeService.getEmployee(employeeId);
+		
 		Job job = jobService.getJob(jobId);
 		RatePrf rateprf = ratePrfService.getRatePrf(ratePrfId);
 		CostCenter cost = costCenterService.getCostCenter(costCenterId);
@@ -218,14 +219,20 @@ public class EmployeeControl {
 		employee.setRate_Prf(rateprf);
 		employee.setCost_Center(cost);
 		
+		model.addAttribute(Paths.ATTRIBUTE_EC_JOB, job);
+		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTER, cost);
+		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRF, rateprf);
+		
+		if (employee.getMentorId() != null) {
+			model.addAttribute("mentor", employeeService.getEmployee(employee.getMentorId()));
+		} else {
+			model.addAttribute("mentor", null);
+		}
 		model.addAttribute(Paths.ATTRIBUTE_EC_QTY_MENTEE, employeeService.getQtyMentee());
 		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE, employee);
 		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_LIST, employeeService.getEmployees());
-		model.addAttribute(Paths.ATTRIBUTE_EC_JOB, job);
 		model.addAttribute(Paths.ATTRIBUTE_EC_JOBS, jobService.getJobs());
-		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTER, cost);
 		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTERS, costCenterService.getCostCenters());
-		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRF, rateprf);
 		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRFS, ratePrfService.getRatePrfs());
 		model.addAttribute(Paths.ATTRIBUTE_EC_PROJECT, new ProjectService().getProjects());
 		model.addAttribute(Paths.ATTRIBUTE_EC_CUSTOMER, new CustomerService().getCustomers());

@@ -138,9 +138,15 @@ button {
 
 #personal_right #personal_mentor {
 	color: #ffffff;
-	position: relative;
+	margin: 0;
 	left: 50px;
+	position: relative;
 	text-align: center;
+}
+
+#personal_right #personal_mentor > a {
+  color: inherit;
+  text-decoration: inherit;
 }
 
 #personal_left img {
@@ -196,10 +202,7 @@ button {
 #personal_right img {
 	width: 120px;
 	height: 160px;
-	position: relative;
-	left: 50px;
 	background-color: #fff;
-	float: left;
 	text-align: center;
 }
 
