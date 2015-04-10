@@ -108,14 +108,16 @@
 									  			<li id ="buttons_position">
 										  			<ul>
 											  			<li>
-											  				<a href="CostCenterRegistration"><button type="button">
-											  					<i class="icon-plus"></i><font size="1" color="#555"> Add Cost Center</font>
-											  				</button></a>
+								  							<a href="CostCenterRegistration">
+									  							<button type="button" class = "button-add">
+																	<i class="icon-plus"></i>Add Cost Center
+																</button>
+															</a>
 											  			</li>
 											  			<li class="dropdown">
 											  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
 											  					<button type="button">
-											  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+											  						<img src="img/tres-barras.png" style="width: 30px;"/>
 											  					</button>
 											  				</a>
 											  				<ul class="dropdown-menu">
@@ -135,45 +137,37 @@
 									</form>
 							
 								 <table class="table table-bordered">
-				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
-				  						<td>
-				  							<font size="3" color="#fff">Cost Center Id</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Cost Center Description</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Edit</font>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#fff">Active</font></center>
-				  						</td>
+				  					<thead>
+				  					<tr>
+				  						<th>Id</th>
+				  						<th>Description</th>
+				  						<th class="column-icon">Edit</th>
+				  						<th class="column-icon">Active</th>
+				  					
 				  					</tr>
+				  					</thead>
+				  					<tbody>
 				  					<tr id="${cost.id}" th:each="cost : ${costcenter}" class="cost">
 				  						<td th:text="${cost.id}" class="id" ></td>
 				  						<td th:text="${cost.title}" class="title" th:value="${cost.title}"></td>
-				  						<td  style="width: 20px;" class="edit">
-				  							<center>
+				  						<td class="edit">
 				  							<a href="#" th:href="@{/CostCenterUpdate(id=${cost.id})}">
 					  							<button type="input" class="btn btn-default btn-lg">
 	 													<i class="icon-pencil"></i>
 												</button>
 											</a>
-											</center>
 										</td>
 											
-				  						<td style="width: 20px;" class="remove">
-				  							<center>
+				  						<td class="remove">
 					  							<a href="#" th:href="@{/CostCenterStatus(id=${cost.id} , status=${cost.active})}" class = "remove">
-					  									<button type="input" class="btn btn-default btn-lg">
+				  									<button type="input" class="btn btn-default btn-lg">
 		 													<i class="icon-trash" th:if="${cost.active == 0}"></i>
 														<i class="icon-repeat" th:if="${cost.active == 1}"></i>
-														</button>
+													</button>
 												</a>
-											</center>
 				  						</td>
-				  						<td th:text="${cost.active}" class="active" ></td>
 				  					</tr>
+				  					</tbody>
 								</table>
 					</div>
 				</div>

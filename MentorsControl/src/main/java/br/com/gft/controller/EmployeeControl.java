@@ -89,6 +89,11 @@ public class EmployeeControl {
 		
 		Employee employee = new EmployeeService().getEmployee(employeeId);
 
+		if (employee.getMentorId() != null){
+			model.addAttribute("mentor", new EmployeeService().getEmployee(employee.getMentorId()));
+		}else{
+			model.addAttribute("mentor", null);
+		}
 		model.addAttribute("yearGFT", new EmployeeService().calcYears(employee));
 		model.addAttribute("Employee", employee);
 		model.addAttribute("Employeels", new EmployeeService().getEmployees());

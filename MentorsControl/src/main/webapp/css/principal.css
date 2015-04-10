@@ -139,7 +139,6 @@ button {
 #personal_right #personal_mentor {
 	color: #ffffff;
 	margin: 0;
-	left: 50px;
 	position: relative;
 	text-align: center;
 }
@@ -368,6 +367,17 @@ div#login {
 	border-color: #337ab7 !important;
 }
 
+.table thead {
+	font-size: 17px;
+}
+
+.table tbody {
+	font-size: 15px;
+}
+
+.button-add {
+	font-size: 13px;
+}
 .table thead tr {
 	background-color: #00339f;
 	border: 0px solid #00339f;
@@ -376,7 +386,6 @@ div#login {
 
 .table thead tr th {
 	font-weight: normal;
-	text-align: center;
 }
 
 #user_list {
@@ -397,5 +406,30 @@ div#login {
 
 table form {
 	margin: 0;
+}
+
+#alert-news {
+  color: #3a87ad;
+  text-decoration: inherit;
+}
+
+
+#alert-pending {
+  color: #c09853;
+  text-decoration: inherit;
+}
+
+
+#alert-error {
+  color: #b94a48;
+  text-decoration: inherit;
+}
+
+.column-icon {
+  width:40px;
+  text-align:center;
+}
+#td-exception {
+  width:40px;
 }
 

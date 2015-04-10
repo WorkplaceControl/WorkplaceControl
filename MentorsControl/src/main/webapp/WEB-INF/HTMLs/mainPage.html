@@ -52,18 +52,16 @@
 							<div class="tab-pane" id="tab2">
 								<div class="alert alert-info" th:each="newEmp : ${newEmployee}">
 									<a href="#"
-										th:href="@{/EmployeeUpdate(id=${newEmp.id} , job=${newEmp.job.id} , cost=${newEmp.costCenter.id} , rate=${newEmp.ratePrf.id})}">
-										<font
-										th:text="${newEmp.wsName + ' is a new ' + newEmp.job.title	}"></font>
+										th:href="@{/EmployeeUpdate(id=${newEmp.id} , job=${newEmp.job.id} , cost=${newEmp.costCenter.id} , rate=${newEmp.ratePrf.id})}"
+										id ="alert-news" th:text="${newEmp.wsName + ' is a new ' + newEmp.job.title	}">
 									</a>
 								</div>
 							</div>
 							<div class="tab-pane" id="tab3">
 								<div class="alert" th:each="pend : ${employeePending}">
 									<a href="#"
-										th:href="@{/EmployeeUpdate(id=${pend.id} , job=${pend.job.id} , cost=${pend.costCenter.id} , rate=${pend.ratePrf.id})}">
-										<font
-										th:text="${pend.wsName}+ ' has informations pending click here corret this issue'"></font>
+										th:href="@{/EmployeeUpdate(id=${pend.id} , job=${pend.job.id} , cost=${pend.costCenter.id} , rate=${pend.ratePrf.id})}"
+										id ="alert-pending"	th:text="${pend.wsName}+ ' has informations pending click here corret this issue'">
 									</a>
 								</div>
 							</div>
@@ -72,9 +70,8 @@
 									<div class="alert alert-error"
 										th:each="error : ${employeeError}">
 								<a href="#"
-										th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}">
-										<font
-											th:text="${error.wsName}+ ' has Mentor with the same position'"></font>
+										th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}"
+										 id ="alert-error" th:text="${error.wsName}+ ' has Mentor with the same position'">	
 								</a>
 									</div>
 								</div>

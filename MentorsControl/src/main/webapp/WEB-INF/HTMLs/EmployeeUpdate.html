@@ -136,16 +136,12 @@
 					</tr>
 					
 					<tr>
-						<td>
+						<td class="text-center">
+						<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}">
 							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" />
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<p id="personal_mentor">
-								<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}"  th:text="${mentor.id}"></a>
-							</p>
+							<br/>
+							<span id="personal_mentor" th:text="${mentor.id}"></span>
+							</a>
 						</td>
 					</tr>
 				</table>

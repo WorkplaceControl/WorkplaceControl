@@ -28,8 +28,8 @@
 										 	  		
 												  <fieldset>
 												    <legend>New Cost Center Registration</legend>
-												    <label>Unit identification</label>
-												    <input type="text" id="cost_id" class="input-large" th:field="*{id}" placeholder="Auto generate" maxlength="20" required="true"/>
+												    <label>Cost Center identification</label>
+												    <input type="text" id="cost_id" class="input-large" th:field="*{id}" placeholder="input the cost center identification" maxlength="20" required="true"/>
 												    <label>Description</label>
 												    <input type="text"  id="cost_description" th:field="*{title}" class="input-xxlarge" placeholder="input the cost center description" maxlength="100" required="true"/>
 												  	<input type="hidden" th:field="*{active}" value="0"/>
@@ -45,7 +45,7 @@
 										  <div class="row-fluid">
 											<div class="well well-small">
 											  <div id="buttons">
-											  	<button class="btn btn-primary"  type="submit" onclick="validateFilds();">
+											  	<button class="btn btn-primary"  type="submit">
 											  		Save
 											  	</button>
 											  	<a href="CostCenter">

@@ -95,7 +95,7 @@
 									  				Customers
 									  			</li>
 									  			<li class="legenda_search">
-									  				<input type="text" class="search-query" name="search" placeholder="Search"  style="width: 200px; heigth:30px;"/>
+									  				<input type="text" class="search-query" name="search" placeholder="Search"  style="width: 200px;"/>
 									  			</li>
 									  			<li>
 											<label>
@@ -106,14 +106,16 @@
 									  			<li id ="buttons_position">
 									  			<ul>
 									  			<li>
-									  				<a href="CustomerRegistration.html"><button type="button">
-									  					<i class="icon-plus"></i><font size="1" color="#555"> Add Customer</font>
-									  				</button></a>
+									  				<a href="CustomerRegistration.html">
+									  				<button type="button">
+															<i class="icon-plus"></i>Add Customer
+													</button>
+												</a>
 									  			</li>
 									  			<li class="dropdown">
 									  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
 									  					<button type="button">
-									  						<img src="img/tres-barras.png" style="width: 30px; heigth:40px;"/>
+									  						<img src="img/tres-barras.png" style="width: 30px;"/>
 									  					</button>
 									  				</a>
 									  				<ul class="dropdown-menu">
@@ -132,53 +134,41 @@
 									  </fieldset>
 									</form>
 							
-								 <table class="table table-bordered">
-				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
-				  						<td >
-				  							<center><font size="3" color="#ffffff">Customer Id</font></center>
-				  						</td>
-				  						<td >
-				  							<center><font size="3" color="#ffffff">Customer Description</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#ffffff">Customer Unit</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#ffffff">Edit</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#ffffff">Active</font></center>
-				  						</td>
-				  					</tr>
-
+								 <table class="table table-bordered text-center">
+				  					<thead>
+				  						<tr>
+					  						<th>Customer Id</th>
+					  						<th>Customer Description</th>
+					  						<th>Customer Unit</th>
+					  						<th class="column-icon">Edit</th>
+					  						<th class="column-icon">Active</th>
+				  						</tr>
+				  					</thead>
+									<tbody>
 				  					<tr th:each="customer : ${Customer}" class="customer">
-				  						<td   th:text="${customer.id}" style="width: 100px;" class="id">
+				  						<td   th:text="${customer.id}" class="id">
 				  							<input type="hidden" th:value="*{id}" th:field="*{id}"/>
 				  						</td>
-				  						<td   th:text="${customer.description}" style="width: 400px;" class="description"></td>
+				  						<td   th:text="${customer.description}" class="description"></td>
 				  						<td   th:text="${customer.unit.description}">
 				  							<input type="hidden" th:value="*{unit.description}" th:field="*{unit.description}"/></td>
-				  						<td style="width: 20px;">
-				  								<a href="#" th:href="@{/CustomerUpdate(id=${customer.id})}">
-				  							<center>
+				  						<td id="td-exception">
+				  						  <a href="#" th:href="@{/CustomerUpdate(id=${customer.id})}">
 					  							<button type="submit" class="btn btn-default btn-lg">
-	 													<i class="icon-pencil"></i>
-												</button>
-											</center>
+					  								 <i class="icon-pencil"></i>
+				  								 </button>
 										</a>
 				  						</td>
-				  						<td style="width:20px;">
+				  						<td>
 				  						  <a href="#" th:href="@{/CustomerStatus(id = ${customer.id} , status = ${customer.active})}" class ="remove">
-				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${customer.active == 0}"></i>
 														<i class="icon-repeat" th:if="${customer.active == 1}"></i>
 												</button>
-											</center>
 										</a>
 				  						</td>
-				  						<td th:text="${customer.active}" class="active" ></td>
 				  					</tr>
+				  					</tbody>
 								</table>
 					</div>
 				</div>

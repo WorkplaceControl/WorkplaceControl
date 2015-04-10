@@ -106,9 +106,11 @@
 									  		<li id ="buttons_position">
 									  		<ul>
 									  			<li>
-									  				<a href="UnitRegistration"><button type="button">
-									  					<i class="icon-plus"></i><font size="1" color="#555"> Add Unit</font>
-									  				</button></a>
+									  				<a href="UnitRegistration">
+										  				<button type="button" class = "button-add">
+																<i class="icon-plus"></i>Add Unit
+														</button>
+													</a>
 									  			</li>
 									  			<li class="dropdown">
 									  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
@@ -132,49 +134,38 @@
 									  	</fieldset>
 									</form>
 							
-								 <table class="table table-bordered">
-				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
-				  						<td>
-				  							<center><font size="3" color="#fff">Client Unit Id</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#fff">Client Unit Description</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#fff">Edit</font></center>
-				  						</td>
-				  						<td>
-				  							<center><font size="3" color="#fff">Active</font></center>
-				  						</td>
+						 <table class="table table-bordered">
+			  					<thead>
+				  					<tr>
+				  						<th>Id</th>
+				  						<th>Description</th>
+										<th class = "column-icon">Edit</th>
+										<th class = "column-icon">Active</th>
 				  					</tr>
-
-				  				
+								</thead>
+				  				<tbody>
 				  					<tr th:each="unit : ${Unit}" class="unit">
 				  						<td   th:text="${unit.id}" class="id" ></td>
 				  						<td   th:text="${unit.description}" class="description" ></td>
 				  						<td style="width: 20px;">
 				  							<a href="#" th:href="@{/UnitUpdate(id=${unit.id})}">
-				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-pencil"></i>
 												</button>
-											</center>
 										</a>
 				  						</td>
-				  						<td style="width:20px;">
+				  						<td>
 				  								<a href="#" th:href="@{/UnitStatus(id=${unit.id} , status=${unit.active})}" class = "remove">
-				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${unit.active == 0}"></i>
 														<i class="icon-repeat" th:if="${unit.active == 1}"></i>
 												</button>
-											</center>
 										</a>
 				  						</td>
 				  						<td th:text="${unit.active}" class="active" ></td>
 				  					</tr>
-				  					
-								</table>
+				  					</tbody>
+						</table>
 					</div>
 				</div>
 			</section>

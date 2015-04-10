@@ -100,9 +100,11 @@
 									  			<li id ="buttons_position">
 									  			<ul>
 									  			<li>
-									  				<a href="ProjectRegistration"><button type="button">
-									  					<i class="icon-plus"></i><font size="1" color="#555"> Add Project</font>
-									  				</button></a>
+									  				<a href="ProjectRegistration">
+									  				<button type="button" class = "button-add">
+															<i class="icon-plus"></i>Add Project
+													</button>
+												</a>
 									  			</li>
 									  			<li class="dropdown">
 									  				<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
@@ -126,49 +128,36 @@
 									</form>
 							</fieldset>
 								 <table class="table table-bordered">
-				  					<tr style="background-color:#00339f; border: 0px solid #00339f;">
-				  						<td class ="text-center">
-				  							<font size="3" color="#fff">Project Id</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Project Description</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Project Customer</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Edit</font>
-				  						</td>
-				  						<td>
-				  							<font size="3" color="#fff">Active</font>
-				  						</td>
+				  					<thead>
+				  					<tr>
+				  						<th>Id</th>
+										<th>Description</th>
+										<th>Customer</th>
+										<th class = "column-icon">Edit</th>
+										<th class = "column-icon">Active</th>
 				  					</tr>
+				  					</thead>
 
 				  					<tr th:each="proj : ${Project}" class="project">
 				  						<td   th:text="${proj.id}" class="id"></td>
 				  						<td   th:text="${proj.description}" class="description"></td>
 				  						<td   th:text="${proj.customer.description}">
 				  						</td>
-				  						<td style="width: 20px;">
+				  						<td>
 				  								<a href="#" th:href="@{/ProjectUpdate(id=${proj.id})}">
-				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-pencil"></i>
 												</button>
-											</center>
 										</a>
 				  						</td>
-				  						<td style="width:20px;">
+				  						<td>
 				  						  <a href="#" th:href="@{/ProjectStatus(id=${proj.id} , status=${proj.active})}" class = "remove">
-				  							<center>
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${proj.active == 0}"></i>
 														<i class="icon-repeat" th:if="${proj.active == 1}"></i>
 												</button>
-											</center>
 										</a>
 				  						</td>
-				  						<td th:text="${proj.active}" class="active" ></td>
 				  					</tr>
 								</table>
 					</div>
