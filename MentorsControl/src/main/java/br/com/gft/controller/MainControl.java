@@ -1,9 +1,11 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsService.EmployeeService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Paths;
 import br.com.gft.share.UserRoleInfo;
 
@@ -32,8 +35,8 @@ public class MainControl {
 	 * @param model
 	 * @return
 	 */
-
-
+	
+	Calendar date = Calendar.getInstance();
 	int roleUser;
 	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)
 	public String showHome(Model model, HttpServletRequest request) {
@@ -45,10 +48,9 @@ public class MainControl {
 		int qtyPendings = employeePending.size();
 		int qtyNews = newEmployees.size();
 
-		
-		
-		Authentication auth = SecurityContextHolder.getContext()
+				Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
+		
 		for(GrantedAuthority authorities : auth.getAuthorities()) {
 			if(authorities.getAuthority().equals(UserRoleInfo.Admin.getValue())) {
 				roleUser = UserRoleInfo.Admin.getIndex();
@@ -66,6 +68,10 @@ public class MainControl {
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_PENDING, employeePending);
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_ERRORS, qtyErrors);
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_ERROR, employeeError);
+		
+		new SystemLogs("");
+		new SystemLogs("Date:" + date.getTime().toString());
+		new SystemLogs(user + " Conectou");
 
 			
 

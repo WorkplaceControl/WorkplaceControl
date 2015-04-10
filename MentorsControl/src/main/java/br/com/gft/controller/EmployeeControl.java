@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,7 @@ import br.com.gft.MentorsService.MentorHistoryService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.RatePrfService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
@@ -160,7 +163,7 @@ public class EmployeeControl {
 			@RequestParam("ratePrf") int ratePrfId,
 			@RequestParam("costCenter") String costId, Model model)
 					throws ParseException {
-
+		
 		EmployeeService service = new EmployeeService();
 		List<Employee> employeeLs = new EmployeeService().getEmployees();
 		Employee employee = new Employee();
@@ -183,6 +186,8 @@ public class EmployeeControl {
 			employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 			
 			service.addEmployee(employee);	
+			new SystemLogs("Date:");
+			new SystemLogs((Calendar.getInstance().getTime().toString()) + "---" + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " incluiu o Employee: " + id);
 		}
 		
 		showEmployee(null, model);
@@ -298,6 +303,8 @@ public class EmployeeControl {
 		
 		showEmployee(null, model);
 		
+		new SystemLogs("Date:");
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Employee: " + id);
 		return "Employee";
 	}
 
@@ -402,7 +409,8 @@ public class EmployeeControl {
 		model.addAttribute("verifyMent", verifyMent);
 		EmployeeControl empcontrol = new EmployeeControl();
 		empcontrol.EmployeeUpdate(id, jobId, costCenterId, ratePrfId, model);
-		
+		new SystemLogs("Date:");
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADICIONOU mentee para o EMPLOYEE: " + employeeId);
 		return "EmployeeUpdate";
 	}
 
@@ -464,7 +472,9 @@ public class EmployeeControl {
 		model.addAttribute("verifyMent", verifyMent);
 
 		EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId, model);
-
+		new SystemLogs("Date:");
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADICIONOU tutor para o EMPLOYEE: " + employeeId);
+		
 		return "EmployeeUpdate";
 	}
 
