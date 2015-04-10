@@ -429,7 +429,25 @@ table form {
   width:40px;
   text-align:center;
 }
+
 #td-exception {
   width:40px;
 }
 
+.text-success {
+  color: #3c763d;
+}
+
+.text-warning {
+  color: #8a6d3b;
+}
+
+.text-danger {
+  color: #a94442;
+}
+
+.list-import-initial {
+  width: 80%;
+  border-bottom: 1px solid #eee;
+  margin: 0 auto 20px;
+}

@@ -1,97 +1,175 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="ISO-8859-1"></meta>
-<title>Import Initial</title>
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<link rel="stylesheet" type="text/css" href="css/principal.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-responsive.css" />
-</head>
-<body>
-<div th:include="NavMain :: navMain"></div>
-
-	<center>
-		<h2>Import Initial Results</h2>
-	</center>
-	<div>
-		<h3>Cost Center</h3>
-		<font color="green">Cost center insert into data base</font>
-		<p th:text="${numCost}" color="green"></p>
+	<head>
+		<meta charset="ISO-8859-1"></meta>
 		
-		<table th:if="${costerror > 0}">
-		<th>Error to insert the Cost Centers Below</th>
-			<tr th:each="costerror : ${costerror}">
-				<td th:text="costerror.id"></td>
-				<td	th:text="costerror.title"></td>
-			</tr>
-		</table>
-		<h3>Job</h3>
-		<font color="green">Jobs insert into data base</font>
-		<p th:text="${numJob}"></p>	
-	</div>
-	<table>
-	<th>Error to insert the Jobs Below</th>
+		<title>Import Initial</title>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+	</head>
 	
-		<tr th:each="joberror : ${joberror}">
-			<td th:text="joberror.id"></td>
-			<td th:text="joberror.title"></td>
-		</tr>
-	</table>
-	<h3>Unit</h3>
-	<font color="green">Units insert into data base</font>
-	<p th:text="${numUnit}"></p>
-	<table th:if="${uniterror > 0}">
-	<th>Error to insert the Units Below</th>
+	<body>
+		<div th:include="NavMain :: navMain"></div>
+		
+		<h2 class="text-center">Import Initial Results</h2>
+		
+		<div class="list-import-initial">
+			<h3>Cost Center</h3>
+			
+			<p th:if="${numCostCenter > 0}" th:text="'Cost center insert into data base: ' + ${numCostCenter}" class="text-success"></p>
+			
+			<p th:if="${costCenterWarning.size() > 0}">
+				Cost Centers already exists in database
+				
+				<ul>
+					<li th:each="cosWarning : ${costCenterWarning}" th:text="'ID: ' + ${cosWarning.id} + ', Title: ' + ${cosWarning.title}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${costCenterError.size() > 0}">
+				Error to insert the Cost Centers Below
+				
+				<ul>
+					<li th:each="cosError : ${costCenterError}" th:text="'ID: ' + ${cosError.id} + ', Title: ' + ${cosError.title}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Job</h3>
+			
+			<p th:if="${numJob > 0}" th:text="'Jobs insert into data base: ' + ${numJob}" class="text-success"></p>	
+			
+			<p th:if="${jobWarning.size() > 0}">
+				Jobs already exists in database
+				
+				<ul>
+					<li th:each="jWarning : ${jobWarning}" th:text="'ID: ' + ${jWarning.id} + ', Title: ' + ${jWarning.title}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${jobError.size() > 0}">
+				Error to insert the Jobs Below
 	
-		<tr th:each="uniterror : ${uniterror}">
-			<td th:text="uniterror.id"></td>
-			<td	th:text="uniterror.description"></td>
-		</tr>
-	</table>
-	<h3>Customer</h3>
-	<font color="green">Customers insert into data base</font>
-	<p th:text="${numCustomer}"></p>
-	<table th:if="${customererror > 0}">
-	<th>Error to insert the Customers Below</th>
+				<ul>
+					<li th:each="jError : ${jobError}" th:text="'ID: ' + ${jError.id} + ', Title: ' + ${jError.title}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Unit</h3>
+			
+			<p th:if="${numUnit > 0}" th:text="'Units insert into data base: ' + ${numUnit}" class="text-success"></p>	
+			
+			<p th:if="${unitWarning.size() > 0}">
+				Units already exists in database
+				
+				<ul>
+					<li th:each="untWarning : ${unitWarning}" th:text="'ID: ' + ${unitWarning.id} + ', Title: ' + ${unitWarning.title}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${unitError.size() > 0}">
+				Error to insert the Units Below
 	
-		<tr th:each="customererror : ${customererror}">
-			<td th:text="customererror.id"></td>
-			<td th:text="customererror.description"></td>
-		</tr>
-	</table>
-	<h3>Project</h3>
-	<font color="green">Projects insert into data base</font>
-	<p th:text="${numProj}"></p>
-	<table th:if="${projecterror > 0}">
-	<th>Error to insert the Projects Below</th>
-		<tr th:each="projecterror : ${projecterror}">
-			<td th:text="projecterror.id"></td>
-			<td th:text="projecterror.description"></td>
-		</tr>
-	</table>
-	<h3>Employee</h3>
-	<font color="green">Employees insert into data base</font>
-	<p th:text="${numEmployee}"></p>
-	<table th:if="${employeeerror > 0}">
-	<th>Error to insert the Employees Below</th>
-		<tr th:each="employeeerror : ${employeeerror}">
-			<td th:text="employeeerror.id"></td>
-			<td th:text="employeeerror.description"></td>
-		</tr>
-	</table>
+				<ul>
+					<li th:each="untError : ${unitError}" th:text="'ID: ' + ${untError.id} + ', Title: ' + ${untError.title}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Customer</h3>
+			
+			<p th:if="${numCustomer > 0}" th:text="'Customers insert into data base: ' + ${numCustomer}" class="text-success"></p>	
+			
+			<p th:if="${customerWarning.size() > 0}">
+				Customers already exists in database
+				
+				<ul>
+					<li th:each="custWarning : ${customerWarning}" th:text="'ID: ' + ${custWarning.id} + ', Title: ' + ${custWarning.description}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${customerError.size() > 0}">
+				Error to insert the Customers Below
 	
-	<h3>Employee including in Project</h3>
-	<font color="green">Employee to project insert into data base</font>
-	<p th:text="${numEmpAssign}"></p>
-	<table th:if="${empassignerror > 0}">
-	<th>Error to include project to user Below</th>
-		<tr th:each="empassignerror : ${empassignerror}">
-			<td th:text="empassignerror.id"></td>
-			<td th:text="empassignerror.description"></td>
-		</tr>
-	</table>
-</body>
+				<ul>
+					<li th:each="custError : ${customerError}" th:text="'ID: ' + ${custError.id} + ', Title: ' + ${custError.description}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Project</h3>
+			
+			<p th:if="${numProject > 0}" th:text="'Projects insert into data base: ' + ${numProject}" class="text-success"></p>	
+			
+			<p th:if="${projectWarning.size() > 0}">
+				Projects already exists in database
+				
+				<ul>
+					<li th:each="projWarning : ${projectWarning}" th:text="'ID: ' + ${projWarning.id} + ', Title: ' + ${projWarning.description}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${projectError.size() > 0}">
+				Error to insert the Projects Below
+	
+				<ul>
+					<li th:each="projError : ${projectError}" th:text="'ID: ' + ${projError.id} + ', Title: ' + ${projError.description}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Employee</h3>
+			
+			<p th:if="${employeeWarning.size() > 0}">
+				Employees already exists in database
+				
+				<ul>
+					<li th:each="empWarning : ${employeeWarning}" th:text="'ID: ' + ${empWarning.id} + ', Title: ' + ${empWarning.description}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${numEmployee > 0}" th:text="'Employees insert into data base: ' + ${numEmployee}" class="text-success"></p>	
+			
+			<p th:if="${employeeError.size() > 0}">
+				Error to insert the Employees Below
+	
+				<ul>
+					<li th:each="empError : ${employeeError}" th:text="'ID: ' + ${empError.id} + ', Title: ' + ${empError.description}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+		
+		<div class="list-import-initial">
+			<h3>Employee including in Project</h3>
+			
+			<p th:if="${employeeAssignmentWarning.size() > 0}">
+				Employees already exists in database
+				
+				<ul>
+					<li th:each="empAssWarning : ${employeeAssignmentWarning}" th:text="'Project: ' + ${empAssWarning.project.description} + ', Title: ' + ${empAssWarning.employee.wsName}" class="text-warning"></li>
+				</ul>
+			</p>
+			
+			<p th:if="${numEmployeeAssignment > 0}" th:text="'Employee to project insert into data base: ' + ${numEmployeeAssignment}" class="text-success"></p>	
+			
+			<p th:if="${employeeAssignmentError.size() > 0}">
+				Error to insert the Employees Below
+	
+				<ul>
+					<li th:each="empAssError : ${employeeAssignmentError}" th:text="'ID: ' + ${empAssError.project.description} + ', Title: ' + ${empAssError.description}" class="text-danger"></li>
+				</ul>
+			</p>
+		</div>
+	</body>
 </html>

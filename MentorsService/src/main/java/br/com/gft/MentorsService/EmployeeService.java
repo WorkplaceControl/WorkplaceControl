@@ -131,8 +131,6 @@ public class EmployeeService {
 		for (Employee mentor : new EmployeeService().getEmployees()) {
 			if (mentor.getIsMentor() == 1 || mentor.getIsTutor() == 1) {
 				for (Employee mentee : new EmployeeService().getEmployees()) {
-					System.out.println(mentor.getId() + " - " + mentee.getMentorId());
-					
 					if (mentee.getMentorId() != null &&
 							mentee.getMentorId().equals(mentor.getId()) && 
 							mentee.getJob().getPosition() >= mentor.getJob().getPosition()) {

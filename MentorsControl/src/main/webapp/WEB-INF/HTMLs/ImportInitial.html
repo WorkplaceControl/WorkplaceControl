@@ -1,56 +1,64 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="ISO-8859-1"></meta>
-	<title>Import Initial</title>
-			
-			<script type="text/javascript" src="js/jquery.js"></script>
-			<script type="text/javascript" src="js/bootstrap.js"></script>
+		<meta charset="ISO-8859-1"></meta>
+		<title>Import Initial</title>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
 
-			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
-			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
-	
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
+		<link rel="stylesheet" type="text/css" href="css/principal.css"/>
 	</head>
 	
 	<body>
-	<div th:include="NavMain :: navMain"></div>
-	
+		<div th:include="NavMain :: navMain"></div>
 
 		<br/>
 		<br/>
 		<br/>
-	
-		
-		<center>
+
+		<div class="text-center">
 			<img src="img/warning.png" style="heigth: 100px; width: 100px;"/>
+			
 			<h2>Initial Import file</h2>
-			<p><font color="#B80000 ">This page is to upload all content at excel file <br />
-			Its is very important to follow the default sheet to import<br/>
-			You can download the example sheet here 	<a  href="xls-templates/default.xlsx"> Example sheet</a></font></p>
+			
+			<p class="text-danger">
+				This page is to upload all content at excel file <br />
+				Its is very important to follow the default sheet to import<br/>
+				You can download the example sheet here
+				<a  href="xls-templates/default.xlsx"> Example sheet</a>
+			</p>
 			
 			<br/>
 			
 			<form action="UploadInitial" enctype="multipart/form-data" method="post">
 				<label><b>Enter the Excel File</b></label>
+				
 				<input type="file" name="file" required="true" />
+				
 				<input type="submit" value="Upload" />
-				<p><font color="#B80000">Excel (.xls/.xlsx) file Expected.</font></p>		
+				
+				<p class="text-danger">Excel (.xls/.xlsx) file Expected.</p>		
 				
 				<br />
 				<br />
-				<p ><font th:text="${fileName}" color="#009933" ></font> </p>
-			</form>	
-			<div th:if="${viewHab == 1}">
-			<div id="btn_send"> 			
-				<form action="#" th:action="@{/processExcelInitial}" method="post">
-					<p ><font color="#009933" >press button bellow finish to complete the upload</font> </p>
+				
+				<p th:text="${fileName} + ' imported with success'" class="text-success"></p>
+			</form>
 			
-					<input type="submit" class="btn btn-primary" value="Finish Import"  id="send"/>
-				</form>
+			<div th:if="${viewHab == 1}">
+				<div id="btn_send"> 			
+					<form action="#" th:action="@{/processExcelInitial}" method="post">
+						<input type="hidden" name="file" th:value="${fileName}" />
+						
+						<p class="text-success">Press button bellow finish to complete the upload</p>
+				
+						<input type="submit" class="btn btn-primary" value="Finish Import" id="send"/>
+					</form>
+				</div>
 			</div>
-			</div>
-		</center>
-	
+		</div>
 	</body>
 </html>
