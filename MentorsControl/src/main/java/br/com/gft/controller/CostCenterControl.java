@@ -1,7 +1,6 @@
 package br.com.gft.controller;
 
 import java.util.Calendar;
-import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -12,9 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.CostCenter;
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
-import br.com.gft.MentorsService.JobService;
 import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsService.EmployeeService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Paths;
 import br.com.gft.share.UserRoleInfo;
 

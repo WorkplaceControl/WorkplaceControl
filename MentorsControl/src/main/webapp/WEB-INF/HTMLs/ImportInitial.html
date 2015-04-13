@@ -45,7 +45,7 @@
 				<br />
 				<br />
 				
-				<p th:text="${fileName} + ' imported with success'" class="text-success"></p>
+				<p th:if="${fileName != null}" th:text="${fileName} + ' imported with success'" class="text-success"></p>
 			</form>
 			
 			<div th:if="${viewHab == 1}">
