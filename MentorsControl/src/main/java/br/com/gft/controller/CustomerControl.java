@@ -1,7 +1,9 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +17,7 @@ import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
@@ -96,6 +99,8 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 		CustomerService customerservice = new CustomerService();
 		customerservice.addCustomer(customer);
 		showCustomer(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
 		return "Customer";
 	}
 
@@ -125,8 +130,8 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/CustomerUpdate", method = RequestMethod.POST)
-	public String ProcessProjectUpdate(
+	@RequestMapping(value = "/ProcessCustomerUpdate", method = RequestMethod.POST)
+	public String ProcessCustomerUpdate(
 			@RequestParam("description") String description,
 			@RequestParam("unit") int unitId, Model model) {
 		Unit unit = new UnitService().getUnit(unitId);		
@@ -137,6 +142,8 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 		CustomerService customerservice = new CustomerService();
 		customerservice.alterCustomer(customer);
 		showCustomer(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
 		return "Customer";
 	}
 	
@@ -166,6 +173,8 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 		
 		showCustomer(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
 		return "Customer";
 	}
 }

@@ -1,9 +1,11 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +18,7 @@ import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 /**
@@ -86,6 +89,8 @@ public class JobControl {
 		jobservice.processJob(job);
 		model.addAttribute("Job" , job);
 		showJob(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
 		return "Job";
 	}
 	
@@ -102,7 +107,7 @@ public class JobControl {
 		job.setActive(0);
 		JobService jobservice = new JobService();
         job = jobservice.getJob(job.getId());
-		model.addAttribute("Job" , job);
+		model.addAttribute("Job" , job);		
 		return "JobUpdate";
 	}
 	
@@ -120,6 +125,8 @@ public class JobControl {
 		job.setId(index);
 		jobservice.alterJob(job);
 		showJob(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
 		return "Job";
 	}
 	
@@ -151,6 +158,8 @@ public class JobControl {
 		
 		showJob(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
 		return "Job";
 	}
 	

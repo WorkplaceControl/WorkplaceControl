@@ -86,6 +86,10 @@
 					<th>Joining Date: </th>
 					<td th:text="${#dates.format(Employee.joinDate, 'MM/dd/yyyy')}"></td>
 				</tr>
+				<tr th:if="${Employee.leavingDate != null}">
+					<th>Leave Date: </th>
+					<td th:text="${#dates.format(Employee.leavingDate, 'MM/dd/yyyy')}"></td>
+				</tr>
 				<tr>
 					<th>Job: </th>
 					<td	th:text="${Employee.job.title}"></td>
@@ -112,7 +116,7 @@
 				</tr>
 				<tr>
 					<th>Link WorkSpace: </th>
-					<td><a
+					<td><a class ="link"
 							th:attr="href=@{'https://workspace.gft.com/epfis/employeeProfiles/search/showEmployee.do?userid='+${Employee.id}}">Click
 								here to access</a></td>
 				</tr>

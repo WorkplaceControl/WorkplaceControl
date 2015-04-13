@@ -1,7 +1,9 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UserRoleService;
 import br.com.gft.MentorsService.UsersService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
@@ -152,6 +155,7 @@ public class UsersControl {
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		showUsers(null, model);
 		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -211,6 +215,7 @@ public class UsersControl {
 		showUsers(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -245,6 +250,8 @@ public class UsersControl {
 		
 		showUsers(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ATIVOU" : " DESATIVOU") + " o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 

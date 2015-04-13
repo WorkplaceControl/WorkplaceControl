@@ -171,7 +171,7 @@
 
 <!-- Modal to Delete Employee -->
 <div th:fragment="deleteEmployee">
-	<form action="#" th:action="@{/EmployeeInactivate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:object="${emp}" method="post">
+	<form action="#" th:action="@{/EmployeeStatus(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:object="${emp}" method="post">
 		<div th:attr="id=@{'mymodal'+${emp.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header"  style="text-align: left;">
 				<h3 id="myModalLabel">Select the leaving date to employee</h3>

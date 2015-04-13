@@ -1,7 +1,9 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -13,6 +15,7 @@ import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
@@ -85,11 +88,12 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	public String processProjectForm(@RequestParam("description") String description, @RequestParam("customer") int customerId, Model model) {
 		Customer customer = new CustomerService().getCustomer(customerId);
 		project.setDescription(description);
-		project.setDescription(description);
 		project.setActive(0);
 		project.setCustomer(customer);
 		service.addProject(project);
 		showProject(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
 		return "Project";
 	}
 	
@@ -126,6 +130,8 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 		project.setCustomer(customer);
 		service.alterProject(project);
 		showProject(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
 		return "Project";
 	}
 	
@@ -157,6 +163,8 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 		
 		showProject(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
 		return "Project";
 	}
 	

@@ -1,5 +1,8 @@
 package br.com.gft.controller;
 
+import java.util.Calendar;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.UnitService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
 
@@ -81,6 +85,9 @@ public class UnitControl {
 		UnitService unitservice = new UnitService();
 		unitservice.addUnit(unit);
 		showUnit(null, model);
+		System.out.println(unit);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 		
 	}
@@ -108,13 +115,15 @@ public class UnitControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/UnitUpdate", method=RequestMethod.POST)
+	@RequestMapping(value = "/ProcessUnitUpdate", method=RequestMethod.POST)
 	public String ProcessUnitInactivate(@ModelAttribute("Unit") Unit unit, Model model) {
 		model.addAttribute("Unit" , unit);
 		UnitService unitservice = new UnitService();
 		unit.setId(index);
 		unitservice.alterUnit(unit);
 		showUnit(null, model);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 	}
 	
@@ -144,6 +153,8 @@ public class UnitControl {
 		
 		showUnit(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
 		return "Unit";
 	}
 	

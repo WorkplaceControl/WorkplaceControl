@@ -451,3 +451,7 @@ table form {
   border-bottom: 1px solid #eee;
   margin: 0 auto 20px;
 }
+.link {
+	text-decoration: none;
+	color: #ffffff;
+}

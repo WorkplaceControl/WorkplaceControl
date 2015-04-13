@@ -69,10 +69,8 @@ public class MainControl {
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_ERRORS, qtyErrors);
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_ERROR, employeeError);
 		
-		new SystemLogs("");
-		new SystemLogs("Date:" + date.getTime().toString());
-		new SystemLogs(user + " Conectou");
-
+//		new SystemLogs("Date:");
+//		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " Conectou.");
 			
 
 		return "mainPage";

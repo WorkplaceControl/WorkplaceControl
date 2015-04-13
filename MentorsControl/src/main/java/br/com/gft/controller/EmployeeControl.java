@@ -186,8 +186,8 @@ public class EmployeeControl {
 			employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 			
 			service.addEmployee(employee);	
-			new SystemLogs("Date:");
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + "---" + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " incluiu o Employee: " + id);
+			
+			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + id);
 		}
 		
 		showEmployee(null, model);
@@ -303,8 +303,8 @@ public class EmployeeControl {
 		
 		showEmployee(null, model);
 		
-		new SystemLogs("Date:");
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Employee: " + id);
+		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Employee (ID): " + id);
 		return "Employee";
 	}
 
@@ -322,7 +322,7 @@ public class EmployeeControl {
 	 * 
 	 * @throws ParseException
 	 */
-	@RequestMapping(value = "/EmployeeInactivate", method = RequestMethod.POST)
+	@RequestMapping(value = "/EmployeeStatus", method = RequestMethod.POST)
 	public String EmployeeInactivate(@RequestParam("id") String id,
 			@RequestParam("job") String jobId,
 			@RequestParam("rate") int ratePrfId,
@@ -340,7 +340,7 @@ public class EmployeeControl {
 		employee.setRate_Prf(new RatePrfService().getRatePrf(ratePrfId));
 		employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 		service.alterEmployee(employee);
-		
+		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU" + " o Employee (ID): " + id.toUpperCase() + ", Data da Saída: " + leavingDate.toUpperCase());
 		showEmployee(null, model);
 
 		return "Employee";
@@ -409,8 +409,6 @@ public class EmployeeControl {
 		model.addAttribute("verifyMent", verifyMent);
 		EmployeeControl empcontrol = new EmployeeControl();
 		empcontrol.EmployeeUpdate(id, jobId, costCenterId, ratePrfId, model);
-		new SystemLogs("Date:");
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADICIONOU mentee para o EMPLOYEE: " + employeeId);
 		return "EmployeeUpdate";
 	}
 
@@ -472,8 +470,6 @@ public class EmployeeControl {
 		model.addAttribute("verifyMent", verifyMent);
 
 		EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId, model);
-		new SystemLogs("Date:");
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADICIONOU tutor para o EMPLOYEE: " + employeeId);
 		
 		return "EmployeeUpdate";
 	}

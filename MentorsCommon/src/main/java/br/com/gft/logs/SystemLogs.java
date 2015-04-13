@@ -25,7 +25,6 @@ public class SystemLogs {
 		
 		try {
 			arquivo = new File ("SystemLogs.log");
-			System.out.println(arquivo.getAbsolutePath());
 			fileReader = new FileReader(arquivo);
 			bufferedReader = new BufferedReader(fileReader);
 			Vector texto = new Vector();
