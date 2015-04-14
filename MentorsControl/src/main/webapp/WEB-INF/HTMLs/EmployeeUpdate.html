@@ -39,7 +39,7 @@
 					</tr>
 
 					<tr>
-						<td id="personal_name" th:text="${Employee.Id}"></td>
+						<td id="personal_name" th:text="${Employee.Id} +' (' + ${Employee.job.id} +')'"></td>
 					</tr>
 
 				</table>
@@ -123,6 +123,16 @@
 										th:text="${rate.title}"></option>
 							</select></td>
 						</tr>
+						<tr>
+							<th>Mentor:</th>
+							<td><select th:field="*{mentorId}" id="mentor" class="input-field">
+									<option value="">No Mentor</option>
+									<option th:each="ment : ${qtyMentee}"
+									th:value="${ment.id}"
+									th:text="${ment.name} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
+									th:title="'Mentee ID: ' + ${ment.id}"></option>
+							</select></td>
+						</tr>
 
 
 					</table>
@@ -140,7 +150,7 @@
 						<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}" class="link">
 							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" />
 							<br/>
-							<span id="personal_mentor" th:text="${mentor.id}"></span>
+							<span id="personal_mentor" th:text="${mentor.id} +' (' + ${mentor.job.id} +')'"></span>
 							</a>
 						</td>
 					</tr>
@@ -182,9 +192,9 @@
 					<fieldset>
 						<legend>
 							<div id="buttons">
-								<ul class="legenda">
+								<ul class="legenda clearfix">
 									<li id="left_header">Project Informations</li>
-									<li><a href="#ModalAP" role="button" class="btn"
+									<li style="float: right;"><a href="#ModalAP" role="button" class="btn"
 										data-toggle="modal"> <i class="icon-plus"></i><font
 											size="1" color="#555"> Add Project</font>
 									</a></li>
@@ -250,14 +260,7 @@
 	<br />
 
 
-	<div th:if="${verifyMent == 0}" style="width: 70%; margin: 0 auto;">
-		<div class="alert alert-error">
-			<button type="button" class="close" data-dismiss="alert"
-				th:text="'x'"></button>
-			<font>Mentee/Trainee does not exist or cannot employee be a
-				mentor of himself</font>
-		</div>
-	</div>
+	
 	<!-- Informations about employee Mentee -->
 	<div id="mentees">
 		<section>
@@ -269,22 +272,19 @@
 					<fieldset>
 						<legend>
 							<div id="buttons">
-								<ul class="legenda">
+								<ul class="legenda clearfix">
 									<li id="left_header">Employee Mentees</li>
-									<li class="legenda_search"></li>
-									<li><a href="#ModalAM" role="button" class="btn"
+<!-- 									<li style="float:right;"><a href="#ModalAT" role="button" class="btn" -->
+<!-- 										data-toggle="modal"> -->
+<!-- 												<i class="icon-plus"></i><font size="1" color="#555"> -->
+<!-- 													Add Trainee -->
+<!-- 													</font> -->
+<!-- 									</a></li> -->
+									<li style="float:right;"><a href="#ModalAM" role="button" class="btn"
 										data-toggle="modal">
-											<center>
 												<i class="icon-plus"></i><font size="1" color="#555">
-													Add Mentee</font>
-											</center>
-									</a></li>
-									<li><a href="#ModalAT" role="button" class="btn"
-										data-toggle="modal">
-											<center>
-												<i class="icon-plus"></i><font size="1" color="#555">
-													Add Trainee</font>
-											</center>
+													Add Mentee
+													</font>
 									</a></li>
 								</ul>
 							</div>
@@ -292,15 +292,11 @@
 						<div id="mentee_img" th:each="emp : ${Employeels}">
 							<div
 								th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}">
-								<div th:if="${emp.mentorId == null}">
-									<center>
+								<div class="text-center" th:if="${emp.mentorId == null}">
 										<p th:text="'Tutor of'"></p>
-									</center>
 								</div>
-								<div th:if="${emp.mentorId != null}">
-									<center>
+								<div class="text-center" th:if="${emp.mentorId != null}">
 										<p th:text="'Mentor of'"></p>
-									</center>
 								</div>
 
 								<a href="#"
@@ -334,7 +330,7 @@
 	<hr width="100%"></hr>
 	<br />
 
-	<!-- Table with Informations about the history of employee mentor -->
+<!-- Table with Informations about the history of employee mentor -->
 	<div id="project">
 		<div th:if="${mentorHistoryControlMessage == 1}">
 			<div class="alert alert-error">
@@ -353,9 +349,8 @@
 				<div class="row-fluid">
 					<fieldset>
 						<legend>
-							<ul class="legenda">
+							<ul class="legenda clearfix">
 								<li>Mentor History</li>
-								<li class="legenda_search"></li>
 								<li style="position: relative; left: 445px;"></li>
 								<li style="position: relative; left: 450px;"></li>
 							</ul>

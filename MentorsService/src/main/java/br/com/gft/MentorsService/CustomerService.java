@@ -34,7 +34,7 @@ public class CustomerService {
 	}
 	
 	public List<Customer> getPagedCustomersInactive(int inicio, int quantidade){
-		return new CustomerDAO().findPagedCustomers(inicio, quantidade);
+		return new CustomerDAO().findPagedCustomersInactive(inicio, quantidade);
 	}
 	
 	public void alterCustomer(Customer customer){

@@ -282,7 +282,8 @@ public class EmployeeControl {
 			@RequestParam("wsName") String wsName,
 			@RequestParam("job") String jobId,
 			@RequestParam("ratePrf") int ratePrfId,
-			@RequestParam("costCenter") String costId, Model model)
+			@RequestParam("costCenter") String costId,
+			@RequestParam(value="mentorId", required=false) String mentor, Model model)
 					throws ParseException {
 		
 		Employee employee = new Employee();
@@ -299,13 +300,22 @@ public class EmployeeControl {
 		employee.setRate_Prf(new RatePrfService().getRatePrf(ratePrfId));
 		employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 		
-		new EmployeeService().alterEmployee(employee);
-		
-		showEmployee(null, model);
-		
-		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Employee (ID): " + id);
-		return "Employee";
+		if (mentor != null && mentor.equals(id)){
+			model.addAttribute("verifyMent", 0);
+			EmployeeUpdate(id, jobId, costId, ratePrfId, model);
+			
+			return "EmployeeUpdate";
+		}else{
+			employee.setMentorId(mentor);
+			
+			new EmployeeService().alterEmployee(employee);
+			
+			showEmployee(null, model);
+			
+			
+			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Employee (ID): " + id);
+			return "Employee";
+		}	
 	}
 
 	/**
@@ -407,8 +417,7 @@ public class EmployeeControl {
 		// to return to the same employee
 		id = employeeId;
 		model.addAttribute("verifyMent", verifyMent);
-		EmployeeControl empcontrol = new EmployeeControl();
-		empcontrol.EmployeeUpdate(id, jobId, costCenterId, ratePrfId, model);
+		EmployeeUpdate(id, jobId, costCenterId, ratePrfId, model);
 		return "EmployeeUpdate";
 	}
 

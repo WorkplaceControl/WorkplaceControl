@@ -170,6 +170,7 @@
 </div>
 
 <!-- Modal to Delete Employee -->
+
 <div th:fragment="deleteEmployee">
 	<form action="#" th:action="@{/EmployeeStatus(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:object="${emp}" method="post">
 		<div th:attr="id=@{'mymodal'+${emp.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -190,8 +191,17 @@
 </div>
 
 <!-- Modals to Update Employee -->	
-	
+		
 <div  id ="modals_employee_update" th:fragment="updateEmployee">
+
+<div th:if="${verifyMent == 0}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
+			Mentee/Trainee does not exist or cannot employee be a
+				mentor of himself
+		</div>
 
 <!--Modal to add project -->
 <section>
@@ -256,12 +266,12 @@
 					</div>
 
 					<div class="modal-body">
-						<select style="height: 25px;" name="id" th:field="*{id}"
+						<select style="height: 25px; width: auto;" name="id" th:field="*{id}"
 							required="true">
 								<option th:each="ment : ${qtyMentee}"
 									th:value="${ment.id}"
-									th:text="${ment.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
-									th:title="'Mentee Name: ' + ${ment.name}"></option>
+									th:text="${ment.name} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
+									th:title="'Mentee ID: ' + ${ment.id}"></option>
 						</select>
 					</div>
 
@@ -277,7 +287,7 @@
 	</div>
 </section>
 
-<!--Modal to add tutor -->
+<!-- Modal to add tutor -->
 
 <section>
 	<div class="container-fluid">
