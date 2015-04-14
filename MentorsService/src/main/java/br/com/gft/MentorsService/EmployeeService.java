@@ -211,7 +211,7 @@ public class EmployeeService {
 		StringTokenizer st = new StringTokenizer(id, ",");
 		
 		while (st.hasMoreElements()) {
-			projects.add(new ProjectService().getProject(Integer.parseInt(st.nextToken())));			
+			projects.add(new ProjectService().getProject(st.nextToken()));			
 		}
 		
 		return projects;

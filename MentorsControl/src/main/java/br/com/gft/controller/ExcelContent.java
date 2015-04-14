@@ -265,11 +265,11 @@ public class ExcelContent {
 	 * this code will return a list with the Employee in the sheet
 	 */
 	public List<Employee> excelEmployee(String fileName) throws IOException,InvalidFormatException, ParseException {
+		int i = 0;
 		List<Employee> employees = new ArrayList<Employee>();
 		Sheet sheet = WorkbookFactory.create(new FileInputStream(fileName)).getSheetAt(0);
 
 		for (Row row : sheet) {
-			int i = 0;
 			int ramal = 0;
 			String id = "";
 			String name = "";

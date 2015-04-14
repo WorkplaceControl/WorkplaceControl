@@ -1,6 +1,5 @@
 package br.com.gft.MentorsDAO;
 
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,9 +31,8 @@ public class CustomerDAO {
 		em.close();
 	}
 
-	public Customer findCustomer(int CustomerId) {
-		return em.find(Customer.class, CustomerId);
-
+	public Customer findCustomer(String customerId) {
+		return em.find(Customer.class, customerId);
 	}
 
 	@SuppressWarnings("unchecked")

@@ -17,7 +17,7 @@ public class CustomerService {
 		new CustomerDAO().insertCustomer(customer);
 	}
 	
-	public Customer getCustomer(int customerId){
+	public Customer getCustomer(String customerId){
 		return new CustomerDAO().findCustomer(customerId);	
 	}
 	

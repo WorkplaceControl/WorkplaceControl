@@ -38,7 +38,7 @@ public class EmployeeAssignControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/EmployeeAssignment", method = RequestMethod.POST)
-	public String processProjectForm(@RequestParam("project") int projId,
+	public String processProjectForm(@RequestParam("project") String projId,
 			@RequestParam("id") String employeeId,
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
@@ -82,7 +82,7 @@ public class EmployeeAssignControl {
 	@RequestMapping(value = "/EmployeeAssignInactivate", method = RequestMethod.GET)
 	public String ProcessProjectInactivate(
 			@RequestParam("empAssigId") int empAssigId,
-			@RequestParam("project") int projId,
+			@RequestParam("project") String projId,
 			@RequestParam("id") String employeeId,
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,

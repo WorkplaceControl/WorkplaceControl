@@ -34,7 +34,7 @@
 												  	<label>Customer</label>
 												  	<select th:field="*{customer}"  required="true">
 												  			<option value=""></option>
-												  			<option th:each="cus : ${customer}" th:value="${cus.id}" th:text="${cus.description}"></option>
+												  			<option th:each="cus : ${customer}" th:value="${cus.description}" th:text="${cus.description}"></option>
 												  	</select>
 												
 												</fieldset>

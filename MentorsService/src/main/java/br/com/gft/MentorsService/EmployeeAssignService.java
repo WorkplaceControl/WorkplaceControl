@@ -31,11 +31,11 @@ public class EmployeeAssignService {
 	 * 
 	 * @return
 	 */
-	public int existsRegister(String employeeId , int projId){
+	public int existsRegister(String employeeId , String projId){
 		int verify = 0;
 		
 		for (EmployeeAssignment employeeAssignment : new EmployeeAssignService().getEmployeeAssignsAll()) {
-			if (employeeAssignment.getEmployee().getId().equals(employeeId) && employeeAssignment.getProject().getId() == projId) {
+			if (employeeAssignment.getEmployee().getId().equals(employeeId) && employeeAssignment.getProject().getDescription() == projId) {
 				verify = 1;
 			}
 		}

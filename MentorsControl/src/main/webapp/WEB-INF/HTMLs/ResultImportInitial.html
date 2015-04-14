@@ -135,7 +135,7 @@
 				Employees already exists in database
 				
 				<ul>
-					<li th:each="empWarning : ${employeeWarning}" th:text="'ID: ' + ${empWarning.id} + ', Title: ' + ${empWarning.description}" class="text-warning"></li>
+					<li th:each="empWarning : ${employeeWarning}" th:text="'ID: ' + ${empWarning.id} + ', Name: ' + ${empWarning.wsName}" class="text-warning"></li>
 				</ul>
 			</p>
 			
@@ -145,7 +145,7 @@
 				Error to insert the Employees Below
 	
 				<ul>
-					<li th:each="empError : ${employeeError}" th:text="'ID: ' + ${empError.id} + ', Title: ' + ${empError.description}" class="text-danger"></li>
+					<li th:each="empError : ${employeeError}" th:text="'ID: ' + ${empError.id} + ', Name: ' + ${empError.wsName}" class="text-danger"></li>
 				</ul>
 			</p>
 		</div>
@@ -157,7 +157,7 @@
 				Employees already exists in database
 				
 				<ul>
-					<li th:each="empAssWarning : ${employeeAssignmentWarning}" th:text="'Project: ' + ${empAssWarning.project.description} + ', Title: ' + ${empAssWarning.employee.wsName}" class="text-warning"></li>
+					<li th:each="empAssWarning : ${employeeAssignmentWarning}" th:text="'Project: ' + ${empAssWarning.project.description} + ', Employee: ' + ${empAssWarning.employee.wsName}" class="text-warning"></li>
 				</ul>
 			</p>
 			

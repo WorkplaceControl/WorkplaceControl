@@ -17,7 +17,7 @@ public class ProjectService {
 		return new CustomerDAO().findCustomers(); 
 	}
 	
-	public Project getProject(int projectId){
+	public Project getProject(String projectId){
 		return new ProjectDAO().findProject(projectId);
 	}
 	

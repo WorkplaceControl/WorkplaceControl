@@ -29,6 +29,7 @@ public class ProjectControl {
 	private int index;
 	Project project = new Project();
 	ProjectService service = new ProjectService();
+	
 	/**
 	 * this method is to show job page to read projects registered
 	 * @param model
@@ -38,7 +39,7 @@ public class ProjectControl {
 	public String showProject(@RequestParam(value = "page", required = false) Integer page, Model model) {
 		ProjectService service = new ProjectService();
 		
-Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
+		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
 		
 		model.addAttribute("url", "Projects");
 		model.addAttribute("pagination", pagination);
@@ -85,12 +86,15 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 * @return
 	 */
 	@RequestMapping(value="/ProcessProjectRegistration", method=RequestMethod.POST)
-	public String processProjectForm(@RequestParam("description") String description, @RequestParam("customer") int customerId, Model model) {
+	public String processProjectForm(@RequestParam("description") String description, @RequestParam("customer") String customerId, Model model) {
 		Customer customer = new CustomerService().getCustomer(customerId);
+		
 		project.setDescription(description);
 		project.setActive(0);
 		project.setCustomer(customer);
+		
 		service.addProject(project);
+		
 		showProject(null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
@@ -104,13 +108,13 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 * @return
 	 */
 	@RequestMapping(value = "/ProjectUpdate", method = RequestMethod.GET)
-	public String ShowProjectRegistration(@RequestParam(value="id") int id, Model model) {
-		index = id;
-		project.setActive(0);
-		project = service.getProject(id);
-		List<Customer> cus = service.getCustomers();
-		model.addAttribute("customer" , cus);
-		model.addAttribute("Project" , project);
+	public String ShowProjectRegistration(@RequestParam(value="id") String id, Model model) {
+		//index = id;
+		//project.setActive(0);
+		
+		model.addAttribute("customer" , service.getCustomers());
+		model.addAttribute("Project" , service.getProject(id));
+		
 		return "ProjectUpdate";
 	}
 	
@@ -122,36 +126,42 @@ Pagination pagination = new Pagination(service.getProjectsInactive().size(), pag
 	 * @return
 	 */
 	@RequestMapping(value = "/ProcessProjectUpdate", method=RequestMethod.POST)
-	public String ProcessProjectUpdate(@RequestParam("description") String description, @RequestParam("customer") int customerId , Model model) {
+	public String ProcessProjectUpdate(@RequestParam("description") String description, 
+			@RequestParam("customer") String customerId, 
+			Model model) {
 		Customer customer = new CustomerService().getCustomer(customerId);
+		
 		project.setId(index);
 		project.setDescription(description);
 		project.setActive(0);
 		project.setCustomer(customer);
 		service.alterProject(project);
+		
 		showProject(null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
+		
 		return "Project";
 	}
 	
 	/**
 	 * this method is to inactive a project
+	 * 
 	 * @param projectId
 	 * @param customerId
+	 * 
 	 * @param model
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/ProjectStatus", method=RequestMethod.GET)
-	public String ProcessProjectInactivate( @RequestParam("id") int id,
-											@RequestParam("status") int status , Model model) {
-		
-		
-		project = service.getProject(id);
+	public String ProcessProjectInactivate(@RequestParam("id") String id,
+			@RequestParam("status") int status,
+			Model model) {
 		int ControlMessages;
-		int action = project != null ? 1 : 0;
+		project = service.getProject(id);
 
-		if (action == 1) {
+		if (project != null) {
 			project.setActive(status == 1 ? 0 : 1);
 			
 			service.alterProject(project);

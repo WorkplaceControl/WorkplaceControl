@@ -71,16 +71,17 @@ public class ImportEmployeeControl {
 				buffStream.close();
 
 				employees = showExcelContent(fileName);
+				
 				model.addAttribute("employee", employees);
 				model.addAttribute("viewHab", 1);
-				
-				return "importExcel";
 			} catch (Exception e) {
-				return "You failed to upload " + fileName + ": " + e.getMessage();
+				model.addAttribute("viewHab", 1);
 			}
 		} else {
 			return "Unable to upload. File is empty.";
 		}
+		
+		return "importExcel";
 	}
 
 	@RequestMapping(value = "/UploadInitial", method = RequestMethod.POST)
@@ -221,7 +222,7 @@ public class ImportEmployeeControl {
 		for (Customer customer : excelContent.excelCustomer(file)) {
 			if (customer.getDescription().equals("")) {
 				customerError.add(customer);
-			} else if (customerService.getCustomer(customer.getId()) != null) {
+			} else if (customerService.getCustomer(customer.getDescription()) != null) {
 				customerWarning.add(customer);
 			} else {
 				customer.setActive(0);
@@ -238,7 +239,7 @@ public class ImportEmployeeControl {
 		for (Project project : excelContent.excelProject(file)) {
 			if (project.getDescription().equals("")) {
 				projectError.add(project);
-			} else if (projectService.getProject(project.getId()) != null) {
+			} else if (projectService.getProject(project.getDescription()) != null) {
 				projectWarning.add(project);
 			} else {
 				project.setActive(0);

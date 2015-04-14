@@ -12,10 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.Customer;
-import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
-import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.UnitService;
 import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
@@ -30,22 +28,24 @@ import br.com.gft.share.Paths;
 public class CustomerControl {
 
 	private int index;
-	Customer customer = new Customer();
-	CustomerService service = new CustomerService();
+	
 	/**
 	 * this method is show page to read Customer
+	 * 
 	 * @param model
+	 * 
 	 * @return
 	 */
 	@RequestMapping(value = "/Customer", method = RequestMethod.GET)
 	public String showCustomer(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CustomerService service = new CustomerService();
 		
-		
-Pagination pagination = new Pagination(service.getCustomers().size(), page);
-		
+		Pagination pagination = new Pagination(service.getCustomers().size(), page);
+
 		model.addAttribute("url", "job");
 		model.addAttribute("pagination", pagination);
 		model.addAttribute("Customer", service.getPagedCustomers(pagination.getBegin(), pagination.getQuantity()));
+		
 		return "Customer";
 	}
 	
@@ -56,6 +56,8 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 */
 	@RequestMapping(value = "/CustomerInactive", method = RequestMethod.GET)
 	public String showCustomerInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+		CustomerService service = new CustomerService();
+		
 		Pagination pagination = new Pagination(service.getCustomersInactive().size(), page);
 		
 		model.addAttribute("url", "Customer");
@@ -71,36 +73,40 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @return
 	 */
 	@RequestMapping(value = "/CustomerRegistration", method = RequestMethod.GET)
-	public String showCustomerResgistration(
-			@ModelAttribute("Customer") Customer customer, Model model) {
-		CustomerService customerservice = new CustomerService();
-		List<Unit> units = customerservice.getUnits();
-		model.addAttribute("unit", units);
+	public String showCustomerResgistration(@ModelAttribute("Customer") Customer customer, Model model) {
+		model.addAttribute("unit", new CustomerService().getUnits());
+		
 		return "CustomerRegistration";
 	}
 	
 	
 	/**
 	 * this method is to register new Customer
+	 * 
 	 * @param description
 	 * @param unitId
 	 * @param model
+	 * 
 	 * @return
+	 * 
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/ProcessCustomerRegistration", method = RequestMethod.POST)
-	public String processCustomerRegistration(
-			@RequestParam("description") String description,
-			@RequestParam("unit") int unitId, Model model) throws Exception {
-		Unit unit = new UnitService().getUnit(unitId);
+	public String processCustomerRegistration(@RequestParam("description") String description,
+			@RequestParam("unit") int unitId, 
+			Model model) throws Exception {
+		Customer customer = new Customer();
+		
 		customer.setDescription(description);
 		customer.setActive(0);
-		customer.setUnit(unit);
-		CustomerService customerservice = new CustomerService();
-		customerservice.addCustomer(customer);
+		customer.setUnit(new UnitService().getUnit(unitId));
+		
+		new CustomerService().addCustomer(customer);
+		
 		showCustomer(null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
+		
 		return "Customer";
 	}
 
@@ -111,15 +117,19 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @return
 	 */
 	@RequestMapping(value = "/CustomerUpdate", method = RequestMethod.GET)
-	public String ShowCustomerUpdate(@RequestParam(value = "id") int id,
+	public String ShowCustomerUpdate(@RequestParam(value = "id") String id,
 			Model model) {
-		index = id;
+		Customer customer = new Customer();
+		CustomerService service = new CustomerService();
+		
+		List<Unit> unit = service.getUnits();
+		
+		customer = service.getCustomer(id);
 		customer.setActive(0);
-		CustomerService customerservice = new CustomerService();
-		customer = customerservice.getCustomer(id);
-		List<Unit> unit = customerservice.getUnits();
+		
 		model.addAttribute("unit", unit);
 		model.addAttribute("Customer", customer);
+		
 		return "CustomerUpdate";
 	}
 
@@ -131,16 +141,18 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @return
 	 */
 	@RequestMapping(value = "/ProcessCustomerUpdate", method = RequestMethod.POST)
-	public String ProcessCustomerUpdate(
-			@RequestParam("description") String description,
-			@RequestParam("unit") int unitId, Model model) {
-		Unit unit = new UnitService().getUnit(unitId);		
+	public String ProcessCustomerUpdate(@RequestParam("description") String description,
+			@RequestParam("unit") int unitId, 
+			Model model) {
+		Customer customer = new Customer();
+		
 		customer.setId(index);
 		customer.setDescription(description);
 		customer.setActive(0);
-		customer.setUnit(unit);
-		CustomerService customerservice = new CustomerService();
-		customerservice.alterCustomer(customer);
+		customer.setUnit(new UnitService().getUnit(unitId));
+		
+		new CustomerService().alterCustomer(customer);
+		
 		showCustomer(null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
@@ -155,10 +167,14 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 	 * @return
 	 */
 	@RequestMapping(value = "/CustomerStatus", method = RequestMethod.GET)
-	public String ProcessProjectInactivate(@RequestParam("id") int id,
-										   @RequestParam("status") int status, Model model) {
-		customer = service.getCustomer(id);
-		int ControlMessages;
+	public String ProcessProjectInactivate(@RequestParam("id") String id, 
+			@RequestParam("status") int status, 
+			Model model) {
+		CustomerService service = new CustomerService();
+		
+		Customer customer = service.getCustomer(id);
+		
+		int controlMessages;
 		int action = customer != null ? 1 : 0;
 
 		if (action == 1) {
@@ -166,13 +182,13 @@ Pagination pagination = new Pagination(service.getCustomers().size(), page);
 			
 			service.alterCustomer(customer);
 			
-			ControlMessages = 7;
+			controlMessages = 7;
 		} else {
-			ControlMessages = 8;
+			controlMessages = 8;
 		}
 		
 		showCustomer(null, model);
-		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
+		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, controlMessages);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
 		return "Customer";

@@ -30,7 +30,7 @@ public class ProjectDAO {
 		em.close();
 	}
 
-	public Project findProject(int projectId) {
+	public Project findProject(String projectId) {
 		return em.find(Project.class, projectId);
 	}
 	
