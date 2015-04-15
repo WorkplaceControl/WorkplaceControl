@@ -40,8 +40,24 @@ public class UsersDAO {
 		return (List<Users>) query.getResultList();
 	}
 
+	public List<Users> findUsers(String search){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1 AND username LIKE ? order by username" , Users.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Users>) query.getResultList();
+	}
+
 	public List<Users> findUsersInactive(){
 		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users order by username" , Users.class);
+		
+		return (List<Users>) query.getResultList();
+	}
+
+	public List<Users> findUsersInactive(String search){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where username LIKE ? order by username" , Users.class);
+		
+		query.setParameter(1, "%" + search + "%");
 		
 		return (List<Users>) query.getResultList();
 	}
@@ -55,11 +71,32 @@ public class UsersDAO {
 		return (List<Users>) query.getResultList();
 	}
 
+	public List<Users> findUsers(String search, int begin, int quantity){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where enable = 1 AND username LIKE ? order by username" , Users.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Users>) query.getResultList();
+	}
+
 	public List<Users> findUsersInactive(int begin, int quantity){
 		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users order by username" , Users.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
+		
+		return (List<Users>) query.getResultList();
+	}
+
+	public List<Users> findUsersInactive(String search, int begin, int quantity){
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select * from Users where username LIKE ? order by username" , Users.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		
+		query.setParameter(1, "%" + search + "%");
 		
 		return (List<Users>) query.getResultList();
 	}

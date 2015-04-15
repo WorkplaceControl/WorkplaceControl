@@ -26,7 +26,15 @@
 										<li>Users</li>
 										
 										<li class="legenda_search">
-											<input type="text" class="search-query" name="search" placeholder="Search" style="width: 200px;" />
+											<form>
+												<input type="hidden" name="page" th:value="${param.page[0]}" th:if="${param.page != null}" />
+												<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:value="${param.s[0]}" th:if="${param.s != null}" />
+												<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:if="${param.s == null}" />
+												
+												<button class="btn">
+													<i class="icon-search"></i>&nbsp;
+												</button>
+											</form>
 										</li>
 										
 										<li>
@@ -40,10 +48,10 @@
 											<ul>
 												<li>
 													<a href="UserRegistration">
-														<button type="button" class = "button-add">
-															<i class="icon-plus"></i>Add Employee
-													</button>
-												</a>
+														<button type="button" class="button-add">
+															<i class="icon-plus"></i> Add User
+														</button>
+													</a>
 												</li>
 										
 												<li class="dropdown">
@@ -124,8 +132,10 @@
 					}
 				});
 				
-				page = window.location.href.split("/")
-				if (page[page.length - 1] == "UsersInactive") {
+				page = window.location.href.split("/");
+				page = page[page.length - 1].split("?");
+				
+				if (page[0] == "UsersInactive") {
 					$('#isInactive').prop("checked", true);
 				}
 				

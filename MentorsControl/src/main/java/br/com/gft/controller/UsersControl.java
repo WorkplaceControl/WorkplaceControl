@@ -78,12 +78,23 @@ public class UsersControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Users", method = RequestMethod.GET)
-	public String showUsers(@RequestParam(value = "page", required = false) Integer page, Model model) {
+	public String showUsers(@RequestParam(value = "page", required = false) Integer page, 
+			@RequestParam(value = "s", required = false) String search, 
+			Model model) {
 		Pagination pagination = new Pagination(service.getUsers().size(), page);
+		
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getUsers(search).size(), page);
+		}
 
 		model.addAttribute("url", "Users");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
+		
+		if (search != null && !search.equals("")) {
+			model.addAttribute("Users", service.getUsers(search, pagination.getBegin(), pagination.getQuantity()));
+		} else {
+			model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
+		}
 
 		return "Users";
 	}
@@ -94,12 +105,23 @@ public class UsersControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/UsersInactive", method = RequestMethod.GET)
-	public String showUsersInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
+	public String showUsersInactive(@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "s", required = false) String search,  
+			Model model) {
 		Pagination pagination = new Pagination(service.getUsersInactive().size(), page);
+		
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getUsersInactive(search).size(), page);
+		}
 
 		model.addAttribute("url", "UsersInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Users", service.getUsersInactive(pagination.getBegin(), pagination.getQuantity()));
+		
+		if (search != null && !search.equals("")) {
+			model.addAttribute("Users", service.getUsersInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		} else {
+			model.addAttribute("Users", service.getUsersInactive(pagination.getBegin(), pagination.getQuantity()));
+		}
 
 		return "Users";
 	}
@@ -153,7 +175,7 @@ public class UsersControl {
 		}
 		
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
-		showUsers(null, model);
+		showUsers(null, null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o User (Username): " + username.toUpperCase());
 		return "Users";
@@ -212,7 +234,7 @@ public class UsersControl {
 			ControlMessages = 6;
 		}
 
-		showUsers(null, model);
+		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o User (Username): " + username.toUpperCase());
@@ -248,7 +270,7 @@ public class UsersControl {
 			ControlMessages = 8;
 		}
 		
-		showUsers(null, model);
+		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ATIVOU" : " DESATIVOU") + " o User (Username): " + username.toUpperCase());
