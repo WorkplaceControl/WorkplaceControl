@@ -93,7 +93,7 @@ public class CustomerControl {
 	 */
 	@RequestMapping(value = "/ProcessCustomerRegistration", method = RequestMethod.POST)
 	public String processCustomerRegistration(@RequestParam("description") String description,
-			@RequestParam("unit") int unitId, 
+			@RequestParam("unit") String unitId, 
 			Model model) throws Exception {
 		Customer customer = new Customer();
 		
@@ -142,7 +142,7 @@ public class CustomerControl {
 	 */
 	@RequestMapping(value = "/ProcessCustomerUpdate", method = RequestMethod.POST)
 	public String ProcessCustomerUpdate(@RequestParam("description") String description,
-			@RequestParam("unit") int unitId, 
+			@RequestParam("unit") String unitId, 
 			Model model) {
 		Customer customer = new Customer();
 		

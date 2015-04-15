@@ -32,7 +32,7 @@ public class JobService {
 	}
 	
 	public Job getJob(String jobId){
-		return new JobDAO().finJob(jobId);
+		return new JobDAO().findJob(jobId);
 	}
     
 }

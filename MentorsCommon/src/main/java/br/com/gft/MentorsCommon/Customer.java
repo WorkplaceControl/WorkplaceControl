@@ -2,7 +2,6 @@ package br.com.gft.MentorsCommon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "CUSTOMER")
 public class Customer implements Serializable {

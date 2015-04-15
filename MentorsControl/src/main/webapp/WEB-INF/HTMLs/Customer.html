@@ -153,14 +153,14 @@
 				  						<td   th:text="${customer.unit.description}" class="unit">
 				  							<input type="hidden" th:value="*{unit.description}" th:field="*{unit.description}"/></td>
 				  						<td id="td-exception">
-				  						  <a href="#" th:href="@{/CustomerUpdate(id=${customer.id})}">
+				  						  <a href="#" th:href="@{/CustomerUpdate(id=${customer.description})}">
 					  							<button type="submit" class="btn btn-default btn-lg">
 					  								 <i class="icon-pencil"></i>
 				  								 </button>
 										</a>
 				  						</td>
 				  						<td>
-				  						  <a href="#" th:href="@{/CustomerStatus(id = ${customer.id} , status = ${customer.active})}" class ="remove">
+				  						  <a href="#" th:href="@{/CustomerStatus(id = ${customer.description} , status = ${customer.active})}" class ="remove">
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${customer.active == 0}"></i>
 														<i class="icon-repeat" th:if="${customer.active == 1}"></i>

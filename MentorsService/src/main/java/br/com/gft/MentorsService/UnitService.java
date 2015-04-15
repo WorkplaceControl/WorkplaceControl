@@ -30,7 +30,7 @@ public class UnitService {
 		return new UnitDAO().findPagedUnitsInactive(inicio, quantidade);
 	}
 	
-	public Unit getUnit(long unitId){
+	public Unit getUnit(String unitId){
 		return new UnitDAO().findUnit(unitId);
 	}
 	

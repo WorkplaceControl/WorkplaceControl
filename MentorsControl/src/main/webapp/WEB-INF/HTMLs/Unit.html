@@ -148,14 +148,14 @@
 				  						<td   th:text="${unit.id}" class="id" ></td>
 				  						<td   th:text="${unit.description}" class="description" ></td>
 				  						<td style="width: 20px;">
-				  							<a href="#" th:href="@{/UnitUpdate(id=${unit.id})}">
+				  							<a href="#" th:href="@{/UnitUpdate(id=${unit.description})}">
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-pencil"></i>
 												</button>
 										</a>
 				  						</td>
 				  						<td>
-				  								<a href="#" th:href="@{/UnitStatus(id=${unit.id} , status=${unit.active})}" class = "remove">
+				  								<a href="#" th:href="@{/UnitStatus(id=${unit.description} , status=${unit.active})}" class = "remove">
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${unit.active == 0}"></i>
 														<i class="icon-repeat" th:if="${unit.active == 1}"></i>

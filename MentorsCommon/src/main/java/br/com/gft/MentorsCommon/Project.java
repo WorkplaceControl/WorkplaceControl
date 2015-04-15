@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+@SuppressWarnings("serial")
 @Entity
 public class Project implements Serializable{
 

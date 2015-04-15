@@ -2,10 +2,8 @@ package br.com.gft.MentorsCommon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,13 +15,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "UNIT")
 public class Unit implements Serializable {
+	
 	private static final long serialVersionUID = 1L;
 
-	@Id
+	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@Column
+	@Id
 	private String description;
 
 	@Column

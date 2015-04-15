@@ -30,7 +30,7 @@ public class JobDAO {
 		em.close();
 	}
 	
-	public Job finJob(String jobId){
+	public Job findJob(String jobId){
 		return em.find(Job.class, jobId);
 	}
 	

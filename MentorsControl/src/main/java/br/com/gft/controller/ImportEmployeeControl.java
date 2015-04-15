@@ -205,7 +205,7 @@ public class ImportEmployeeControl {
 		for (Unit unit : excelContent.excelUnit(file)) {
 			if (unit.getDescription().equals("")) {
 				unitError.add(unit);
-			} else if (unitService.getUnit(unit.getId()) != null) {
+			} else if (unitService.getUnit(unit.getDescription()) != null) {
 				unitWarning.add(unit);
 			} else {
 				unit.setActive(0);

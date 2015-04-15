@@ -15,8 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.xml.ws.ServiceMode;
 
+@SuppressWarnings("serial")
 @Entity
 public class Employee implements Serializable{
 

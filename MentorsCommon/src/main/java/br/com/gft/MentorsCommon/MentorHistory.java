@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "MENTOR_HISTORY")
 public class MentorHistory implements Serializable {

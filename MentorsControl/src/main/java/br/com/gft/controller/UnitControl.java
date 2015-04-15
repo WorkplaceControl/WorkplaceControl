@@ -98,13 +98,9 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/UnitUpdate", method = RequestMethod.GET)
-	public String ShowUnitRegistration(@RequestParam(value="id") int id, Model model) {
-		unit.setId(id);
-		index = id;
-		unit.setActive(0);
-		UnitService unitservice = new UnitService();
-		unit = unitservice.getUnit(unit.getId());
-		model.addAttribute("Unit" , unit);
+	public String ShowUnitRegistration(@RequestParam(value="id") String id, Model model) {
+		model.addAttribute("Unit" , new UnitService().getUnit(id));
+		
 		return "UnitUpdate";
 	}
 	
@@ -134,9 +130,10 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/UnitStatus", method=RequestMethod.GET)
-	public String ProcessCostCenterUpdate(@RequestParam(value="id") int id,
+	public String ProcessCostCenterUpdate(@RequestParam(value="id") String id,
 										  @RequestParam(value="status") int status, Model model) {
 		unit = service.getUnit(id);
+		
 		int ControlMessages;
 		int action = unit!= null ? 1 : 0;
 
@@ -154,6 +151,7 @@ public class UnitControl {
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
+		
 		return "Unit";
 	}
 	

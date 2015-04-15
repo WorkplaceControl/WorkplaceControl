@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+@SuppressWarnings("serial")
 @Entity
 public class Job implements Serializable {
 
@@ -22,7 +23,7 @@ public class Job implements Serializable {
 	private int position;
 
 	@OneToMany(mappedBy = "job")
-	private List<Employee> employee = new ArrayList();
+	private List<Employee> employee = new ArrayList<Employee>();
 
 	public Job() {
 	}

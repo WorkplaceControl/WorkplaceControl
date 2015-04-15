@@ -30,7 +30,7 @@ public class UnitDAO {
 		em.close();
 	}
 	
-	public Unit findUnit(long unitId){
+	public Unit findUnit(String unitId){
 		return em.find(Unit.class,unitId);
 	}
 	

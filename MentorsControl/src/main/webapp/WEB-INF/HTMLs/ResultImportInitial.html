@@ -71,7 +71,7 @@
 				Units already exists in database
 				
 				<ul>
-					<li th:each="untWarning : ${unitWarning}" th:text="'ID: ' + ${unitWarning.id} + ', Title: ' + ${unitWarning.title}" class="text-warning"></li>
+					<li th:each="untWarning : ${unitWarning}" th:text="'ID: ' + ${untWarning.id} + ', Title: ' + ${untWarning.description}" class="text-warning"></li>
 				</ul>
 			</p>
 			
@@ -79,7 +79,7 @@
 				Error to insert the Units Below
 	
 				<ul>
-					<li th:each="untError : ${unitError}" th:text="'ID: ' + ${untError.id} + ', Title: ' + ${untError.title}" class="text-danger"></li>
+					<li th:each="untError : ${unitError}" th:text="'ID: ' + ${untError.id} + ', Title: ' + ${untError.description}" class="text-danger"></li>
 				</ul>
 			</p>
 		</div>
