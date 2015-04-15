@@ -37,8 +37,6 @@ public class ProjectControl {
 	 */
 	@RequestMapping(value="/Project" , method = RequestMethod.GET)
 	public String showProject(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		ProjectService service = new ProjectService();
-		
 		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
 		
 		model.addAttribute("url", "Projects");
@@ -55,7 +53,6 @@ public class ProjectControl {
 	 */
 	@RequestMapping(value="/ProjectInactive" , method = RequestMethod.GET)
 	public String showProjectInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		ProjectService service = new ProjectService();
 		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
 		
 		model.addAttribute("url", "Projects");
@@ -73,8 +70,8 @@ public class ProjectControl {
 	 */
 	@RequestMapping(value="/ProjectRegistration" , method = RequestMethod.GET)
 	public String showProjectRegistration(@ModelAttribute("Project") Project project , Model model){
-		List<Customer> cus = service.getCustomers();
-		model.addAttribute("customer" , cus);
+		List<Customer> customer = service.getCustomers();
+		model.addAttribute("customer" , customer);
 		return "ProjectRegistration";
 	}
 
@@ -127,8 +124,8 @@ public class ProjectControl {
 	 */
 	@RequestMapping(value = "/ProcessProjectUpdate", method=RequestMethod.POST)
 	public String ProcessProjectUpdate(@RequestParam("description") String description, 
-			@RequestParam("customer") String customerId, 
-			Model model) {
+									   @RequestParam("customer") String customerId, Model model) {
+		
 		Customer customer = new CustomerService().getCustomer(customerId);
 		
 		project.setId(index);

@@ -32,7 +32,7 @@ public class MentorHistoryControl {
 	 * @param ratePrfId
 	 * @param model
 	 * @return
-	 * @throws ParseException
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/ProcessMentorsHistoryUpdate", method=RequestMethod.POST)
 	public String ProcessProjectUpdate(	@RequestParam(Paths.ATTRIBUTE_MHC_HIST_ID) int histId , 
@@ -42,7 +42,7 @@ public class MentorHistoryControl {
 										@RequestParam(Paths.ATTRIBUTE_MHC_JOB) String jobId ,
 										@RequestParam(Paths.ATTRIBUTE_MHC_COST) String costCenterId ,
 										@RequestParam(Paths.ATTRIBUTE_MHC_RATE) int ratePrfId , 
-										Model model) throws ParseException {
+										Model model) throws Exception {
  
 		Date start = new EmployeeService().formatdate(start_date); 
 		Date finish = new EmployeeService().formatdate(finish_date);

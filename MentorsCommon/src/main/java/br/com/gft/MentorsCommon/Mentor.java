@@ -31,6 +31,9 @@ public class Mentor implements Serializable{
 	@Column(name="cost_center_id")
 	private String cost;
 	
+	@Column(name="mentor_id")
+	public String mentorId;
+	
 	@Column(name="qtymentee")
 	private int qtyMentee;
 	
@@ -92,6 +95,14 @@ public class Mentor implements Serializable{
 		this.jobId = jobId;
 	}
 
+	public String getMentorId() {
+		return mentorId;
+	}
+
+	public void setMentorId(String mentorId) {
+		this.mentorId = mentorId;
+	}
+	
 	public int getQtyMentee() {
 		return qtyMentee;
 	}
@@ -99,5 +110,5 @@ public class Mentor implements Serializable{
 	public void setQtyMentee(int qtyMentee) {
 		this.qtyMentee = qtyMentee;
 	}
-
+	
 }

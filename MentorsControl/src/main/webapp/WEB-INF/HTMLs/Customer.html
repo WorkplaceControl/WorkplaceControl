@@ -51,7 +51,7 @@
 				     			if(x == ""){
 				     				$(this).show();
 				     			}
-				     			var description = $( this ).parent().find("td.description")[index].innerHTML;
+				     			var description = $( this ).parent().find(("td.id" || "td.customer" || "td.unit"))[index].innerHTML;
 				     			var description = description.toLowerCase();
 				     			
 				     			var id = $( this ).parent().find("td.id")[index].innerHTML;
@@ -119,11 +119,11 @@
 									  					</button>
 									  				</a>
 									  				<ul class="dropdown-menu">
-											<li><a href="mainPage"><font size="2" color="#555"><i
-														class="icon-home"></i> Back to Main Page</font></a></li>
-																						<li><a href="#ModalCG" data-toggle="modal"><font
-														size="2" color="#555"><i class="icon-question-sign"></i>
-															Costumer guide</font></a></li>
+											<li><a href="mainPage"><i
+														class="icon-home"></i> Back to Main Page</a></li>
+																						<li><a href="#ModalCG" data-toggle="modal">
+																						<i class="icon-question-sign"></i>
+															Costumer guide</a></li>
 										</ul>
 									  				
 									  			</li>
@@ -149,8 +149,8 @@
 				  						<td   th:text="${customer.id}" class="id">
 				  							<input type="hidden" th:value="*{id}" th:field="*{id}"/>
 				  						</td>
-				  						<td   th:text="${customer.description}" class="description"></td>
-				  						<td   th:text="${customer.unit.description}">
+				  						<td   th:text="${customer.description}" class="customer"></td>
+				  						<td   th:text="${customer.unit.description}" class="unit">
 				  							<input type="hidden" th:value="*{unit.description}" th:field="*{unit.description}"/></td>
 				  						<td id="td-exception">
 				  						  <a href="#" th:href="@{/CustomerUpdate(id=${customer.id})}">

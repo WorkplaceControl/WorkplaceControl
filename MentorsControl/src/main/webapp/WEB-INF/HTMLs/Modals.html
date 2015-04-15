@@ -194,14 +194,20 @@
 		
 <div  id ="modals_employee_update" th:fragment="updateEmployee">
 
-<div th:if="${verifyMent == 0}" class="alert alert-error"
+	<div th:if="${verifyMent == 0}" class="alert alert-error"
+				id="alert">
+				<button type="button" class="close" data-dismiss="alert">
+					<font th:text="'x'"></font>
+				</button>
+				Mentee cannot employee be a	mentor of himself
+	</div>
+	<div th:if="${verifyMent == 2}" class="alert alert-error"
 			id="alert">
 			<button type="button" class="close" data-dismiss="alert">
 				<font th:text="'x'"></font>
 			</button>
-			Mentee/Trainee does not exist or cannot employee be a
-				mentor of himself
-		</div>
+			You cannot add this mentor to mentee.
+	</div>
 
 <!--Modal to add project -->
 <section>
@@ -270,7 +276,7 @@
 							required="true">
 								<option th:each="ment : ${qtyMentee}"
 									th:value="${ment.id}"
-									th:text="${ment.name} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
+									th:text="${ment.name} +', ' + ${ment.jobId} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
 									th:title="'Mentee ID: ' + ${ment.id}"></option>
 						</select>
 					</div>
@@ -323,6 +329,24 @@
 	</div>
 </section>
 </div>
+
+<!-- Modal to Clear Logs -->
+<div th:fragment="clearLogs">
+<form action="#" th:action="@{/ClearLogs}" method="post">
+		<div id="ModalCL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you Sure?</h3>
+			</div>
+			<div class="modal-confirm">
+			<button type="submit" class="btn btn-primary">Save</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
 
 
 

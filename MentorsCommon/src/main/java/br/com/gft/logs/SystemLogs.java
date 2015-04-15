@@ -58,5 +58,4 @@ public class SystemLogs {
 			System.out.println("Erro ao Criar arquivos de logs");
 		}
 	}
-
 }

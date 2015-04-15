@@ -36,13 +36,14 @@ public class EmployeeAssignControl {
 	 * @param ratePrfId
 	 * @param model
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/EmployeeAssignment", method = RequestMethod.POST)
 	public String processProjectForm(@RequestParam("project") String projId,
 			@RequestParam("id") String employeeId,
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
-			@RequestParam("rate") int ratePrfId, Model model) {
+			@RequestParam("rate") int ratePrfId, Model model) throws Exception {
 		EmployeeAssignService empassgnservice = new EmployeeAssignService();
 		int verify = empassgnservice.existsRegister(employeeId, projId);
 
@@ -78,6 +79,7 @@ public class EmployeeAssignControl {
 	 * @param ratePrfId
 	 * @param model
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/EmployeeAssignInactivate", method = RequestMethod.GET)
 	public String ProcessProjectInactivate(
@@ -86,7 +88,7 @@ public class EmployeeAssignControl {
 			@RequestParam("id") String employeeId,
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
-			@RequestParam("rate") int ratePrfId, Model model) {
+			@RequestParam("rate") int ratePrfId, Model model) throws Exception {
 		Project project = new ProjectService().getProject(projId);
 		Employee employee = new EmployeeService().getEmployee(employeeId);
 		EmployeeAssignment employeeassigment = new EmployeeAssignment();

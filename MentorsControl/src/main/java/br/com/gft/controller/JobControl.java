@@ -1,22 +1,16 @@
 package br.com.gft.controller;
 
 import java.util.Calendar;
-import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Job;
-import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.JobService;
 import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
@@ -55,7 +49,6 @@ public class JobControl {
 	 */
 	@RequestMapping(value = "/JobInactive", method = RequestMethod.GET)
 	public String showJobInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		List<Job> job = service.getJobs();
 		Pagination pagination = new Pagination(service.getJobsInactive().size(), page);
 		
 		model.addAttribute("url", "JobInactive");
@@ -85,8 +78,7 @@ public class JobControl {
 	@RequestMapping(value = "/ProcessJobRegistration", method=RequestMethod.POST)
 	public String ProcessJobRegistration(@ModelAttribute("Job") Job job, Model model) {
 		job.setActive(0);
-		JobService jobservice = new JobService();
-		jobservice.processJob(job);
+		service.processJob(job);
 		model.addAttribute("Job" , job);
 		showJob(null, model);
 		
@@ -105,8 +97,7 @@ public class JobControl {
 		job.setId(id);
 		index = id;
 		job.setActive(0);
-		JobService jobservice = new JobService();
-        job = jobservice.getJob(job.getId());
+        job = service.getJob(job.getId());
 		model.addAttribute("Job" , job);		
 		return "JobUpdate";
 	}
@@ -121,9 +112,8 @@ public class JobControl {
 	@RequestMapping(value = "/ProcessJobUpdate", method=RequestMethod.POST)
 	public String ProcessJobUpdate(@ModelAttribute("Job") Job job, Model model) {
 		model.addAttribute("Job" , job);
-		JobService jobservice = new JobService();
 		job.setId(index);
-		jobservice.alterJob(job);
+		service.alterJob(job);
 		showJob(null, model);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());

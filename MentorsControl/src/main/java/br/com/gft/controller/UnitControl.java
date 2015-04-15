@@ -85,7 +85,6 @@ public class UnitControl {
 		UnitService unitservice = new UnitService();
 		unitservice.addUnit(unit);
 		showUnit(null, model);
-		System.out.println(unit);
 		
 		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";

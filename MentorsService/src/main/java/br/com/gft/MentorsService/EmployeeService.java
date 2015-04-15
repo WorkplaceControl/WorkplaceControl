@@ -53,6 +53,10 @@ public class EmployeeService {
 		return new EmployeeDAO().findQtyMentee();
 	}
 	
+	public List<Mentor> getMentor(String mentorId){
+		return new EmployeeDAO().findMentor(mentorId);
+	}
+	
 	public List<Employee> getEmployeesInactive(){
 		return new EmployeeDAO().findEmployeesInactive();
 	}
@@ -103,17 +107,13 @@ public class EmployeeService {
 	 * 
 	 * @return
 	 */
-	public int verifyMent(List<Employee> employees , String id , String employeeId){
-		int verify = 0;
-		int count = 0;
-
-		for (Employee employee : employees) {
-			if (employee.getId().equals(id)) {
-				count = 2;
-			}	
-		}
+	public int verifyMent(String id , String employeeId){
+		int verify = 0;	
+		EmployeeService service = new EmployeeService();
+		service.getEmployee(id);
 		
-		if (count == 2 && !id.equals(employeeId)) {
+		
+		if (!id.equals(employeeId)) {
 			verify = 1;
 		}
 

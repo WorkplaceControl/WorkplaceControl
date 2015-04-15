@@ -464,3 +464,15 @@ table form {
 	text-decoration: none;
 	color: #ffffff;
 }
+.dropdown-menu a{
+	text-decoration: none;
+	font-size:15px;
+	 color:#555;
+}
+.modal-confirm{
+	text-align: center;
+	
+}
+.modal-confirm button {
+	margin: 20px;
+}

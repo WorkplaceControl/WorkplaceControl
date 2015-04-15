@@ -291,7 +291,8 @@
 						</legend>
 						<div id="mentee_img" th:each="emp : ${Employeels}">
 							<div
-								th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}">
+								th:if="${emp.mentorId == Employee.id and emp.active == 0}">
+<!-- 								emp.tutorId == Employee.id -->
 								<div class="text-center" th:if="${emp.mentorId == null}">
 										<p th:text="'Tutor of'"></p>
 								</div>
