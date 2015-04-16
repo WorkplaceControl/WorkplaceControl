@@ -15,9 +15,9 @@ import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.UnitService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 
 /**
  * This class to control request and responses of Customer
@@ -105,7 +105,7 @@ public class CustomerControl {
 		
 		showCustomer(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
 		
 		return "Customer";
 	}
@@ -155,7 +155,7 @@ public class CustomerControl {
 		
 		showCustomer(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
 		return "Customer";
 	}
 	
@@ -190,7 +190,7 @@ public class CustomerControl {
 		showCustomer(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, controlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
 		return "Customer";
 	}
 }

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsService.JobService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 /**
  * this Class is to control request and responses of Job pages
  * @author mlav
@@ -82,7 +82,7 @@ public class JobControl {
 		model.addAttribute("Job" , job);
 		showJob(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
 		return "Job";
 	}
 	
@@ -116,7 +116,7 @@ public class JobControl {
 		service.alterJob(job);
 		showJob(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
 		return "Job";
 	}
 	
@@ -149,7 +149,7 @@ public class JobControl {
 		showJob(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
 		return "Job";
 	}
 	

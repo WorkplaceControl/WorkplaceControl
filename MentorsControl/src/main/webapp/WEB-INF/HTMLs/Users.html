@@ -98,7 +98,7 @@
 								<tr th:each="user : ${Users}" class="user">
 									<td th:text="${user.username}" class="id"></td>
 									
-									<td th:text="${user.userRole.getUserRole()}"></td>
+									<td th:text="${user.userRole.userRole}"></td>
 									
 									<td style="width: 20px;" class="text-center">
 										<a href="#" th:href="@{/UserUpdate(username=${user.username})}">

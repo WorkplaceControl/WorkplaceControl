@@ -1,4 +1,4 @@
-package br.com.gft.controller;
+package br.com.gft.share;
 
 import java.io.FileInputStream;
 import java.io.IOException;

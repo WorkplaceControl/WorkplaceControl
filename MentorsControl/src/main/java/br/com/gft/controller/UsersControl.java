@@ -15,9 +15,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.gft.MentorsCommon.Users;
 import br.com.gft.MentorsService.UserRoleService;
 import br.com.gft.MentorsService.UsersService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 
 /**
  * this Class is to control requests and responses of User(CRUD)
@@ -177,7 +177,7 @@ public class UsersControl {
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		showUsers(null, null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -237,7 +237,7 @@ public class UsersControl {
 		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -273,7 +273,7 @@ public class UsersControl {
 		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ATIVOU" : " DESATIVOU") + " o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ATIVOU" : " DESATIVOU") + " o User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -291,7 +291,7 @@ public class UsersControl {
 		return "UserRegistration";
 	}
 	
-	/**
+	/**SystemLogs.writeLogs
 	 * this method is to show user update page
 	 * 
 	 * @param user

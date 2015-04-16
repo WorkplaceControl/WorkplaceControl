@@ -27,9 +27,9 @@ import br.com.gft.MentorsService.MentorHistoryService;
 import br.com.gft.MentorsService.ProjectService;
 import br.com.gft.MentorsService.RatePrfService;
 import br.com.gft.MentorsService.UnitService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 
 /**
  * this Class is to control requests and reponses of employees pages to server
@@ -183,7 +183,7 @@ public class EmployeeControl {
 
 			service.addEmployee(employee);
 
-			new SystemLogs(SecurityContextHolder.getContext().getAuthentication()
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication()
 							.getName().toUpperCase()
 					+ " INCLUIU o Employee (ID): " + id);
 		}
@@ -318,7 +318,7 @@ public class EmployeeControl {
 
 			showEmployee(null, model);
 
-			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
 					+ " ALTEROU o Employee (ID): " + id);
 			
 			return "Employee";
@@ -356,7 +356,7 @@ public class EmployeeControl {
 		
 		service.alterEmployee(employee);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU"
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU"
 				+ " o Employee (ID): " + id.toUpperCase() + ", Data da Saída: "
 				+ leavingDate.toUpperCase());
 		

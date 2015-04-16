@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.Unit;
 import br.com.gft.MentorsService.UnitService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 
 /**
  * this Class is to control requests and responses from unit pages
@@ -86,7 +86,7 @@ public class UnitControl {
 		unitservice.addUnit(unit);
 		showUnit(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 		
 	}
@@ -118,7 +118,7 @@ public class UnitControl {
 		unitservice.alterUnit(unit);
 		showUnit(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 	}
 	
@@ -150,7 +150,7 @@ public class UnitControl {
 		showUnit(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
 		
 		return "Unit";
 	}

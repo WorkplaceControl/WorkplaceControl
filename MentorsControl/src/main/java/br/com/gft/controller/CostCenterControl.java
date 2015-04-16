@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsService.CostCenterService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 /**
  * 
  * @author mlav
@@ -79,7 +79,7 @@ public class CostCenterControl {
 		costcenterservice.addCostCenter(costcenter);
 		showCostCenter(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -113,7 +113,7 @@ public class CostCenterControl {
 		costcenterservice.alterCostCenter(costcenter);
 		showCostCenter(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -145,7 +145,7 @@ public class CostCenterControl {
 		showCostCenter(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);
 		return "CostCenter";
 	}
 	

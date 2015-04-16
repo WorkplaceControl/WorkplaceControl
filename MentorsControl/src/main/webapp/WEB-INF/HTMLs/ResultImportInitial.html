@@ -126,6 +126,7 @@
 					<li th:each="projError : ${projectError}" th:text="'ID: ' + ${projError.id} + ', Title: ' + ${projError.description}" class="text-danger"></li>
 				</ul>
 			</p>
+			
 		</div>
 		
 		<div class="list-import-initial">
@@ -167,7 +168,7 @@
 				Error to insert the Employees Below
 	
 				<ul>
-					<li th:each="empAssError : ${employeeAssignmentError}" th:text="'ID: ' + ${empAssError.project.description} + ', Title: ' + ${empAssError.description}" class="text-danger"></li>
+					<li th:each="empAssError : ${employeeAssignmentError}" th:text="'ID: ' + ${empAssError.project.description} + ', Title: ' + ${empAssError.employee.wsName}" class="text-danger"></li>
 				</ul>
 			</p>
 		</div>

@@ -15,9 +15,9 @@ import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Project;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.ProjectService;
-import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Pagination;
 import br.com.gft.share.Paths;
+import br.com.gft.share.SystemLogs;
 
 /**
  * this Class is to control request and responses of Project pages
@@ -94,7 +94,7 @@ public class ProjectControl {
 		
 		showProject(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
 		return "Project";
 	}
 	
@@ -136,7 +136,7 @@ public class ProjectControl {
 		
 		showProject(null, model);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
 		
 		return "Project";
 	}
@@ -171,7 +171,7 @@ public class ProjectControl {
 		showProject(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
 		return "Project";
 	}
 	

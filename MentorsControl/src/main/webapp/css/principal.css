@@ -476,3 +476,8 @@ table form {
 label input#isInactive{
   padding-top: 3px;
 }
+
+
+a:hover {
+	text-decoration: none !important;
+}
