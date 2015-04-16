@@ -8,6 +8,7 @@ import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Mentor;
+import br.com.gft.MentorsCommon.Employee;
 
 public class EmployeeDAO {
 	
@@ -58,14 +59,12 @@ public class EmployeeDAO {
 		
 		return (List<Employee>) query.getResultList();
 	}
-	
-	
+		
 	public List<Employee> findEmployeesInactive(){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
 
 		return (List<Employee>) query.getResultList();
 	}
-
 	
 	public List<Mentor> findQtyMentee(){
 		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("SELECT id, CASE WHEN name IS NULL THEN id"
@@ -74,10 +73,41 @@ public class EmployeeDAO {
 		return (List<Mentor>) query.getResultList();
 	}
 	
-	public List<Mentor> findMentor(String mentorId){
-		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("select id, job_id, cost_center_id, rate_prf_id, mentor_id, null as qtymentee from employee where mentor_id ='"+ mentorId +"'", Mentor.class);
-	
-	return (List<Mentor>) query.getResultList();
-	
+	public List<Employee> findEmployees(String search){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Employee>) query.getResultList();
 	}
+	
+	public List<Employee> findEmployeesInactive(String search){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Employee>) query.getResultList();
+	}
+	
+	public List<Employee> findEmployees(String search, int begin, int quantity){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Employee>) query.getResultList();
+	}
+	
+	public List<Employee> findEmployeesInactive(String search, int begin, int quantity){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Employee>) query.getResultList();
+	}
+
 }

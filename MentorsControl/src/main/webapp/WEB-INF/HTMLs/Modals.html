@@ -103,77 +103,14 @@
 			user really exists!!
 		</div>
 	</section>
-
-	<!-- Modal User Guide-->
-
-	<section>
-		<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Login User Guide</h3>
-			</div>
-			<div class="modal-body">
-				<fieldset>
-					<legend>
-						<font size="4"> <b> registering new user</b></font>
-					</legend>
-				</fieldset>
-				<p>
-					<font size="2"> to register a new user , click in the icon
-						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
-						and select the option sign in , fill the fields in the modal like
-						the example bellow<br />
-					<br />
-						<center>
-							<img src="img/modalSignin.JPG" style="heigth: 80%; width: 80%;" />
-						</center>
-						<br />
-					<br /> the username and password allows use just 64 characters ,
-						after select the user type using "Administrative User" to user
-						with full access and "Project Leader" where allows access just to
-						create reports
-
-					</font>
-				</p>
-				<fieldset>
-					<legend>
-						<font size="4"> <b> Change password </b></font>
-					</legend>
-				</fieldset>
-				<p>
-					<font size="2"> to register a new user , click in the icon
-						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
-						and select the option "Change Password" , fill the fields in the
-						modal like the example bellow<br />
-					<br />
-						<center>
-							<img src="img/modalChangePass.JPG"
-								style="heigth: 80%; width: 80%;" />
-						</center>
-						<br />
-					<br /> the username and old password must be the same you are
-						using , the fields new password and repeat password type the new
-						password
-
-					</font>
-				</p>
-
-
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			</div>
-		</div>
-	</section>
 </div>
+
 
 <!-- Modal to Delete Employee -->
 
 <div th:fragment="deleteEmployee">
-	<form action="#" th:action="@{/EmployeeStatus(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:object="${emp}" method="post">
-		<div th:attr="id=@{'mymodal'+${emp.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<form action="#" th:action="@{/EmployeeStatus(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" method="post">
+		<div th:attr="id=@{'disable_'+${emp.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header"  style="text-align: left;">
 				<h3 id="myModalLabel">Select the leaving date to employee</h3>
 			</div>
@@ -330,25 +267,71 @@
 </section>
 </div>
 
-<!-- Modal to Clear Logs -->
-<div th:fragment="clearLogs">
-<form action="#" th:action="@{/ClearLogs}" method="post">
-		<div id="ModalCL" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+	<!-- Modal User Guide-->
+<div th:fragment="userGuide">
+	<section>
+		<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-header">
-				<h3 id="myModalLabel" class="text-center">Are you Sure?</h3>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="myModalLabel">Login User Guide</h3>
 			</div>
-			<div class="modal-confirm">
-			<button type="submit" class="btn btn-primary">Save</button>
-			<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-			</div>	
+			<div class="modal-body">
+				<fieldset>
+					<legend>
+						<font size="4"> <b> registering new user</b></font>
+					</legend>
+				</fieldset>
+				<p>
+					<font size="2"> to register a new user , click in the icon
+						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
+						and select the option sign in , fill the fields in the modal like
+						the example bellow<br />
+					<br />
+						<center>
+							<img src="img/modalSignin.JPG" style="heigth: 80%; width: 80%;" />
+						</center>
+						<br />
+					<br /> the username and password allows use just 64 characters ,
+						after select the user type using "Administrative User" to user
+						with full access and "Project Leader" where allows access just to
+						create reports
+
+					</font>
+				</p>
+				<fieldset>
+					<legend>
+						<font size="4"> <b> Change password </b></font>
+					</legend>
+				</fieldset>
+				<p>
+					<font size="2"> to register a new user , click in the icon
+						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
+						and select the option "Change Password" , fill the fields in the
+						modal like the example bellow<br />
+					<br />
+						<center>
+							<img src="img/modalChangePass.JPG"
+								style="heigth: 80%; width: 80%;" />
+						</center>
+						<br />
+					<br /> the username and old password must be the same you are
+						using , the fields new password and repeat password type the new
+						password
+
+					</font>
+				</p>
+
+
+			</div>
 			<div class="modal-footer">
-			<br/>	
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
 			</div>
 		</div>
-	</form>
-	</div>
-
-
+	</section>
+</div>
 
 <!--  Employee Guide -->
 
@@ -417,7 +400,7 @@
 	</div>
 </section>
 
-<!--  Job Guide -->
+	<!--  Job Guide -->
 
 <section th:fragment="jobGuide">
 	<div id="ModalJG" class="modal hide fade" tabindex="-1" role="dialog"
@@ -483,6 +466,7 @@
 		</div>
 	</div>
 </section>
+
 
 <!--  Project Guide -->
 
@@ -822,5 +806,113 @@
 		</div>
 	</div>
 </section>
+
+	<!-- Job Status -->
+<div th:fragment="jobStatus">
+<form action="#" th:action="@{/JobStatus(id=${job.id} , status=${job.active})}" method="post">
+		<div th:attr="id=@{'changeStatus_'+${job.id}}" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<!-- Project Status -->
+<div th:fragment="projectStatus">
+<form action="#" th:action="@{/ProjectStatus(id=${proj.description} , status=${proj.active})}" method="post">
+		<div th:attr="id=@{'changeStatus_'+${proj.id}}" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<!-- Customer Status -->
+<div th:fragment="customerStatus">
+<form action="#" th:action="@{/CustomerStatus(id = ${customer.description} , status = ${customer.active})}" method="post">
+		<div th:attr="id=@{'changeStatus_'+${customer.id}}" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<!-- Unit Status -->
+<div th:fragment="unitStatus">
+<form action="#" th:action="@{/UnitStatus(id=${unit.description} , status=${unit.active})}" method="post">
+		<div th:attr="id=@{'changeStatus_'+${unit.id}}" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<!-- Cost Center Status -->
+<div th:fragment="costStatus">
+<form action="#" th:action="@{/CostCenterStatus(id=${cost.id} , status=${cost.active})}" method="post">
+		<div th:attr="id=@{'changeStatus_'+${cost.id}}" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
+	
+	<!-- Modal to Clear Logs -->
+<div th:fragment="clearLogs">
+<form action="#" th:action="@{/ClearLogs}" method="post">
+		<div id="ModalCL" class="modal-confirm hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<h3 id="myModalLabel" class="text-center">Are you sure?</h3>
+			</div>
+			<div class="modal-confirmation">
+			<button type="submit" class="btn btn-primary">Yes</button>
+			<button class="btn" data-dismiss="modal" aria-hidden="true">No</button>
+			</div>	
+			<div class="modal-footer">
+			<br/>	
+			</div>
+		</div>
+	</form>
+	</div>
 
 

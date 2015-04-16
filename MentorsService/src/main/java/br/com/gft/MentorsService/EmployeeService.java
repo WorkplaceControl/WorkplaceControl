@@ -49,14 +49,6 @@ public class EmployeeService {
 		return new EmployeeDAO().findEmployees();
 	}
 	
-	public List<Mentor> getQtyMentee(){
-		return new EmployeeDAO().findQtyMentee();
-	}
-	
-	public List<Mentor> getMentor(String mentorId){
-		return new EmployeeDAO().findMentor(mentorId);
-	}
-	
 	public List<Employee> getEmployeesInactive(){
 		return new EmployeeDAO().findEmployeesInactive();
 	}
@@ -67,6 +59,26 @@ public class EmployeeService {
 	
 	public void alterEmployee(Employee employee){
 		new EmployeeDAO().updateEmployee(employee);
+	}
+	
+	public List<Mentor> getQtyMentee(){
+		return new EmployeeDAO().findQtyMentee();
+	}
+	
+	public List<Employee> getUsers(String search){
+		return new EmployeeDAO().findEmployees(search);
+	}
+	
+	public List<Employee> getUsersInactive(String search){
+		return new EmployeeDAO().findEmployeesInactive(search);
+	}
+	
+	public List<Employee> getUsers(String search, int begin, int quantity){
+		return new EmployeeDAO().findEmployees(search, begin, quantity);
+	}
+	
+	public List<Employee> getUsersInactive(String search, int begin, int quantity){
+		return new EmployeeDAO().findEmployeesInactive(search, begin, quantity);
 	}
 	
 	/**

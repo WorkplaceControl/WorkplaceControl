@@ -4,7 +4,9 @@ import java.util.List;
 
 import javax.xml.ws.ServiceMode;
 
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Unit;
+import br.com.gft.MentorsDAO.JobDAO;
 import br.com.gft.MentorsDAO.UnitDAO;
 
 @ServiceMode
@@ -37,5 +39,22 @@ public class UnitService {
 	public void alterUnit(Unit unit){
 		new UnitDAO().updateUnit(unit);
 	}
+	
+	public List<Unit> getUnits(String search){
+		return new UnitDAO().findUnits(search);
+	}
+	
+	public List<Unit> getUnitsInactive(String search){
+		return new UnitDAO().findUnitsInactive(search);
+	}
+	
+	public List<Unit> getUnits(String search, int begin, int quantity){
+		return new UnitDAO().findUnits(search, begin, quantity);
+	}
+	
+	public List<Unit> getUnitsInactive(String search, int begin, int quantity){
+		return new UnitDAO().findUnitsInactive(search, begin, quantity);
+	}
+	
 	
 }

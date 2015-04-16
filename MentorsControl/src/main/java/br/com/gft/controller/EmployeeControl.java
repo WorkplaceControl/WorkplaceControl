@@ -183,9 +183,7 @@ public class EmployeeControl {
 
 			service.addEmployee(employee);
 
-			new SystemLogs((Calendar.getInstance().getTime().toString())
-					+ " --- "
-					+ SecurityContextHolder.getContext().getAuthentication()
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication()
 							.getName().toUpperCase()
 					+ " INCLUIU o Employee (ID): " + id);
 		}
@@ -320,9 +318,7 @@ public class EmployeeControl {
 
 			showEmployee(null, model);
 
-			new SystemLogs((Calendar.getInstance().getTime().toString())
-					+ " --- "
-					+ SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
 					+ " ALTEROU o Employee (ID): " + id);
 			
 			return "Employee";
@@ -360,9 +356,7 @@ public class EmployeeControl {
 		
 		service.alterEmployee(employee);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString())
-				+ " --- "
-				+ SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU"
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU"
 				+ " o Employee (ID): " + id.toUpperCase() + ", Data da Saída: "
 				+ leavingDate.toUpperCase());
 		

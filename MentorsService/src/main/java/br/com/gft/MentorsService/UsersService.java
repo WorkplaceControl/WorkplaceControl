@@ -23,28 +23,28 @@ public class UsersService {
 		return new UsersDAO().findUsers();
 	}
 	
-	public List<Users> getUsers(String search){
-		return new UsersDAO().findUsers(search);
-	}
-	
 	public List<Users> getUsersInactive(){
 		return new UsersDAO().findUsersInactive();
-	}
-	
-	public List<Users> getUsersInactive(String search){
-		return new UsersDAO().findUsersInactive(search);
 	}
 	
 	public List<Users> getUsers(int begin, int quantity){
 		return new UsersDAO().findUsers(begin, quantity);
 	}
 	
-	public List<Users> getUsers(String search, int begin, int quantity){
-		return new UsersDAO().findUsers(search, begin, quantity);
-	}
-	
 	public List<Users> getUsersInactive(int begin, int quantity){
 		return new UsersDAO().findUsersInactive(begin, quantity);
+	}
+	
+	public List<Users> getUsers(String search){
+		return new UsersDAO().findUsers(search);
+	}
+	
+	public List<Users> getUsersInactive(String search){
+		return new UsersDAO().findUsersInactive(search);
+	}
+	
+	public List<Users> getUsers(String search, int begin, int quantity){
+		return new UsersDAO().findUsers(search, begin, quantity);
 	}
 	
 	public List<Users> getUsersInactive(String search, int begin, int quantity){

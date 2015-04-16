@@ -86,7 +86,7 @@ public class UnitControl {
 		unitservice.addUnit(unit);
 		showUnit(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 		
 	}
@@ -118,7 +118,7 @@ public class UnitControl {
 		unitservice.alterUnit(unit);
 		showUnit(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
 	}
 	
@@ -129,7 +129,7 @@ public class UnitControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/UnitStatus", method=RequestMethod.GET)
+	@RequestMapping(value = "/UnitStatus", method=RequestMethod.POST)
 	public String ProcessCostCenterUpdate(@RequestParam(value="id") String id,
 										  @RequestParam(value="status") int status, Model model) {
 		unit = service.getUnit(id);
@@ -150,7 +150,7 @@ public class UnitControl {
 		showUnit(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);
 		
 		return "Unit";
 	}

@@ -105,7 +105,7 @@ public class CustomerControl {
 		
 		showCustomer(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
 		
 		return "Customer";
 	}
@@ -155,7 +155,7 @@ public class CustomerControl {
 		
 		showCustomer(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
 		return "Customer";
 	}
 	
@@ -166,7 +166,7 @@ public class CustomerControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/CustomerStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/CustomerStatus", method = RequestMethod.POST)
 	public String ProcessProjectInactivate(@RequestParam("id") String id, 
 			@RequestParam("status") int status, 
 			Model model) {
@@ -190,7 +190,7 @@ public class CustomerControl {
 		showCustomer(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, controlMessages);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
 		return "Customer";
 	}
 }

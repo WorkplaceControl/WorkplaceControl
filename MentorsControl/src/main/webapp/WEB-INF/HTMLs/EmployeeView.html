@@ -169,7 +169,6 @@
 							<legend>
 								<ul class="legenda clearfix">
 									<li>Project Informations</li>
-									<li class="legenda_search"></li>
 								</ul>
 							</legend>
 						</fieldset>
@@ -233,33 +232,31 @@
 				<div class="row-fluid">
 					<fieldset>
 						<legend>
-							<ul class="legenda" id = "legenda_view">
+							<ul class="legenda clearfix">
 								<li style ="padding-top: 10px">Employee Mentees</li>
-								<li class="legenda_search"></li>
-								<li style="position: relative; left: 450px;"></li>
-								<li style="position: relative; left: 455px;"></li>
 							</ul>
 						</legend>
+					</fieldset>
 						<div id="mentee_img" th:each="emp : ${Employeels}">
 									  		<div th:if="${emp.mentorId == Employee.id or emp.tutorId == Employee.id}">
-										  			<div th:if="${emp.mentorId == null}">
-										  				<center><p  th:text="'Tutor of'"></p></center>
+										  			<div class="text-center" th:if="${emp.mentorId == null}">
+										  				<p  th:text="'Tutor of'"></p>
 										  			</div>
-										  			<div th:if="${emp.mentorId != null}">
-										  				<center><p  th:text="'Mentor of'"></p></center>
+										  			<div class="text-center" th:if="${emp.mentorId != null}">
+										  				<p  th:text="'Mentor of'"></p>
 										  			</div>
 										  			
 										  		<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
 										  			
 										  			<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}" class="img-polaroid"/>
-										  			<center><p th:text="${emp.id}"></p></center>
-										  			<center><font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font></center>
+										  			<p class="text-center" th:text="${emp.id}"></p>
+										  			<font class="text-center" size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font>
 										  		</a>
 										  		
 									  		</div>
 						</div>
 
-					</fieldset>
+
 				</div>
 			</div>
 		</section>

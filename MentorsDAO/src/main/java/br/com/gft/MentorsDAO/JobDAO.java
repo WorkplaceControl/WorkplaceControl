@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
+import br.com.gft.MentorsCommon.Employee;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Job;
 
 public class JobDAO {
@@ -58,10 +60,48 @@ public class JobDAO {
 		return (List<Job>) query.getResultList();
 	}
 	
+	
 	public List<Job> findJobsInactive(){
 		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job" , Job.class);
 
 		return (List<Job>) query.getResultList();
 	}
 	
+	public List<Job> findJobs(String search){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job where active = 0 AND (id || title || position) iLIKE '%a%' order by position asc" , Job.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Job>) query.getResultList();
+	}
+	
+	public List<Job> findJobsInactive(String search){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job where (id || title || position) iLIKE '%a%' order by position asc" , Job.class);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Job>) query.getResultList();
+	}
+	
+	public List<Job> findJobs(String search, int begin, int quantity){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job where active = 0 AND (id || title || position) iLIKE '%a%' order by position asc" , Job.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Job>) query.getResultList();
+	}
+	
+	public List<Job> findJobsInactive(String search, int begin, int quantity){
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job where (id || title || position) iLIKE '%a%' order by position asc" , Job.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Job>) query.getResultList();
+	}
+	
+
 }

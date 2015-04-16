@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Project;
+import br.com.gft.MentorsCommon.Project;
 
 public class ProjectDAO {
 
@@ -60,6 +61,42 @@ public class ProjectDAO {
 	
 	public List<Project> findProjectsInactive(){
 		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project order by description asc" , Project.class);
+		
+		return (List<Project>) query.getResultList();
+	}
+	
+	public List<Project> findProjects(String search){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 and (id || description || customer_id) iLIKE ? order by description" , Project.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Project>) query.getResultList();
+	}
+	
+	public List<Project> findProjectsInactive(String search){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where (id || description || customer_id) iLIKE ? order by description" , Project.class);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Project>) query.getResultList();
+	}
+	
+	public List<Project> findProjects(String search, int begin, int quantity){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where active = 0 and (id || description || customer_id) iLIKE ? order by description" , Project.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Project>) query.getResultList();
+	}
+	
+	public List<Project> findProjectsInactive(String search, int begin, int quantity){
+		TypedQuery<Project> query = (TypedQuery<Project>) em.createNativeQuery("select * from project where (id || description || customer_id) iLIKE ? order by description" , Project.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
 		
 		return (List<Project>) query.getResultList();
 	}

@@ -94,7 +94,7 @@ public class ProjectControl {
 		
 		showProject(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
 		return "Project";
 	}
 	
@@ -136,7 +136,7 @@ public class ProjectControl {
 		
 		showProject(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
 		
 		return "Project";
 	}
@@ -151,7 +151,7 @@ public class ProjectControl {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/ProjectStatus", method=RequestMethod.GET)
+	@RequestMapping(value = "/ProjectStatus", method=RequestMethod.POST)
 	public String ProcessProjectInactivate(@RequestParam("id") String id,
 			@RequestParam("status") int status,
 			Model model) {
@@ -171,7 +171,7 @@ public class ProjectControl {
 		showProject(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
 		return "Project";
 	}
 	

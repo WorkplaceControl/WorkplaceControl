@@ -82,7 +82,7 @@ public class JobControl {
 		model.addAttribute("Job" , job);
 		showJob(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
 		return "Job";
 	}
 	
@@ -116,7 +116,7 @@ public class JobControl {
 		service.alterJob(job);
 		showJob(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
 		return "Job";
 	}
 	
@@ -127,7 +127,7 @@ public class JobControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/JobStatus", method=RequestMethod.GET)
+	@RequestMapping(value = "/JobStatus", method=RequestMethod.POST)
 	public  String ProcessJobInactive(@RequestParam(value="id") String id,
 									  @RequestParam(value="status") int status , Model model) {
 		
@@ -149,7 +149,7 @@ public class JobControl {
 		showJob(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
 		return "Job";
 	}
 	

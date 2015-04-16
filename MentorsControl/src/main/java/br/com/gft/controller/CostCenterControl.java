@@ -79,7 +79,7 @@ public class CostCenterControl {
 		costcenterservice.addCostCenter(costcenter);
 		showCostCenter(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -113,7 +113,7 @@ public class CostCenterControl {
 		costcenterservice.alterCostCenter(costcenter);
 		showCostCenter(null, model);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -124,7 +124,7 @@ public class CostCenterControl {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/CostCenterStatus", method = RequestMethod.GET)
+	@RequestMapping(value = "/CostCenterStatus", method = RequestMethod.POST)
 	public String ProcessCostCenterUpdate(@RequestParam(value = "id") String id,
 										  @RequestParam(value = "status") int status, Model model) {
 		
@@ -145,7 +145,7 @@ public class CostCenterControl {
 		showCostCenter(null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);
 		return "CostCenter";
 	}
 	

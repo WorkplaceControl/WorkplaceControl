@@ -40,5 +40,20 @@ public class CustomerService {
 	public void alterCustomer(Customer customer){
 		new CustomerDAO().updateCustomer(customer);
 	}
+	public List<Customer> getJobs(String search){
+		return new CustomerDAO().findCustomers(search);
+	}
+	
+	public List<Customer> getCustomersInactive(String search){
+		return new CustomerDAO().findCustomersInactive(search);
+	}
+	
+	public List<Customer> getCustomers(String search, int begin, int quantity){
+		return new CustomerDAO().findCustomers(search, begin, quantity);
+	}
+	
+	public List<Customer> getCustomersInactive(String search, int begin, int quantity){
+		return new CustomerDAO().findCustomersInactive(search, begin, quantity);
+	}
 	
 }

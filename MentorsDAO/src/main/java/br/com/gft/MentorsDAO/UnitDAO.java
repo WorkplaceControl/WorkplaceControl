@@ -7,6 +7,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Unit;
+import br.com.gft.MentorsCommon.Unit;
 
 public class UnitDAO {
 	
@@ -63,6 +64,41 @@ public class UnitDAO {
 		
 		return (List<Unit>) query.getResultList();
 	}
+	
+	public List<Unit> findUnits(String search){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit where active = 0 and (id || description) iLIKE ? order by description" , Unit.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Unit>) query.getResultList();
+	}
+	
+	public List<Unit> findUnitsInactive(String search){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit where (id || description) iLIKE ? order by description" , Unit.class);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Unit>) query.getResultList();
+	}
+	
+	public List<Unit> findUnits(String search, int begin, int quantity){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit where active = 0 and (id || description) iLIKE ? order by description" , Unit.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Unit>) query.getResultList();
+	}
+	
+	public List<Unit> findUnitsInactive(String search, int begin, int quantity){
+		TypedQuery<Unit> query = (TypedQuery<Unit>) em.createNativeQuery("select * from unit where (id || description) iLIKE ? order by description" , Unit.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Unit>) query.getResultList();
+	}
+
 }
-
-

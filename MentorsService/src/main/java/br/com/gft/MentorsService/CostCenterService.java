@@ -3,7 +3,9 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.CostCenter;
+import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsDAO.CostCenterDAO;
+import br.com.gft.MentorsDAO.JobDAO;
 
 public class CostCenterService {
 
@@ -34,5 +36,20 @@ public class CostCenterService {
 	public void alterCostCenter(CostCenter costcenter) {
 		new CostCenterDAO().updateCostCenter(costcenter);
 	}
-
+	public List<CostCenter> getCostCenters(String search){
+		return new CostCenterDAO().findCostCenters(search);
+	}
+	
+	public List<CostCenter> getCostCentersInactive(String search){
+		return new CostCenterDAO().findCostCentersInactive(search);
+	}
+	
+	public List<CostCenter> getCostCenters(String search, int begin, int quantity){
+		return new CostCenterDAO().findCostCenters(search, begin, quantity);
+	}
+	
+	public List<CostCenter> getCostCentersInactive(String search, int begin, int quantity){
+		return new CostCenterDAO().findCostCentersInactive(search, begin, quantity);
+	}
+	
 }

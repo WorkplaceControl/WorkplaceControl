@@ -306,12 +306,7 @@ td.input-field, td .input-field {
 	height: auto;
 }
 
-#mentees #legenda_view {
-	padding-top: 10px;
-}
-
 .user_messages #alert {
-	width: 96%;
 	position: relative;
 	top: 60%;
 }
@@ -471,14 +466,8 @@ table form {
 }
 .nav-menu {
 	font-size:15px !important; 
-} 
-.modal-confirm{
-	text-align: center;
-	
 }
-.modal-confirm button {
-	margin: 20px;
-}
+
 
 #search{
   padding: 3 10px;

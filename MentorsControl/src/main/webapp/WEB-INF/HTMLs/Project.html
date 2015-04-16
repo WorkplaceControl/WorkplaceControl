@@ -150,7 +150,8 @@
 										</a>
 				  						</td>
 				  						<td>
-				  						  <a href="#" th:href="@{/ProjectStatus(id=${proj.description} , status=${proj.active})}" class = "remove">
+				  						<div th:include="Modals :: projectStatus"></div>
+				  						<a type="input" th:attr="href=@{'#changeStatus_'+${proj.id}}" role="button" data-toggle="modal">
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-trash" th:if="${proj.active == 0}"></i>
 														<i class="icon-repeat" th:if="${proj.active == 1}"></i>
@@ -169,12 +170,6 @@
 		
 <script type="text/javascript">
 			$(function(){
-				$(".remove").click(function(){
-					if (!confirm("Are you sure?")) {
-						return false;
-					}
-				});
-				
 				page = window.location.href.split("/")
 				if (page[page.length - 1] == "ProjectInactive") {
 					$('#isInactive').prop("checked", true);

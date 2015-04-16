@@ -193,7 +193,7 @@
 								</td>
 								
 								<td class="text-center">
-										<a th:if="${emp.active == 0}" type="input" th:attr="href=@{'#mymodal'+${emp.id}}" role="button" class="btn btn-default btn-lg" data-toggle="modal">
+										<a th:if="${emp.active == 0}" type="input" th:attr="href=@{'#disable_'+${emp.id}}" role="button" class="btn btn-default btn-lg" data-toggle="modal">
 											<i class="icon-trash"></i>
 										</a>
 										

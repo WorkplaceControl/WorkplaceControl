@@ -7,6 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Vector;
 
 public class SystemLogs {
@@ -16,10 +19,13 @@ public class SystemLogs {
 	BufferedReader bufferedReader;
 	FileWriter fileWriter;
 	BufferedWriter bufferedWriter;
+	String finalDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+	String finalTime = new SimpleDateFormat("HH:mm:hh").format(new GregorianCalendar().getTime());
+	
 
 	public SystemLogs(String logs) {
 
-		writeLogs(logs);
+		writeLogs(finalDate + " - " + finalTime + " --- " + logs);
 	}
 
 	private void writeLogs(String logs) {

@@ -313,68 +313,68 @@ public class ImportEmployeeControl {
 		model.addAttribute("employeeAssignmentWarning", employeeAssignmentWarning);
 		
 		if( numJob > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numJob + " Job(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numJob + " Job(s)");
 		};
 		if( numUnit > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numUnit + " Unit(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numUnit + " Unit(s)");
 		};
 		if( numProject > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numProject + " Project(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numProject + " Project(s)");
 		};
 		if( numCustomer > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCustomer + " Customer(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCustomer + " Customer(s)");
 		};
 		if( numEmployee > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployee + " Employee(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployee + " Employee(s)");
 		};
 		if( numCostCenter > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCostCenter + " Cost Center(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCostCenter + " Cost Center(s)");
 		};
 		if( numEmployeeAssignment > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployeeAssignment + "Employee(s) Assignment(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployeeAssignment + "Employee(s) Assignment(s)");
 		};
 		if( jobError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Job(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Job(s)");
 		};
 		if( unitError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + unitError.size() + "ERROS ao incluir Unit(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + unitError.size() + "ERROS ao incluir Unit(s)");
 		};
 		if( projectError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + projectError.size() + "ERROS ao incluir Project(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + projectError.size() + "ERROS ao incluir Project(s)");
 		};
 		if( employeeError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeError.size() + "ERROS ao incluir Job(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeError.size() + "ERROS ao incluir Job(s)");
 		};
 		if( customerError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + customerError.size() + "ERROS ao incluir Customer(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + customerError.size() + "ERROS ao incluir Customer(s)");
 		};
 		if( costCenterError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Cost(s) Center(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Cost(s) Center(s)");
 		};
 		if( employeeAssignmentError.size() > 0){
-			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + "ERROS ao incluir Employee(s) Assignment(s)");
+			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + "ERROS ao incluir Employee(s) Assignment(s)");
 		};
 //		if( jobWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + jobWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + jobWarning.size());
 //		};
 //		if( unitWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + unitWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + unitWarning.size());
 //		};
 //		if( projectWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + projectWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + projectWarning.size());
 //		};
 //		if( employeeWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeWarning.size());
 //		};
 //		if( customerWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + customerWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + customerWarning.size());
 //		};
 //		
 //		if( costCenterWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + costCenterWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + costCenterWarning.size());
 //		};
 //		if( employeeAssignmentWarning.size() > 0){
-//			new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeAssignmentWarning.size());
+//			new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeAssignmentWarning.size());
 //		};
 		
 		return "ResultImportInitial";

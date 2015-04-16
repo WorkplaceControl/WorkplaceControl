@@ -64,4 +64,40 @@ public class CostCenterDAO {
 		return (List<CostCenter>) query.getResultList();
 	}
 	
+	public List<CostCenter> findCostCenters(String search){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from cost_center where active = 0 and (id || title) iLIKE ? order by title" , CostCenter.class);
+
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<CostCenter>) query.getResultList();
+	}
+	
+	public List<CostCenter> findCostCentersInactive(String search){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from cost_center where (id || title) iLIKE ? order by title" , CostCenter.class);
+		
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<CostCenter>) query.getResultList();
+	}
+	
+	public List<CostCenter> findCostCenters(String search, int begin, int quantity){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from cost_center where active = 0 and (id || title) iLIKE ? order by title" , CostCenter.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<CostCenter>) query.getResultList();
+	}
+	
+	public List<CostCenter> findCostCentersInactive(String search, int begin, int quantity){
+		TypedQuery<CostCenter> query = (TypedQuery<CostCenter>) em.createNativeQuery("select * from cost_center where (id || title) iLIKE ? order by title" , CostCenter.class);
+		
+		query.setFirstResult(begin);
+		query.setMaxResults(quantity);
+		query.setParameter(1, "%" + search + "%");
+		
+		return (List<CostCenter>) query.getResultList();
+	}
+	
 }

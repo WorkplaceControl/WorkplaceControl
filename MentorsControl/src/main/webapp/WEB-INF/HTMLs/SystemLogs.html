@@ -1,0 +1,98 @@
+<html>
+	<head>
+		<meta charset="utf-8"></meta>
+		<title>User</title>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+	</head>
+	
+	
+	<script type="text/javascript">
+			$( document ).ready(function() {
+			/* this code is filter results and display just the results that is equals typed by user , 
+			   otherwise the content will be hidden */ 
+				  $("input").keyup(function(){
+					  	var x = $( "input[name=search]" ).val();
+						var x = x.toLowerCase();
+					
+				     	$('tr.logs').each(function( index ) {
+				     			if(x == ""){
+				     				$(this).show();
+				     			}
+				     			var id = $( this ).parent().find("td.body")[index].innerHTML;
+				     			var id = id.toLowerCase();
+								
+				     		    if(id.substring(0 ,x.length ) == x || id.substring(0 , x.length) == x){
+				     		    	
+				     		    }else{
+				     		    	$(this).hide(200);
+				     		    }
+ 
+				     	});;
+				  });
+				  
+	
+			});
+			
+			</script>
+	
+	<body>	
+		<div th:include="NavMain :: navMain"></div>
+		<div th:include="Modals :: clearLogs"></div>
+		
+		<div id="logs_screen">
+				<br />
+				<div class="container-fluid row-fluid">
+							<fieldset>
+									  	<legend>
+									  		<ul class="legenda clearfix">
+									  			<li>
+									  				Logs
+									  			</li>
+									  			<li class="legenda_search">
+									  				<input type="text" class="search-query" name="search" placeholder="Search"  style="width: 200px; heigth:30px;" />
+									  			</li>
+									  			<li class="dropdown" id="buttons_position">
+												<a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+													<button type="button">
+														<img src="img/tres-barras.png" style="width: 30px; heigth: 40px;" />
+													</button>
+												</a>
+												
+												<ul class="dropdown-menu">
+													<li>
+													<a href="C:\Eclipse\SystemLogs.log">
+															<i class="icon-download"></i>Download
+													</a>
+													</li>
+													<li>
+														<a href="#ModalCL" data-toggle="modal">
+															<i class="icon-trash"></i>
+															Clear Logs
+														</a>
+													</li>
+												</ul>
+											</li>
+									  			
+									  			
+									  			
+									  			
+									  			
+
+
+									  		</ul>
+									  	</legend>
+							</fieldset>
+						<table class="table table-bordered">
+							<tr class="logs" if="${logs != null}" th:each="log : ${logs}">
+							<td class="body" style="padding: 1px;" th:text="${log}"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+	</body>
+</html>

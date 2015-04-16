@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.eclipse.persistence.jpa.jpql.parser.DateTime;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsService.EmployeeService;
+import br.com.gft.logs.SystemLogs;
 import br.com.gft.share.Paths;
 import br.com.gft.share.UserRoleInfo;
 
@@ -68,9 +68,7 @@ public class MainControl {
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_ERRORS, qtyErrors);
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_ERROR, employeeError);
 		
-//		new SystemLogs("Date:");
-//		new SystemLogs((Calendar.getInstance().getTime().toString()) + " --- " + SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " Conectou.");
-			
+		new SystemLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " Conectou.");
 
 		return "mainPage";
 
