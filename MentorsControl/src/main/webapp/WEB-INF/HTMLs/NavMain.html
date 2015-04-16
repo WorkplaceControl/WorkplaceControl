@@ -10,7 +10,7 @@
 						<li class="name_aplication"><a href="mainPage">WorkPlace
 								Control</a></li>
 
-						<ul id="ul_header">
+						<ul id="ul-header">
 							<li style="padding-right: 30px; padding-left: 30px;"
 								th:text="'Welcome, ' + ${session.user} + '!'"></li>
 
@@ -43,17 +43,17 @@
 								</a>
 
 									<ul class="dropdown-menu">
-										<li><a href="Employee">Employee</a></li>
-										<li><a href="Job">Job</a></li>
-										<li><a href="Project">Project</a></li>
-										<li><a href="Customer">Customer</a></li>
-										<li><a href="Unit">Client Unit</a></li>
-										<li><a href="CostCenter">Cost Center</a></li>
+										<li><a class="nav-menu" href="Employee">Employee</a></li>
+										<li><a class="nav-menu" href="Job">Job</a></li>
+										<li><a class="nav-menu" href="Project">Project</a></li>
+										<li><a class="nav-menu" href="Customer">Customer</a></li>
+										<li><a class="nav-menu" href="Unit">Client Unit</a></li>
+										<li><a class="nav-menu" href="CostCenter">Cost Center</a></li>
 
 										<div th:if="${session.roleUser == 1}">
 
 											<li class="divider"></li>
-											<li class="dropdown-submenu" id="dropSub"><a
+											<li class="dropdown-submenu" id="dropSub"><a class="nav-menu" 
 												tabindex="-1">More options</a>
 
 												<ul class="dropdown-menu" id="dropSub">
@@ -63,17 +63,17 @@
 														<li><a href="Users"><i
 																class="icon-pencil"></i> Users
 														</a></li>
-														<li><a href="SystemLogs"><i
+														<li><a class="nav-menu"  href="SystemLogs"><i
 																class="icon-eye-open"></i> Logs
 														</a></li>
 														</ul>
 														</li>
 														
-													<li><a href="mainPage"><i class="icon-home"></i> Back to
+													<li><a class="nav-menu"  href="mainPage"><i class="icon-home"></i> Back to
 																Main Page
 													</a></li>
 
-													<li><a href="#ModalUG" data-toggle="modal"><i
+													<li><a class="nav-menu"  href="#ModalUG" data-toggle="modal"><i
 																class="icon-question-sign"></i> User guide
 													</a></li>
 												</ul></li>
@@ -82,13 +82,13 @@
 
 										<div th:if="${session.roleUser == 2}">
 											<li class="divider"></li>
-											<li class="dropdown-submenu" id="dropSub"><a
+											<li class="dropdown-submenu" id="dropSub"><a class="nav-menu" 
 												tabindex="-1">More options</a>
 												<ul class="dropdown-menu" id="dropSub">
-													<li><a href="#ModalCP" data-toggle="modal"><i class="icon-pencil"></i>
+													<li><a class="nav-menu"  href="#ModalCP" data-toggle="modal"><i class="icon-pencil"></i>
 																Change Password
 													</a></li>
-													<li><a href="#ModalUG" data-toggle="modal">
+													<li><a class="nav-menu"  href="#ModalUG" data-toggle="modal">
 													<i class="icon-question-sign"></i> User guide
 													</a></li>
 												</ul></li>
@@ -96,22 +96,22 @@
 									</ul></li>
 
 								<li class="dropdown"><a href="#" id="drop2" role="button"
-									class="dropdown-toggle" data-toggle="dropdown">Import<b
+									class="dropdown-toggle nav-menu" data-toggle="dropdown">Import<b
 										class="caret"></b></a>
 
 									<ul class="dropdown-menu">
-										<li><a href="showImport">New Employees</a></li>
-										<li><a href="InitialImport">Initial Import</a></li>
-										<li><a href="Mapping">Mapping</a></li>
+										<li><a class="nav-menu" href="showImport">New Employees</a></li>
+										<li><a class="nav-menu" href="InitialImport">Initial Import</a></li>
+										<li><a class="nav-menu" href="Mapping">Mapping</a></li>
 									</ul></li>
 
 								<li class="dropdown"><a href="#" id="drop2" role="button"
-									class="dropdown-toggle" data-toggle="dropdown">Reports<b
+									class="dropdown-toggle nav-menu" data-toggle="dropdown">Reports<b
 										class="caret"></b></a>
 
 									<ul class="dropdown-menu">
-										<li><a href="MentorReport">Mentors x Mentees</a></li>
-										<li><a href="ProjectReport">Employees x Project</a></li>
+										<li><a class="nav-menu" href="MentorReport">Mentors x Mentees</a></li>
+										<li><a class="nav-menu" href="ProjectReport">Employees x Project</a></li>
 									</ul></li>
 							</ul>
 						</div>

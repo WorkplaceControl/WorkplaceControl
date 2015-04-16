@@ -63,7 +63,7 @@ button {
 	padding-right: 10px;
 }
 
-#ul_header {
+#ul-header {
 	text-align: right;
 	line-height: 40px;
 	display: inline-block;
@@ -466,13 +466,24 @@ table form {
 }
 .dropdown-menu a{
 	text-decoration: none;
-	font-size:15px;
+	font-size:13px;
 	 color:#555;
 }
+.nav-menu {
+	font-size:15px !important; 
+} 
 .modal-confirm{
 	text-align: center;
 	
 }
 .modal-confirm button {
 	margin: 20px;
+}
+
+#search{
+  padding: 3 10px;
+}
+
+label input#isInactive{
+  padding-top: 3px;
 }

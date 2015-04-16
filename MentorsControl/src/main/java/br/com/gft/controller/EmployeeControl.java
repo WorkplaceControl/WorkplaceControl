@@ -396,7 +396,7 @@ public class EmployeeControl {
 		Employee employee = service.getEmployee(employeeId);
 		Employee mentor = service.getEmployee(mentorId);
 
-		if ((employee.getMentorId() == null || !employee.getMentorId().equals(mentorId)) || 
+		if ((employee.getMentorId() == null || !employee.getMentorId().equals(mentorId)) && 
 				(mentor != null && employee.getJob().getPosition() < mentor.getJob().getPosition())) {
 
 			int verifyMent = service.verifyMent(employeeId, mentorId);
