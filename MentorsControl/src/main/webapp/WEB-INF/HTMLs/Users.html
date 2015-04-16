@@ -126,9 +126,13 @@
 		
 		<script type="text/javascript">
 			$(function(){
-				$(".remove").click(function(){
-					if (!confirm("Are you sure?")) {
-						return false;
+				$(".remove").click(function(e){
+					e.preventDefault();
+					
+					if (confirm("Are you sure?")) {
+						$.get($(this).attr("href"), {}, function(){
+							window.location.reload();
+						});
 					}
 				});
 				

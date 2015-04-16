@@ -50,12 +50,21 @@ public class EmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Employee", method = RequestMethod.GET)
-	public String showEmployee(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getEmployees().size(), page);
+	public String showEmployee(@RequestParam(value = "page", required = false) Integer page, 
+			@RequestParam(value = "s", required = false) String search, 
+			Model model) {
+		Pagination pagination = null;
 
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getEmployees(search).size(), page);
+			model.addAttribute("Employee", service.getPagedEmployees(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getEmployees().size(), page);
+			model.addAttribute("Employee", service.getPagedEmployees(pagination.getBegin(), pagination.getQuantity()));
+		}
+		
 		model.addAttribute("url", "Employee");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Employee", service.getPagedEmployees(pagination.getBegin(), pagination.getQuantity()));
 
 		return "Employee";
 	}
@@ -188,7 +197,7 @@ public class EmployeeControl {
 					+ " INCLUIU o Employee (ID): " + id);
 		}
 
-		showEmployee(null, model);
+		showEmployee(null, null, model);
 
 		model.addAttribute("checker", checker ? 1 : 0);
 
@@ -316,7 +325,7 @@ public class EmployeeControl {
 
 			service.alterEmployee(employee);
 
-			showEmployee(null, model);
+			showEmployee(null, null, model);
 
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
 					+ " ALTEROU o Employee (ID): " + id);
@@ -360,7 +369,7 @@ public class EmployeeControl {
 				+ " o Employee (ID): " + id.toUpperCase() + ", Data da Saída: "
 				+ leavingDate.toUpperCase());
 		
-		showEmployee(null, model);
+		showEmployee(null, null, model);
 
 		return "Employee";
 	}

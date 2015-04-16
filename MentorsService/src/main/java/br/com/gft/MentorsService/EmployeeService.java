@@ -41,16 +41,32 @@ public class EmployeeService {
 		return new EmployeeDAO().findPagedEmployees(inicio, quantidade);
 	}
 	
+	public List<Employee> getPagedEmployees(String search, int inicio, int quantidade){
+		return new EmployeeDAO().findPagedEmployees(search, inicio, quantidade);
+	}
+	
 	public List<Employee> getPagedEmployeesInactive(int inicio, int quantidade){
 		return new EmployeeDAO().findPagedEmployeesInactive(inicio, quantidade);
 	}
 	
+	public List<Employee> getPagedEmployeesInactive(String search, int inicio, int quantidade){
+		return new EmployeeDAO().findPagedEmployeesInactive(search, inicio, quantidade);
+	}
+
 	public List<Employee> getEmployees(){
 		return new EmployeeDAO().findEmployees();
 	}
 	
+	public List<Employee> getEmployees(String search){
+		return new EmployeeDAO().findEmployees(search);
+	}
+	
 	public List<Employee> getEmployeesInactive(){
 		return new EmployeeDAO().findEmployeesInactive();
+	}
+	
+	public List<Employee> getEmployeesInactive(String search){
+		return new EmployeeDAO().findEmployeesInactive(search);
 	}
 	
 	public Employee getEmployee(String employeeId){
@@ -63,22 +79,6 @@ public class EmployeeService {
 	
 	public List<Mentor> getQtyMentee(){
 		return new EmployeeDAO().findQtyMentee();
-	}
-	
-	public List<Employee> getUsers(String search){
-		return new EmployeeDAO().findEmployees(search);
-	}
-	
-	public List<Employee> getUsersInactive(String search){
-		return new EmployeeDAO().findEmployeesInactive(search);
-	}
-	
-	public List<Employee> getUsers(String search, int begin, int quantity){
-		return new EmployeeDAO().findEmployees(search, begin, quantity);
-	}
-	
-	public List<Employee> getUsersInactive(String search, int begin, int quantity){
-		return new EmployeeDAO().findEmployeesInactive(search, begin, quantity);
 	}
 	
 	/**

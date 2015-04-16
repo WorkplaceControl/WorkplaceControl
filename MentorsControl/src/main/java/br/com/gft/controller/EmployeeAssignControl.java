@@ -1,19 +1,14 @@
 package br.com.gft.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.gft.MentorsCommon.Customer;
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.EmployeeAssignment;
 import br.com.gft.MentorsCommon.Project;
-import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.EmployeeAssignService;
 import br.com.gft.MentorsService.EmployeeService;
 import br.com.gft.MentorsService.ProjectService;
@@ -26,7 +21,7 @@ import br.com.gft.MentorsService.ProjectService;
  */
 @Controller
 public class EmployeeAssignControl {
-	private int verify = 0;
+
 	/**
 	 * this method control requests and responses to register the relation of the employee to a project
 	 * @param projId

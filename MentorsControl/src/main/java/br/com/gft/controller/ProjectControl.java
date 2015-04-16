@@ -1,6 +1,5 @@
 package br.com.gft.controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;

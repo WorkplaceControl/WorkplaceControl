@@ -177,8 +177,10 @@
 		
 <script type="text/javascript">
 			$(function(){
-				page = window.location.href.split("/")
-				if (page[page.length - 1] == "UnitInactive") {
+				page = window.location.href.split("/");
+				page = page[page.length - 1].split("?");
+
+				if (page[0] == "UnitInactive") {
 					$('#isInactive').prop("checked", true);
 				}
 				

@@ -1,6 +1,5 @@
 package br.com.gft.controller;
 
-import java.text.ParseException;
 import java.util.Date;
 
 import org.springframework.stereotype.Controller;

@@ -179,9 +179,10 @@
 			<br/>
 	 	<script type="text/javascript">
 			$(function(){
+				page = window.location.href.split("/");
+				page = page[page.length - 1].split("?");
 
-				page = window.location.href.split("/")
-				if (page[page.length - 1] == "CostCenterInactive") {
+				if (page[0] == "CostCenterInactive") {
 					$('#isInactive').prop("checked", true);
 				}
 				

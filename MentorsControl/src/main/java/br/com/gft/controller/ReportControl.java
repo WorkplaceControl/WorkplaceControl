@@ -1,10 +1,6 @@
 package br.com.gft.controller;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.EmployeeAssignment;
 import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Mentor;
@@ -20,7 +17,6 @@ import br.com.gft.MentorsService.EmployeeAssignService;
 import br.com.gft.MentorsService.EmployeeService;
 import br.com.gft.MentorsService.JobService;
 import br.com.gft.MentorsService.ProjectService;
-import br.com.gft.MentorsCommon.Employee;
 
 /**
  * this Class is to controll requests and responses of reports

@@ -1,6 +1,5 @@
 package br.com.gft.controller;
 
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -81,21 +80,19 @@ public class UsersControl {
 	public String showUsers(@RequestParam(value = "page", required = false) Integer page, 
 			@RequestParam(value = "s", required = false) String search, 
 			Model model) {
-		Pagination pagination = new Pagination(service.getUsers().size(), page);
+		Pagination pagination = null;
 		
 		if (search != null && !search.equals("")) {
 			pagination = new Pagination(service.getUsers(search).size(), page);
+			model.addAttribute("Users", service.getUsers(search, pagination.getBegin(), pagination.getQuantity()));
+		} else {
+			pagination = new Pagination(service.getUsers().size(), page);
+			model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
 		}
 
 		model.addAttribute("url", "Users");
 		model.addAttribute("pagination", pagination);
 		
-		if (search != null && !search.equals("")) {
-			model.addAttribute("Users", service.getUsers(search, pagination.getBegin(), pagination.getQuantity()));
-		} else {
-			model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
-		}
-
 		return "Users";
 	}
 	

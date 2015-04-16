@@ -8,7 +8,6 @@ import javax.persistence.TypedQuery;
 
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.Mentor;
-import br.com.gft.MentorsCommon.Employee;
 
 public class EmployeeDAO {
 	
@@ -89,7 +88,7 @@ public class EmployeeDAO {
 		return (List<Employee>) query.getResultList();
 	}
 	
-	public List<Employee> findEmployees(String search, int begin, int quantity){
+	public List<Employee> findPagedEmployees(String search, int begin, int quantity){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
 		
 		query.setFirstResult(begin);
@@ -99,7 +98,7 @@ public class EmployeeDAO {
 		return (List<Employee>) query.getResultList();
 	}
 	
-	public List<Employee> findEmployeesInactive(String search, int begin, int quantity){
+	public List<Employee> findPagedEmployeesInactive(String search, int begin, int quantity){
 		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
 		
 		query.setFirstResult(begin);

@@ -1,7 +1,5 @@
 package br.com.gft.controller;
 
-import java.util.Calendar;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

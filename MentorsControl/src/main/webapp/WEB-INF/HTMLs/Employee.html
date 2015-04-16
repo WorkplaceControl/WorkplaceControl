@@ -97,7 +97,15 @@
 									<li>Employees</li>
 									
 									<li class="legenda_search">
-										<input type="text" class="search-query" name="search" placeholder="Search" style="width: 200px;" />
+										<form>
+											<input type="hidden" name="page" th:value="${param.page[0]}" th:if="${param.page != null}" />
+											<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:value="${param.s[0]}" th:if="${param.s != null}" />
+											<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:if="${param.s == null}" />
+											
+											<button class="btn" id="search">
+												<i class="icon-search"></i>
+											</button>
+										</form>
 									</li>
 									
 									<li>
