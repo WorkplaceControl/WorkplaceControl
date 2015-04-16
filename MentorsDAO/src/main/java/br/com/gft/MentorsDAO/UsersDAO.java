@@ -70,7 +70,7 @@ public class UsersDAO {
 	
 
 	public List<Users> findUsers(String search){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select username, role_description from users u, user_role ur where (u.user_role = ur.role_id) and (id || username) iLIKE ? order by username" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select u.* from users u, user_role ur where (u.user_role = ur.role_id) and (username || role_description) iLIKE ? order by username" , Users.class);
 
 		query.setParameter(1, "%" + search + "%");
 		
@@ -78,7 +78,7 @@ public class UsersDAO {
 	}
 	
 	public List<Users> findUsersInactive(String search){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select username, role_description from users u, user_role ur where (u.user_role = ur.role_id) and (id || username) iLIKE ? order by username" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select u.* from users u, user_role ur where (u.user_role = ur.role_id) and (username || role_description) iLIKE ? order by username" , Users.class);
 		
 		query.setParameter(1, "%" + search + "%");
 		
@@ -86,7 +86,7 @@ public class UsersDAO {
 	}
 
 	public List<Users> findUsers(String search, int begin, int quantity){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select username, role_description from users u, user_role ur where (u.user_role = ur.role_id) and (id || username) iLIKE ? order by username" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select u.* from users u, user_role ur where (u.user_role = ur.role_id) and (username || role_description) iLIKE ? order by username" , Users.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
@@ -96,7 +96,7 @@ public class UsersDAO {
 	}
 	
 	public List<Users> findUsersInactive(String search, int begin, int quantity){
-		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select username, role_description from users u, user_role ur where (u.user_role = ur.role_id) and (id || username) iLIKE ? order by username" , Users.class);
+		TypedQuery<Users> query = (TypedQuery<Users>) em.createNativeQuery("select u.* from users u, user_role ur where (u.user_role = ur.role_id) and (username || role_description) iLIKE ? order by username" , Users.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
