@@ -434,8 +434,9 @@ table form {
   text-align:center;
 }
 
-#td-exception {
-  width:40px;
+.line-icon {
+  width: 20px;
+  text-align:center !important;
 }
 
 .text-success {

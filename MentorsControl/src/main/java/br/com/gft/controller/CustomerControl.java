@@ -27,6 +27,7 @@ import br.com.gft.share.SystemLogs;
 public class CustomerControl {
 
 	private int index;
+	CustomerService service = new CustomerService();
 	
 	/**
 	 * this method is show page to read Customer
@@ -36,14 +37,23 @@ public class CustomerControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Customer", method = RequestMethod.GET)
-	public String showCustomer(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CustomerService service = new CustomerService();
+	public String showCustomer(@RequestParam(value = "page", required = false) Integer page,
+							   @RequestParam(value = "s", required = false) String search, Model model) {
 		
-		Pagination pagination = new Pagination(service.getCustomers().size(), page);
+		Pagination pagination = null;
 
-		model.addAttribute("url", "job");
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getCustomers(search).size(), page);
+			model.addAttribute("Customer", service.getPagedCustomers(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getCustomers().size(), page);
+			model.addAttribute("Customer", service.getPagedCustomers(pagination.getBegin(), pagination.getQuantity()));
+		}
+
+		
+
+		model.addAttribute("url", "Customer");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Customer", service.getPagedCustomers(pagination.getBegin(), pagination.getQuantity()));
 		
 		return "Customer";
 	}
@@ -54,14 +64,22 @@ public class CustomerControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/CustomerInactive", method = RequestMethod.GET)
-	public String showCustomerInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		CustomerService service = new CustomerService();
+	public String showCustomerInactive(@RequestParam(value = "page", required = false) Integer page,
+									   @RequestParam(value = "s", required = false) String search, Model model) {
 		
-		Pagination pagination = new Pagination(service.getCustomersInactive().size(), page);
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getCustomersInactive(search).size(), page);
+			model.addAttribute("Customer", service.getPagedCustomersInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getCustomersInactive().size(), page);
+			model.addAttribute("Customer", service.getPagedCustomersInactive(pagination.getBegin(), pagination.getQuantity()));
+		}
 		
-		model.addAttribute("url", "Customer");
+		model.addAttribute("url", "CustomerInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Customer", service.getPagedCustomersInactive(pagination.getBegin(), pagination.getQuantity()));
+
 		return "Customer";
 	}
 	
@@ -102,7 +120,7 @@ public class CustomerControl {
 		
 		new CustomerService().addCustomer(customer);
 		
-		showCustomer(null, model);
+		showCustomer(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
 		
@@ -119,7 +137,7 @@ public class CustomerControl {
 	public String ShowCustomerUpdate(@RequestParam(value = "id") String id,
 			Model model) {
 		Customer customer = new Customer();
-		CustomerService service = new CustomerService();
+		
 		
 		List<Unit> unit = service.getUnits();
 		
@@ -152,7 +170,7 @@ public class CustomerControl {
 		
 		new CustomerService().alterCustomer(customer);
 		
-		showCustomer(null, model);
+		showCustomer(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
 		return "Customer";
@@ -169,7 +187,7 @@ public class CustomerControl {
 	public String ProcessProjectInactivate(@RequestParam("id") String id, 
 			@RequestParam("status") int status, 
 			Model model) {
-		CustomerService service = new CustomerService();
+		
 		
 		Customer customer = service.getCustomer(id);
 		
@@ -186,7 +204,7 @@ public class CustomerControl {
 			controlMessages = 8;
 		}
 		
-		showCustomer(null, model);
+		showCustomer(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, controlMessages);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);

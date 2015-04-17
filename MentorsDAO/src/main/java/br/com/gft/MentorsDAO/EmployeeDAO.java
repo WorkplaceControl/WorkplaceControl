@@ -36,7 +36,7 @@ public class EmployeeDAO {
 	}
 		
 	public List<Employee> findPagedEmployees(int inicio, int quantidade){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by ws_name asc" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by id" , Employee.class);
 
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
@@ -45,7 +45,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findPagedEmployeesInactive(int inicio, int quantidade){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by id" , Employee.class);
 		
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
@@ -54,13 +54,13 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findEmployees(){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by ws_name asc" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 order by id" , Employee.class);
 		
 		return (List<Employee>) query.getResultList();
 	}
 		
 	public List<Employee> findEmployeesInactive(){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by ws_name asc" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee order by id" , Employee.class);
 
 		return (List<Employee>) query.getResultList();
 	}
@@ -73,7 +73,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findEmployees(String search){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || job_id || ws_name || mentor_id) iLIKE ? order by id" , Employee.class);
 
 		query.setParameter(1, "%" + search + "%");
 		
@@ -81,7 +81,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findEmployeesInactive(String search){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || job_id || ws_name || mentor_id) iLIKE ? order by id" , Employee.class);
 		
 		query.setParameter(1, "%" + search + "%");
 		
@@ -89,7 +89,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findPagedEmployees(String search, int begin, int quantity){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND (id || job_id || ws_name || mentor_id) iLIKE ? order by id" , Employee.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
@@ -99,7 +99,7 @@ public class EmployeeDAO {
 	}
 	
 	public List<Employee> findPagedEmployeesInactive(String search, int begin, int quantity){
-		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || name || job_id || mentor_id) iLIKE ? order by name" , Employee.class);
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where (id || job_id || ws_name || mentor_id) iLIKE ? order by name" , Employee.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);

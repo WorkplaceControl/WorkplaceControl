@@ -32,6 +32,7 @@
 	</section>
 	
 	<!-- Messages-->
+	
 	<section class="user_messages">
 		<div th:if="${ControlMessages == 0}" class="alert alert-success"
 			id="alert">
@@ -101,6 +102,51 @@
 			</button>
 			Occurred an error trying to change status of this user, verify if the
 			user really exists!!
+		</div>
+	</section>
+	
+	<!-- Modal Administration Guide-->
+	<section>
+		<div id="ModalAG" class="modal hide fade" tabindex="-1" role="dialog"
+			aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">×</button>
+				<h3 id="myModalLabel" class="text-center">Administration Guide</h3>
+			</div>
+			<div class="modal-body">
+			<br/>
+				<fieldset>
+					<legend>
+						<font size="4"> <b> Registering New User</b></font>
+					</legend>
+				</fieldset>
+				<div>
+					<font size="2"> To register a new user , open registration menu:
+					<br/>
+					<img src="img/AG_IMG1.JPG"/>
+					will open a screen with users information:
+					<img src="img/AG_IMG2.JPG"/>
+					then, click in button <img src="img/AG_IMG3.JPG" style="width:80px"/>
+					and finally, fill the fields.
+						<br />
+					</font>
+				</div>
+				<hr width="100%"></hr>
+				<fieldset>
+					<legend>
+						<font size="4"> <b> Change password/Disable User </b></font>
+					</legend>
+				</fieldset>
+					<font size="2"> Into users page, clicking in the icon
+						<img src="img/AG_IMG4.JPG" />
+						you can update password, or disable users.
+					<br />
+					</font>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+			</div>
 		</div>
 	</section>
 </div>
@@ -268,70 +314,7 @@
 </div>
 
 
-	<!-- Modal User Guide-->
-<div th:fragment="userGuide">
-	<section>
-		<div id="ModalUG" class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">×</button>
-				<h3 id="myModalLabel">Login User Guide</h3>
-			</div>
-			<div class="modal-body">
-				<fieldset>
-					<legend>
-						<font size="4"> <b> registering new user</b></font>
-					</legend>
-				</fieldset>
-				<p>
-					<font size="2"> to register a new user , click in the icon
-						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
-						and select the option sign in , fill the fields in the modal like
-						the example bellow<br />
-					<br />
-						<center>
-							<img src="img/modalSignin.JPG" style="heigth: 80%; width: 80%;" />
-						</center>
-						<br />
-					<br /> the username and password allows use just 64 characters ,
-						after select the user type using "Administrative User" to user
-						with full access and "Project Leader" where allows access just to
-						create reports
-
-					</font>
-				</p>
-				<fieldset>
-					<legend>
-						<font size="4"> <b> Change password </b></font>
-					</legend>
-				</fieldset>
-				<p>
-					<font size="2"> to register a new user , click in the icon
-						<img src="img/tres-barras.png" style="heigth: 10px; width: 20px;" />
-						and select the option "Change Password" , fill the fields in the
-						modal like the example bellow<br />
-					<br />
-						<center>
-							<img src="img/modalChangePass.JPG"
-								style="heigth: 80%; width: 80%;" />
-						</center>
-						<br />
-					<br /> the username and old password must be the same you are
-						using , the fields new password and repeat password type the new
-						password
-
-					</font>
-				</p>
-
-
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Fechar</button>
-			</div>
-		</div>
-	</section>
-</div>
+	
 
 <!--  Employee Guide -->
 

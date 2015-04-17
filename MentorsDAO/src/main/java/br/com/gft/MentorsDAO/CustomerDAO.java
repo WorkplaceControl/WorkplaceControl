@@ -39,7 +39,7 @@ public class CustomerDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> findPagedCustomers(int inicio, int quantidade){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active=0 order by description asc" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active=0 order by description" , Customer.class);
 
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
@@ -49,7 +49,7 @@ public class CustomerDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> findPagedCustomersInactive(int inicio, int quantidade){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer order by description asc" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer order by description" , Customer.class);
 		
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
@@ -59,7 +59,7 @@ public class CustomerDAO {
 
 	@SuppressWarnings("unchecked")
 	public List<Customer> findCustomers() {
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active=0 order by description asc" , Customer.class);	
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active=0 order by description" , Customer.class);	
 		
 		return (List<Customer>) query.getResultList();
 
@@ -73,7 +73,7 @@ public class CustomerDAO {
 	}
 	
 	public List<Customer> findCustomers(String search){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active = 0 and (id || description || unit_id) iLIKE ? order by description" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select c.* from Customer c, unit u where (c.unit_id = u.id) and (c.id || c.description || u.description) iLIKE ? order by description" , Customer.class);
 
 		query.setParameter(1, "%" + search + "%");
 		
@@ -81,7 +81,7 @@ public class CustomerDAO {
 	}
 	
 	public List<Customer> findCustomersInactive(String search){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where (id || description || unit_id) iLIKE ? order by description" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select c.* from Customer c, unit u where (c.unit_id = u.id) and (c.id || c.description || u.description) iLIKE ? order by description" , Customer.class);
 		
 		query.setParameter(1, "%" + search + "%");
 		
@@ -89,7 +89,7 @@ public class CustomerDAO {
 	}
 	
 	public List<Customer> findCustomers(String search, int begin, int quantity){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where active = 0 and (id || description || unit_id) iLIKE ? order by description" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select c.* from Customer c, unit u where (c.unit_id = u.id) and (c.id || c.description || u.description) iLIKE ? order by description" , Customer.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);
@@ -99,7 +99,7 @@ public class CustomerDAO {
 	}
 	
 	public List<Customer> findCustomersInactive(String search, int begin, int quantity){
-		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select * from Customer where (id || description || unit_id) iLIKE ? order by description" , Customer.class);
+		TypedQuery<Customer> query = (TypedQuery<Customer>) em.createNativeQuery("select c.* from Customer c, unit u where (c.unit_id = u.id) and (c.id || c.description || u.description) iLIKE ? order by description" , Customer.class);
 		
 		query.setFirstResult(begin);
 		query.setMaxResults(quantity);

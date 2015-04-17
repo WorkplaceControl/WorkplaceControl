@@ -48,11 +48,11 @@ public class UnitService {
 		return new UnitDAO().findUnitsInactive(search);
 	}
 	
-	public List<Unit> getUnits(String search, int begin, int quantity){
+	public List<Unit> getPagedUnits(String search, int begin, int quantity){
 		return new UnitDAO().findUnits(search, begin, quantity);
 	}
 	
-	public List<Unit> getUnitsInactive(String search, int begin, int quantity){
+	public List<Unit> getPagedUnitsInactive(String search, int begin, int quantity){
 		return new UnitDAO().findUnitsInactive(search, begin, quantity);
 	}
 	

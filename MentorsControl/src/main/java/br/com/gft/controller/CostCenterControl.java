@@ -1,7 +1,5 @@
 package br.com.gft.controller;
 
-import java.util.Calendar;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,13 +29,20 @@ public class CostCenterControl {
 	 * this code is to show the page with allow user to read all cost centers active and inactive
 	 */
 	@RequestMapping(value = "/CostCenter", method = RequestMethod.GET)
-	public String showCostCenter(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
+	public String showCostCenter(@RequestParam(value = "page", required = false) Integer page,
+								 @RequestParam(value = "s", required = false) String search, Model model) {
 		
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getCostCenters(search).size(), page);
+			model.addAttribute("costcenter", service.getPagedCostCenters(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getCostCenters().size(), page);
+			model.addAttribute("costcenter", service.getPagedCostCenters(pagination.getBegin(), pagination.getQuantity()));
+		}
 		model.addAttribute("url", "CostCenter");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("costcenter", service.getPagedCostCenters(pagination.getBegin(), pagination.getQuantity()));
-				
 		
 		return "CostCenter";
 	}
@@ -46,13 +51,20 @@ public class CostCenterControl {
 	 * this code is to get cost centers including inactive 
 	 */
 	@RequestMapping(value = "/CostCenterInactive", method = RequestMethod.GET)
-	public String showCostCenterInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-	
-		Pagination pagination = new Pagination(service.getCostCenters().size(), page);
+	public String showCostCenterInactive(@RequestParam(value = "page", required = false) Integer page,
+										@RequestParam(value = "s", required = false) String search, Model model) {
 		
-		model.addAttribute("url", "CostCenter");
-		model.addAttribute("pagination", pagination);
+		Pagination pagination = null;
+		
+		if (search != null && !search.equals("")) {
+		pagination = new Pagination(service.getCostCentersInactive(search).size(), page);
+		model.addAttribute("costcenter", service.getPagedCostCentersInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+		pagination = new Pagination(service.getCostCentersInactive().size(), page);
 		model.addAttribute("costcenter", service.getPagedCostCentersInactive(pagination.getBegin(), pagination.getQuantity()));
+		}		
+		model.addAttribute("url", "CostCenterInactive");
+		model.addAttribute("pagination", pagination);
 				
 		return "CostCenter";
 	}
@@ -75,9 +87,8 @@ public class CostCenterControl {
 			@ModelAttribute("CostCenter") CostCenter costcenter, Model model)
 			throws Exception {
 		model.addAttribute("CostCenter", costcenter);
-		CostCenterService costcenterservice = new CostCenterService();
-		costcenterservice.addCostCenter(costcenter);
-		showCostCenter(null, model);
+		service.addCostCenter(costcenter);
+		showCostCenter(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
@@ -92,8 +103,7 @@ public class CostCenterControl {
 		costcenter.setId(id);
 		index = id;
 		costcenter.setActive(0);
-		CostCenterService costcenterservice = new CostCenterService();
-		costcenter = costcenterservice.getCostCenter(costcenter.getId());
+		costcenter = service.getCostCenter(costcenter.getId());
 		model.addAttribute("CostCenter", costcenter);
 		return "CostCenterUpdate";
 	}
@@ -108,10 +118,9 @@ public class CostCenterControl {
 	public String ProcessCostCenterInactivate(
 			@ModelAttribute("CostCenter") CostCenter costcenter, Model model) {
 		model.addAttribute("CostCenter", costcenter);
-		CostCenterService costcenterservice = new CostCenterService();
 		costcenter.setId(index);
-		costcenterservice.alterCostCenter(costcenter);
-		showCostCenter(null, model);
+		service.alterCostCenter(costcenter);
+		showCostCenter(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
@@ -142,7 +151,7 @@ public class CostCenterControl {
 			ControlMessages = 8;
 		}
 		
-		showCostCenter(null, model);
+		showCostCenter(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);

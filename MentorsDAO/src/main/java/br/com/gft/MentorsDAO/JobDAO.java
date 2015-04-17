@@ -46,7 +46,7 @@ public class JobDAO {
 	}
 	
 	public List<Job> findPagedJobsInactive(int inicio, int quantidade){
-		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job" , Job.class);
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job order by position asc" , Job.class);
 
 		query.setFirstResult(inicio);
 		query.setMaxResults(quantidade);
@@ -62,7 +62,7 @@ public class JobDAO {
 	
 	
 	public List<Job> findJobsInactive(){
-		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job" , Job.class);
+		TypedQuery<Job> query = (TypedQuery<Job>) em.createNativeQuery("select * from Job order by position asc" , Job.class);
 
 		return (List<Job>) query.getResultList();
 	}

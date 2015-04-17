@@ -19,7 +19,7 @@ public class SystemLogs {
 	public static BufferedReader bufferedReader;
 	public static FileWriter fileWriter;
 	public static BufferedWriter bufferedWriter;
-	public static String finalDate = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+	public static String finalDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 	public static String finalTime = new SimpleDateFormat("HH:mm:hh").format(Calendar.getInstance().getTime());
 	
 

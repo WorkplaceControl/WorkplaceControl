@@ -35,12 +35,22 @@ public class ProjectControl {
 	 * @return
 	 */
 	@RequestMapping(value="/Project" , method = RequestMethod.GET)
-	public String showProject(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
+	public String showProject(@RequestParam(value = "page", required = false) Integer page,
+							  @RequestParam(value = "s", required = false) String search, Model model) {
 		
-		model.addAttribute("url", "Projects");
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getProjects(search).size(), page);
+			model.addAttribute("Project", service.getPagedProjects(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getProjects().size(), page);
+			model.addAttribute("Project", service.getPagedProjects(pagination.getBegin(), pagination.getQuantity()));
+		}
+
+		
+		model.addAttribute("url", "Project");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Project", service.getPagedProjects(pagination.getBegin(), pagination.getQuantity()));
 		
 		return "Project";
 	}
@@ -51,12 +61,21 @@ public class ProjectControl {
 	 * @return
 	 */
 	@RequestMapping(value="/ProjectInactive" , method = RequestMethod.GET)
-	public String showProjectInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getProjectsInactive().size(), page);
+	public String showProjectInactive(@RequestParam(value = "page", required = false) Integer page,
+									  @RequestParam(value = "s", required = false) String search, Model model) {
 		
-		model.addAttribute("url", "Projects");
+			Pagination pagination = null;
+			
+			if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getProjectsInactive(search).size(), page);
+			model.addAttribute("Project", service.getPagedProjectsInactive(search, pagination.getBegin(), pagination.getQuantity()));
+			}else {
+			pagination = new Pagination(service.getProjectsInactive().size(), page);
+			model.addAttribute("Project", service.getPagedProjectsInactive(pagination.getBegin(), pagination.getQuantity()));
+			}		
+			
+		model.addAttribute("url", "ProjectInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Project", service.getPagedProjectsInactive(pagination.getBegin(), pagination.getQuantity()));
 		
 		return "Project";
 	}
@@ -91,7 +110,7 @@ public class ProjectControl {
 		
 		service.addProject(project);
 		
-		showProject(null, model);
+		showProject(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
 		return "Project";
@@ -133,7 +152,7 @@ public class ProjectControl {
 		project.setCustomer(customer);
 		service.alterProject(project);
 		
-		showProject(null, model);
+		showProject(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
 		
@@ -167,7 +186,7 @@ public class ProjectControl {
 			ControlMessages = 8;
 		}
 		
-		showProject(null, model);
+		showProject(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);

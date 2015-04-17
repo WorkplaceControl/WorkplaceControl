@@ -31,12 +31,20 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value="/Unit" , method = RequestMethod.GET)
-	public String showUnit(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getUnits().size(), page);
+	public String showUnit(@RequestParam(value = "page", required = false) Integer page,
+						   @RequestParam(value = "s", required = false) String search, Model model) {
 		
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getUnits(search).size(), page);
+			model.addAttribute("Unit", service.getPagedUnits(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getUnits().size(), page);
+			model.addAttribute("Unit", service.getPagedUnits(pagination.getBegin(), pagination.getQuantity()));
+		}
 		model.addAttribute("url", "Unit");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Unit", service.getPagedUnits(pagination.getBegin(), pagination.getQuantity()));
 				
 		return "Unit";
 		
@@ -48,14 +56,20 @@ public class UnitControl {
 	 * @return
 	 */
 	@RequestMapping(value="/UnitInactive" , method = RequestMethod.GET)
-	public String showUnitInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-
-		Pagination pagination = new Pagination(service.getUnitsInactive().size(), page);
+	public String showUnitInactive(@RequestParam(value = "page", required = false) Integer page,
+								   @RequestParam(value = "s", required = false) String search, Model model) {
 		
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getUnitsInactive(search).size(), page);
+			model.addAttribute("Unit", service.getPagedUnitsInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getUnitsInactive().size(), page);
+			model.addAttribute("Unit", service.getPagedUnitsInactive(pagination.getBegin(), pagination.getQuantity()));
+		}
 		model.addAttribute("url", "UnitInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Unit", service.getPagedUnitsInactive(pagination.getBegin(), pagination.getQuantity()));
-				
 		return "Unit";
 		
 	}
@@ -82,7 +96,7 @@ public class UnitControl {
 	public String ProcessUnitForm(@ModelAttribute("Unit") Unit unit, Model model){
 		UnitService unitservice = new UnitService();
 		unitservice.addUnit(unit);
-		showUnit(null, model);
+		showUnit(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
@@ -114,7 +128,7 @@ public class UnitControl {
 		UnitService unitservice = new UnitService();
 		unit.setId(index);
 		unitservice.alterUnit(unit);
-		showUnit(null, model);
+		showUnit(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Unit (Descrição): " + unit.getDescription().toUpperCase());
 		return "Unit";
@@ -145,7 +159,7 @@ public class UnitControl {
 			ControlMessages = 8;
 		}
 		
-		showUnit(null, model);
+		showUnit(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Unit (ID): " + id);

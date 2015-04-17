@@ -30,12 +30,21 @@ public class JobControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/Job", method = RequestMethod.GET)
-	public String showJob(@RequestParam(value = "page", required = false) Integer page, Model model) {
+	public String showJob(@RequestParam(value = "page", required = false) Integer page,
+						  @RequestParam(value = "s", required = false) String search, Model model) {
+		
+		Pagination pagination = null;
 
-		Pagination pagination = new Pagination(service.getJobs().size(), page);
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getJobs(search).size(), page);
+			model.addAttribute("job", service.getPagedJobs(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getJobs().size(), page);
+			model.addAttribute("job", service.getPagedJobs(pagination.getBegin(), pagination.getQuantity()));
+		}
+		
 		model.addAttribute("url", "Job");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("job", service.getPagedJobs(pagination.getBegin(), pagination.getQuantity()));
 				
 		return "Job";
 	}
@@ -46,13 +55,21 @@ public class JobControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/JobInactive", method = RequestMethod.GET)
-	public String showJobInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getJobsInactive().size(), page);
+	public String showJobInactive(@RequestParam(value = "page", required = false) Integer page,
+								  @RequestParam(value = "s", required = false) String search, Model model) {
+		
+		Pagination pagination = null;
+		
+		if (search != null && !search.equals("")) {
+		pagination = new Pagination(service.getJobsInactive(search).size(), page);
+		model.addAttribute("job", service.getPagedJobsInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+		pagination = new Pagination(service.getJobsInactive().size(), page);
+		model.addAttribute("job", service.getPagedJobsInactive(pagination.getBegin(), pagination.getQuantity()));
+		}		
 		
 		model.addAttribute("url", "JobInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("job", service.getPagedJobsInactive(pagination.getBegin(), pagination.getQuantity()));
-		
 		return "Job";
 	}
 	
@@ -78,7 +95,7 @@ public class JobControl {
 		job.setActive(0);
 		service.processJob(job);
 		model.addAttribute("Job" , job);
-		showJob(null, model);
+		showJob(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
 		return "Job";
@@ -112,7 +129,7 @@ public class JobControl {
 		model.addAttribute("Job" , job);
 		job.setId(index);
 		service.alterJob(job);
-		showJob(null, model);
+		showJob(null, null, model);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
 		return "Job";
@@ -144,7 +161,7 @@ public class JobControl {
 			ControlMessages = 8;
 		}
 		
-		showJob(null, model);
+		showJob(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
 		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());

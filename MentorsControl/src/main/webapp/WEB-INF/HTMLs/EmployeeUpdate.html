@@ -393,34 +393,25 @@
 								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
 								<td>
 									<div th:each="emp : ${Employeels}">
-										<div th:if="${menthist.mentorId == emp.id}">
-											<center>
+										<div class="text-center" th:if="${menthist.mentorId == emp.id}">
 												<font size="3" color="#333" th:text="${emp.name}"></font>
-											</center>
 										</div>
 									</div>
 								</td>
-								<td>
-									<center>
+								<td class="text-center">
 										<font size="3" color="#333"
-											th:text="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"></font>
-									</center>
+											th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}"></font>
 								</td>
-								<td>
-									<center>
-										<font size="3" color="#333" th:text="${menthist.finishDate}">Finish
+								<td class="text-center">
+										<font size="3" color="#333" th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}">Finish
 											Date</font>
-									</center>
 								</td>
-								<!--/div-->
-								<td><a th:attr="href=@{'#myModalMH'+${menthist.id}}"
+								<td class="text-center"><a th:attr="href=@{'#myModalMH'+${menthist.id}}"
 									data-toggle="modal">
-										<center>
 											<button type="submit" role="button" class="btn"
 												data-toggle="modal">
 												<i class="icon-pencil"></i>
 											</button>
-										</center>
 								</a></td>
 							</div>
 
@@ -441,13 +432,12 @@
 				<h3 id="myModalLabel">Edit Mentor History</h3>
 			</div>
 			<div class="modal-body">
-				<label>Start Date</label> <input type="date"
-					class="input-large"
-					th:value="${#dates.format(menthist.startDate, 'yyyy-MM-dd')}"
-					name="start_date" required="true" /> <label>Finish
-					Date</label> <input type="date" class="input-large"
-					th:value="${menthist.finishDate}" name="finish_date"
-					required="true" />
+				<label>Start Date</label>
+				 <input type="date"	class="input-large"	th:value="${menthist.startDate}"
+					name="start_date" required="true" />
+					<label>Finish Date</label>
+					<input type="date" class="input-large" th:value="${menthist.finishDate}"
+					 name="finish_date"	required="true" />
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>

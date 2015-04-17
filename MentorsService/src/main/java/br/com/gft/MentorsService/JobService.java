@@ -43,11 +43,11 @@ public class JobService {
 		return new JobDAO().findJobsInactive(search);
 	}
 	
-	public List<Job> getJobs(String search, int begin, int quantity){
+	public List<Job> getPagedJobs(String search, int begin, int quantity){
 		return new JobDAO().findJobs(search, begin, quantity);
 	}
 	
-	public List<Job> getJobsInactive(String search, int begin, int quantity){
+	public List<Job> getPagedJobsInactive(String search, int begin, int quantity){
 		return new JobDAO().findJobsInactive(search, begin, quantity);
 	}
 	

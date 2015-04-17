@@ -182,7 +182,7 @@
 								
 								<td th:if="${emp.mentorId == null}">&nbsp;</td>
 								
-								<td class="text-center">
+								<td class="line-icon">
 									<a href="#" th:href="@{/EmployeeView(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
 										<button type="submit" class="btn btn-default btn-lg">
 											<i class="icon-eye-open"></i>
@@ -190,7 +190,7 @@
 									</a>
 								</td>
 								
-								<td class="text-center">
+								<td class="line-icon">
 									<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:if="${emp.active == 0}">
 										<button type="submit" class="btn btn-default btn-lg">
 											<i class="icon-pencil"></i>
@@ -200,7 +200,7 @@
 									<div th:unless="${emp.active == 0}">-</div>
 								</td>
 								
-								<td class="text-center">
+								<td class="line-icon">
 										<a th:if="${emp.active == 0}" type="input" th:attr="href=@{'#disable_'+${emp.id}}" role="button" class="btn btn-default btn-lg" data-toggle="modal">
 											<i class="icon-trash"></i>
 										</a>

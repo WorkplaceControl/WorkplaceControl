@@ -43,11 +43,11 @@ public class UsersService {
 		return new UsersDAO().findUsersInactive(search);
 	}
 	
-	public List<Users> getUsers(String search, int begin, int quantity){
+	public List<Users> getPagedUsers(String search, int begin, int quantity){
 		return new UsersDAO().findUsers(search, begin, quantity);
 	}
 	
-	public List<Users> getUsersInactive(String search, int begin, int quantity){
+	public List<Users> getPagedUsersInactive(String search, int begin, int quantity){
 		return new UsersDAO().findUsersInactive(search, begin, quantity);
 	}
 	

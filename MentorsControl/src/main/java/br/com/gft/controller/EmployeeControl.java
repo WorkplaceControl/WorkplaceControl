@@ -51,8 +51,8 @@ public class EmployeeControl {
 	 */
 	@RequestMapping(value = "/Employee", method = RequestMethod.GET)
 	public String showEmployee(@RequestParam(value = "page", required = false) Integer page, 
-			@RequestParam(value = "s", required = false) String search, 
-			Model model) {
+							   @RequestParam(value = "s", required = false) String search, Model model) {
+		
 		Pagination pagination = null;
 
 		if (search != null && !search.equals("")) {
@@ -77,12 +77,21 @@ public class EmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/EmployeeInactive", method = RequestMethod.GET)
-	public String showEmployeeInactive(@RequestParam(value = "page", required = false) Integer page, Model model) {
-		Pagination pagination = new Pagination(service.getEmployeesInactive().size(), page);
+	public String showEmployeeInactive(@RequestParam(value = "page", required = false) Integer page,
+									   @RequestParam(value = "s", required = false) String search, Model model) {
+		
+		Pagination pagination = null;
+
+		if (search != null && !search.equals("")) {
+			pagination = new Pagination(service.getEmployeesInactive(search).size(), page);
+			model.addAttribute("Employee", service.getPagedEmployeesInactive(search, pagination.getBegin(), pagination.getQuantity()));
+		}else {
+			pagination = new Pagination(service.getEmployees().size(), page);
+			model.addAttribute("Employee", service.getPagedEmployeesInactive(pagination.getBegin(), pagination.getQuantity()));
+		}
 
 		model.addAttribute("url", "EmployeeInactive");
 		model.addAttribute("pagination", pagination);
-		model.addAttribute("Employee", service.getPagedEmployeesInactive(pagination.getBegin(), pagination.getQuantity()));
 
 		return "Employee";
 	}

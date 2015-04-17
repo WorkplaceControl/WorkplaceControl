@@ -84,7 +84,7 @@ public class UsersControl {
 		
 		if (search != null && !search.equals("")) {
 			pagination = new Pagination(service.getUsers(search).size(), page);
-			model.addAttribute("Users", service.getUsers(search, pagination.getBegin(), pagination.getQuantity()));
+			model.addAttribute("Users", service.getPagedUsers(search, pagination.getBegin(), pagination.getQuantity()));
 		} else {
 			pagination = new Pagination(service.getUsers().size(), page);
 			model.addAttribute("Users", service.getUsers(pagination.getBegin(), pagination.getQuantity()));
@@ -115,7 +115,7 @@ public class UsersControl {
 		model.addAttribute("pagination", pagination);
 		
 		if (search != null && !search.equals("")) {
-			model.addAttribute("Users", service.getUsersInactive(search, pagination.getBegin(), pagination.getQuantity()));
+			model.addAttribute("Users", service.getPagedUsersInactive(search, pagination.getBegin(), pagination.getQuantity()));
 		} else {
 			model.addAttribute("Users", service.getUsersInactive(pagination.getBegin(), pagination.getQuantity()));
 		}

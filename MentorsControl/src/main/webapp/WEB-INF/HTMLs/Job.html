@@ -40,36 +40,6 @@
 				        }
 				  });
 			});
-			
-			/* this code is filter results and display just the results that is equals typed by user , 
-			   otherwise the content will be hidden */ 
-					$(document).ready(function(){
-					  $("input").keyup(function(){
-						  	var x = $( "input[name=search]" ).val();
-							var x = x.toLowerCase()
-						
-					     	$('tr.job').each(function( index ) {
-					     			if(x == ""){
-					     				$(this).show();
-					     			}
-					     			var title = $( this ).parent().find("td.title")[index].innerHTML;
-					     			title = title.toLowerCase();
-					     			
-					     			var id = $( this ).parent().find("td.id")[index].innerHTML;
-					     			id = id.toLowerCase();
-					     		    if(title.substring(0 ,x.length ) == x || id.substring(0 ,x.length) == x){
-					     		    	
-					     		    }else{
-					     		    	$(this).hide(500);
-					     		    	
-					     		    
-					     		    }
-					     		
-					     	});;
-	
-					  });
-					});
-		
 			</script>
 			
 		</head>
@@ -95,8 +65,16 @@
 									  				Jobs
 									  			</li>
 									  			<li class="legenda_search">
-									  				<input type="text" class="search-query" name="search" placeholder="Search"  style="width: 200px; heigth:30px;" />
-									  			</li>
+											<form>
+												<input type="hidden" name="page" th:value="${param.page[0]}" th:if="${param.page != null}" />
+												<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:value="${param.s[0]}" th:if="${param.s != null}" />
+												<input type="text" class="search-query" name="s" placeholder="Search" style="width: 200px;" th:if="${param.s == null}" />
+												
+												<button class="btn" id="search">
+													<i class="icon-search"></i>
+												</button>
+											</form>
+										</li>
 									  			<li>
 										<label>
 											<input type="checkbox" id="isInactive" /> 
@@ -144,23 +122,21 @@
 										<th class = "column-icon">Active</th>
 				  					</tr>
 								</thead>
+								<tbody>
 				  					<tr th:each="job : ${job}" class="job">
 				  					
 				  						<td   th:text="${job.id}" class="id" ></td>
 				  						<td   th:text="${job.title}" class="title" ></td>
 				  						<td   th:text="${job.position}" ></td>
-				  						<td style="width: 20px;">
 				  						
-				  						
-				  						
-				  						
+				  						<td class="line-icon">
 				  						<a href="#" th:href="@{/JobUpdate(id=${job.id})}">
 					  							<button type="submit" class="btn btn-default btn-lg">
 	 													<i class="icon-pencil"></i>
 												</button>
 										</a>
 				  						</td>
-				  						<td>
+				  						<td class="line-icon">
 				  						<div th:include="Modals :: jobStatus"></div>
 				  						<a type="input" th:attr="href=@{'#changeStatus_'+${job.id}}" role="button" data-toggle="modal">
 				  							<button type="submit" class="btn btn-default btn-lg">
@@ -170,6 +146,7 @@
 										</a>
 				  						</td>
 				  					</tr>
+				  					</tbody>
 							</table>
 						
 						

@@ -44,11 +44,11 @@ public class CostCenterService {
 		return new CostCenterDAO().findCostCentersInactive(search);
 	}
 	
-	public List<CostCenter> getCostCenters(String search, int begin, int quantity){
+	public List<CostCenter> getPagedCostCenters(String search, int begin, int quantity){
 		return new CostCenterDAO().findCostCenters(search, begin, quantity);
 	}
 	
-	public List<CostCenter> getCostCentersInactive(String search, int begin, int quantity){
+	public List<CostCenter> getPagedCostCentersInactive(String search, int begin, int quantity){
 		return new CostCenterDAO().findCostCentersInactive(search, begin, quantity);
 	}
 	

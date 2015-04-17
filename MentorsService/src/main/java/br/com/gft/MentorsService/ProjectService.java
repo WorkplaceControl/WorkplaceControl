@@ -41,19 +41,19 @@ public class ProjectService {
 		new ProjectDAO().updateProject(project);
 	}
 	
-	public List<Project> getUsers(String search){
+	public List<Project> getProjects(String search){
 		return new ProjectDAO().findProjects(search);
 	}
 	
-	public List<Project> getUsersInactive(String search){
+	public List<Project> getProjectsInactive(String search){
 		return new ProjectDAO().findProjectsInactive(search);
 	}
 	
-	public List<Project> getUsers(String search, int begin, int quantity){
+	public List<Project> getPagedProjects(String search, int begin, int quantity){
 		return new ProjectDAO().findProjects(search, begin, quantity);
 	}
 	
-	public List<Project> getUsersInactive(String search, int begin, int quantity){
+	public List<Project> getPagedProjectsInactive(String search, int begin, int quantity){
 		return new ProjectDAO().findProjectsInactive(search, begin, quantity);
 	}
 	
