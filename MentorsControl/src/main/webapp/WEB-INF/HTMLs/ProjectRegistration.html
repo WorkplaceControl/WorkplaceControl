@@ -30,9 +30,9 @@
 												    <label>Project identification</label>
 												    <input type="text" class="input-large" placeholder="Auto generate" disabled="true" />
 												    <label>Description</label>
-												    <input type="text" name="project_description" th:field="*{description}" class="input-xxlarge" placeholder="input the project description" required="true" maxlength="100"/>
+												    <input type="text" name="project_description" th:field="*{description}" class="input-xxlarge" placeholder="input the project description" required="required" maxlength="100"/>
 												  	<label>Customer</label>
-												  	<select th:field="*{customer}"  required="true">
+												  	<select th:field="*{customer}"  required="required">
 												  			<option value=""></option>
 												  			<option th:each="cus : ${customer}" th:value="${cus.description}" th:text="${cus.description}"></option>
 												  	</select>

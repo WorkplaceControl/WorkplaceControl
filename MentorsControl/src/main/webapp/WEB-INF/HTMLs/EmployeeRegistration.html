@@ -51,37 +51,35 @@
 							<th>Name:</th>
 							<td><input type="text" class="input-field" name="name"
 								th:field="*{name}" placeholder="Input employee name"
-								required="true" maxlength="100" /></td>
+								required="required" maxlength="100" autofocus="autofocus" /></td>
 						</tr>
 						<tr>
 							<th>Letters:</th>
 							<td><input type="text" class="input-field" id="letter"
 								th:field="*{id}" placeholder="input the letters "
-								required="true" maxlength="4" /></td>
+								required="required" maxlength="4" /></td>
 						</tr>
 						<tr>
 							<th>Job:</th>
-										<td>
-										<select name="job" class="input-field" th:field="*{job}"
-								required="true" id="job">
-						   		<option value=""></option>
-								  <option th:each="job : ${job}"  th:value="${job.id}" th:text="${job.title}"></option>
-									</select>
-				 				</td>
-
+							<td>
+								<select name="job" class="input-field" th:field="*{job}" required="required" id="job">
+						   			<option value="">Select a Job</option>
+									<option th:each="job : ${job}" th:value="${job.id}" th:text="${job.title}" th:if="${job.active == 0}"></option>
+								</select>
+				 			</td>
 						</tr>
 						<tr>
 							<th>User SAP:</th>
 							<td><input type="text" class="input-field" name="userSAP"
 								th:field="*{sap}" placeholder="input the employee workplace "
-								required="true" maxlength="10" /></td>
+								required="required" maxlength="10" /></td>
 						</tr>
 
 						<tr>
 							<th>Joining Date:</th>
 							<td><input type="date" name="joinDate" class="input-field"
 								th:field="*{joinDate}"
-								required="true" /></td>
+								required="required" /></td>
 						</tr>
 						<tr>
 							<th>Ramal:</th>
@@ -92,16 +90,15 @@
 							<th>WorkSpace:</th>
 							<td><input type="text" class="input-field"
 								th:field="*{wsName}" placeholder="input the workspace name"
-								required="true" maxlength="100" /></td>
+								required="required" maxlength="100" /></td>
 						</tr>
 						<tr>
 							<th>Cost Center:</th>
 							<td>
-							<select name="cost" class="input-field"
-								th:field="*{costCenter}" required="true" id="cost">
-									<option value=""></option>
-												  		<option th:each="cost : ${costcenter}"  th:value="${cost.id}" th:text="${cost.title}"></option>
-							</select>
+								<select name="job" class="input-field" th:field="*{costCenter}" required="required" id="cost">
+						   			<option value="">Select a Cost Center</option>
+									<option th:each="cost : ${costcenter}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.active == 0}"></option>
+								</select>
 							</td>
 						</tr>
 						<tr>
@@ -112,7 +109,7 @@
 						</tr>
 						<tr>
 							<th>Rate Prf:</th>
-							<td><select th:field="*{ratePrf}" id="rate" required="true"
+							<td><select th:field="*{ratePrf}" id="rate" required="required"
 								class="input-field">
 									 <option value=""></option>
 												  <option th:each="rate : ${rateprf}"  th:value="${rate.id}" th:text="${rate.title}"></option>

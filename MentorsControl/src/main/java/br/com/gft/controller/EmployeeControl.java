@@ -320,7 +320,7 @@ public class EmployeeControl {
 		employee.setRate_Prf(new RatePrfService().getRatePrf(ratePrfId));
 		employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 
-		if (mentor != null && !service.getEmployee(id).getMentorId().equals(mentor)) {
+		if (mentor != null && !mentor.equals("") && !service.getEmployee(id).getMentorId().equals(mentor)) {
 			EmployeeAddMentee(id, mentor, jobId, costId, ratePrfId, model);
 		}
 

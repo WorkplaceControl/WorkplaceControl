@@ -1,28 +1,22 @@
 ﻿<html>
-<head>
-<meta charset="utf-8"></meta>
-<title>Employee Update</title>
+	<head>
+		<meta charset="utf-8"></meta>
+		<title>Employee Update</title>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<script src="js/jquery.validate.js" type="text/javascript"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+	</head>
+	
+	<body>
+		<div th:include="NavMain :: navMain"></div>
+		<div th:include="Modals :: updateEmployee"></div>
 
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<script src="js/jquery.validate.js" type="text/javascript"></script>
-
-<link rel="stylesheet" type="text/css" href="css/principal.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-responsive.css" />
-
-
-</head>
-<body>
-
-
-	<div th:include="NavMain :: navMain"></div>
-	<div th:include="Modals :: updateEmployee"></div>
-
-
-	<form action="#" th:action="@{/ProcessEmployeeUpdate}"
-		th:object="${Employee}" method="post">
+	<form action="#" th:action="@{/ProcessEmployeeUpdate}" th:object="${Employee}" method="post">
 		<div id="personal_info" class="clearfix">
 			<p id="Employee_Header">Employee Informations</p>
 
@@ -33,9 +27,10 @@
 						<td id="personal_name" th:text="'Employee'"></td>
 					</tr>
 					<tr>
-						<td><img
-							th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}"
-							class="img-polaroid" /></td>
+						<td>
+							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}" class="img-polaroid" th:title="${Employee.name}" style="display: none;" />
+							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${Employee.id}}" class="img-polaroid" th:title="${Employee.name}" />
+						</td>
 					</tr>
 
 					<tr>
@@ -44,102 +39,102 @@
 
 				</table>
 			</div>
-				<div id="personal_center">
 
-					<br />
+			<div id="personal_center">
+				<br />
 
-					<table id="table_employee_update">
-						<tr>
-							<th>Name:</th>
-							<td><input type="text" class="input-field" name="name"
-								th:field="*{name}" placeholder="Input employee name"
-								required="true" maxlength="100" /></td>
-						</tr>
-						<tr>
-							<th>Letters:</th>
-							<td><input type="text" class="input-field" id="letter"
-								th:field="*{id}" placeholder="input the letters "
-								required="true" maxlength="4" /></td>
-						</tr>
-						<tr>
-							<th>Job:</th>
-							<td><select name="job" class="input-field" th:field="*{job}"
-								required="true" id="job">
-									<option id="tempJob" th:value="${job.id}"
-										th:text="${job.title}" th:selected="${job.id}"></option>
-									<option th:each="job : ${jobs}" th:value="${job.id}"
-										th:text="${job.title}" th:selected="${job.id}"></option>
+				<table id="table_employee_update">
+					<tr>
+						<th>Name:</th>
+						<td><input type="text" class="input-field" name="name"
+							th:field="*{name}" placeholder="Input employee name"
+							required="required" maxlength="100" autofocus="autofocus" /></td>
+					</tr>
+					<tr>
+						<th>Letters:</th>
+						<td><input type="text" class="input-field" id="letter"
+							th:field="*{id}" placeholder="input the letters "
+							required="required" maxlength="4" /></td>
+					</tr>
+					<tr>
+						<th>Job:</th>
+						<td>
+							<select name="job" class="input-field" required="required" id="job">
+								<option value="">Select a Job</option>
+								<option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.title}" th:if="${job.id == Employee.job.id} and ${job.active == 0}" selected="selected"></option>
+								<option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.title}" th:if="${job.id != Employee.job.id} and ${job.active == 0}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>User SAP:</th>
+						<td><input type="text" class="input-field" name="userSAP"
+							th:field="*{sap}" placeholder="input the employee workplace "
+							required="required" maxlength="10" /></td>
+					</tr>
 
-							</select></td>
-						</tr>
-						<tr>
-							<th>User SAP:</th>
-							<td><input type="text" class="input-field" name="userSAP"
-								th:field="*{sap}" placeholder="input the employee workplace "
-								required="true" maxlength="10" /></td>
-						</tr>
+					<tr>
+						<th>Joining Date:</th>
+						<td><input type="date" name="joinDate" class="input-field"
+							th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
+							required="required" /></td>
+					</tr>
+					<tr>
+						<th>Ramal:</th>
+						<td><input type="text" name="ext" class="input-field"
+							th:field="*{extension}" placeholder="input the extension" maxlength="4" /></td>
+					</tr>
+					<tr>
+						<th>WorkSpace:</th>
+						<td><input type="text" class="input-field"
+							th:field="*{wsName}" placeholder="input the workspace name"
+							required="required" maxlength="100" /></td>
+					</tr>
+					<tr>
+						<th>Cost Center:</th>
+						<td>
+							<select name="cost" class="input-field" required="required" id="cost">
+								<option value="">Select a Cost Center</option>
+								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id == Employee.costCenter.id} and ${cost.active == 0}" selected="selected"></option>
+								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id != Employee.costCenter.id} and ${cost.active == 0}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Work Place:</th>
+						<td><input type="text" class="input-field"
+							th:field="*{workplace}" placeholder="input the work place"
+							maxlength="10" /></td>
+							
+					</tr>
+					<tr>
+						<th>Rate Prf:</th>
+						<td>
+							<select name="ratePrf" class="input-field" required="required" id="cost">
+								<option value="">Select a Rate Prf</option>
+								<option th:each="rate : ${rateprfs}" th:value="${rate.id}" th:text="${rate.title}" th:if="${rate.id == Employee.ratePrf.id}" selected="selected"></option>
+								<option th:each="rate : ${rateprfs}" th:value="${rate.id}" th:text="${rate.title}" th:if="${rate.id != Employee.ratePrf.id}"></option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>Mentor:</th>
+						<td><select th:field="*{mentorId}" id="mentor" class="input-field">
+								<option value="">No Mentor</option>
+								<option th:each="ment : ${qtyMentee}"
+								th:value="${ment.id}"
+								th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
+								th:title="'Letters: ' + ${ment.id}"
+								th:if="${ment.job.position > Employee.job.position}"></option>
+						</select></td>
+					</tr>
 
-						<tr>
-							<th>Joining Date:</th>
-							<td><input type="date" name="joinDate" class="input-field"
-								th:value="${#dates.format(Employee.joinDate, 'yyyy-MM-dd')}"
-								required="true" /></td>
-						</tr>
-						<tr>
-							<th>Ramal:</th>
-							<td><input type="text" name="ext" class="input-field"
-								th:field="*{extension}" placeholder="input the extension" maxlength="4" /></td>
-						</tr>
-						<tr>
-							<th>WorkSpace:</th>
-							<td><input type="text" class="input-field"
-								th:field="*{wsName}" placeholder="input the workspace name"
-								required="true" maxlength="100" /></td>
-						</tr>
-						<tr>
-							<th>Cost Center:</th>
-							<td><select name="cost" class="input-field"
-								th:field="*{costCenter}" required="true" id="cost">
-									<option id="tempCost" th:value="*{costCenter.id}"
-										th:text="*{costCenter.title}" th:selected="*{costCenter.id}"></option>
-									<option th:each="cost : ${costcenters}" th:value="${cost.id}"
-										th:text="${cost.title}"></option>
+				</table>
+			</div>
 
-							</select></td>
-						</tr>
-						<tr>
-							<th>Work Place:</th>
-							<td><input type="text" class="input-field"
-								th:field="*{workplace}" placeholder="input the work place"
-								maxlength="10" /></td>
-						</tr>
-						<tr>
-							<th>Rate Prf:</th>
-							<td><select th:field="*{ratePrf}" id="rate" required="true"
-								class="input-field">
-									<option id="tempRate" th:value="*{ratePrf.id}"
-										th:text="*{ratePrf.title}" th:selected="*{ratePrf.id}"></option>
-									<option th:each="rate : ${rateprfs}" th:value="${rate.id}"
-										th:text="${rate.title}"></option>
-							</select></td>
-						</tr>
-						<tr>
-							<th>Mentor:</th>
-							<td><select th:field="*{mentorId}" id="mentor" class="input-field">
-									<option value="">No Mentor</option>
-									<option th:each="ment : ${qtyMentee}"
-									th:value="${ment.id}"
-									th:text="${ment.name} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
-									th:title="'Mentee ID: ' + ${ment.id}"></option>
-							</select></td>
-						</tr>
-
-
-					</table>
-
-				</div>
 			<div id="personal_right">
 				<br /> <br />
+
 				<table th:if="${mentor} != null">
 					<tr>
 						<td id="personal_mentor" th:text="'Mentor/Tutor'"></td>
@@ -147,10 +142,10 @@
 					
 					<tr>
 						<td class="text-center">
-						<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}" class="link">
-							<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" />
-							<br/>
-							<span id="personal_mentor" th:text="${mentor.id} +' (' + ${mentor.job.id} +')'"></span>
+							<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}" class="link">
+								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" th:title="${mentor.name}"/>
+								<br/>
+								<span id="personal_mentor" th:text="${mentor.id} +' (' + ${mentor.job.id} +')'"></span>
 							</a>
 						</td>
 					</tr>
@@ -204,53 +199,28 @@
 						</legend>
 					</fieldset>
 
-					<table class="table table-bordered" font-color="#ffffff">
-						<tr style="background-color: #00339f; border: 0px solid #00339f;">
-							<td>
-								<center>
-									<font size="3" color="white">Project</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Customer</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Unit</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Remove</font>
-								</center>
-							</td>
-						</tr>
-
-						<tr th:each="empAssign : ${EmployeeAssignment}">
-							<div th:if="${empAssign.active == 0}">
-								<td th:text="${empAssign.project.description}"></td>
-								<td th:text="${empAssign.project.customer.description}">
-									<center>
-										<font size="3" color="#333"></font>
-									</center>
-								</td>
-								<td th:text="${empAssign.project.customer.unit.description}">
-									<center>
-										<font size="3" color="#333"></font>
-									</center>
-								</td>
-								<td><a href="#"
-									th:href="@{/EmployeeAssignInactivate(empAssigId=${empAssign.id} , project=${empAssign.project.id} , id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}">
-										<center>
-											<button type="submit" class="btn btn-default btn-lg">
-												<i class="icon-trash"></i>
-											</button>
-										</center>
-								</a></td>
-							</div>
-						</tr>
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<td>Project</td>
+								<td>Customer</td>
+								<td>Unit</td>
+								<td>Remove</td>
+							</tr>
+						</thead>
+						
+						<tbody>
+							<tr th:each="empAssign : ${EmployeeAssignment}" th:if="${empAssign.active == 0} and ${empAssign.project.active == 0}">
+									<td th:text="${empAssign.project.description}"></td>
+									<td th:text="${empAssign.project.customer.description}" class="text-center"></td>
+									<td th:text="${empAssign.project.customer.unit.description}" class="text-center"></td>
+									<td class="text-center">
+										<a href="#" class="btn btn-default btn-lg" th:href="@{/EmployeeAssignInactivate(empAssigId=${empAssign.id} , project=${empAssign.project.id} , id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}">
+											<i class="icon-trash"></i>
+										</a>
+									</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
@@ -434,10 +404,10 @@
 			<div class="modal-body">
 				<label>Start Date</label>
 				 <input type="date"	class="input-large"	th:value="${menthist.startDate}"
-					name="start_date" required="true" />
+					name="start_date" required="required" />
 					<label>Finish Date</label>
 					<input type="date" class="input-large" th:value="${menthist.finishDate}"
-					 name="finish_date"	required="true" />
+					 name="finish_date"	required="required" />
 			</div>
 			<div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>

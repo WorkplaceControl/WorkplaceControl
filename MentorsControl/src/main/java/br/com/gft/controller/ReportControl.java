@@ -34,9 +34,8 @@ public class ReportControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/ProjectReport", method = RequestMethod.GET)
-	public String showProjectReport(Model model) {
-		ProjectService projectservice = new ProjectService();
-		List<Project> project = projectservice.getProjects();
+	public String showProjectReport(Model model) { 
+		List<Project> project = new ProjectService().getProjects();
 
 		model.addAttribute("Project", project);
 		return "ProjectReport";
@@ -74,6 +73,8 @@ public class ReportControl {
 		List<EmployeeAssignment> empassigns = new EmployeeAssignService()
 				.getEmployeeAssignsAll();
 		List<Job> jobs = new JobService().getJobs();
+		
+		
 		model.addAttribute("job", jobs);
 		model.addAttribute("empassigns", empassigns);
 		model.addAttribute("project", projects);

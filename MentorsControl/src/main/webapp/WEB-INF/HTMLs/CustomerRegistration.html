@@ -30,10 +30,10 @@
 												    <label>Project identification</label>
 												    <input type="text" class="input-large" placeholder="Example " disabled="true" />
 												    <label>Description</label>
-												    <input type="text" th:field="*{description}" name="customer_description" class="input-xxlarge" placeholder="input the Customer description" required="true" maxlength="100" />
+												    <input type="text" th:field="*{description}" name="customer_description" class="input-xxlarge" placeholder="input the Customer description" required="required" maxlength="100" />
 												  	<input type="hidden" th:field="*{active}" value="0" />
 												  	<label>Client Unit</label>
-												  	<select th:field="*{unit}" required="true">
+												  	<select th:field="*{unit}" required="required">
 												  		<option value=""></option>
 												  		<option th:each="uni : ${unit}" th:value="${uni.description}" th:text="${uni.description}"></option>
 												  	</select>

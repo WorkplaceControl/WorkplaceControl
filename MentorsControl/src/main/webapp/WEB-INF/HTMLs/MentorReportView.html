@@ -18,8 +18,7 @@
 	<div class="container-fluid" id="pag_mentorreportview">
 		<div class="row-fluid"
 			style="border: 1px solid #ddd; width: 90%; margin: 0 auto;">
-			<h2 color="#555" style="height: 50px; text-align: center;">Mentor
-				x Mentee</h2>
+			<h2 color="#555" style="height: 50px; text-align: center;">Mentor x Mentee</h2>
 		
 		<div class="alert alert-error" id="alert">
 			<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
@@ -36,14 +35,14 @@
 						<th>Mentee quantity</th>
 						<th>Edit Mentor</th>
 					</tr>
-					<tr th:each="ment : ${mentor}" th:if="${ment.jobId == job.id} and ${ment.qtyMentee > 0}">
+					<tr th:each="ment : ${mentor}" th:if="${ment.job.id == job.id} and ${ment.qtyMentee > 0}">
 						<td th:text="${ment.id}"></td>
 						<td th:text="${#strings.abbreviate(ment.name,18)}"
 							th:title="${ment.name}"></td>
 						<td th:text="${ment.qtyMentee}"></td>
 						<td style="text-align: left;">
 						<a href="#"
-							th:href="@{/EmployeeUpdate(id=${ment.id} , job=${ment.jobId} , cost=${ment.cost} , rate=${ment.rate})}">
+							th:href="@{/EmployeeUpdate(id=${ment.id} , job=${ment.job.id} , cost=${ment.cost} , rate=${ment.rate})}">
 									<button type="submit" class="btn btn-default btn-lg">
 										<i class="icon-pencil"></i>
 									</button>
