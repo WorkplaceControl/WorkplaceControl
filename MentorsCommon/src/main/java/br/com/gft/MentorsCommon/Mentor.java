@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @SuppressWarnings("serial")
@@ -19,8 +21,9 @@ public class Mentor implements Serializable{
 	@Column(name="name")
 	private String name;
 	
-	@Column(name="job_id")
-	private String jobId;
+	@ManyToOne
+	@JoinColumn(name = "job_id", referencedColumnName = "id")
+	private Job job;
 	
 	@Column(name="rate_prf_id")
 	private int rate;
@@ -37,17 +40,17 @@ public class Mentor implements Serializable{
 	public Mentor() {
 	}
 	
-	public Mentor(String name, int qtyMentee, String jobId) {
+	public Mentor(String name, int qtyMentee, Job job) {
 		super();
 		this.name = name;
 		this.qtyMentee = qtyMentee;
-		this.jobId = jobId;
+		this.job = job;
 	}
 	
-	public Mentor(String id, String jobId, String cost, int rate) {
+	public Mentor(String id, Job job, String cost, int rate) {
 		super();
 		this.id = id;
-		this.jobId = jobId;
+		this.job = job;
 		this.cost = cost;
 		this.rate= rate;
 	}
@@ -84,12 +87,12 @@ public class Mentor implements Serializable{
 		this.cost = cost;
 	}
 	
-	public String getJobId() {
-		return jobId;
+	public Job getJob() {
+		return job;
 	}
 
-	public void setJobId(String jobId) {
-		this.jobId = jobId;
+	public void setJob(Job job) {
+		this.job = job;
 	}
 
 	public String getMentorId() {
