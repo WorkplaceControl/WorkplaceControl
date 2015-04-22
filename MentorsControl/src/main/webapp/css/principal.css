@@ -103,6 +103,10 @@ button {
 	padding-top: 10px;
 }
 
+#buttons #information {
+		padding: 7px 10px;
+}
+
 #buttons #left_header {
 	text-align: left;
 	float: left;

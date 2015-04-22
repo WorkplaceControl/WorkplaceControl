@@ -184,6 +184,37 @@
 		
 <div  id ="modals_employee_update" th:fragment="updateEmployee">
 
+<!--  Update Employee Guide -->
+<section>
+	<div id="ModalUPG" class="modal hide fade" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"
+				aria-hidden="true">×</button>
+			<h3 class ="text-center" id="myModalLabel">Update Employee Informations</h3>
+		</div>
+		<div class="modal-body">
+				<fieldset>
+					<legend>
+						<font size="4"> <b>Update Employees' page</b></font>
+					</legend>
+				</fieldset>
+				<span>
+					<br />
+				 You can <b>Update Employee</b> filling the fields, and assign to them, projects, and mentees.
+				 To <b>Assign Project</b> to Employee, use button <b><i class="icon-plus"></i>Add Project</b> and in the next
+				 popup, select respective project to employee.
+				 To <b>Assign Mentee</b> to Employee, use button <b><i class="icon-plus"></i>Add Mentee</b> and in the next
+				 popup, select respective mentee to employee.
+				</span>
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+		</div>
+	</div>	
+</section>
+
+<section>
 	<div th:if="${verifyMent == 0}" class="alert alert-error"
 				id="alert">
 				<button type="button" class="close" data-dismiss="alert">
@@ -198,6 +229,7 @@
 			</button>
 			You cannot add this mentor to mentee.
 	</div>
+</section>
 
 <!--Modal to add project -->
 <section>
@@ -212,8 +244,8 @@
 					role="dialog" aria-labelledby="myModalLabel"
 					aria-hidden="true">
 					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-hidden="true">×</button>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">×</button>
 						<h3 id="myModalLabel">Add new project to employee</h3>
 					</div>
 					<div class="modal-body">
@@ -231,7 +263,7 @@
 					</div>
 					<div class="modal-footer">
 						<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-						<button class="btn btn-primary">Save changes</button>
+						<button class="btn btn-primary">Save</button>
 					</div>
 				</div>
 
@@ -267,8 +299,7 @@
 								<option th:each="ment : ${qtyMentee}"
 									th:value="${ment.id}"
 									th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
-									th:title="'Letters: ' + ${ment.id}"
-									th:if="${ment.job.position > Employee.job.position}"></option>
+									th:title="'Letters: ' + ${ment.id}"></option>
 						</select>
 					</div>
 

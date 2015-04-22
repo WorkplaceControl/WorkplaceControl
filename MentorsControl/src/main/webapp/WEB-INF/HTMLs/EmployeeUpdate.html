@@ -124,8 +124,7 @@
 								<option th:each="ment : ${qtyMentee}"
 								th:value="${ment.id}"
 								th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
-								th:title="'Letters: ' + ${ment.id}"
-								th:if="${ment.job.position > Employee.job.position}"></option>
+								th:title="'Letters: ' + ${ment.id}"></option>
 						</select></td>
 					</tr>
 
@@ -161,8 +160,11 @@
 			</a>
 			
 			<button class="btn btn-primary" type="submit">Save</button>
-			
+			<button id ="information">
+			<a href="#ModalEUG" role="button" class="icon-question-sign"></a>
+						</button>
 		</div>
+		
 		<br />
 		<hr width="100%"></hr>
 		<br />
@@ -329,36 +331,21 @@
 						</legend>
 					</fieldset>
 
-					<table class="table table-bordered" font-color="#ffffff">
-						<tr style="background-color: #00339f; border: 0px solid #00339f;">
-<!-- 							<td> -->
-<!-- 								<center> -->
-<!-- 									<font size="3" color="white">Type</font> -->
-<!-- 								</center> -->
-<!-- 							</td> -->
-							<td>
-								<center>
-									<font size="3" color="white">Mentor Name</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Start Date</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Finish Date</font>
-								</center>
-							</td>
-							<td>
-								<center>
-									<font size="3" color="white">Edit</font>
-								</center>
-							</td>
+					<table class="table table-bordered">
+						<thead>
+						<tr>
+						<th>Mentor Name</th>
+						<th>Start Date</th>
+						<th>Finish Date</th>
+						<th>Edit</th>						
 						</tr>
-
+						</thead>
+					
 						<tr th:each="menthist : ${MentorHistory}">
+							<div
+								th:if="${menthist.employee.id == Employee.id and menthist.finishDate == null}">
+								<td colspan="4" class = "text-center">NO DATA FOUND</td>
+							</div>
 							<div
 								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
 								<td>

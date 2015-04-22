@@ -66,8 +66,10 @@ public class EmployeeDAO {
 	}
 	
 	public List<Mentor> findQtyMentee(){
-		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("SELECT id, name, job_id, "
-																			+ "cost_center_id, rate_prf_id, mentor_id, (SELECT COUNT(ee.id) FROM employee ee WHERE ee.mentor_id = e.id) as qtymentee FROM employee e order by qtymentee asc", Mentor.class);
+		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("SELECT id, name, job_id, cost_center_id, rate_prf_id, mentor_id,"
+																			 + " (SELECT COUNT(ee.id) FROM employee ee WHERE ee.mentor_id = e.id) as qtymentee FROM employee e WHERE"
+																			 + " (SELECT position FROM Job WHERE id = e.job_id) >= (SELECT position FROM Job WHERE id = 'SE02')"
+																			 + " order by qtymentee", Mentor.class);
 
 		return (List<Mentor>) query.getResultList();
 	}
