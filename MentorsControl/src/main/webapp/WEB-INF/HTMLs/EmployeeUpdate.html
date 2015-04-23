@@ -93,7 +93,7 @@
 					<tr>
 						<th>Cost Center:</th>
 						<td>
-							<select name="cost" class="input-field" required="required" id="cost">
+							<select name="costCenter" class="input-field" required="required" id="cost">
 								<option value="">Select a Cost Center</option>
 								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id == Employee.costCenter.id} and ${cost.active == 0}" selected="selected"></option>
 								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id != Employee.costCenter.id} and ${cost.active == 0}"></option>
@@ -216,7 +216,7 @@
 									<td th:text="${empAssign.project.customer.description}" class="text-center"></td>
 									<td th:text="${empAssign.project.customer.unit.description}" class="text-center"></td>
 									<td class="text-center">
-										<a href="#" class="btn btn-default btn-lg" th:href="@{/EmployeeAssignInactivate(empAssigId=${empAssign.id} , project=${empAssign.project.id} , id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}">
+										<a href="#" class="btn btn-default btn-lg" th:href="@{/EmployeeAssignInactivate(empAssigId=${empAssign.id} , project=${empAssign.project.description} , id=${Employee.id} , job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}">
 											<i class="icon-trash"></i>
 										</a>
 									</td>
