@@ -58,7 +58,7 @@ public class Employee implements Serializable{
 	private String wsName;
 	@Column(name="is_mentor")
 	private int isMentor;
-	@Column(name="istutor")
+	@Column(name="is_tutor")
 	private int isTutor;
 	@Column(name="mentor_id")
 	private String mentorId;

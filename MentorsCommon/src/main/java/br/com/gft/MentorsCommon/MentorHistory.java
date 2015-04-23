@@ -48,7 +48,7 @@ public class MentorHistory implements Serializable {
 	}
 
 	public MentorHistory(int id, Employee employee, Date startDate,
-			Date finishDate, int job_id, String mentor_id, String tutor_id) {
+			Date finishDate, int jobId, String mentor_id, String tutor_id) {
 		super();
 		this.id = id;
 		this.employee = employee;

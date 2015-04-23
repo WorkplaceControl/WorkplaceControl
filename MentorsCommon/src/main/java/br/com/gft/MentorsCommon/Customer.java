@@ -31,11 +31,11 @@ public class Customer implements Serializable {
 	private int active;
 
 	@ManyToOne
-	@JoinColumn(name = "Unit_id", referencedColumnName = "id")
+	@JoinColumn(name = "unit_id", referencedColumnName = "id")
 	private Unit unit;
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
-	private List<Project> project = new ArrayList();
+	private List<Project> project = new ArrayList<Project>();
 
 	public Customer() {
 

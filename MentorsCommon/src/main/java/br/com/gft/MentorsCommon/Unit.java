@@ -12,11 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+@SuppressWarnings("serial")
 @Entity
 @Table(name = "UNIT")
 public class Unit implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
 
 	@Column
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
