@@ -360,26 +360,26 @@ public class ImportEmployeeControl {
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + " ERRO(s) ao incluir Employee(s) Assignment(s)");
 		};
 		if( jobWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR JOB(s): " + jobWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR JOB(s) JÁ CADASTRADOS: " + jobWarning.size());
 		};
 		if( unitWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR UNIT(s): " + unitWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR UNIT(s) JÁ CADASTRADOS: " + unitWarning.size());
 		};
 		if( projectWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR PROJECT(s): " + projectWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR PROJECT(s) JÁ CADASTRADOS: " + projectWarning.size());
 		};
 		if( employeeWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR EMPLOYEE(s): " + employeeWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR EMPLOYEE(s) JÁ CADASTRADOS: " + employeeWarning.size());
 		};
 		if( customerWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR CUSTOMER(s): " + customerWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR CUSTOMER(s) JÁ CADASTRADOS: " + customerWarning.size());
 		};
 		
 		if( costCenterWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR COST CENTER(s): " + costCenterWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR COST CENTER(s) JÁ CADASTRADOS: " + costCenterWarning.size());
 		};
 		if( employeeAssignmentWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR EMPLOYEE(s) ASSIGMENT(s): " + employeeAssignmentWarning.size());
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR EMPLOYEE(s) ASSIGMENT(s) JÁ CADASTRADOS: " + employeeAssignmentWarning.size());
 		};
 		
 		return "ResultImportInitial";
