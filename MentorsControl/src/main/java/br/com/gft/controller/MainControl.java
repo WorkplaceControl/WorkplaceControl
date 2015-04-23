@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsService.EmployeeService;
 import br.com.gft.share.Paths;
-import br.com.gft.share.SystemLogs;
 import br.com.gft.share.UserRoleInfo;
 
 /**
@@ -37,18 +36,18 @@ public class MainControl {
 	
 	Calendar date = Calendar.getInstance();
 	int roleUser;
+	
 	@RequestMapping(value = "/mainPage", method = RequestMethod.GET)
 	public String showHome(Model model, HttpServletRequest request) {
 		List<Employee> employeeError = new EmployeeService().employeeVerify();
-		List<Employee> employeePending = new EmployeeService()
-				.EmployeePending();
+		List<Employee> employeePending = new EmployeeService().EmployeePending();
 		List<Employee> newEmployees = new EmployeeService().newEmployees();
+		
 		int qtyErrors = employeeError.size();
 		int qtyPendings = employeePending.size();
 		int qtyNews = newEmployees.size();
 
-				Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		for(GrantedAuthority authorities : auth.getAuthorities()) {
 			if(authorities.getAuthority().equals(UserRoleInfo.Admin.getValue())) {
@@ -59,8 +58,10 @@ public class MainControl {
 		}
 		
 		final String user = auth.getName();
+		
 		request.getSession().setAttribute(Paths.ATTRIBUTE_MC_USER, user);
 		request.getSession().setAttribute(Paths.ATTRIBUTE_MC_ROLE_USER, roleUser);
+		
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_NEWS, qtyNews);
 		model.addAttribute(Paths.ATTRIBUTE_MC_NEW_EMPLOYEE, newEmployees);
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_PENDING, qtyPendings);
@@ -69,7 +70,6 @@ public class MainControl {
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_ERROR, employeeError);
 		
 		return "mainPage";
-
 	}
 
 }

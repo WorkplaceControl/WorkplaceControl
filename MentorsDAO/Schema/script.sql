@@ -45,7 +45,7 @@ create table job(
 );
 
 create table mentor_history(
-	id	serial primary key,
+	id serial primary key,
 	employee_id varchar(10) not null,
 	mentor_id varchar(10),
 	tutor_id varchar(10),
@@ -112,6 +112,14 @@ references cost_center(id);
 alter table employee 
 add constraint FK_Job foreign key (job_id)
 references job(id);
+
+alter table employee 
+add constraint FK_Mentor foreign key (mentor_id)
+references employee(id);
+
+alter table employee 
+add constraint FK_Tutor foreign key (tutor_id)
+references employee(id);
 
 alter table  employee_assignment
 add constraint FK_Employee_Proj foreign key (employee_id)
