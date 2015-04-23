@@ -34,7 +34,7 @@
 					</tr>
 
 					<tr>
-						<td id="personal_name" th:text="${Employee.Id} +' (' + ${Employee.job.id} +')'"></td>
+						<td id="personal_name" th:text="${Employee.id} +' (' + ${Employee.job.id} +')'"></td>
 					</tr>
 
 				</table>
@@ -94,7 +94,7 @@
 						<th>Cost Center:</th>
 						<td>
 							<select name="costCenter" class="input-field" required="required" id="cost">
-								<option value="">Select a Cost Center</option>
+								<option value="">Select Cost Center</option>
 								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id == Employee.costCenter.id} and ${cost.active == 0}" selected="selected"></option>
 								<option th:each="cost : ${costcenters}" th:value="${cost.id}" th:text="${cost.title}" th:if="${cost.id != Employee.costCenter.id} and ${cost.active == 0}"></option>
 							</select>
@@ -110,8 +110,8 @@
 					<tr>
 						<th>Rate Prf:</th>
 						<td>
-							<select name="ratePrf" class="input-field" required="required" id="cost">
-								<option value="">Select a Rate Prf</option>
+							<select name="ratePrf" class="input-field" required="required" id="rate">
+								<option value="">Select Rate Prf</option>
 								<option th:each="rate : ${rateprfs}" th:value="${rate.id}" th:text="${rate.title}" th:if="${rate.id == Employee.ratePrf.id}" selected="selected"></option>
 								<option th:each="rate : ${rateprfs}" th:value="${rate.id}" th:text="${rate.title}" th:if="${rate.id != Employee.ratePrf.id}"></option>
 							</select>
@@ -160,13 +160,16 @@
 			</a>
 			
 			<button class="btn btn-primary" type="submit">Save</button>
-				<button class="btn" id="information"><a class="nav-menu" href="#ModalUPG" data-toggle="modal">
-					<i class="icon-question-sign"></i></a></button>
+			
+			<a class="nav-menu" href="#ModalUPG" data-toggle="modal">
+				<button class="btn" id="information">
+					<i class="icon-question-sign"></i>
+				</button>
+			</a>
 		</div>
 		
 		<br />
 		<hr width="100%"></hr>
-		<br />
 	</form>
 
 
@@ -262,7 +265,7 @@
 							</div>
 						</legend>
 						<div id="mentee_img" th:each="emp : ${Employeels}">
-							<div
+							<div class="text-center"
 								th:if="${emp.mentorId == Employee.id and emp.active == 0}">
 <!-- 								emp.tutorId == Employee.id -->
 								<div class="text-center" th:if="${emp.mentorId == null}">
@@ -273,15 +276,13 @@
 								</div>
 
 								<a href="#"
-									th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+									th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:title="${emp.id}">
 
-									<center>
 										<img
 											th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}"
-											class="img-polaroid" />
-										<p th:text="${(emp.id)}"></p>
+											class="img-polaroid sem_float" />
+										<p th:text="${emp.name +' ('+ emp.job.id+')'}"></p>
 										<font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font>
-									</center>
 								</a>
 
 							</div>
@@ -341,10 +342,6 @@
 						</thead>
 					
 						<tr th:each="menthist : ${MentorHistory}">
-							<div
-								th:if="${menthist.employee.id == Employee.id and menthist.finishDate == null}">
-								<td colspan="4" class = "text-center">NO DATA FOUND</td>
-							</div>
 							<div
 								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
 								<td>

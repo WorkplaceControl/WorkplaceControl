@@ -23,10 +23,10 @@
 						</div>
 	
 						<div style="width: 90%; margin: 0 auto;">
-							<div class="job">
+							<div class="project_report">
 								<div th:each="empassign : ${empassigns}" th:if="${proj.id == empassign.project.id}" style="width: 15%; float: left;">
 									<div class="mentee_img_min" th:each="emp : ${employeeLs}" th:if="${emp.id == empassign.employee.id}">
-										<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+										<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}"  th:title="${emp.id}">
 											<table>
 												<tr>
 													<td>
@@ -35,7 +35,7 @@
 												</tr>
 												<tr>
 													<td>
-														<font size="2" th:text="${emp.name}"></font>
+														<font size="2" th:text="${emp.name +' ('+ emp.job.id+')'}"></font>
 													</td>
 												</tr>
 												<tr>

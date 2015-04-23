@@ -49,27 +49,15 @@ public class UsersControl {
 	public String noAccess() {
 		return "accessdenied";
 	}
-
 	/**
 	 * this method is to return General error page
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/GeneralError")
+	@RequestMapping(value = "/ErrorPage")
 	public String GeneralError() {
-		return "GeneralError";
+		return "ErrorPage";
 	}
-
-	/**
-	 * this method is to return 400 error page
-	 * 
-	 * @return
-	 */
-	@RequestMapping(value = "/400Error")
-	public String Error400() {
-		return "400Error";
-	}
-
 
 	/**
 	 * this method is to show Users page to read inactive Users informations

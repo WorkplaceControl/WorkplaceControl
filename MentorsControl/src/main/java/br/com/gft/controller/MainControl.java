@@ -68,8 +68,6 @@ public class MainControl {
 		model.addAttribute(Paths.ATTRIBUTE_MC_QTY_ERRORS, qtyErrors);
 		model.addAttribute(Paths.ATTRIBUTE_MC_EMPLOYEE_ERROR, employeeError);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " Conectou.");
-
 		return "mainPage";
 
 	}

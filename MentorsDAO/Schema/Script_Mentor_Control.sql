@@ -157,7 +157,7 @@ alter table  Mentor_History
 add constraint FK_Mentor_History foreign key (employee_id)
 references Employee(id);
 
-insert into Rate_Prf values (1 , 'default');
+insert into Rate_Prf values (1 , 'DEFAULT');
 insert into Rate_Prf values (2 , 'INTK1');
 insert into Rate_Prf values (3 , 'INTK2');
 insert into Rate_Prf values (4 , 'INTK3');

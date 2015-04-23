@@ -91,6 +91,7 @@ public class ExcelContent {
 		for (Row row : sheet) {
 			String id = "";
 			String title = "";
+			String traco = "";
 			Job job = new Job();
 
 			for (Cell cell : row) {
@@ -109,7 +110,7 @@ public class ExcelContent {
 				id = st.nextToken();
 				
 				if (st.hasMoreElements()) {
-					//String traco = st.nextToken();
+					traco = st.nextToken();
 				}
 				
 				while (st.hasMoreElements()) {

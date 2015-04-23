@@ -45,9 +45,9 @@
 									<ul class="dropdown-menu">
 										<li><a class="nav-menu" href="Employee">Employee</a></li>
 										<li><a class="nav-menu" href="Job">Job</a></li>
-										<li><a class="nav-menu" href="Project">Project</a></li>
-										<li><a class="nav-menu" href="Customer">Customer</a></li>
 										<li><a class="nav-menu" href="Unit">Client Unit</a></li>
+										<li><a class="nav-menu" href="Customer">Customer</a></li>
+										<li><a class="nav-menu" href="Project">Project</a></li>
 										<li><a class="nav-menu" href="CostCenter">Cost Center</a></li>
 
 										<div th:if="${session.roleUser == 1}">
@@ -93,9 +93,10 @@
 										class="caret"></b></a>
 
 									<ul class="dropdown-menu">
-										<li><a class="nav-menu" href="showImport">New Employees</a></li>
 										<li><a class="nav-menu" href="InitialImport">Initial Import</a></li>
+										<li><a class="nav-menu" href="showImport">Import Employees</a></li>
 										<li><a class="nav-menu" href="Mapping">Mapping</a></li>
+										<li><a class="nav-menu" href="#ModalEIG" data-toggle="modal">Import Guide</a></li>
 									</ul></li>
 
 								<li class="dropdown"><a href="#" id="drop2" role="button"

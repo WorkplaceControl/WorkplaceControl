@@ -71,7 +71,7 @@
 				Units already exists in database
 				
 				<ul>
-					<li th:each="untWarning : ${unitWarning}" th:text="'ID: ' + ${untWarning.id} + ', Title: ' + ${untWarning.description}" class="text-warning"></li>
+					<li th:each="untWarning : ${unitWarning}" th:text="'Title: ' + ${untWarning.description}" class="text-warning"></li>
 				</ul>
 			</p>
 			
@@ -79,7 +79,7 @@
 				Error to insert the Units Below
 	
 				<ul>
-					<li th:each="untError : ${unitError}" th:text="'ID: ' + ${untError.id} + ', Title: ' + ${untError.description}" class="text-danger"></li>
+					<li th:each="untError : ${unitError}" th:text="'Title: ' + ${untError.description}" class="text-danger"></li>
 				</ul>
 			</p>
 		</div>
@@ -93,7 +93,7 @@
 				Customers already exists in database
 				
 				<ul>
-					<li th:each="custWarning : ${customerWarning}" th:text="'ID: ' + ${custWarning.id} + ', Title: ' + ${custWarning.description}" class="text-warning"></li>
+					<li th:each="custWarning : ${customerWarning}" th:text="'Title: ' + ${custWarning.description}" class="text-warning"></li>
 				</ul>
 			</p>
 			
@@ -101,7 +101,7 @@
 				Error to insert the Customers Below
 	
 				<ul>
-					<li th:each="custError : ${customerError}" th:text="'ID: ' + ${custError.id} + ', Title: ' + ${custError.description}" class="text-danger"></li>
+					<li th:each="custError : ${customerError}" th:text="'Title: ' + ${custError.description}" class="text-danger"></li>
 				</ul>
 			</p>
 		</div>
@@ -115,7 +115,7 @@
 				Projects already exists in database
 				
 				<ul>
-					<li th:each="projWarning : ${projectWarning}" th:text="'ID: ' + ${projWarning.id} + ', Title: ' + ${projWarning.description}" class="text-warning"></li>
+					<li th:each="projWarning : ${projectWarning}" th:text="'Title: ' + ${projWarning.description}" class="text-warning"></li>
 				</ul>
 			</p>
 			
@@ -123,7 +123,7 @@
 				Error to insert the Projects Below
 	
 				<ul>
-					<li th:each="projError : ${projectError}" th:text="'ID: ' + ${projError.id} + ', Title: ' + ${projError.description}" class="text-danger"></li>
+					<li th:each="projError : ${projectError}" th:text="'Title: ' + ${projError.description}" class="text-danger"></li>
 				</ul>
 			</p>
 			
@@ -132,6 +132,8 @@
 		<div class="list-import-initial">
 			<h3>Employee</h3>
 			
+			<p th:if="${numEmployee > 0}" th:text="'Employees insert into data base: ' + ${numEmployee}" class="text-success"></p>	
+			
 			<p th:if="${employeeWarning.size() > 0}">
 				Employees already exists in database
 				
@@ -139,8 +141,6 @@
 					<li th:each="empWarning : ${employeeWarning}" th:text="'ID: ' + ${empWarning.id} + ', Name: ' + ${empWarning.wsName}" class="text-warning"></li>
 				</ul>
 			</p>
-			
-			<p th:if="${numEmployee > 0}" th:text="'Employees insert into data base: ' + ${numEmployee}" class="text-success"></p>	
 			
 			<p th:if="${employeeError.size() > 0}">
 				Error to insert the Employees Below

@@ -255,11 +255,16 @@ public class ImportEmployeeControl {
 		int numEmployee = 0;
 		for (Employee employee : excelContent.excelEmployee(file)) {
 			if (employee.getId().equals("")
-					|| employee.getSap().equals("")
 					|| employee.getJoinDate().equals(null)
 					|| employee.getJob().getId().equals(null)
 					|| employee.getCostCenter().getId().equals(null) 
 					|| employee.getWsName().equals("")) {
+				System.out.println(employee.getId());
+				System.out.println(employee.getSap());
+				System.out.println(employee.getJoinDate());
+				System.out.println(employee.getJob().getId());
+				System.out.println(employee.getCostCenter().getId()); 
+				System.out.println(employee.getWsName());
 				employeeError.add(employee);
 			} else if (employeeService.getEmployee(employee.getId()) != null) {
 				employeeWarning.add(employee);
@@ -277,7 +282,7 @@ public class ImportEmployeeControl {
 		int numEmployeeAssignment = 0;
 		for (EmployeeAssignment employeeAssignment : excelContent.excelEmployeeAssign(file)) {
 			
-			if (employeeAssignment.getEmployee().getId().equals("") || employeeAssignment.getProject().getId() == 0) {
+			if (employeeAssignment.getEmployee().getId() != null && employeeAssignment.getEmployee().getId().equals("") || employeeAssignment.getProject().getId() == 0) {
 				employeeAssignmentError.add(employeeAssignment);
 			} else if (employeeAssignmentService.getEmployeeAssigns(employeeAssignment.getEmployee().getId()) != null) {
 				employeeAssignmentWarning.add(employeeAssignment);
@@ -331,51 +336,51 @@ public class ImportEmployeeControl {
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCostCenter + " Cost Center(s)");
 		};
 		if( numEmployeeAssignment > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployeeAssignment + "Employee(s) Assignment(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployeeAssignment + " Employee(s) Assignment(s)");
 		};
 		if( jobError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Job(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + " ERRO(s) ao incluir Job(s)");
 		};
 		if( unitError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + unitError.size() + "ERROS ao incluir Unit(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + unitError.size() + " ERRO(s) ao incluir Unit(s)");
 		};
 		if( projectError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + projectError.size() + "ERROS ao incluir Project(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + projectError.size() + " ERRO(s) ao incluir Project(s)");
 		};
 		if( employeeError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeError.size() + "ERROS ao incluir Job(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeError.size() + " ERRO(s) ao incluir Job(s)");
 		};
 		if( customerError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + customerError.size() + "ERROS ao incluir Customer(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + customerError.size() + " ERRO(s) ao incluir Customer(s)");
 		};
 		if( costCenterError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + "ERROS ao incluir Cost(s) Center(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + " ERRO(s) ao incluir Cost(s) Center(s)");
 		};
 		if( employeeAssignmentError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + "ERROS ao incluir Employee(s) Assignment(s)");
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + " ERRO(s) ao incluir Employee(s) Assignment(s)");
 		};
-//		if( jobWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + jobWarning.size());
-//		};
-//		if( unitWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + unitWarning.size());
-//		};
-//		if( projectWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + projectWarning.size());
-//		};
-//		if( employeeWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeWarning.size());
-//		};
-//		if( customerWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + customerWarning.size());
-//		};
-//		
-//		if( costCenterWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + costCenterWarning.size());
-//		};
-//		if( employeeAssignmentWarning.size() > 0){
-//			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Employee (ID): " + employeeAssignmentWarning.size());
-//		};
+		if( jobWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR JOB(s): " + jobWarning.size());
+		};
+		if( unitWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR UNIT(s): " + unitWarning.size());
+		};
+		if( projectWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR PROJECT(s): " + projectWarning.size());
+		};
+		if( employeeWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR EMPLOYEE(s): " + employeeWarning.size());
+		};
+		if( customerWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR CUSTOMER(s): " + customerWarning.size());
+		};
+		
+		if( costCenterWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR COST CENTER(s): " + costCenterWarning.size());
+		};
+		if( employeeAssignmentWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " WARNINGS AO INCLUIR EMPLOYEE(s) ASSIGMENT(s): " + employeeAssignmentWarning.size());
+		};
 		
 		return "ResultImportInitial";
 	}
