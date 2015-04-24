@@ -8,16 +8,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/MentorsDAO">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="src" path="/MentorsCommon">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="src" path="/MentorsDAO"/>
+	<classpathentry kind="src" path="/MentorsCommon"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/persistence/eclipselink/2.5.0-RC1/eclipselink-2.5.0-RC1.jar" sourcepath="M2_REPO/org/eclipse/persistence/eclipselink/2.5.0-RC1/eclipselink-2.5.0-RC1-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/glhu/.m2/repository/org/eclipse/persistence/eclipselink/2.5.0-RC1/eclipselink-2.5.0-RC1-javadoc.jar!/"/>
@@ -76,11 +68,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="/MentorsService">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="src" path="/MentorsService"/>
 	<classpathentry kind="var" path="M2_REPO/org/springframework/spring-context/4.1.0.RELEASE/spring-context-4.1.0.RELEASE.jar" sourcepath="M2_REPO/org/springframework/spring-context/4.1.0.RELEASE/spring-context-4.1.0.RELEASE-sources.jar">
 		<attributes>
 			<attribute name="javadoc_location" value="jar:file:/C:/Users/glhu/.m2/repository/org/springframework/spring-context/4.1.0.RELEASE/spring-context-4.1.0.RELEASE-javadoc.jar!/"/>

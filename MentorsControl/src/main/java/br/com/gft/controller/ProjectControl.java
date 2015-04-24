@@ -112,7 +112,7 @@ public class ProjectControl {
 		
 		showProject(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Project (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the Project (Description): " + description.toUpperCase());
 		return "Project";
 	}
 	
@@ -154,7 +154,7 @@ public class ProjectControl {
 		
 		showProject(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Project (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the Project (Description): " + description.toUpperCase());
 		
 		return "Project";
 	}
@@ -189,7 +189,7 @@ public class ProjectControl {
 		showProject(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Project (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ENABLE" : " DISABLE") + " the Project (ID): " + id);
 		return "Project";
 	}
 	

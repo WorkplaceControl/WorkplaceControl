@@ -90,7 +90,7 @@ public class CostCenterControl {
 		service.addCostCenter(costcenter);
 		showCostCenter(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the Cost Center (Description): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -122,7 +122,7 @@ public class CostCenterControl {
 		service.alterCostCenter(costcenter);
 		showCostCenter(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Cost Center (Descrição): " + costcenter.getTitle().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the Cost Center (Description): " + costcenter.getTitle().toUpperCase());
 		return "CostCenter";
 	}
 	
@@ -154,7 +154,7 @@ public class CostCenterControl {
 		showCostCenter(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Cost Center (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ENABLE" : " DISABLE") + " the Cost Center (ID): " + id);
 		return "CostCenter";
 	}
 	

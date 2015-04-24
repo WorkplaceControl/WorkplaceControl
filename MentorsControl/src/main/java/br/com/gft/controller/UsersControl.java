@@ -162,7 +162,7 @@ public class UsersControl {
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		showUsers(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -222,7 +222,7 @@ public class UsersControl {
 		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 
@@ -258,7 +258,7 @@ public class UsersControl {
 		showUsers(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ATIVOU" : " DESATIVOU") + " o User (Username): " + username.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 0 ? " ENABLE" : " DISABLE") + " the User (Username): " + username.toUpperCase());
 		return "Users";
 	}
 

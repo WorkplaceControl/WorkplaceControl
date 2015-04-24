@@ -97,7 +97,7 @@ public class JobControl {
 		model.addAttribute("Job" , job);
 		showJob(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Job (ID): " + job.getId().toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the Job (ID): " + job.getId().toUpperCase());
 		return "Job";
 	}
 	
@@ -131,7 +131,7 @@ public class JobControl {
 		service.alterJob(job);
 		showJob(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Job (ID): " + index.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the Job (ID): " + index.toUpperCase());
 		return "Job";
 	}
 	
@@ -164,7 +164,7 @@ public class JobControl {
 		showJob(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, ControlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Job (ID): " + id.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ENABLE" : " DISABLE") + " the Job (ID): " + id.toUpperCase());
 		return "Job";
 	}
 	

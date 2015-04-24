@@ -317,69 +317,70 @@ public class ImportEmployeeControl {
 		model.addAttribute("costCenterWarning", costCenterWarning);
 		model.addAttribute("employeeAssignmentWarning", employeeAssignmentWarning);
 		
-		if(numJob > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numJob + " Job(s)");
-		}
-		if(numUnit > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numUnit + " Unit(s)");
-		}
-		if(numProject > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numProject + " Project(s)");
-		}
-		if(numCustomer > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCustomer + " Customer(s)");
-		}
-		if(numEmployee > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployee + " Employee(s)");
-		}
-		if(numCostCenter > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numCostCenter + " Cost Center(s)");
-		}
-		if(numEmployeeAssignment > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU " + numEmployeeAssignment + " Employee(s) Assignment(s)");
-		}
-		if(jobError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + " ERRO(s) ao incluir Job(s)");
-		}
-		if(unitError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + unitError.size() + " ERRO(s) ao incluir Unit(s)");
-		}
-		if(projectError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + projectError.size() + " ERRO(s) ao incluir Project(s)");
-		}
-		if(employeeError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeError.size() + " ERRO(s) ao incluir Job(s)");
-		}
-		if(customerError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + customerError.size() + " ERRO(s) ao incluir Customer(s)");
-		}
-		if(costCenterError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + jobError.size() + " ERRO(s) ao incluir Cost(s) Center(s)");
-		}
-		if(employeeAssignmentError.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " OCORRERAM " + employeeAssignmentError.size() + " ERRO(s) ao incluir Employee(s) Assignment(s)");
-		}
-		/*if(jobWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR JOB(s) JÁ CADASTRADOS: " + jobWarning.size());
-		}
-		if(unitWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR UNIT(s) JÁ CADASTRADOS: " + unitWarning.size());
-		}
-		if(projectWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR PROJECT(s) JÁ CADASTRADOS: " + projectWarning.size());
-		}
-		if(employeeWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR EMPLOYEE(s) JÁ CADASTRADOS: " + employeeWarning.size());
-		}
-		if(customerWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR CUSTOMER(s) JÁ CADASTRADOS: " + customerWarning.size());
-		}
-		if(costCenterWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR COST CENTER(s) JÁ CADASTRADOS: " + costCenterWarning.size());
-		}
-		if(employeeAssignmentWarning.size() > 0){
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " TENTATIVA DE CADASTRO AO INCLUIR EMPLOYEE(s) ASSIGMENT(s) JÁ CADASTRADOS: " + employeeAssignmentWarning.size());
-		}*/
+		if( numJob > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numJob + " Job(s)");
+		};
+		if( numUnit > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numUnit + " Unit(s)");
+		};
+		if( numProject > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numProject + " Project(s)");
+		};
+		if( numCustomer > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numCustomer + " Customer(s)");
+		};
+		if( numEmployee > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numEmployee + " Employee(s)");
+		};
+		if( numCostCenter > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numCostCenter + " Cost Center(s)");
+		};
+		if( numEmployeeAssignment > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED " + numEmployeeAssignment + " Employee(s) Assignment(s)");
+		};
+		if( jobError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + jobError.size() + " ERRO(s) trying  to include Job(s)");
+		};
+		if( unitError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + unitError.size() + " ERRO(s) trying  to include Unit(s)");
+		};
+		if( projectError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + projectError.size() + " ERRO(s) trying  to include Project(s)");
+		};
+		if( employeeError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + employeeError.size() + " ERRO(s) trying  to include Job(s)");
+		};
+		if( customerError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + customerError.size() + " ERRO(s) trying  to include Customer(s)");
+		};
+		if( costCenterError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + jobError.size() + " ERRO(s) trying  to include Cost(s) Center(s)");
+		};
+		if( employeeAssignmentError.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " THERE WAS " + employeeAssignmentError.size() + " ERRO(s) trying  to include Employee(s) Assignment(s)");
+		};
+		if( jobWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to JOB(s) already registered: " + jobWarning.size());
+		};
+		if( unitWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to UNIT(s) already registered: " + unitWarning.size());
+		};
+		if( projectWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to PROJECT(s) already registered: " + projectWarning.size());
+		};
+		if( employeeWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to EMPLOYEE(s) already registered: " + employeeWarning.size());
+		};
+		if( customerWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to CUSTOMER(s) already registered: " + customerWarning.size());
+		};
+		
+		if( costCenterWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to COST(s) CENTER(s) already registered: " + costCenterWarning.size());
+		};
+		if( employeeAssignmentWarning.size() > 0){
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " registration attempt to EMPLOYEE(s) ASSIGNMENT(s) already registered: " + employeeAssignmentWarning.size());
+		};
 		
 		return "ResultImportInitial";
 	}

@@ -122,7 +122,7 @@ public class CustomerControl {
 		
 		showCustomer(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " INCLUIU o Customer (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED o Customer (Description): " + description.toUpperCase());
 		
 		return "Customer";
 	}
@@ -172,7 +172,7 @@ public class CustomerControl {
 		
 		showCustomer(null, null, model);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTEROU o Customer (Descrição): " + description.toUpperCase());
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the Customer (Description): " + description.toUpperCase());
 		return "Customer";
 	}
 	
@@ -207,7 +207,7 @@ public class CustomerControl {
 		showCustomer(null, null, model);
 		model.addAttribute(Paths.ATTRIBUTE_CONTROL_MESSAGES, controlMessages);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ATIVOU" : " DESATIVOU") + " o Customer (ID): " + id);
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + (status == 1 ? " ENABLE" : " DISABLE") + " the Customer (ID): " + id);
 		return "Customer";
 	}
 }

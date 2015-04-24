@@ -203,7 +203,7 @@ public class EmployeeControl {
 
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication()
 							.getName().toUpperCase()
-					+ " INCLUIU o Employee (ID): " + id);
+					+ " ADDED the Employee (ID): " + id);
 		}
 
 		showEmployee(null, null, model);
@@ -337,7 +337,7 @@ public class EmployeeControl {
 			showEmployee(null, null, model);
 
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
-					+ " ALTEROU o Employee (ID): " + id);
+					+ " ALTER the Employee (ID): " + id);
 			
 			return "Employee";
 		}
@@ -374,8 +374,8 @@ public class EmployeeControl {
 		
 		service.alterEmployee(employee);
 		
-		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DESATIVOU"
-				+ " o Employee (ID): " + id.toUpperCase() + ", Data da Saída: "
+		SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " DISABLE"
+				+ " the Employee (ID): " + id.toUpperCase() + ", Leave Date: "
 				+ leavingDate.toUpperCase());
 		
 		showEmployee(null, null, model);
