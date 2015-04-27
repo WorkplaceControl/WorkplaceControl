@@ -500,3 +500,29 @@ label input#isInactive{
 a:hover {
 	text-decoration: none !important;
 }
+
+
+
+.mentee_img {
+	float: left;
+	padding-right: 60px;
+	overflow: hidden;
+}
+
+.mentee_img img {
+	height: 130px;
+	width: 100px;
+	float: left;
+}
+
+.mentee_img p {
+margin: 0;
+}
+
+.mentee_img img.sem_float {
+	float: none;
+}
+
+.mentee_img:nth-child(4n + 1) {
+  padding-right: 0 !important;
+}

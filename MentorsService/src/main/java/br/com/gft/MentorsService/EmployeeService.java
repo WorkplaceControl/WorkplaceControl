@@ -81,6 +81,18 @@ public class EmployeeService {
 		return new EmployeeDAO().findQtyMentee();
 	}
 	
+	public List<Mentor> getQtyMentor(){
+		return new EmployeeDAO().findQtyMentor();
+	}
+	
+	public List<Employee> getMentees(String mentor){
+		return new EmployeeDAO().getMentees(mentor);
+	}
+	
+	public List<Employee> getNotMentees(String mentor, int jobPosition){
+		return new EmployeeDAO().getNotMentees(mentor, jobPosition);
+	}
+	
 	/**
 	 * this method is to calculate how many years employee is working at GFT 
 	 * @param employee

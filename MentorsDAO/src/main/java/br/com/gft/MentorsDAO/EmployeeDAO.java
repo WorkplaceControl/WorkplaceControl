@@ -65,10 +65,20 @@ public class EmployeeDAO {
 		return (List<Employee>) query.getResultList();
 	}
 	
+	public List<Mentor> findQtyMentor(){
+		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("SELECT id, name, job_id, cost_center_id, rate_prf_id, mentor_id,"
+																			 + " (SELECT COUNT(ee.id) FROM employee ee WHERE ee.mentor_id = e.id) as qtymentee FROM employee e WHERE"
+																			 + " (SELECT position FROM Job WHERE id = e.job_id) >= (SELECT position FROM Job WHERE id = 'SE02') AND "
+																			 + " e.active = 0"
+																			 + " order by qtymentee", Mentor.class);
+
+		return (List<Mentor>) query.getResultList();
+	}
+	
 	public List<Mentor> findQtyMentee(){
 		TypedQuery<Mentor> query = (TypedQuery<Mentor>) em.createNativeQuery("SELECT id, name, job_id, cost_center_id, rate_prf_id, mentor_id,"
 																			 + " (SELECT COUNT(ee.id) FROM employee ee WHERE ee.mentor_id = e.id) as qtymentee FROM employee e WHERE"
-																			 + " (SELECT position FROM Job WHERE id = e.job_id) >= (SELECT position FROM Job WHERE id = 'SE02')"
+																			 + " e.active = 0"
 																			 + " order by qtymentee", Mentor.class);
 
 		return (List<Mentor>) query.getResultList();
@@ -107,6 +117,24 @@ public class EmployeeDAO {
 		query.setMaxResults(quantity);
 		
 		query.setParameter(1, "%" + search + "%");
+		
+		return (List<Employee>) query.getResultList();
+	}
+	
+	public List<Employee> getMentees(String mentor){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select * from Employee where active = 0 AND mentor_id = ? order by id" , Employee.class);
+
+		query.setParameter(1, mentor);
+		
+		return (List<Employee>) query.getResultList();
+	}
+	
+	public List<Employee> getNotMentees(String mentor, int jobPosition){
+		TypedQuery<Employee> query = (TypedQuery<Employee>) em.createNativeQuery("select e.* from employee e INNER JOIN job j ON e.job_id = j.id where e.active = 0 AND e.id != ? AND (mentor_id != ? OR mentor_id is null) AND j.position < ? order by e.id" , Employee.class);
+
+		query.setParameter(1, mentor);
+		query.setParameter(2, mentor);
+		query.setParameter(3, jobPosition);
 		
 		return (List<Employee>) query.getResultList();
 	}

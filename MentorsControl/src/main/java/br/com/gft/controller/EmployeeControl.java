@@ -258,9 +258,11 @@ public class EmployeeControl {
 			model.addAttribute("mentor", null);
 		}
 		
+		model.addAttribute("qtyMentor", employeeService.getQtyMentor());
 		model.addAttribute(Paths.ATTRIBUTE_EC_QTY_MENTEE, employeeService.getQtyMentee());
 		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE, employee);
-		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_LIST, employeeService.getEmployees());
+		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_LIST, employeeService.getMentees(employeeId));
+		model.addAttribute("notMentees", employeeService.getNotMentees(employeeId, job.getPosition()));
 		model.addAttribute(Paths.ATTRIBUTE_EC_JOBS, jobService.getJobs());
 		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTERS, costCenterService.getCostCenters());
 		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRFS, ratePrfService.getRatePrfs());

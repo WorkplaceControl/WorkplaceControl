@@ -1,6 +1,6 @@
-﻿<html>
+<html>
 	<head>
-		<meta charset="utf-8"></meta>
+		<meta charset="ISO-8859-1"></meta>
 		<title>Employee Update</title>
 		
 		<script type="text/javascript" src="js/jquery.js"></script>
@@ -121,7 +121,7 @@
 						<th>Mentor:</th>
 						<td><select th:field="*{mentorId}" id="mentor" class="input-field">
 								<option value="">No Mentor</option>
-								<option th:each="ment : ${qtyMentee}"
+								<option th:each="ment : ${qtyMentor}"
 									th:value="${ment.id}"
 									th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
 									th:title="'Letters: ' + ${ment.id}"
@@ -265,9 +265,8 @@
 								</ul>
 							</div>
 						</legend>
-						<div id="mentee_img" th:each="emp : ${Employeels}">
-							<div class="text-center"
-								th:if="${emp.mentorId == Employee.id and emp.active == 0}">
+						<div id="mentee_img" class="mentee_img" th:each="emp : ${Employeels}" th:if="${emp.active == 0}">
+							<div class="text-center">
 <!-- 								emp.tutorId == Employee.id -->
 								<div class="text-center" th:if="${emp.mentorId == null}">
 										<p th:text="'Tutor of'"></p>

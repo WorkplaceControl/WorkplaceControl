@@ -348,9 +348,9 @@
 					<div class="modal-body">
 						<select style="height: 25px; width: auto;" name="id" th:field="*{id}"
 							required="required">
-								<option th:each="ment : ${qtyMentee}"
+								<option th:each="ment : ${notMentees}"
 									th:value="${ment.id}"
-									th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
+									th:text="${ment.name} +', '+ ${ment.job.id}"
 									th:title="'Letters: ' + ${ment.id}"></option>
 						</select>
 					</div>
