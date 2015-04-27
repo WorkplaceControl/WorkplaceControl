@@ -75,8 +75,9 @@
 				  					</tbody>
 								</table>
 								
-								<form action="#" th:action="@{/processNewEmployee}" method="post">
-
+								<form action="#" th:action="@{/processNewEmployee}" method="post" th:if="${viewHab == 1}">
+									<input type="hidden" name="file" th:value="${fileName}" />
+						
 									<section>
 										<div class="container-fluid">
 										  <div class="row-fluid">

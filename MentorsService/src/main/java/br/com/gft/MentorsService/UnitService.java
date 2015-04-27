@@ -4,9 +4,7 @@ import java.util.List;
 
 import javax.xml.ws.ServiceMode;
 
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.Unit;
-import br.com.gft.MentorsDAO.JobDAO;
 import br.com.gft.MentorsDAO.UnitDAO;
 
 @ServiceMode

@@ -60,7 +60,6 @@ public class ImportEmployeeControl {
 	@RequestMapping(value = "/UploadNewEmployee", method = RequestMethod.POST)
 	public String singleSave(@RequestParam("file") MultipartFile file, Model model) throws Exception {
 		String fileName = null;
-		List<Employee> employees = null;
 		BufferedOutputStream buffStream = null;
 		
 		if (!file.isEmpty()) {
@@ -70,15 +69,14 @@ public class ImportEmployeeControl {
 				buffStream.write(file.getBytes());
 				buffStream.close();
 
-				employees = showExcelContent(fileName);
-				
-				model.addAttribute("employee", employees);
+				model.addAttribute("employee", showExcelContent(fileName));
+				model.addAttribute("fileName", fileName);
 				model.addAttribute("viewHab", 1);
 			} catch (Exception e) {
-				model.addAttribute("viewHab", 1);
+				model.addAttribute("viewHab", 0);
 			}
 		} else {
-			return "Unable to upload. File is empty.";
+			model.addAttribute("errorMessage", "Unable to upload. File is empty.");
 		}
 		
 		return "importExcel";
@@ -97,14 +95,14 @@ public class ImportEmployeeControl {
 
 				model.addAttribute("fileName", fileName);
 				model.addAttribute("viewHab", 1);
-				
-				return "ImportInitial";
 			} catch (Exception e) {
-				return "You failed to upload " + fileName + ": " + e.getMessage();
+				model.addAttribute("errorMessage", "You failed to upload " + fileName + ": " + e.getMessage());
 			}
 		} else {
-			return "Unable to upload. File is empty.";
+			model.addAttribute("errorMessage", "Unable to upload. File is empty.");
 		}
+		
+		return "ImportInitial";
 	}
 
 	/**
@@ -116,13 +114,18 @@ public class ImportEmployeeControl {
 	 * @return
 	 */
 	@RequestMapping(value = "/processNewEmployee", method = RequestMethod.POST)
-	public String proccessImport(Model model) {
-		List<Employee> employees = new ArrayList<Employee>();
-		EmployeeService employeeService = new EmployeeService();
-
-		for (int i = 0; i < employees.size(); i++) {
-			employees.get(i).setActive(0);
-			employeeService.addEmployee(employees.get(i));
+	public String proccessImport(@RequestParam("file") String file, Model model) {
+		EmployeeService service = new EmployeeService();
+		
+		try {
+			for (Employee employee : showExcelContent(file)) {
+				if(service.getEmployee(employee.getId()) == null){
+					employee.setActive(0);
+					service.addEmployee(employee);
+				}
+			}
+		} catch (Exception e) {
+			model.addAttribute("errorMessage", "Error to process new employees");
 		}
 		
 		return "importExcel";
@@ -469,6 +472,7 @@ public class ImportEmployeeControl {
 				rateprf.setId(1);
 				
 				employee.setRate_Prf(rateprf);
+				employee.setName(name + " " + surname1 + " " + surname2);
 				employee.setWsName(surname1 + " " + surname2 + " , " + name);
 				employee.setActive(0);
 				

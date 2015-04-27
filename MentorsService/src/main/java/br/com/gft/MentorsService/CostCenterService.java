@@ -3,9 +3,7 @@ package br.com.gft.MentorsService;
 import java.util.List;
 
 import br.com.gft.MentorsCommon.CostCenter;
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsDAO.CostCenterDAO;
-import br.com.gft.MentorsDAO.JobDAO;
 
 public class CostCenterService {
 
