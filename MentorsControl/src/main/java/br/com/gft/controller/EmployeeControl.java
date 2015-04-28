@@ -380,6 +380,8 @@ public class EmployeeControl {
 				+ " the Employee (ID): " + id.toUpperCase() + ", Leave Date: "
 				+ leavingDate.toUpperCase());
 		
+		model.addAttribute("ControlMessages", 7);
+		
 		showEmployee(null, null, model);
 
 		return "Employee";

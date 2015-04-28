@@ -118,8 +118,20 @@ public class EmployeeService {
 	 * @return
 	 * @throws ParseException
 	 */
-	public Date formatdate(String joinDate) throws ParseException{
-		return new SimpleDateFormat("yyyy-MM-dd").parse(joinDate);
+	public Date formatdate(String joinDate) {
+		Date formated = null;
+		
+		try {
+			formated = new SimpleDateFormat("yyyy-MM-dd").parse(joinDate);
+		} catch (Exception e) {
+			try {
+				formated = new SimpleDateFormat("dd/MM/yyyy").parse(joinDate);
+			} catch (Exception ex) {
+				System.out.println(ex.getMessage());
+			}
+		}
+		
+		return formated;
 	}
 	
 	/**

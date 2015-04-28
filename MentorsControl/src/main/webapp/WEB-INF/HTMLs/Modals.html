@@ -346,13 +346,14 @@
 					</div>
 
 					<div class="modal-body">
-						<select style="height: 25px; width: auto;" name="id" th:field="*{id}"
-							required="required">
+						<select style="height: 25px; width: auto;" name="id" th:field="*{id}" required="required" th:if="${notMentees.size() > 0}">
 								<option th:each="ment : ${notMentees}"
 									th:value="${ment.id}"
 									th:text="${ment.name} +', '+ ${ment.job.id}"
 									th:title="'Letters: ' + ${ment.id}"></option>
 						</select>
+						
+						<p th:if="${notMentees.size() == 0}">Not mentee available</p>
 					</div>
 
 

@@ -501,12 +501,11 @@ a:hover {
 	text-decoration: none !important;
 }
 
-
-
 .mentee_img {
 	float: left;
 	padding-right: 60px;
 	overflow: hidden;
+	width: 165px;
 }
 
 .mentee_img img {

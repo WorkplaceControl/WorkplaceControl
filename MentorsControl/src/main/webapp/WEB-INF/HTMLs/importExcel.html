@@ -1,133 +1,125 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-	<meta charset="utf-8"></meta>
-	<title>Import Employee</title>
-
-			<script type="text/javascript" src="js/jquery.js"></script>
-			<script type="text/javascript" src="js/bootstrap.js"></script>
-
-			<link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>
-			<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css"/>
-			<link rel="stylesheet" type="text/css" href="css/principal.css"/>
-				
-					
-		</head>
-		<body>
-
-
-	<div th:include="NavMain :: navMain"></div>
-	<div th:include="Modals :: excelImportGuide"></div>
-
-			 	<div id="import">
-					<section>           
-						<ul >	
-						<br />
-							 <fieldset>
-								 <form action="UploadNewEmployee" enctype="multipart/form-data" method="post">	
-											  	<legend>
-											  		<ul class="legenda clearfix">
-											  			<li>Imported File</li>
-											  			<li id ="buttons_position" style="margin-right:30px">
-  													<ul>
-														<!--  Button to input the upload file of excel -->
-											  			<li><input type="file" id="file"  name="file" value="Choose file" required="required" /></li>
-											  			<li>
-												  				<!--  Input to upload the excel file of new employee sent by email -->
-																<button type="submit" class="btn btn-default btn-lg" id="view">
-					 													<i class="icon-eye-open"></i>
-																</button>
-											  			</li>
-											  		</ul>
-											  		</li>
-											  		</ul>
-									    	</legend>
-									</form>
-									</fieldset>  
-									</ul>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="utf-8" />
+		<title>Import Employee</title>
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+	</head>
+	
+	<body>
+		<div th:include="NavMain :: navMain"></div>
+		<div th:include="Modals :: excelImportGuide"></div>
+	
+		<div id="import">
+			<section>
+				<ul>
+					<br />
+					<fieldset>
+						<form action="UploadNewEmployee" enctype="multipart/form-data" method="post">
+							<legend>
+								<ul class="legenda clearfix">
+									<li>Imported File</li>
+									<li id="buttons_position" style="margin-right: 30px">
+										<ul>
+											<li><input type="file" id="file" name="file"
+												value="Choose file" required="required" /></li>
+											<li>
+												<button type="submit" class="btn btn-default btn-lg" id="view">
+													<i class="icon-eye-open"></i>
+												</button>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</legend>
+						</form>
+					</fieldset>
+				</ul>
 			</section>
-
+	
 			<section>
 				<div class="container-fluid">
 					<div class="row-fluid">
-								 <table class="table table-bordered" >
-				  					<thead>
-				  					<tr>
-				  						<th>User</th>
-				  						<th>Surname1 + Surname2 , name</th>
-				  						<th>Profile</th>
-				  						<th>Date Incorporation</th>
-				  						<th>User GFT</th>
-				  						<th>Cco</th>
-				  					</tr>
-				  					</thead>
-				  					<tbody>
-				  					<tr th:each="emp : ${employee}">
-				  					
-				  						<td th:text="${emp.sap}" ></td >
-				  						<td  th:text="${emp.wsName}" ></td>
-				  						<td th:text="${emp.job.id}"></td>
-				  						<td  th:text="${emp.joinDate}"></td>
-				  						<td  th:text="${emp.id}"></td>
-				  						<td th:text="${emp.costCenter.id}"></td>
-				  					</tr>
-				  					</tbody>
-								</table>
-								
-								<form action="#" th:action="@{/processNewEmployee}" method="post" th:if="${viewHab == 1}">
-									<input type="hidden" name="file" th:value="${fileName}" />
-						
-									<section>
-										<div class="container-fluid">
-										  <div class="row-fluid">
-											<div class="well well-small">
-											  <div id="buttons">
-											  	<a href="showImport">
-												  	<button class="btn btn-warning" type="button">
-												  		Cancel
-												</button>
-											  	</a>
-											  	<button class="btn btn-primary"  id="send" type="submit" disabled="true">
-											  		Save
-											  	</button>
-											  	</div>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>User</th>
+									<th>Surname1 + Surname2 , name</th>
+									<th>Profile</th>
+									<th>Date Incorporation</th>
+									<th>User GFT</th>
+									<th>Cco</th>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<tr th:each="emp : ${employee}">
+									<td th:text="${emp.sap}"></td>
+									<td th:text="${emp.wsName}"></td>
+									<td th:text="${emp.job.id}"></td>
+									<td th:text="${emp.joinDate}"></td>
+									<td th:text="${emp.id}"></td>
+									<td th:text="${emp.costCenter.id}"></td>
+								</tr>
+							</tbody>
+						</table>
+	
+						<p th:if="${errorMessage != null}" class="text-danger text-center" th:text="${errorMessage}"></p>
+						<p th:unless="${errorMessage != null}" class="text-sucess text-center">Import completed successfully!</p>
+	
+						<form action="#" th:action="@{/processNewEmployee}" method="post" th:if="${viewHab == 1}">
+							<input type="hidden" name="file" th:value="${fileName}" />
+	
+							<section>
+								<div class="container-fluid">
+									<div class="row-fluid">
+										<div class="well well-small">
+											<div id="buttons">
+												<a href="showImport">
+													<button class="btn btn-warning" type="button">Cancel</button>
+												</a>
+												<button class="btn btn-primary" id="send" type="submit" disabled="disabled">Save</button>
 											</div>
-										  </div>
 										</div>
-								 	</section> 
-								</form>
-				<p class="text-danger text-center">
-				This page is to upload all content at excel file <br />
-				Its is very important to follow the default sheet to import<br/>
-				You can download the example sheet here
-				<a  href="Templates/ImportUpdate.xlsx"> Example sheet</a>
-			</p>
+									</div>
+								</div>
+							</section>
+						</form>
+						
+						<p class="text-danger text-center">
+							This page is to upload all content at excel file <br /> Its is
+							very important to follow the default sheet to import<br /> You can
+							download the example sheet here <a href="Templates/ImportUpdate.xlsx">Example sheet</a>
+						</p>
 					</div>
 				</div>
 			</section>
-			</div>
-			
-				<div th:if="${viewHab == 1}">
-					<script type="text/javascript">
-							  $("#send").removeAttr("disabled" , "disabled");
-					</script>
-				</div>	
-					<script>
-						 $(function(){
-					      		$(".dropdown-toggle").dropdown();
-					      }); 
-
-						 $("#upfile").click(function () {
-    						$("#file").trigger('click');
-						});
-
-						 $("#upfile2").click(function () {
-    						$("#file2").trigger('click');
-						});
-					</script>
-						
- 
-</body>
-
+		</div>
+	
+		<script type="text/javascript" th:if="${viewHab == 1}">
+			$("#send").removeAttr("disabled" , "disabled");
+		</script>
+		
+		<script>
+			 $(function(){
+				$(".dropdown-toggle").dropdown();
+			}); 
+	
+			$("#upfile").click(function () {
+	    		$("#file").trigger('click');
+			});
+	
+			$("#upfile2").click(function () {
+	    		$("#file2").trigger('click');
+			});
+		</script>
+	</body>
 </html>
