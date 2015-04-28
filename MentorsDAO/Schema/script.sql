@@ -12,12 +12,12 @@ create table customer (
 );
 
 create table employee(
-	id varchar(10) primary key , 
+	id varchar(10) primary key, 
 	name varchar(100),
 	sap varchar(10) not null,
 	join_date date not null,
 	leaving_date date,
-	workplace varchar(10) ,
+	workplace varchar(10),
 	extension integer,
 	job_id varchar(10)  not null,
 	rate_prf_id integer,
@@ -57,7 +57,7 @@ create table mentor_history(
 create table project(
 	id serial primary key not null,
 	description varchar(100) not null,
-	customer_id	integer not null,
+	customer_id integer not null,
 	active integer not null
 );
 
@@ -66,12 +66,12 @@ create table rate_prf(
 	title varchar(20) not null
 );
 
-insert into rate_prf values (1 , 'DEFAULT');
-insert into rate_prf values (2 , 'INTK1');
-insert into rate_prf values (3 , 'INTK2');
-insert into rate_prf values (4 , 'INTK3');
-insert into rate_prf values (5 , 'INTK4');
-insert into rate_prf values (6 , 'INTK5');
+insert into rate_prf values (1, 'DEFAULT');
+insert into rate_prf values (2, 'INTK1');
+insert into rate_prf values (3, 'INTK2');
+insert into rate_prf values (4, 'INTK3');
+insert into rate_prf values (5, 'INTK4');
+insert into rate_prf values (6, 'INTK5');
 
 create table unit(
 	id serial primary key,
@@ -147,24 +147,16 @@ execute procedure chk_mentor();
 
 create or replace function chk_mentor()
 RETURNS trigger AS $verify_is_mentor$
-Begin
-	UPDATE 
-		employee 
-	SET 
-		is_mentor = 0 
-	WHERE 
-		id 
-	NOT IN
-		(SELECT distinct mentor_id FROM employee WHERE active = 0 and mentor_id is not null);
+begin
+	UPDATE employee
+	   SET is_mentor = 0
+	 WHERE id
+	NOT IN (SELECT distinct mentor_id FROM employee WHERE active = 0 and mentor_id is not null);
 
-	UPDATE 
-		employee 
-	SET 
-		is_tutor = 0 
-	WHERE 
-		id 
-	NOT IN 
-		(SELECT distinct tutor_id FROM employee WHERE active = 0 and tutor_id is not null);
+	UPDATE employee
+	   SET is_tutor = 0 
+	 WHERE id 
+	NOT IN (SELECT distinct tutor_id FROM employee WHERE active = 0 and tutor_id is not null);
 	return null;
 end;
 $verify_is_mentor$ LANGUAGE plpgsql;

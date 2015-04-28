@@ -525,3 +525,7 @@ margin: 0;
 .mentee_img:nth-child(4n + 1) {
   padding-right: 0 !important;
 }
+
+.dropdown-menu li {
+  width: 100%;
+}

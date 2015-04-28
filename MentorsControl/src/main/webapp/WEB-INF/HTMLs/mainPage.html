@@ -2,98 +2,97 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-
-<meta charset="utf-8"></meta>
-<title>Main WorkPlace Control</title>
-
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<meta name="viewport"
-	content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1" />
-
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/bootstrap.js"></script>
-<link rel="stylesheet" type="text/css" href="css/principal.css" />
-<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-responsive.css" />
-
-<script type="text/javascript">
-	// Também recebe os Scripts de Header e Modals (HTML)
-</script>
-
-</head>
-<body>
-	<div th:include="NavMain :: navMain"></div>
+	<head>
+		<meta charset="utf-8"></meta>
+		<title>Main WorkPlace Control</title>
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1" />
+		
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		
+		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.css" />
+	</head>
 	
-
-
-	<div style="width: 86%; margin: 0 auto;">
-		<section>
-		<br/>
-			<div class="container-fluid">
-				<div class="row-fluid">
-
-					<div class="tabbable">
-						<!-- Only required for left/right tabs -->
-						<ul class="nav nav-tabs">
-							<li><a href="#tab2" data-toggle="tab"> New Employees <span
-									class="badge badge-info" th:text="${qtyNews}"></span>
-							</a></li>
-							<li><a href="#tab3" data-toggle="tab" class="active"> Pending <span
-									class="badge badge-warning" th:text="${qtyPending}"></span>
-							</a></li>
-							<li><a href="#tab4" data-toggle="tab"> Alerts <span
-									class="badge badge-important" th:text="${qtyErrors}"></span>
-							</a></li>
-						</ul>
-						<div class="tab-content">
-							<div class="tab-pane" id="tab2">
-								<div class="alert alert-info" th:each="newEmp : ${newEmployee}">
-									<a href="#"
-										th:href="@{/EmployeeUpdate(id=${newEmp.id} , job=${newEmp.job.id} , cost=${newEmp.costCenter.id} , rate=${newEmp.ratePrf.id})}"
-										id ="alert-news" th:text="${newEmp.wsName + ' is a new ' + newEmp.job.title	}">
+	<body>
+		<div th:include="NavMain :: navMain"></div>
+		
+		<div style="width: 86%; margin: 0 auto;">
+			<section>
+				<br />
+				<div class="container-fluid">
+					<div class="row-fluid">
+	
+						<div class="tabbable">
+							<ul class="nav nav-tabs">
+								<li>
+									<a href="#new" data-toggle="tab">
+										New Employees <span class="badge badge-info" th:text="${qtyNews}"></span>
 									</a>
-								</div>
-							</div>
-							<div class="tab-pane" id="tab3">
-								<div class="alert" th:each="pend : ${employeePending}">
-									<a href="#"
-										th:href="@{/EmployeeUpdate(id=${pend.id} , job=${pend.job.id} , cost=${pend.costCenter.id} , rate=${pend.ratePrf.id})}"
-										id ="alert-pending"	th:text="${pend.wsName}+ ' has informations pending click here corret this issue'">
+								</li>
+								
+								<li>
+									<a href="#pending" data-toggle="tab" class="active">
+										Pending <span class="badge badge-warning" th:text="${qtyPending}"></span>
 									</a>
+								</li>
+								
+								<li>
+									<a href="#alert" data-toggle="tab">
+										Alerts <span class="badge badge-important" th:text="${qtyErrors}"></span>
+									</a>
+								</li>
+							</ul>
+							
+							<div class="tab-content">
+								<div class="tab-pane" id="new">
+									<div class="alert alert-info" th:each="newEmp : ${newEmployee}">
+										<a href="#"
+											th:href="@{/EmployeeUpdate(id=${newEmp.id} , job=${newEmp.job.id} , cost=${newEmp.costCenter.id} , rate=${newEmp.ratePrf.id})}"
+											id="alert-news" th:text="${newEmp.wsName + ' is a new ' + newEmp.job.title }">
+										</a>
+									</div>
 								</div>
-							</div>
-							<div class="tab-pane" id="tab4">
-								<div th:if="${qtyErrors > 0}">
-									<div class="alert alert-error"
-										th:each="error : ${employeeError}">
-								<a href="#"
-										th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}"
-										 id ="alert-error" th:text="${error.wsName}+ ' has Mentor with the same position'">	
-								</a>
+								
+								<div class="tab-pane" id="pending">
+									<div class="alert" th:each="pend : ${employeePending}">
+										<a href="#"
+											th:href="@{/EmployeeUpdate(id=${pend.id} , job=${pend.job.id} , cost=${pend.costCenter.id} , rate=${pend.ratePrf.id})}"
+											id="alert-pending" th:text="${pend.wsName}+ ' has informations pending click here corret this issue'">
+										</a>
+									</div>
+								</div>
+								
+								<div class="tab-pane" id="alert">
+									<div th:if="${qtyErrors > 0}">
+										<div class="alert alert-error" th:each="error : ${employeeError}">
+											<a href="#"
+												th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}"
+												id="alert-error" th:text="${error.wsName}+ ' has Mentor with the same position'">
+											</a>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
+	
+						<script type="text/javascript">
+							$(function() {
+								if ($("#new .alert").size() > 0) {
+									$('a[href="#new"]').tab('show');
+								} else if ($("#pending .alert").size() > 0) {
+									$('a[href="#pending"]').tab('show');
+								} else if ($("#alert .alert").size() > 0) {
+									$('a[href="#alert"]').tab('show');
+								}
+							});
+						</script>
 					</div>
-
-					<script type="text/javascript">
-						$(function(){
-							if ($("#tab2 .alert").size() > 0) {
-								$('a[href="#tab2"]').tab('show');
-							} else if ($("#tab3 .alert").size() > 0) {
-								$('a[href="#tab3"]').tab('show');
-							} else if ($("#tab4 .alert").size() > 0) {
-								$('a[href="#tab4"]').tab('show');
-							}
-						});
-					</script>
 				</div>
-			</div>
-		</section>
-	</div>
-
-</body>
-
+			</section>
+		</div>
+	</body>
 </html>

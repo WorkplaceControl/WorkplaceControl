@@ -73,7 +73,7 @@ public class ImportEmployeeControl {
 				model.addAttribute("fileName", fileName);
 				model.addAttribute("viewHab", 1);
 			} catch (Exception e) {
-				model.addAttribute("viewHab", 0);
+				model.addAttribute("errorMessage", "Unable to upload. File is empty.");
 			}
 		} else {
 			model.addAttribute("errorMessage", "Unable to upload. File is empty.");
@@ -124,6 +124,8 @@ public class ImportEmployeeControl {
 					service.addEmployee(employee);
 				}
 			}
+			
+			model.addAttribute("imported", 1);
 		} catch (Exception e) {
 			model.addAttribute("errorMessage", "Error to process new employees");
 		}

@@ -252,22 +252,4 @@ public class EmployeeService {
 		
 		return projects;
 	}
-	
-	/**
-	 * this method is used to check when registering a new employee if the employee isn`t registered before
-	 * 
-	 * @param employees
-	 * @param id
-	 * 
-	 * @return
-	 */
-	public boolean existEmployee(List<Employee> employees , String id ){
-		for (Employee employee : employees) {
-			if(employee.getId().equals(id)){
-				return true;
-			}
-		}
-		
-		return false;
-	}
 }

@@ -3,7 +3,6 @@ package br.com.gft.controller;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -40,8 +39,6 @@ import br.com.gft.share.SystemLogs;
 @Controller
 public class EmployeeControl {
 
-	EmployeeService service = new EmployeeService();
-
 	/**
 	 * this method is to show employee page to read employee informations
 	 * 
@@ -54,6 +51,7 @@ public class EmployeeControl {
 							   @RequestParam(value = "s", required = false) String search, Model model) {
 		
 		Pagination pagination = null;
+		EmployeeService service = new EmployeeService();
 
 		if (search != null && !search.equals("")) {
 			pagination = new Pagination(service.getEmployees(search).size(), page);
@@ -81,6 +79,7 @@ public class EmployeeControl {
 									   @RequestParam(value = "s", required = false) String search, Model model) {
 		
 		Pagination pagination = null;
+		EmployeeService service = new EmployeeService();
 
 		if (search != null && !search.equals("")) {
 			pagination = new Pagination(service.getEmployeesInactive(search).size(), page);
@@ -108,6 +107,7 @@ public class EmployeeControl {
 	public String EmployeeView(@RequestParam("id") String employeeId, Model model) {
 
 		Employee employee = new EmployeeService().getEmployee(employeeId);
+		EmployeeService service = new EmployeeService();
 
 		if (employee.getMentorId() != null) {
 			model.addAttribute("mentor", new EmployeeService().getEmployee(employee.getMentorId()));
@@ -115,9 +115,9 @@ public class EmployeeControl {
 			model.addAttribute("mentor", null);
 		}
 		
-		model.addAttribute("yearGFT", new EmployeeService().calcYears(employee));
+		model.addAttribute("yearGFT", service.calcYears(employee));
 		model.addAttribute("Employee", employee);
-		model.addAttribute("Employeels", new EmployeeService().getEmployees());
+		model.addAttribute("Employeels", service.getEmployees());
 		model.addAttribute("jobs", new JobService().getJobs());
 		model.addAttribute("costcenters", new CostCenterService().getCostCenters());
 		model.addAttribute("rateprfs", new RatePrfService().getRatePrfs());
@@ -141,6 +141,8 @@ public class EmployeeControl {
 	 */
 	@RequestMapping(value = "/EmployeeRegistration", method = RequestMethod.GET)
 	public String showEmployeeRegistration(@ModelAttribute("Employee") Employee employee, Model model) {
+		EmployeeService service = new EmployeeService();
+		
 		model.addAttribute("job", service.getJobs());
 		model.addAttribute("costcenter", service.getCostCenters());
 		model.addAttribute("rateprf", service.getRatePrfs());
@@ -169,28 +171,27 @@ public class EmployeeControl {
 	 */
 	@RequestMapping(value = "/ProcessEmployeeRegistration", method = RequestMethod.POST)
 	public String ProcessEmployeeRegistration(@RequestParam("id") String id,
-			@RequestParam("name") String name, @RequestParam("sap") String sap,
+			@RequestParam("name") String name, 
+			@RequestParam("sap") String sap,
 			@RequestParam("joinDate") String joinDate,
 			@RequestParam("workplace") String workplace,
 			@RequestParam("extension") int extension,
 			@RequestParam("wsName") String wsName,
 			@RequestParam("job") String jobId,
 			@RequestParam("ratePrf") int ratePrfId,
-			@RequestParam("costCenter") String costId, Model model)
-			throws ParseException {
+			@RequestParam("costCenter") String costId, 
+			Model model) throws ParseException {
 
-		List<Employee> employeeLs = new EmployeeService().getEmployees();
-		Employee employee = new Employee();
+		EmployeeService service = new EmployeeService();
+		Employee employee = null;
 
-		boolean checker = service.existEmployee(employeeLs, id);
-
-		if (checker) {
-			Date data = new EmployeeService().formatdate(joinDate);
-
+		if (service.getEmployee(id) == null) {
+			employee = new Employee();
+			
 			employee.setId(id);
 			employee.setName(name);
 			employee.setSap(sap);
-			employee.setJoinDate(data);
+			employee.setJoinDate(service.formatdate(joinDate));
 			employee.setWorkplace(workplace);
 			employee.setExtension(extension);
 			employee.setWsName(wsName);
@@ -201,14 +202,14 @@ public class EmployeeControl {
 
 			service.addEmployee(employee);
 
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication()
-							.getName().toUpperCase()
-					+ " ADDED the Employee (ID): " + id);
+			model.addAttribute("checker", 1);
+			
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the Employee (ID): " + id);
+		} else {
+			model.addAttribute("checker", 0);
 		}
 
 		showEmployee(null, null, model);
-
-		model.addAttribute("checker", checker ? 1 : 0);
 
 		return "Employee";
 	}
@@ -321,6 +322,8 @@ public class EmployeeControl {
 		employee.setJob(new JobService().getJob(jobId));
 		employee.setRate_Prf(new RatePrfService().getRatePrf(ratePrfId));
 		employee.setCost_Center(new CostCenterService().getCostCenter(costId));
+		
+		service.alterEmployee(employee);
 
 		if (service.getEmployee(id).getMentorId() == null || (mentor != null && !mentor.equals("") && !service.getEmployee(id).getMentorId().equals(mentor))) {
 			EmployeeAddMentee(id, mentor, jobId, costId, ratePrfId, model);
@@ -338,8 +341,7 @@ public class EmployeeControl {
 
 			showEmployee(null, null, model);
 
-			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase()
-					+ " ALTER the Employee (ID): " + id);
+			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ALTER the Employee (ID): " + id);
 			
 			return "Employee";
 		}
@@ -366,6 +368,7 @@ public class EmployeeControl {
 			@RequestParam("cost") String costId,
 			@RequestParam("leaving_date") String leavingDate, Model model)
 			throws ParseException {
+		EmployeeService service = new EmployeeService();
 		Employee employee = service.getEmployee(id);
 
 		employee.setActive(1);
@@ -482,6 +485,7 @@ public class EmployeeControl {
 			@RequestParam("rate") int ratePrfId, 
 			Model model) throws Exception {
 
+		EmployeeService service = new EmployeeService();
 		Date sysDate = Calendar.getInstance().getTime();
 
 		MentorHistoryService mentorhistoryservice = new MentorHistoryService();

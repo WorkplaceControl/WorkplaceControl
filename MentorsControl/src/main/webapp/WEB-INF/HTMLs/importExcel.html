@@ -73,7 +73,7 @@
 						</table>
 	
 						<p th:if="${errorMessage != null}" class="text-danger text-center" th:text="${errorMessage}"></p>
-						<p th:unless="${errorMessage != null}" class="text-sucess text-center">Import completed successfully!</p>
+						<p th:if="${imported == 1}" class="text-success text-center">Import completed successfully!</p>
 	
 						<form action="#" th:action="@{/processNewEmployee}" method="post" th:if="${viewHab == 1}">
 							<input type="hidden" name="file" th:value="${fileName}" />
