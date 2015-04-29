@@ -56,7 +56,7 @@
 						
 						<td>
 							<select name="userRole" class="input-field" required="required">
-								<option value=""></option>
+								<option value="">Select Permission</option>
 								<option th:each="role : ${userRoles}" th:value="${role.id}" th:text="${role.userRole}"></option>
 							</select>
 						</td>

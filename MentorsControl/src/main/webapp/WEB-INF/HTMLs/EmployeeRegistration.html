@@ -111,8 +111,8 @@
 							<th>Rate Prf:</th>
 							<td><select th:field="*{ratePrf}" id="rate" required="required"
 								class="input-field">
-									 <option value=""></option>
-												  <option th:each="rate : ${rateprf}"  th:value="${rate.id}" th:text="${rate.title}"></option>
+									 <option value="">Select Rate Prf</option>
+									 <option th:each="rate : ${rateprf}"  th:value="${rate.id}" th:text="${rate.title}"></option>
 							</select></td>
 						</tr>
 

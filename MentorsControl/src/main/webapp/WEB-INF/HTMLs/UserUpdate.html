@@ -54,7 +54,7 @@
 						
 						<td>
 							<select name="userRole" class="input-field" required="required">
-								<option value="">User Control</option>
+								<option value="">Select Permission</option>
 								<option th:each="role : ${userRoles}" th:value="${role.id}" th:text="${role.userRole}" th:if="${role.id == user.userRole.id}" selected="selected"></option>
 								<option th:each="role : ${userRoles}" th:value="${role.id}" th:text="${role.userRole}" th:unless="${role.id == user.userRole.id}"></option>
 							</select>

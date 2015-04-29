@@ -52,7 +52,8 @@
 									<div class="alert alert-info" th:each="newEmp : ${newEmployee}">
 										<a href="#"
 											th:href="@{/EmployeeUpdate(id=${newEmp.id} , job=${newEmp.job.id} , cost=${newEmp.costCenter.id} , rate=${newEmp.ratePrf.id})}"
-											id="alert-news" th:text="${newEmp.wsName + ' is a new ' + newEmp.job.title }">
+											id="alert-news" th:text="${newEmp.name + ' is a new ' + newEmp.job.title }"
+											th:title="${newEmp.id} + ' ('+${newEmp.job.id}+')'">									
 										</a>
 									</div>
 								</div>
@@ -61,7 +62,8 @@
 									<div class="alert" th:each="pend : ${employeePending}">
 										<a href="#"
 											th:href="@{/EmployeeUpdate(id=${pend.id} , job=${pend.job.id} , cost=${pend.costCenter.id} , rate=${pend.ratePrf.id})}"
-											id="alert-pending" th:text="${pend.wsName}+ ' has informations pending click here corret this issue'">
+											id="alert-pending" th:text="${pend.name} +' (' + ${pend.job.id} + '),' + ' has informations pending click here corret this issue'"
+											th:title="${pend.id} + ' ('+${pend.job.title}+')'">
 										</a>
 									</div>
 								</div>
@@ -71,7 +73,8 @@
 										<div class="alert alert-error" th:each="error : ${employeeError}">
 											<a href="#"
 												th:href="@{/EmployeeUpdate(id=${error.id} , job=${error.job.id} , cost=${error.costCenter.id} , rate=${error.ratePrf.id})}"
-												id="alert-error" th:text="${error.wsName}+ ' has Mentor with the same position'">
+												id="alert-error" th:text="${error.name} +' (' + ${error.job.id} + '),' + ' has Mentor with the same position'"
+												th:title="${error.id} + ' ('+${error.job.title}+')'">
 											</a>
 										</div>
 									</div>

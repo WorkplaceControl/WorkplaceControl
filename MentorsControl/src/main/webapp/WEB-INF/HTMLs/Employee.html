@@ -17,58 +17,28 @@
 			/*this code is to hide the td  active class ,and this is used to verify if there is inactive on display ,
 			  with true this code will change the checkbox as checked */
 			$( document ).ready(function() {
+				$( 'td.active' ).each(function( index ){
+					$( this ).hide(100);
 					
-					$( 'td.active' ).each(function( index ){
-						$( this ).hide(100);
-						
-						if( $( this ).text() == 1 ) {
-							$( '#isInactive' ).prop( 'checked' , true );
-						}
-						
-					});
+					if( $( this ).text() == 1 ) {
+						$( '#isInactive' ).prop( 'checked' , true );
+					}
 					
+				});
+				page = window.location.href.split("/");
+				page = page[page.length - 1].split("?");
 				
-			
-			page = window.location.href.split("/");
-			page = page[page.length - 1].split("?");
-			
-			if (page[0] == "EmployeeInactive") {
-				$('#isInactive').prop("checked", true);
-			}
-			/* this code is to make  on server a solicitation of datas with inactives  */
+				if (page[0] == "EmployeeInactive") {
+					$('#isInactive').prop("checked", true);
+				}
+				/* this code is to make  on server a solicitation of datas with inactives  */
 				$( '#isInactive' ).click( function() {
 					  if ($( this ).is( ':checked' )) {
 						   	window.location.href = 'EmployeeInactive';
-				        }else{
+				      }else{
 				        	window.location.href = 'Employee';
-				        }
-				  });
-			
-			/* this code is filter results and display just the results that is equals typed by user , 
-			   otherwise the content will be hidden */ 
-				  $("input").keyup(function(){
-					  	var x = $( "input[name=search]" ).val();
-						var x = x.toLowerCase();
-					
-				     	$('tr.employee').each(function( index ) {
-				     			if(x == ""){
-				     				$(this).show();
-				     			}
-				     			var id = $( this ).parent().find("td.id")[index].innerHTML;
-				     			var id = id.toLowerCase();
-				     			var ws_name = $( this ).parent().find("td.ws_name")[index].innerHTML;
-				     			var ws_name = ws_name.toLowerCase();
-								
-				     		    if(ws_name.substring(0 ,x.length ) == x || id.substring(0 , x.length) == x){
-				     		    	
-				     		    }else{
-				     		    	$(this).hide(200);
-				     		    }
- 
-				     	});;
-				  });
-				  
-	
+				      }
+				});
 			});
 			
 
@@ -77,14 +47,25 @@
 
 </head>
 <body>
-	<div th:if="${checker == 1}" class="alert alert-error" id="alert" style="margin: 0 auto;">
-				<button type="button" class="close" data-dismiss="alert"><font th:text="'x'" ></font></button>
-				Employee Already Reqistered
-	</div>
+	<section class="user_messages">
+		<div th:if="${checker == 0}" class="alert alert-success"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
+			Registered with Success !!
+		</div>
+		
+  		<div th:if="${checker == 1}" class="alert alert-error" id="alert">
+		<button type="button" class="close" data-dismiss="alert">
+		<font th:text="'x'"></font>
+		</button>
+			Employee already Registered !!
+		</div>
+		</section>
 
 	<div th:include="NavMain :: navMain"></div>
 	<div th:include="Modals :: employeeGuide"></div>
-	
 	<div id="employee_list">
 		<section>
 			<br />

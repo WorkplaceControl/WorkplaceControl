@@ -119,14 +119,16 @@
 					</tr>
 					<tr>
 						<th>Mentor:</th>
-						<td><select th:field="*{mentorId}" id="mentor" class="input-field">
+						<td>
+						<select th:field="*{mentorId}" id="mentor" class="input-field">
 								<option value="">No Mentor</option>
 								<option th:each="ment : ${qtyMentor}"
 									th:value="${ment.id}"
 									th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
 									th:title="'Letters: ' + ${ment.id}"
 									th:if="${ment.id != Employee.id}"></option>
-						</select></td>
+						</select>
+						</td>
 					</tr>
 
 				</table>

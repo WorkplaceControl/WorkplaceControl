@@ -202,11 +202,11 @@ public class EmployeeControl {
 
 			service.addEmployee(employee);
 
-			model.addAttribute("checker", 1);
+			model.addAttribute("checker", 0);
 			
 			SystemLogs.writeLogs(SecurityContextHolder.getContext().getAuthentication().getName().toUpperCase() + " ADDED the Employee (ID): " + id);
 		} else {
-			model.addAttribute("checker", 0);
+			model.addAttribute("checker", 1);
 		}
 
 		showEmployee(null, null, model);

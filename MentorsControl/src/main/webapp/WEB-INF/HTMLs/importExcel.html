@@ -15,6 +15,24 @@
 	</head>
 	
 	<body>
+	
+	<section class="user_messages">
+	<div th:if="${imported == 1}" class="alert alert-success"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
+			Import completed with Success !!
+		</div>
+		<div th:if="${errorMessage != null}" class="alert alert-error"
+			id="alert">
+			<button type="button" class="close" data-dismiss="alert">
+				<font th:text="'x'"></font>
+			</button>
+			<p th:text="${errorMessage}"></p>
+		</div>
+		</section>
+		
 		<div th:include="NavMain :: navMain"></div>
 		<div th:include="Modals :: excelImportGuide"></div>
 	
@@ -65,16 +83,13 @@
 									<td th:text="${emp.sap}"></td>
 									<td th:text="${emp.wsName}"></td>
 									<td th:text="${emp.job.id}"></td>
-									<td th:text="${emp.joinDate}"></td>
+									<td th:text="${#dates.format(emp.joinDate, 'dd-MM-yyyy')}"></td>
 									<td th:text="${emp.id}"></td>
 									<td th:text="${emp.costCenter.id}"></td>
 								</tr>
 							</tbody>
 						</table>
-	
-						<p th:if="${errorMessage != null}" class="text-danger text-center" th:text="${errorMessage}"></p>
-						<p th:if="${imported == 1}" class="text-success text-center">Import completed successfully!</p>
-	
+
 						<form action="#" th:action="@{/processNewEmployee}" method="post" th:if="${viewHab == 1}">
 							<input type="hidden" name="file" th:value="${fileName}" />
 	
