@@ -39,15 +39,16 @@ public class EmployeeAssignControl {
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
 			@RequestParam("rate") int ratePrfId, Model model) throws Exception {
+		
 		EmployeeAssignService empassgnservice = new EmployeeAssignService();
 		int verify = empassgnservice.existsRegister(employeeId, projId);
 
 		if (verify == 0) {
 			Project project = new ProjectService().getProject(projId);
-
 			Employee employee = new EmployeeService().getEmployee(employeeId);
 
 			EmployeeAssignment employeeassigment = new EmployeeAssignment();
+			
 			employeeassigment.setProject(project);
 			employeeassigment.setEmployee(employee);
 			employeeassigment.setActive(0);
@@ -56,10 +57,10 @@ public class EmployeeAssignControl {
 
 			new EmployeeService().alterEmployee(employee);
 		}
+		
 		model.addAttribute("verify", verify);
-		EmployeeControl empcontrol = new EmployeeControl();
-		empcontrol.EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId,
-				model);
+		
+		new EmployeeControl().EmployeeUpdate(employeeId, model);
 
 		return "EmployeeUpdate";
 	}
@@ -84,18 +85,21 @@ public class EmployeeAssignControl {
 			@RequestParam("job") String jobId,
 			@RequestParam("cost") String costCenterId,
 			@RequestParam("rate") int ratePrfId, Model model) throws Exception {
+		
 		Project project = new ProjectService().getProject(projId);
 		Employee employee = new EmployeeService().getEmployee(employeeId);
+		
 		EmployeeAssignment employeeassigment = new EmployeeAssignment();
+		
 		employeeassigment.setId(empAssigId);
 		employeeassigment.setProject(project);
 		employeeassigment.setEmployee(employee);
 		employeeassigment.setActive(1);
-		EmployeeAssignService empservice = new EmployeeAssignService();
-		empservice.updateEmployeeAssign(employeeassigment);
-		EmployeeControl empcontrol = new EmployeeControl();
-		empcontrol.EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId,
-				model);
+
+		new EmployeeAssignService().updateEmployeeAssign(employeeassigment);
+		
+		new EmployeeControl().EmployeeUpdate(employeeId, model);
+		
 		return "EmployeeUpdate";
 	}
 }

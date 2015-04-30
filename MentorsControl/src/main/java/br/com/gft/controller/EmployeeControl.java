@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import br.com.gft.MentorsCommon.CostCenter;
 import br.com.gft.MentorsCommon.Employee;
 import br.com.gft.MentorsCommon.EmployeeAssignment;
-import br.com.gft.MentorsCommon.Job;
 import br.com.gft.MentorsCommon.MentorHistory;
-import br.com.gft.MentorsCommon.RatePrf;
 import br.com.gft.MentorsService.CostCenterService;
 import br.com.gft.MentorsService.CustomerService;
 import br.com.gft.MentorsService.EmployeeService;
@@ -110,13 +107,13 @@ public class EmployeeControl {
 		EmployeeService service = new EmployeeService();
 
 		if (employee.getMentorId() != null) {
-			model.addAttribute("mentor", new EmployeeService().getEmployee(employee.getMentorId()));
+			model.addAttribute("mentor", service.getEmployee(employee.getMentorId()));
 		} else {
 			model.addAttribute("mentor", null);
 		}
 		
-		model.addAttribute("yearGFT", service.calcYears(employee));
 		model.addAttribute("Employee", employee);
+		model.addAttribute("yearGFT", service.calcYears(employee));
 		model.addAttribute("Employeels", service.getEmployees());
 		model.addAttribute("jobs", new JobService().getJobs());
 		model.addAttribute("costcenters", new CostCenterService().getCostCenters());
@@ -227,52 +224,32 @@ public class EmployeeControl {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/EmployeeUpdate", method = RequestMethod.GET)
-	public String EmployeeUpdate(
-			@RequestParam(Paths.ATTRIBUTE_EC_ID) String employeeId,
-			@RequestParam(Paths.ATTRIBUTE_EC_JOB) String jobId,
-			@RequestParam(Paths.ATTRIBUTE_EC_COST) String costCenterId,
-			@RequestParam(Paths.ATTRIBUTE_EC_RATE) int ratePrfId, Model model)
-			throws Exception {
+	public String EmployeeUpdate(@RequestParam(Paths.ATTRIBUTE_EC_ID) String employeeId, Model model) throws Exception {
 
 		EmployeeService employeeService = new EmployeeService();
-		JobService jobService = new JobService();
-		RatePrfService ratePrfService = new RatePrfService();
-		CostCenterService costCenterService = new CostCenterService();
-
 		Employee employee = employeeService.getEmployee(employeeId);
 
-		Job job = jobService.getJob(jobId);
-		RatePrf rateprf = ratePrfService.getRatePrf(ratePrfId);
-		CostCenter cost = costCenterService.getCostCenter(costCenterId);
-
-		employee.setJob(job);
-		employee.setRate_Prf(rateprf);
-		employee.setCost_Center(cost);
-
-		model.addAttribute(Paths.ATTRIBUTE_EC_JOB, job);
-		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTER, cost);
-		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRF, rateprf);
-
 		if (employee.getMentorId() != null) {
-			model.addAttribute("mentor", new EmployeeService().getEmployee(employee.getMentorId()));
+			model.addAttribute("mentor", employeeService.getEmployee(employee.getMentorId()));
 		} else {
 			model.addAttribute("mentor", null);
 		}
 		
+		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE, employee);
 		model.addAttribute("qtyMentor", employeeService.getQtyMentor());
 		model.addAttribute(Paths.ATTRIBUTE_EC_QTY_MENTEE, employeeService.getQtyMentee());
-		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE, employee);
 		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_LIST, employeeService.getMentees(employeeId));
-		model.addAttribute("notMentees", employeeService.getNotMentees(employeeId, job.getPosition()));
-		model.addAttribute(Paths.ATTRIBUTE_EC_JOBS, jobService.getJobs());
-		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTERS, costCenterService.getCostCenters());
-		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRFS, ratePrfService.getRatePrfs());
+		model.addAttribute("notMentees", employeeService.getNotMentees(employeeId, employee.getJob().getPosition()));
+		model.addAttribute(Paths.ATTRIBUTE_EC_JOBS, new JobService().getJobs());
+		model.addAttribute(Paths.ATTRIBUTE_EC_COST_CENTERS, new CostCenterService().getCostCenters());
+		model.addAttribute(Paths.ATTRIBUTE_EC_RATE_PRFS, new RatePrfService().getRatePrfs());
 		model.addAttribute(Paths.ATTRIBUTE_EC_PROJECT, new ProjectService().getProjects());
 		model.addAttribute(Paths.ATTRIBUTE_EC_CUSTOMER, new CustomerService().getCustomers());
 		model.addAttribute(Paths.ATTRIBUTE_EC_UNIT, new UnitService().getUnits());
 		model.addAttribute(Paths.ATTRIBUTE_EC_EMPLOYEE_ASSIGNMENT, employee.getEmployeeassignment());
 		model.addAttribute(Paths.ATTRIBUTE_EC_ASSIGNMENT, new EmployeeAssignment());
 		model.addAttribute(Paths.ATTRIBUTE_EC_MENTOR_HISTORY, new MentorHistoryService().getMentorHistorys());
+		model.addAttribute("empList", employeeService.getEmployees());
 
 		return "EmployeeUpdate";
 	}
@@ -323,19 +300,24 @@ public class EmployeeControl {
 		employee.setRate_Prf(new RatePrfService().getRatePrf(ratePrfId));
 		employee.setCost_Center(new CostCenterService().getCostCenter(costId));
 		
-		service.alterEmployee(employee);
-
-		if (service.getEmployee(id).getMentorId() == null || (mentor != null && !mentor.equals("") && !service.getEmployee(id).getMentorId().equals(mentor))) {
+		if ((service.getEmployee(id).getMentorId() == null && !mentor.equals("")) || (mentor != null && !mentor.equals("") && !service.getEmployee(id).getMentorId().equals(mentor))) {
 			EmployeeAddMentee(id, mentor, jobId, costId, ratePrfId, model);
 		}
 
-		if (mentor != null && mentor.equals(id)) {
+		if (mentor != null && !mentor.equals("") && mentor.equals(id)) {
 			model.addAttribute("verifyMent", 0);
-			EmployeeUpdate(id, jobId, costId, ratePrfId, model);
+			
+			EmployeeUpdate(id, model);
 
 			return "EmployeeUpdate";
 		} else {
-			employee.setMentorId(mentor);
+			if (mentor.equals("")) {
+				employee.setMentorId(null);
+				
+				new MentorHistoryService().addFinishDate(id, service.getEmployee(id).getMentorId(), Calendar.getInstance().getTime());
+			} else {
+				employee.setMentorId(mentor);
+			}
 
 			service.alterEmployee(employee);
 
@@ -421,6 +403,10 @@ public class EmployeeControl {
 			int verifyMent = service.verifyMent(employeeId, mentorId);
 
 			if (verifyMent == 1) {
+				if (employee.getMentorId() != null && !employee.getMentorId().equals(mentorId)) {
+					new MentorHistoryService().addFinishDate(employeeId, service.getEmployee(employeeId).getMentorId(), Calendar.getInstance().getTime());
+				}
+				
 				// Inserindo novo mentee para employee
 				Date sysDate = Calendar.getInstance().getTime();
 				String oldMentor = employee.getMentorId();
@@ -458,7 +444,7 @@ public class EmployeeControl {
 		
 		employeeId = mentorId;
 		
-		EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId, model);
+		EmployeeUpdate(employeeId, model);
 		
 		return "EmployeeUpdate";
 	}
@@ -522,7 +508,7 @@ public class EmployeeControl {
 
 		model.addAttribute("verifyMent", verifyMent);
 
-		EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId, model);
+		EmployeeUpdate(employeeId, model);
 
 		return "EmployeeUpdate";
 	}

@@ -126,7 +126,7 @@
 									th:value="${ment.id}"
 									th:text="${ment.name} +', '+ ${ment.job.id} + ' (N&deg; Mentees: ' + ${ment.qtyMentee} +')'"
 									th:title="'Letters: ' + ${ment.id}"
-									th:if="${ment.id != Employee.id}"></option>
+									th:if="${ment.id != Employee.id and ment.job.position > Employee.job.position}"></option>
 						</select>
 						</td>
 					</tr>
@@ -144,7 +144,7 @@
 					
 					<tr>
 						<td class="text-center">
-							<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id} , job=${mentor.job.id} , cost=${mentor.costCenter.id} , rate=${mentor.ratePrf.id})}" class="link">
+							<a href="#" th:href="@{/EmployeeUpdate(id=${mentor.id})}" class="link">
 								<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${mentor.id}}" class="img-polaroid" th:title="${mentor.name}"/>
 								<br/>
 								<span id="personal_mentor" th:text="${mentor.id} +' (' + ${mentor.job.id} +')'"></span>
@@ -244,9 +244,6 @@
 		<section>
 			<div class="container-fluid">
 				<div class="row-fluid">
-
-
-
 					<fieldset>
 						<legend>
 							<div id="buttons">
@@ -267,33 +264,27 @@
 								</ul>
 							</div>
 						</legend>
+						
 						<div id="mentee_img" class="mentee_img" th:each="emp : ${Employeels}" th:if="${emp.active == 0}">
 							<div class="text-center">
-<!-- 								emp.tutorId == Employee.id -->
 								<div class="text-center" th:if="${emp.mentorId == null}">
-										<p th:text="'Tutor of'"></p>
+									<p th:text="'Tutor of'"></p>
 								</div>
+								
 								<div class="text-center" th:if="${emp.mentorId != null}">
-										<p th:text="'Mentor of'"></p>
+									<p th:text="'Mentor of'"></p>
 								</div>
 
-								<a href="#"
-									th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:title="${emp.id}">
-
-										<img
-											th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}"
-											class="img-polaroid sem_float" />
-										<p th:text="${emp.name +' ('+ emp.job.id+')'}"></p>
-										<font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font>
+								<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id})}" th:title="${emp.id}">
+									<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}" class="img-polaroid sem_float" />
+									<p th:text="${emp.name +' ('+ emp.job.id+')'}"></p>
+									<font size="1" th:text="${'WorkPlace : ' + emp.workplace}"></font>
 								</a>
-
 							</div>
 						</div>
-
 					</fieldset>
 				</div>
 			</div>
-
 		</section>
 
 
@@ -306,7 +297,6 @@
 	<hr width="100%"></hr>
 	<br />
 
-<!-- Table with Informations about the history of employee mentor -->
 	<div id="project">
 		<div th:if="${mentorHistoryControlMessage == 1}">
 			<div class="alert alert-error">
@@ -335,97 +325,83 @@
 
 					<table class="table table-bordered">
 						<thead>
-						<tr>
-						<th>Mentor Name</th>
-						<th>Start Date</th>
-						<th>Finish Date</th>
-						<th>Edit</th>						
-						</tr>
+							<tr>
+								<th>Mentor Name</th>
+								<th>Start Date</th>
+								<th>Finish Date</th>
+								<th>Edit</th>						
+							</tr>
 						</thead>
-					
-						<tr th:each="menthist : ${MentorHistory}">
-							<div
-								th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
+						
+						<tbody>
+							<tr th:each="menthist : ${MentorHistory}" th:if="${menthist.employee.id == Employee.id and menthist.finishDate != null}">
 								<td>
-									<div th:each="emp : ${Employeels}">
+									<div th:each="emp : ${empList}">
 										<div class="text-center" th:if="${menthist.mentorId == emp.id}">
 												<font size="3" color="#333" th:text="${emp.name}"></font>
 										</div>
 									</div>
 								</td>
+								
 								<td class="text-center">
-										<font size="3" color="#333"
-											th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}"></font>
+									<font size="3" color="#333" th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}"></font>
 								</td>
+								
 								<td class="text-center">
-										<font size="3" color="#333" th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}">Finish
-											Date</font>
+									<font size="3" color="#333" th:text="${#dates.format(menthist.startDate, 'dd-MM-yyyy')}">Finish Date</font>
 								</td>
-								<td class="text-center"><a th:attr="href=@{'#myModalMH'+${menthist.id}}"
-									data-toggle="modal">
-											<button type="submit" role="button" class="btn"
-												data-toggle="modal">
-												<i class="icon-pencil"></i>
-											</button>
-								</a></td>
-							</div>
-
-
-<!-- 	Modal Mentor History  -->
-<section>
-	<form action="#"
-		th:action="@{/ProcessMentorsHistoryUpdate(histId=${menthist.id},employeeId=${Employee.id},job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}"
-		method="post">
-		<div th:attr="id=@{'myModalMH'+${menthist.id}}"
-			class="modal hide fade" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"
-					aria-hidden="true">
-					<font th:text="'x'"></font>
-				</button>
-				<h3 id="myModalLabel">Edit Mentor History</h3>
-			</div>
-			<div class="modal-body">
-				<label>Start Date</label>
-				 <input type="date"	class="input-large"	th:value="${menthist.startDate}"
-					name="start_date" required="required" />
-					<label>Finish Date</label>
-					<input type="date" class="input-large" th:value="${menthist.finishDate}"
-					 name="finish_date"	required="required" />
-			</div>
-			<div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
-				<button type="submit" class="btn btn-primary">Save
-					Changes</button>
-			</div>
-			</div>
-	</form>
-</section>
-
-						</tr>
+								
+								<td class="text-center">
+									<a th:attr="href=@{'#myModalMH'+${menthist.id}}" data-toggle="modal">
+										<button type="submit" role="button" class="btn" data-toggle="modal">
+											<i class="icon-pencil"></i>
+										</button>
+									</a>
+									
+									<section>
+										<form action="#" th:action="@{/ProcessMentorsHistoryUpdate(histId=${menthist.id},employeeId=${Employee.id},job=${Employee.job.id} , cost=${Employee.costCenter.id} , rate=${Employee.ratePrf.id})}" method="post">
+											<div th:attr="id=@{'myModalMH'+${menthist.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+												<div class="modal-header">
+													<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+														<font th:text="'x'"></font>
+													</button>
+													
+													<h3 id="myModalLabel">Edit Mentor History</h3>
+												</div>
+												
+												<div class="modal-body">
+													<label>Start Date</label>
+													<input type="date" class="input-large" th:value="${menthist.startDate}" name="start_date" required="required" />
+													
+													<label>Finish Date</label>
+													<input type="date" class="input-large" th:value="${menthist.finishDate}" name="finish_date"	required="required" />
+												</div>
+												
+												<div class="modal-footer">
+													<button class="btn" data-dismiss="modal" aria-hidden="true">close</button>
+													<button type="submit" class="btn btn-primary">Save Changes</button>
+												</div>
+											</div>
+										</form>
+									</section>
+								</td>
+							</tr>
+						</tbody>
 					</table>
 				</div>
 			</div>
 		</section>
 	</div>
+	
 	<br />
 	<br />
+	
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$("#ext").bind("keyup blur focus", function(e) {
 				e.preventDefault();
 				var expre = /[^\d]/g;
 				$(this).val($(this).val().replace(expre, ''));
-			});
-			$("#rate").hover(function() {
-				$("#tempRate").hide();
-			});
-			$("#cost").hover(function() {
-				$("#tempCost").hide();
-			});
-			$("#job").hover(function() {
-				$("#tempJob").hide();
 			});
 		});
 	</script>

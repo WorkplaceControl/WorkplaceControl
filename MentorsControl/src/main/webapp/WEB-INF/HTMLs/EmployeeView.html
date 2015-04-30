@@ -246,7 +246,7 @@
 										  				<p  th:text="'Mentor of'"></p>
 										  			</div>
 										  			
-										  		<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}">
+										  		<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id})}">
 										  			
 										  			<img th:attr="src=@{'https://workspace.gft.com/epfis/employeeProfiles/personalData/PersonalImage.do?user='+${emp.id}}" class="img-polaroid"/>
 										  			<p class="text-center" th:text="${emp.id}"></p>

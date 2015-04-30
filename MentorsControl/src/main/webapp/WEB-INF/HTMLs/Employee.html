@@ -171,7 +171,7 @@
 								</td>
 								
 								<td class="line-icon">
-									<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}" th:if="${emp.active == 0}">
+									<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id})}" th:if="${emp.active == 0}">
 										<button type="submit" class="btn btn-default btn-lg">
 											<i class="icon-pencil"></i>
 										</button>

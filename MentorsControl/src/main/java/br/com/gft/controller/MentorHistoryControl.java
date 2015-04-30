@@ -51,15 +51,18 @@ public class MentorHistoryControl {
 		}else{
 			MentorHistoryService mentorhistoryservice = new MentorHistoryService();
 			MentorHistory mentorhistory = mentorhistoryservice.getMentorHistory(histId);
+			
 			mentorhistory.setStartDate(start);
 			mentorhistory.setFinishDate(finish);
 			mentorhistoryservice.alterMentorHistory(mentorhistory);
+			
 			mentorHistoryControlMessage = 0;
 		}
 		
-		model.addAttribute("mentorHistoryControlMessage" , mentorHistoryControlMessage);
-		EmployeeControl empcontrol = new EmployeeControl();
-		empcontrol.EmployeeUpdate(employeeId, jobId, costCenterId, ratePrfId, model);
+		model.addAttribute("mentorHistoryControlMessage", mentorHistoryControlMessage);
+		
+		new EmployeeControl().EmployeeUpdate(employeeId, model);
+		
 		return "EmployeeUpdate";
 	
 	}

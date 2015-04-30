@@ -26,7 +26,7 @@
 							<div class="project_report">
 								<div th:each="empassign : ${empassigns}" th:if="${proj.id == empassign.project.id}" style="width: 15%; float: left;">
 									<div class="mentee_img_min" th:each="emp : ${employeeLs}" th:if="${emp.id == empassign.employee.id}">
-										<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id} , job=${emp.job.id} , cost=${emp.costCenter.id} , rate=${emp.ratePrf.id})}"  th:title="${emp.id}">
+										<a href="#" th:href="@{/EmployeeUpdate(id=${emp.id})}"  th:title="${emp.id}">
 											<table>
 												<tr>
 													<td>
